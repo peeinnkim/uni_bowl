@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+/* ------------ [INPUT TAP] ------------ */
+select {
+    padding: 7px 10px 8px 2px;
+    background: white;
+    border: none;
+    border-bottom: 2px solid black;
+	outline-color: grey;
+}
+option {
+	padding: 7px 10px 7px 2px;
+}
+input {
+	padding: 11px 10px 8px;
+	background: #EAEAEA;
+    border: none;
+    outline-color: grey;
+}
+button {
+	padding: 7px;
+}
+.form-wrap {
+	background: white;
+	width: 60%;
+	padding: 20px;
+	margin: 0 auto;
+}
+.form-wrap > form > p {
+	margin: 10px 0;
+	overflow: hidden;
+}
+.form-wrap > form > p > label {
+	float: left;
+    width: 130px;
+    font-size: 17px;
+    letter-spacing: 0.15em;
+    vertical-align: middle;
+    padding: 7px 10px 7px 4px;
+}
+.form-wrap > form > p > .regInfo {
+	font-size: 12px;
+	font-weight: bold;
+}

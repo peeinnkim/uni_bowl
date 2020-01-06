@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.NoticeMapper">
+
+	<resultMap type="NoticeVO" id="noticeMap">
+		<id property="ntNo" column="i_notice" />
+		<result property="ntTitle" column="nt_title" />
+		<result property="ntContent" column="nt_content" />
+		<result property="ntRegDate" column="nt_regDate" />
+		<result property="ntModDate" column="nt_modDate" />
+		<result property="ntIsFixed" column="nt_isFixed" />
+		<collection property="files" ofType="NoticeAttachVO" javaType="list">
+			<id property="naNo" column="i_ntAttach" />
+			<result property="naThumb" column="na_thumb" />
+			<result property="naOrigin" column="na_origin" />
+			<result property="ntNo" column="i_notice" />
+		</collection>
+	</resultMap>
+
+	<!-- INSERT -->
+	<insert id="insertNotice" useGeneratedKeys="true" keyColumn="i_notice" keyProperty="ntNo">
+		insert into t_notice(nt_title, nt_content, nt_isFixed) values(#{ntTitle}, #{ntContent}, #{ntIsFixed});
+	</insert>
+	
+	<insert id="insertNoticeAttach"> <!-- 첨부파일 삽입 -->
+		insert into t_notice_attach values(0, #{naThumb}, #{naOrigin}, #{ntNo});
+	</insert>
+	
+	<!-- UPDATE -->
+	<update id="updateNotice">
+		update t_notice 
+			set nt_title = #{ntTitle}, nt_content = #{ntContent}, nt_isFixed = #{ntIsFixed}, nt_modDate = now()
+			where i_notice = #{ntNo};
+	</update>
+
+	<!-- DELETE -->
+	<delete id="deleteNotice">
+		delete from t_notice where i_notice = #{ntNo};
+	</delete>
+	
+	<delete id="deleteNoticeAttach"> <!-- 첨부파일 제거 -->
+		delete from t_notice_attach where i_notice = #{ntNo};
+	</delete>
+
+	
+	<!-- INSERT -->
+	<select id="selectList" resultMap="noticeMap">
+		select * from t_notice order by i_notice desc;
+	</select>
+	
+	<select id="noticeCnt" resultType="int">
+		select count(*) from t_notice;
+	</select>
+	
+	<select id="selectNotice" resultMap="noticeMap">
+		select * from t_notice left join t_notice_attach using(i_notice) where i_notice = #{ntNo};
+	</select>
+	
+</mapper>

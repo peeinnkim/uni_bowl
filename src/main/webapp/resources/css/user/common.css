@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+*{
+	padding: 0;
+	margin: 0;
+}
+html, body{
+	width: 100%;
+	height: 100%;
+	font-family: 'Arita4.0_L', sans-serif;
+}
+ul {
+	list-style: none;
+}
+a {
+	text-decoration: none;
+	color: black;
+}
+#container {
+	width: 100%;
+	height: 100%;
+}
+#header-wrap {
+	width: 15%;
+	background: cadetblue;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 100;
+}
+.header {
+	width: 50%;
+	padding: 10px;
+	overflow: hidden;
+	margin: 0 auto;
+}
+.logo {
+	height: 140px;
+	background: steelblue;
+}
+.mem-menu > ul > li {
+	float: left;
+}
+.nav > ul > li {
+	padding: 10px 0;
+}
+
+/*----------------------------------*/
+
+#section {
+	overflow: hidden;
+	background: beige;
+	width: 100%;
+	height: 100%;
+}
+.inner-section {
+	width: 100%;
+	float: right;
+}
+.content-area {
+	width: 73%;
+	background: lightcoral;
+	float: right;
+	margin-right: 4.5%;
+	padding: 40px;
+}
+.main-banner {
+	width: 700px;
+	height: 700px;
+	background: url("../img/mark-basarab-1OtUkD_8svc-unsplash.jpg") no-repeat;
+	background-size: cover;
+}
+
+/*----------------------------------*/
+
+#side-bar {
+	width: 4.5%;
+	height: 100%;
+	background: thistle;
+	position: fixed;
+	right: 0;
+	top: 0;
+}
+.error{
+	font-size: 13px;
+	color: red;
+	display: none;
+}
+.section-title {
+	width: 77.5%;
+	height: 230px;
+	background: lightgreen;
+	float: right;
+	margin-right: 4.5%;
+}
+
+
+
+
