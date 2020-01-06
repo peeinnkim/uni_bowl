@@ -19,12 +19,12 @@ public class UploadFileUtils {
 	// originalFileName: 파일 이름
 	// data: 이미지 데이터
 	// return 값: thumbnail 파일명
-	public static String uploadFile(String uploadPath, String originalFileName, byte[] data) throws IOException {
+	public static String uploadFile(String uploadPath, String auth, String originalFileName, byte[] data) throws IOException {
 		
 		//원본 업로드
 		UUID uid = UUID.randomUUID();
 		String savedName = uid.toString() + "_" + originalFileName;
-		String datePath = calculatorPath(uploadPath); // -> /년/월/일 폴더를 만든 후 경로 리턴 (ex: /2019/12/13)
+		String datePath = calculatorPath(uploadPath, auth); // -> /년/월/일 폴더를 만든 후 경로 리턴 (ex: /2019/12/13)
 		File newFile = new File(uploadPath + datePath, savedName);
 		FileCopyUtils.copy(data, newFile);
 
@@ -57,42 +57,45 @@ public class UploadFileUtils {
 		return thumbnailName.substring(uploadPath.length()); //파일명
 	}//makeThumbnail
 	
-	private static String calculatorPath(String uploadPath) {
+	private static String calculatorPath(String uploadPath, String auth) {
 		Calendar cal = Calendar.getInstance();
 		String yearPath = "/" + cal.get(Calendar.YEAR); // -> /2019
 		String monthPath = String.format("%s/%02d", yearPath, cal.get(Calendar.MONTH)+1); // -> /2019/12
 		String datePath = String.format("%s/%02d", monthPath, cal.get(Calendar.DATE)); // -> /2019/12/23
 		
-		makeDir(uploadPath, yearPath, monthPath, datePath);
+		makeDir(uploadPath, auth, yearPath, monthPath, datePath);
 		
-		return datePath;
+		return "/" + auth + datePath;
 	}//calculatorPath
 	
 	//paths = {yearPath, monthpath, datePath}
-	private static void makeDir(String uploadPath, String... paths) {
+	private static void makeDir(String uploadPath, String auth, String... paths) {
+		
 		for(String path : paths) {
-			File dir = new File(uploadPath + path);
+			File dir = new File(uploadPath + "/" + auth + path);
 			if(dir.exists() == false) {
 				dir.mkdir();
 			}
 		}
 	}//makeDir
 	
-	public static void deleteFile(String uploadPath, String filename) {
+	public static void deleteFile(String uploadPath, String auth, String filename) {
 		//썸네일 삭제
 		File file = new File(uploadPath + "/" + filename); 
 		file.delete(); //파일 삭제
 		
 		//원본 삭제
-		String file1 = filename.substring(0, 12);
-		String file2 = filename.substring(14);
+		int authLen = auth.length()+1;
+		String file1 = filename.substring(0, 12+authLen);
+		String file2 = filename.substring(14+authLen);
 		file = new File(uploadPath + file1 + file2);
 		file.delete();
 	}
 
-	public static String getOriginalFileName(String thumbName) {
-		String file1 = thumbName.substring(0, 12);
-		String file2 = thumbName.substring(14);
+	public static String getOriginalFileName(String auth, String thumbName) {
+		int authLen = auth.length() + 1;
+		String file1 = thumbName.substring(0, 12+authLen);
+		String file2 = thumbName.substring(14+authLen);
 		
 		return file1 + file2;
 	}

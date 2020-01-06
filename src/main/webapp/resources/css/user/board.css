@@ -92,10 +92,11 @@ textarea {
 	display: block;
 	margin: 10px auto;
 }
-.thumb-wrap {
+.thumb-wrap, .add-wrap {
 	overflow: hidden;
 }
-.thumb-wrap > li {
+.thumb-wrap > li, 
+.add-wrap > li {
 	padding: 5px;
 	float: left;
 	overflow: hidden;
@@ -104,7 +105,6 @@ textarea {
 }
 .thumb-img {
 	height: 100px;
-	display: block;
 	margin: 0 auto;
 	position: relative;
 	cursor: pointer;
@@ -120,12 +120,6 @@ textarea {
     top: 3px;
     background: url(../../img/remove.png) no-repeat;
     cursor: pointer;
-}
-.thumb-nm {
-	width: 100%;
-	font-size: 13px;
-	text-overflow: ellipsis;
-	white-space: nowrap;
 }
 .modal-wrap {
 	display: none;

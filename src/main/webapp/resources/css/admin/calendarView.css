@@ -1,0 +1,142 @@
+@charset "UTF-8";
+
+.cal-wrap {
+	width: 100%;
+}
+.cal-wrap > .cal-top {
+	width: 360px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+#cal-title {
+	float: left;
+	width: 280px;
+	display: inline-block;
+	font-size: 2.7em;
+	font-weight: lighter;
+	letter-spacing: 0.15em;
+	text-align: center;
+}
+#prevBtn {
+	float: left;
+	background: url("../../img/prev.png") no-repeat;
+   	display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    cursor: pointer;
+    margin-top: 12px;
+}
+#nextBtn {
+	float: left;
+	background: url("../../img/next.png") no-repeat;
+	display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+
+
+
+#cal-table {
+	width: 90%;
+	margin: 15px auto;
+	border-collapse: collapse;
+}
+#cal-table th {
+	border: 1px solid black;
+	padding: 3px;
+}
+#cal-table td {
+	height: 70px;
+	font-size: 1.3em;
+	border: 1px solid black;
+	padding: 10px;
+	text-align: center;
+}
+#cal-table td > a {
+	display: block;
+}
+#cal-table td:first-child{
+	color: red;
+}
+#cal-table td:last-child{
+	color: blue;
+}
+.tOn {
+	background: firebrick;
+}
+
+
+.cont-right > h3 {
+	width: 80%;
+	text-align: center;
+	font-weight: normal;
+	font-size: 1.6em;
+	letter-spacing: 0.14em;
+}
+
+.pg-list, .addPg-wrap {
+	width: 80%;
+}
+#addPg {
+    background: url(../../img/plus.png) no-repeat;
+    display: inline-block;
+    width: 27px;
+    height: 27px;
+    background-size: contain;
+    float: right;
+    margin-bottom: 8px;
+}
+.pg-list > li {
+	width: 100%;
+	height: 80px;
+	border: 2px solid black;
+	overflow: hidden;
+	margin: 5px 0;
+}
+.pg-list > li > .pgTime-wrap {
+	width: 19%;
+	height: 100%;
+	background: beige;
+	float: left;
+}
+.pgTime {
+	display: block;
+	text-align: center;
+}
+.pgTime > em {
+	font-style: normal;
+	font-size: 1.7em;
+}
+.pg-list > li > .pgTitle-wrap {
+	float: left;
+	height: 100%;
+	background: pink;
+	padding-left: 8px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.pgTitle-wrap > a {
+	font-size: 1.3em;
+	display: inline-block;
+	line-height: 80px;
+}
+.pg-list > li > .pgDel-wrap {
+	float: right;
+	width: 24px;
+	height: 100%;
+	background: dimgrey;
+}
+.delX {
+	width: 24px;
+    height: 24px;
+    display: inline-block;
+    background: url(../../img/remove.png) no-repeat;
+    cursor: pointer;
+    margin-top: 100%;
+}
+

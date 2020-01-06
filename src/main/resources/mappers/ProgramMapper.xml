@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.ProgramMapper">
+
+	<resultMap type="ProgramVO" id="programResult">
+		<id property="pgNo" column="i_program"/>
+		<result property="pgTitle" column="pg_title" />
+		<result property="pgDetail" column="pg_detail" />
+		<result property="pgPoster" column="pg_poster" />
+		<result property="pgThumb" column="pg_thumb" />
+		<result property="pgTime" column="pg_time" />
+		<result property="pgIsRunning" column="pg_isRunning" />
+	</resultMap>
+	
+	<select id="selectPgList" resultMap="programResult">
+		select * from t_program order by i_program desc;
+	</select>
+	
+	<select id="selectPg" resultMap="programResult">
+		select * from t_program where i_program = #{pgNo};
+	</select>
+
+	<select id="getTotalPgCnt" resultType="int">
+		select count(*) from t_program;
+	</select>
+	
+	<insert id="insertPg">
+		insert into t_program values(0, #{pgTitle}, #{pgDetail}, #{pgPoster}, #{pgThumb}, #{pgTime}, #{pgIsRunning});
+	</insert>
+	
+	<update id="updatePg">
+		update t_program 
+			set pg_title = #{pgTitle}, pg_detail = #{pgDetail}, pg_poster = #{pgPoster}, pg_thumb = #{pgThumb}, pg_time = #{pgTime}, pg_isRunning = #{pgIsRunning}
+			where i_program = #{pgNo};
+	</update>
+	
+	<delete id="deletePg">
+		delete from t_program where i_program = #{pgNo};
+	</delete>
+
+</mapper>

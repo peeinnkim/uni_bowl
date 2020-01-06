@@ -32,28 +32,31 @@
 	</beans:bean>
 	
 	<!-- 경로 -->
-	<beans:bean id="uploadPath" class="java.lang.String">
-		<beans:constructor-arg value="c:/uni_bowl/upload"></beans:constructor-arg>
+	<beans:bean id="adminUploadPath" class="java.lang.String">
+		<beans:constructor-arg value="c:/uni_bowl/admin"></beans:constructor-arg>
+	</beans:bean> 
+	<beans:bean id="userUploadPath" class="java.lang.String">
+		<beans:constructor-arg value="c:/uni_bowl/user"></beans:constructor-arg>
 	</beans:bean> 
 	
 	<!-- intercepter -->
     <beans:bean id="loginInterceptor" class="com.peeinn.interceptor.LoginInterceptor"></beans:bean>
     <beans:bean id="authInterceptor" class="com.peeinn.interceptor.AuthInterceptor"></beans:bean>
 	
-	<interceptors>
-		<interceptor> <!-- 로그인 키 저장 -->
-			<mapping path="/user/member/loginPost"/>
+<!-- 	<interceptors>
+		<interceptor> 로그인 키 저장
+			<mapping path="/member/loginPost"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
-		<interceptor> <!-- 로그인 필터 -->
-			<mapping path="/user/member/myPage"/>
-			<mapping path="/user/member/modify"/>
-			<mapping path="/user/member/secess"/>
-			<mapping path="/user/member/result"/>
-			<mapping path="/user/board/qna/regist"/>
+		<interceptor> 로그인 필터
+			<mapping path="/member/myPage"/>
+			<mapping path="/member/modify"/>
+			<mapping path="/member/secess"/>
+			<mapping path="/member/result"/>
+			<mapping path="/qna/regist"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
-	</interceptors>    
+	</interceptors>    --> 
 	
 	
 	

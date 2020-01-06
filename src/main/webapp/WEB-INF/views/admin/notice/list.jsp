@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../../../include/header.jsp" %>
+<%@ include file="../../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/user/board.css" type="text/css" rel="stylesheet">
 
@@ -33,7 +33,7 @@
 		<c:forEach var="nt" items="${list}">
 			<tr>
 				<td>${nt.ntNo}</td>
-				<td class="list-title"><a href="${pageContext.request.contextPath}/user/board/notice/read?ntNo=${nt.ntNo}">${nt.ntTitle}</a></td>
+				<td class="list-title"><a href="${pageContext.request.contextPath}/admin/notice/read?ntNo=${nt.ntNo}">${nt.ntTitle}</a></td>
 				<td><fmt:formatDate value="${nt.ntRegDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 				<td>${nt.ntViewCnt}</td>
 			</tr>
@@ -44,5 +44,5 @@
 </div>	
 
 
-<%@ include file="../../../include/footer.jsp" %>
+<%@ include file="../../include/footer.jsp" %>
 

@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,13 +20,12 @@ import com.peeinn.domain.MemberVO;
 import com.peeinn.service.MemberService;
 
 @Controller
-@RequestMapping("/user/member/")
+@RequestMapping("/member/")
 public class MemberController {
 	
 	@Autowired
 	MemberService service;
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
-	
 	
 	/* ------------------- [ MEMBER PART ] ------------------- */
 	
@@ -36,7 +34,7 @@ public class MemberController {
 	public String joinMemberGet() {
 		logger.info("------------ [joinMember GET] ------------");
 		
-		return "/user/member/inputForm";
+		return "/member/inputForm";
 	}
 
 	//가입(처리)
@@ -87,7 +85,7 @@ public class MemberController {
 		MemberVO authMem = (MemberVO) request.getSession().getAttribute("Auth");
 		model.addAttribute("mem", service.searchById(authMem.getmId()));
 		
-		return "/user/member/inputForm";
+		return "/member/inputForm";
 	}
 	
 	//정보수정(처리)
@@ -97,7 +95,7 @@ public class MemberController {
 		
 		service.modify(mem);
 		
-		response.sendRedirect(request.getContextPath() + "/user/member/myPage");
+		response.sendRedirect(request.getContextPath() + "/member/myPage");
 	}
 	
 	//아이디 중복체크(데이터)
@@ -149,7 +147,7 @@ public class MemberController {
 		} else {
 			model.addAttribute("error", "비밀번호가 일치하지 않습니다.");
 		}
-		return "/user/member/secess";
+		return "/member/secess";
 	}
 	
 	//결과(화면)

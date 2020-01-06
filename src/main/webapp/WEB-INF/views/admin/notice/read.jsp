@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../../../include/header.jsp" %>
+<%@ include file="../../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/user/board.css" type="text/css" rel="stylesheet">
 
@@ -33,16 +33,14 @@
 		</div>
 		
 		<div class="read-content">
-			<pre>
-				<c:out value="${nt.ntContent}" />
-			</pre>
+			<pre><c:out value="${nt.ntContent}" /></pre>
 			
 			<h5>첨부파일</h5>
 			<ul class="imgFiles-wrap">
 				<c:forEach var="na" items="${nt.files}">
 					<li><!-- 섬네일 디스플레이 -->
 						<span class="thumb-img" data-src="${na.naOrigin}">
-							<img src="${pageContext.request.contextPath}/upload/displayFile?fileName=${na.naThumb}">
+							<img src="${pageContext.request.contextPath}/admin/notice/displayFile?fileName=${na.naThumb}">
 						</span>
 					</li>
 				</c:forEach>
@@ -50,26 +48,24 @@
 		</div>
 		
 		<div class="read-footer">
-			<a href="#" class="btn btn-line">LIST</a>
+			<a href="${pageContext.request.contextPath}/admin/notice/list" class="btn btn-line">LIST</a>
 			<div class="footer-link">
-				<a href="${pageContext.request.contextPath}/user/board/notice/modify?ntNo=${nt.ntNo}">MODIFY</a>
-				<a href="${pageContext.request.contextPath}/user/board/notice/remove?ntNo=${nt.ntNo}">REMOVE</a>
+				<a href="${pageContext.request.contextPath}/admin/notice/modify?ntNo=${nt.ntNo}">MODIFY</a>
+				<a href="${pageContext.request.contextPath}/admin/notice/remove?ntNo=${nt.ntNo}">REMOVE</a>
 			</div>
 		</div>
 		
 		<div class="modal-wrap"> <!-- 이미지 클릭시 나오는 모달창 -->
 			<div class="modal-img"></div>
 		</div>
-		
 	</div>
-
 </div>	
 
 <script>
 	/* 이미지 클릭 시 모달창에 원본사진 나오게 하기 */
 	$(document).on("click", ".thumb-img", function(){
 		var src = $(this).attr("data-src");
-		var $img = $("<img>").attr("src", "${pageContext.request.contextPath}/upload/displayFile?fileName="+src);
+		var $img = $("<img>").attr("src", "${pageContext.request.contextPath}/admin/notice/displayFile?fileName="+src);
 		var $modalX = $("<span>").addClass("modalX");
 		
 		$(".modal-img").empty();
@@ -88,5 +84,5 @@
 </script>
 
 
-<%@ include file="../../../include/footer.jsp" %>
+<%@ include file="../../include/footer.jsp" %>
 

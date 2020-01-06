@@ -32,7 +32,7 @@
 	</select>
 	
 	<select id="selectMem" resultMap="memberResult">
-		select * from t_member where i_member = #{mNo};
+		select * from t_member where i_member = #{mNo} order by i_member desc;
 	</select>
 
 	<select id="selectMemById" resultMap="memberResult">
@@ -41,6 +41,30 @@
 	
 	<select id="getTotalMemCnt" resultType="int">
 		select count(*) from t_member;
+	</select>
+
+	<!--   [ NON-MEMBER PART ]   -->
+
+	<resultMap type="NonMemberVO" id="nonMemResult">
+		<id property="nmNo" column="i_nonMember" />
+		<result property="nmTel" column="nm_tel" />
+		<result property="nmPw" column="nm_pw" />
+	</resultMap>
+
+	<insert id="insertNonMem">
+		insert into t_non_member values(0, #{nmTel}, #{nmPw});
+	</insert>
+	
+	<select id="selectNonMemList" resultMap="nonMemResult">
+		select * from t_non_member order by i_nonMember desc;
+	</select>
+	
+	<select id="selectNonMem" resultMap="nonMemResult">
+		select * from t_non_member where i_nonMember = #{nmNo};
+	</select>
+	
+	<select id="getTotalNonMemCnt" resultType="int">
+		select count(*) from t_non_member;
 	</select>
 
 </mapper>

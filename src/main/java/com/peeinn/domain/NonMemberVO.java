@@ -2,13 +2,8 @@ package com.peeinn.domain;
 
 public class NonMemberVO {
 	private int nmNo; // 비회원 번호
-	private String nmNm; // 비회원 이름
 	private String nmTel; // 비회원 전화번호
 	private String nmPw; // 비회원 비밀번호
-
-	public NonMemberVO() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public int getNmNo() {
 		return nmNo;
@@ -16,14 +11,6 @@ public class NonMemberVO {
 
 	public void setNmNo(int nmNo) {
 		this.nmNo = nmNo;
-	}
-
-	public String getNmNm() {
-		return nmNm;
-	}
-
-	public void setNmNm(String nmNm) {
-		this.nmNm = nmNm;
 	}
 
 	public String getNmTel() {
@@ -44,7 +31,7 @@ public class NonMemberVO {
 
 	@Override
 	public String toString() {
-		return "NonMemberVO [nmNo=" + nmNo + ", nmNm=" + nmNm + ", nmTel=" + nmTel + ", nmPw=" + nmPw + "]";
+		return "NonMemberVO [nmNo=" + nmNo + ", nmTel=" + nmTel + ", nmPw=" + nmPw + "]";
 	}
 
 }// NonMemberVO

@@ -13,7 +13,7 @@ import com.peeinn.domain.NoticeVO;
 public class NoticeDAOImpl implements NoticeDAO {
 	
 	@Autowired
-	SqlSession sqlSession;
+	private SqlSession sqlSession;
 	private static final String namespace = "mappers.NoticeMapper";
 
 	@Override

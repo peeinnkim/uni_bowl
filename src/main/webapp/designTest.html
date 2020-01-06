@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="resources/css/common.css" type="text/css" rel="stylesheet">
+<link href="resources/css/user/common.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 	<div id="container">
@@ -40,9 +40,47 @@
 		<div id="section">
 			<div class="inner-section">
 				<div class="content-area">
-					<div class="main-banner">
+					<h2>프로그램 관리</h2>
+					<div class="cont-center">
+						<div>
+							<select id="state-sel">
+								<option value="-1">전체</option>
+								<option value="1">상영중</option>
+								<option value="0">종료</option>
+							</select>
+						</div>
+						
+						<div class="addPg-wrap">
+							<a href="${pageContext.request.contextPath}/admin/intranet/program/regist" id="addPg"></a>
+						</div>
+						
+						<ul id="pg-list">
+							<li class="pg-wrap pgCont">
+								<div class="cont-left">
+									<img>
+								</div>
+								<div class="cont-middle">
+									<div class="cont-midTop">
+										<h2>제목으모갸어매냐ㅓㄹ대ㅑ머</h2>
+									</div>
+									<div class="cont-midBottom">
+										<span>상영중</span>
+										<span>40분</span>
+									</div>
+								</div>
+								<div class="cont-right">
+									<span class="pgDel"></span>
+								</div>
+							</li>
+							<li class="pg-wrap pgSub">
+								<h4>설명</h4>
+								<p>
+									ㅁㄴ앨모ㅕㄷㅎㅁ이ㅑ뫼여ㅑ러ㅗ;매ㅑㅇ러매야ㅗㅎ미야ㅗ해먀ㅗㅇ;랴ㅐ먼ㅇ;ㄻㄴㅇㄹ
+								</p>
+							</li>
+						</ul>
 					</div>
-				</div>			
+				</div>		
 			</div>
 		</div>
 		

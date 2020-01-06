@@ -2,10 +2,6 @@ package com.peeinn.controller.user;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -19,20 +15,36 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.peeinn.util.UploadFileUtils;
-
-   
 @Controller
-@RequestMapping("/upload/*")
-public class UploadController {
-
-	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
-	@Resource(name="uploadPath") //id로 주입(DI: Dependency Injection)을 받음
-	private String uploadPath;
+@RequestMapping("/user/")
+public class UserBoardController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(UserBoardController.class);
+	@Resource(name="userUploadPath") 
+	private String userUploadPath;
+
+	/* ------------------- [ QNA PART ] ------------------- */
+
+	@RequestMapping(value="qna/list", method=RequestMethod.GET)
+	public void qnaList() {
+		logger.info("------------ [qnaList GET] ------------");
+		
+	}  
+	
+	@RequestMapping(value="qna/regist", method=RequestMethod.GET)
+	public void qnaRegistGet() {
+		logger.info("------------ [qnaRegist GET] ------------");
+		
+	}
+	
+	@RequestMapping(value="qna/read", method=RequestMethod.GET)
+	public void qnaReadGet() {
+		logger.info("------------ [qnaRead GET] ------------");
+		
+	}
+	
+	/* ------------------- [ UPLOAD PART ] ------------------- */
 	@RequestMapping(value="displayFile", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayFile(String fileName){
 		logger.info("--------- displayFile ---------");
@@ -56,7 +68,7 @@ public class UploadController {
 			headers.setContentType(type);
 			
 			//파일을 읽어들임
-			InputStream in = new FileInputStream(uploadPath + "/" + fileName);
+			InputStream in = new FileInputStream(userUploadPath + "/" + fileName);
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), //바이트 배열을 리턴
 												headers,
 												HttpStatus.CREATED);
@@ -70,6 +82,5 @@ public class UploadController {
 		return entity;
 	}
 	
-	
 
-}//UploadController
+}//BoardController

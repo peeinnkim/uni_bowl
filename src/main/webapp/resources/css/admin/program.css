@@ -1,0 +1,169 @@
+@charset "UTF-8";
+
+select {
+    padding: 7px 10px 8px 2px;
+    background: white;
+    border: none;
+    border-bottom: 2px solid black;
+    outline: grey;
+}
+option {
+	padding: 7px 10px 7px 2px;
+}
+input {
+	padding: 10px 10px 7px;
+	background: white;
+    border: none;
+    border-bottom: 2px solid black;
+    outline: grey;
+}
+form > p {
+	margin: 10px 0;
+	padding: 10px 0;
+}
+form > p > label {
+	float: left;
+    width: 90px;
+    font-size: 18px;
+    letter-spacing: 0.15em;
+    text-align: center;
+    padding: 7px 10px 7px 4px;
+}
+form > p > input[name='pgTitle'] {
+	width: 60%;
+}
+form > p > input[name='pgTime'] {
+	width: 35px;
+	text-align: center;
+}
+textarea {
+	width: 90%;
+	height: 400px;
+	padding: 10px;
+	outline: none;
+	overflow: auto;
+	resize: none;
+	border: none;
+	border-bottom: 2px solid black;
+	display: block;
+	margin: 10px auto;
+}
+.thumb-wrap, .add-wrap {
+	overflow: hidden;
+}
+.thumb-wrap > li, 
+.add-wrap > li {
+	padding: 5px;
+	float: left;
+	overflow: hidden;
+	margin-right: 5px;
+	text-align: center;
+}
+.thumb-img {
+	height: 100px;
+	margin: 0 auto;
+	position: relative;
+	cursor: pointer;
+}
+.thumb-img > img {
+	height: 100px;
+}
+.thumb-img > .delX {
+	width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 2px;
+    top: 3px;
+    background: url(../../img/remove.png) no-repeat;
+    cursor: pointer;
+}
+
+/* ------------ [TABLE] ------------ */
+.search-wrap {
+	width: 90%;
+	margin: 0px auto 7px;
+}
+.search-category {
+	float: left;
+}
+.search-keyword {
+	float: right;
+}
+.search-keyword > select,
+.search-keyword > input,
+.search-keyword > button {
+	float: left;
+	margin: 0px 3px;
+}
+
+button {
+	padding: 7px;
+}
+table {
+	border-collapse: collapse;
+	width: 90%;
+	margin: 0 auto;
+}
+th, td {
+	padding: 20px 5px;
+	text-align: center;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
+th {
+	border-top: 2px solid black;
+}
+.list-title {
+	width: 70%;
+	text-align: left;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+
+/*sadfadffsdfadsfasdf*/
+.menu-wrap {
+	width: 90%;
+	margin: 0 auto 5px;
+	overflow: hidden;
+}
+#pgstate-sel {
+	float: right;
+}
+#addPg {
+    background: url(../../img/plus.png) no-repeat;
+    background-size: contain;
+    display: inline-block;
+    width: 27px;
+    height: 27px;
+    float: left;
+}
+.title-wrap {
+	width: 25%;
+	font-size: 18px;
+}
+.detail-wrap {
+	white-space: nowrap;
+	word-break: keep-all;
+	font-size: 13px;
+	width: 35%;
+}
+.etc-wrap{
+	width: 7%;
+}
+.del-wrap {
+	width: 4.5%;
+}
+.pgDel {
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin: 0 auto;
+    background: url(../../img/plus.png) no-repeat;
+    background-size: contain;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+
+
+

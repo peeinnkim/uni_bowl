@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.peeinn.domain.MemberVO;
+import com.peeinn.domain.NonMemberVO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -48,6 +49,29 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public MemberVO selectMemById(String mId) {
 		return sqlSession.selectOne(namespace + ".selectMemById", mId);
+	}
+
+	
+	
+	/* ------------ [NON-MEMBER] ------------ */
+	@Override
+	public void insertNonMem(NonMemberVO nMem) {
+		sqlSession.insert(namespace + ".insertNonMem", nMem);
+	}
+
+	@Override
+	public List<NonMemberVO> selectNonMemList() {
+		return sqlSession.selectList(namespace + ".selectNonMemList");
+	}
+
+	@Override
+	public NonMemberVO selectNonMem(int nmNo) {
+		return sqlSession.selectOne(namespace + ".selectNonMem", nmNo);
+	}
+
+	@Override
+	public int getTotalNonMemCnt() {
+		return sqlSession.selectOne(namespace + ".getTotalNonMemCnt");
 	}
 
 }// MemberDAOImpl
