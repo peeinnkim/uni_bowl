@@ -3,19 +3,16 @@ package com.peeinn.domain;
 import java.util.Date;
 
 public class MemberVO {
-	private int mNo; //회원번호
-	private String mId; //아이디
-	private String mPw; //비밀번호
-	private String mNm; //이름
-	private String mBirth; //생일
-	private String mTel; //전화번호
-	private String mMail; //메일
-	private Date mRegdate; //가입일
-	private Date mQuitdate; //탈퇴일 (탈퇴일 존재여부로 탈퇴회원 구분)
-
-	public MemberVO() {
-		// TODO Auto-generated constructor stub
-	}
+	private int mNo; // 회원번호
+	private String mId; // 아이디
+	private String mPw; // 비밀번호
+	private String mNm; // 이름
+	private String mBirth; // 생일
+	private String mTel; // 전화번호
+	private String mMail; // 메일
+	private Date mRegdate; // 가입일
+	private Date mQuitdate; // 탈퇴일 (탈퇴일 존재여부로 탈퇴회원 구분)
+	private int mCode; // 회원분류코드(0: 회원 / 1: 비회원 / 2: 운영자)
 
 	public int getmNo() {
 		return mNo;
@@ -89,10 +86,19 @@ public class MemberVO {
 		this.mQuitdate = mQuitdate;
 	}
 
+	public int getmCode() {
+		return mCode;
+	}
+
+	public void setmCode(int mCode) {
+		this.mCode = mCode;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberVO [mNo=" + mNo + ", mId=" + mId + ", mPw=" + mPw + ", mNm=" + mNm + ", mBirth=" + mBirth
-				+ ", mTel=" + mTel + ", mMail=" + mMail + ", mRegdate=" + mRegdate + ", mQuitdate=" + mQuitdate + "]";
+				+ ", mTel=" + mTel + ", mMail=" + mMail + ", mRegdate=" + mRegdate + ", mQuitdate=" + mQuitdate
+				+ ", mCode=" + mCode + "]";
 	}
 
 }// MemberVO

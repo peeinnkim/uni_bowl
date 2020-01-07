@@ -12,11 +12,12 @@
 		<result property="mMail" column="m_mail"/>
 		<result property="mRegdate" column="m_regdate"/>
 		<result property="mQuitdate" column="m_quitdate"/>
+		<result property="mCode" column="m_code"/>
 	</resultMap>
 
 
 	<insert id="insertMem">
-		insert into t_member values(0, #{mId}, #{mPw}, #{mNm}, #{mBirth}, #{mTel}, #{mMail}, now(), null);
+		insert into t_member values(0, #{mId}, #{mPw}, #{mNm}, #{mBirth}, #{mTel}, #{mMail}, now(), null, #{mCode});
 	</insert>
 	
 	<update id="updateMem">
@@ -28,11 +29,11 @@
 	</update>
 	
 	<select id="selectMemList" resultMap="memberResult">
-		select * from t_member;
+		select * from t_member order by i_member desc;
 	</select>
 	
 	<select id="selectMem" resultMap="memberResult">
-		select * from t_member where i_member = #{mNo} order by i_member desc;
+		select * from t_member where i_member = #{mNo};
 	</select>
 
 	<select id="selectMemById" resultMap="memberResult">
@@ -44,27 +45,5 @@
 	</select>
 
 	<!--   [ NON-MEMBER PART ]   -->
-
-	<resultMap type="NonMemberVO" id="nonMemResult">
-		<id property="nmNo" column="i_nonMember" />
-		<result property="nmTel" column="nm_tel" />
-		<result property="nmPw" column="nm_pw" />
-	</resultMap>
-
-	<insert id="insertNonMem">
-		insert into t_non_member values(0, #{nmTel}, #{nmPw});
-	</insert>
-	
-	<select id="selectNonMemList" resultMap="nonMemResult">
-		select * from t_non_member order by i_nonMember desc;
-	</select>
-	
-	<select id="selectNonMem" resultMap="nonMemResult">
-		select * from t_non_member where i_nonMember = #{nmNo};
-	</select>
-	
-	<select id="getTotalNonMemCnt" resultType="int">
-		select count(*) from t_non_member;
-	</select>
 
 </mapper>

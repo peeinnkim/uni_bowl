@@ -59,20 +59,20 @@ public class UploadFileUtils {
 	
 	private static String calculatorPath(String uploadPath, String auth) {
 		Calendar cal = Calendar.getInstance();
-		String yearPath = "/" + cal.get(Calendar.YEAR); // -> /2019
+		String authPath = "/" + auth;
+		String yearPath = authPath + "/" + cal.get(Calendar.YEAR); // -> /2019
 		String monthPath = String.format("%s/%02d", yearPath, cal.get(Calendar.MONTH)+1); // -> /2019/12
 		String datePath = String.format("%s/%02d", monthPath, cal.get(Calendar.DATE)); // -> /2019/12/23
 		
-		makeDir(uploadPath, auth, yearPath, monthPath, datePath);
+		makeDir(uploadPath, authPath, yearPath, monthPath, datePath);
 		
-		return "/" + auth + datePath;
+		return datePath;
 	}//calculatorPath
 	
 	//paths = {yearPath, monthpath, datePath}
-	private static void makeDir(String uploadPath, String auth, String... paths) {
-		
+	private static void makeDir(String uploadPath, String... paths) {
 		for(String path : paths) {
-			File dir = new File(uploadPath + "/" + auth + path);
+			File dir = new File(uploadPath + path);
 			if(dir.exists() == false) {
 				dir.mkdir();
 			}

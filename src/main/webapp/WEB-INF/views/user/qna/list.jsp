@@ -33,27 +33,20 @@
 			<th>DATE</th>
 			<th>CNT</th>
 		</tr>
-			<tr>
-				<td>35</td>
-				<td class="qna-title"><a href="#">asdfasdfasdf</a></td>
-				<td>asdfasdf</td>
-				<td>1111-22-55</td>
-				<td>353</td>
-			</tr>
 		
-		<c:forEach var="qna" items="${qnas}">
+		<c:forEach var="qna" items="${list}">
 			<tr>
 				<td>${qna.qnaNo}</td>
 				<td class="qna-title">${qna.qnaTitle}</td>
 				<td>${qna.qnaWriter}</td>
-				<td>${qna.qnaRegDate}</td>
-				<td>${qna.qnaRegDate}</td>
+				<td><fmt:formatDate value="${qna.qnaRegDate}" pattern="yyyy-MM-dd"/></td>
+				<td>${qna.qnaViewCnt}</td>
 			</tr>
 		</c:forEach>
 	</table>
 	
 	<ul id="pagination"></ul>
-	<button>등록</button>
+	<a href="${pageContext.request.contextPath}/user/qna/regist">등록</a>
 </div>	
 
 <%@ include file="../../include/footer.jsp" %>

@@ -247,11 +247,71 @@ dd {
     vertical-align: middle;
 }
 
-
-
-
-
-
+/* ------------ [REPLY] ------------ */
+.reply-wrap {
+	width: 100%;
+}
+.reply-input {
+	overflow: hidden;
+}
+.reply-input > textarea {
+	width: 90%;
+	height: 45px;
+	background: #D5D5D5;
+	border: none;
+	float: left;
+}
+.reply-input > a {
+	float: left;
+	height: 45px;
+	margin-left: 11px;
+	padding: 12px;
+	line-height: 45px;
+	background-color: #fff;
+    border: 1px solid #888;
+    color: #888;
+    cursor: pointer;
+}
+.reply-list-wrap {
+	width: 100%;
+	background: pink;
+}
+.reply-list {
+	width: 98%;
+	margin: 15px auto;	
+}
+.reply-list > li {
+	border: 2px solid black;
+	padding: 20px 25px 15px;
+}
+.replyer {
+	font-size: 16px;
+	font-weight: bold;
+	color: #0161b4;
+}
+.reply-list > li dl {
+	margin-left: 10px;
+	font-style: normal;
+	font-size: 12px;
+}
+.reply-content pre {
+	background: yellow;
+    padding: 10px;
+    margin: 9px 0;
+    font-size: 14px;
+    line-height: 25px;
+}
+.reply-btn {
+	text-align: right;
+}
+.reply-btn > a {
+	height: 45px;
+	margin-left: 11px;
+	padding: 12px;
+	background: green;
+	line-height: 45px;
+	cursor: pointer;
+}
 
 
 

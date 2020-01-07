@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.QnAMapper">
+	<resultMap type="QnAVO" id="qnaResult">
+		<id property="qnaNo" column="i_qna" />
+		<result property="qnaTitle" column="qna_title" />
+		<result property="qnaWriter" column="i_member" />
+		<result property="qnaContent" column="qna_content" />
+		<result property="qnaCategory" column="qna_category" />
+		<result property="qnaRegDate" column="qna_regDate" />
+		<result property="qnaModDate" column="qna_modDate" />
+		<result property="qnaViewCnt" column="qna_viewCnt" />
+		<collection property="files" ofType="QnAAttachVO" javaType="list" >
+			<id property="qaNo" column="i_attach" />
+			<result property="qaThumb" column="qa_thumb"/>
+			<result property="qaOrigin" column="qa_origin"/>
+			<result property="qnaNo" column="i_qna"/>
+		</collection>
+	</resultMap>
+	
+	<insert id="insertQnA">
+		insert into t_qna(qna_title, qna_category, qna_content, i_member) values(#{qnaTitle}, #{qnaCategory}, #{qnaContent}, #{qnaWriter});
+	</insert>
+	
+	<select id="selectQnAList" resultMap="qnaResult">
+		select m.i_member, m.m_id, q.*
+			from t_qna q left join t_member m using(i_member)
+			order by i_qna desc;
+	</select>
+
+	<select id="getTotalQnACnt" resultType="int">
+		select count(*) from t_qna;
+	</select>
+	
+
+</mapper>

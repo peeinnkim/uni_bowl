@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.ReplyMapper">
+	
+	<resultMap type="QnAReplyVO" id="replyResult">
+		<id property="rpNo" column="i_reply" />
+		<result property="rpWriter" column="i_member" />
+		<result property="rpContent" column="rp_content" />
+		<result property="rpRegDate" column="rp_regDate" />
+		<result property="rpModDate" column="rp_modDate" />
+		<result property="qnaNo" column="i_qna" />
+	</resultMap>
+
+	<insert id="insertReply">
+		insert into t_reply_qna values(0, #{rpWriter}, #{rpContent}, now(), null, #{qnaNo});
+	</insert>
+
+	<update id="updateReply">
+		update t_reply_qna set rp_content = #{rpContent}, rp_modDate = now() where i_reply = #{rpNo};
+	</update>
+
+	<delete id="deleteReply">
+		delete from t_reply_qna where i_reply = #{rpNo};
+	</delete>
+
+	<select id="selectReply" resultMap="replyResult">
+		select * from t_reply_qna order by i_reply desc;
+	</select>
+
+	<select id="selectReplyByQnaNo" resultMap="replyResult">
+		select * from t_reply_qna where i_qna = #{qnaNo} order by i_reply desc;
+	</select>
+	
+	<select id="getTotalReplyCnt" resultType="int">
+		select count(*) from t_reply_qna;
+	</select>
+
+</mapper>

@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class QnAReplyVO {
 	private int rpNo; // 리플고유번호
+	private int rpWriter; // 리플작성자
 	private String rpContent; // 리플내용
 	private Date rpRegDate; // 리플등록날짜
 	private Date rpModDate; // 리플수정날짜
@@ -13,8 +14,9 @@ public class QnAReplyVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public QnAReplyVO(int rpNo, String rpContent, Date rpRegDate, Date rpModDate, int qnaNo) {
+	public QnAReplyVO(int rpNo, int rpWriter, String rpContent, Date rpRegDate, Date rpModDate, int qnaNo) {
 		this.rpNo = rpNo;
+		this.rpWriter = rpWriter;
 		this.rpContent = rpContent;
 		this.rpRegDate = rpRegDate;
 		this.rpModDate = rpModDate;
@@ -27,6 +29,14 @@ public class QnAReplyVO {
 
 	public void setRpNo(int rpNo) {
 		this.rpNo = rpNo;
+	}
+
+	public int getRpWriter() {
+		return rpWriter;
+	}
+
+	public void setRpWriter(int rpWriter) {
+		this.rpWriter = rpWriter;
 	}
 
 	public String getRpContent() {
@@ -63,8 +73,8 @@ public class QnAReplyVO {
 
 	@Override
 	public String toString() {
-		return "QnAReplyVO [rpNo=" + rpNo + ", rpContent=" + rpContent + ", rpRegDate=" + rpRegDate + ", rpModDate="
-				+ rpModDate + ", qnaNo=" + qnaNo + "]";
+		return "QnAReplyVO [rpNo=" + rpNo + ", rpWriter=" + rpWriter + ", rpContent=" + rpContent + ", rpRegDate="
+				+ rpRegDate + ", rpModDate=" + rpModDate + ", qnaNo=" + qnaNo + "]";
 	}
 
 }// QnAReplyVO

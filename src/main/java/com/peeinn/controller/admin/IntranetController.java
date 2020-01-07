@@ -152,6 +152,22 @@ public class IntranetController {
 		response.sendRedirect("list");
 	}
 	
+	/* ------------------- [ THEATER PART ] ------------------- */
+	@RequestMapping(value="theater/list", method=RequestMethod.GET)
+	public void thList() {
+		logger.info("------------ [theaterList GET] ------------");
+		
+	}
+
+	@RequestMapping(value="theater/regist", method=RequestMethod.GET)
+	public String thRegistList() {
+		logger.info("------------ [theaterRegist GET] ------------");
+		
+		return "admin/intranet/theater/input";
+	}
+	
+	
+	
 	
 	/* ------------------- [ UPLOAD PART ] ------------------- */
 	@RequestMapping(value="displayFile", method=RequestMethod.GET)

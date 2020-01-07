@@ -16,11 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.peeinn.domain.AuthVO;
 import com.peeinn.domain.MemberVO;
 import com.peeinn.service.MemberService;
 
 @Controller
-@RequestMapping("/member/")
+@RequestMapping("/user/member/")
 public class MemberController {
 	
 	@Autowired
@@ -34,7 +35,7 @@ public class MemberController {
 	public String joinMemberGet() {
 		logger.info("------------ [joinMember GET] ------------");
 		
-		return "/member/inputForm";
+		return "/user/member/inputForm";
 	}
 
 	//가입(처리)
@@ -68,9 +69,8 @@ public class MemberController {
 		} else {
 			if(dbMem.getmPw().equals(mem.getmPw())) { //비밀번호 일치
 				//로그인 성공
-				//session 영역에 Auth키 만들어서 userid 값 넣음
-				dbMem.setmPw("");
-				request.getSession().setAttribute("Auth", dbMem);
+				//session 영역에 Auth키 만들어서 값 넣음
+				request.getSession().setAttribute("Auth", new AuthVO(dbMem.getmNo(), dbMem.getmId(), dbMem.getmCode()));
 				System.out.println("--- Auth 저장 완료 / 로그인 성공 ---");
 			} else {
 				request.getSession().setAttribute("error", "비밀번호가 일치하지 않습니다");

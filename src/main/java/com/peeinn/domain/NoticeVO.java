@@ -6,6 +6,7 @@ import java.util.List;
 public class NoticeVO {
 	private int ntNo; // 공지번호
 	private String ntTitle; // 공지제목
+	private int ntWriter; // 작성자
 	private String ntContent; // 공지내용
 	private Date ntRegDate; // 등록시간
 	private Date ntModDate; // 수정시간
@@ -16,6 +17,19 @@ public class NoticeVO {
 
 	public NoticeVO() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public NoticeVO(int ntNo, String ntTitle, int ntWriter, String ntContent, Date ntRegDate, Date ntModDate,
+			int ntViewCnt, int ntIsFixed, List<NoticeAttachVO> files) {
+		this.ntNo = ntNo;
+		this.ntTitle = ntTitle;
+		this.ntWriter = ntWriter;
+		this.ntContent = ntContent;
+		this.ntRegDate = ntRegDate;
+		this.ntModDate = ntModDate;
+		this.ntViewCnt = ntViewCnt;
+		this.ntIsFixed = ntIsFixed;
+		this.files = files;
 	}
 
 	public int getNtNo() {
@@ -32,6 +46,14 @@ public class NoticeVO {
 
 	public void setNtTitle(String ntTitle) {
 		this.ntTitle = ntTitle;
+	}
+
+	public int getNtWriter() {
+		return ntWriter;
+	}
+
+	public void setNtWriter(int ntWriter) {
+		this.ntWriter = ntWriter;
 	}
 
 	public String getNtContent() {
@@ -84,9 +106,9 @@ public class NoticeVO {
 
 	@Override
 	public String toString() {
-		return "NoticeVO [ntNo=" + ntNo + ", ntTitle=" + ntTitle + ", ntContent=" + ntContent + ", ntRegDate="
-				+ ntRegDate + ", ntModDate=" + ntModDate + ", ntViewCnt=" + ntViewCnt + ", ntIsFixed=" + ntIsFixed
-				+ ", files=" + files + "]";
+		return "NoticeVO [ntNo=" + ntNo + ", ntTitle=" + ntTitle + ", ntWriter=" + ntWriter + ", ntContent=" + ntContent
+				+ ", ntRegDate=" + ntRegDate + ", ntModDate=" + ntModDate + ", ntViewCnt=" + ntViewCnt + ", ntIsFixed="
+				+ ntIsFixed + ", files=" + files + "]";
 	}
 
 }// NoticeVO

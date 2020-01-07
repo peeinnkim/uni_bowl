@@ -12,7 +12,7 @@
 <div class="content-area">
 	<div class="form-wrap">
 		<form id="frm" ${nt.ntNo == null? 'action="regist"': 'action="modify"'} method="post" enctype="multipart/form-data">
-			<input type="text" name="ntNo" value="${nt.ntNo == null? '0': 'nt.ntNo'}">
+			<input type="text" name="ntNo" value="${nt.ntNo == null? '0': nt.ntNo}">
 			<p>
 				<label>상단고정</label>
 				<input type="checkbox" ${nt.ntIsFixed == null ? '' : (nt.ntIsFixed == 0? '': 'checked="checked"')}>
@@ -31,14 +31,16 @@
 			</p>
 			<ul class="thumb-wrap"></ul>
 			<ul class="add-wrap">
- 				<c:forEach var="na" items="${nt.files}">
-					<li>
-						<span class="thumb-img">
-							<img src="${pageContext.request.contextPath}/user/notice/displayFile?fileName=${na.naThumb}">
-							<span class="delX" data-src="${na.naThumb}"></span>
-						</span>
-					</li>
-				</c:forEach> 
+				<c:if test="${nt.ntNo != null}"> <!-- 수정모드일때만 나오게 -->
+	 				<c:forEach var="na" items="${nt.files}">
+						<li>
+							<span class="thumb-img">
+								<img src="${pageContext.request.contextPath}/user/notice/displayFile?fileName=${na.naThumb}">
+								<span class="delX" data-src="${na.naThumb}"></span>
+							</span>
+						</li>
+					</c:forEach> 
+				</c:if>
 			</ul>
 			<p>
 				<input type="submit" ${nt.ntNo == null? 'value="REGIST"': 'value="MODIFY"'}>

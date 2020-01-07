@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="resources/css/user/common.css" type="text/css" rel="stylesheet">
+<link href="resources/css/user/board.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 	<div id="container">
@@ -39,48 +40,96 @@
 		
 		<div id="section">
 			<div class="inner-section">
-				<div class="content-area">
-					<h2>프로그램 관리</h2>
-					<div class="cont-center">
+<div class="content-area">
+	<div class="read-wrap">
+		<div class="read-title">
+			<h1><span class="category">${qna.qnaCategory}</span>${qna.qnaTitle}</h1>
+			<div class="title-footer">       
+				<dl>
+					<dt>등록일</dt>
+					<dd><fmt:formatDate value="${qna.ntRegDate}" pattern="yyyy-MM-dd HH:mm"/></dd>
+				</dl>
+				<c:if test="${nt.ntModDate != null}">
+				<dl>
+					<dt>수정일</dt>
+					<dd>
+						<fmt:formatDate value="${qna.ntModDate}" pattern="yyyy-MM-dd HH:mm"/>
+					</dd>
+				</dl>
+				</c:if>
+				<dl>
+					<dt>조회수</dt>
+					<dd>${qna.ntViewCnt}</dd>
+				</dl>
+			</div>
+		</div>
+		
+		<div class="read-content">
+			<pre>
+				<c:out value="${qna.qnaContent}" />
+			</pre>
+			
+			<h5>첨부파일</h5>
+			<ul class="imgFiles-wrap">
+				<c:forEach var="rp" items="${qna.files}">
+					<li><!-- 섬네일 디스플레이 -->
+						<span class="thumb-img" data-src="${rp.rpOrigin}">
+							<!-- <img src="${pageContext.request.contextPath}/upload/displayFile?fileName=${rp.rpThumb}"> -->
+						</span>
+					</li>
+				</c:forEach>
+			</ul>
+		</div>
+		
+		<div class="read-footer">
+			<a href="#" class="btn btn-line">LIST</a>
+			<div class="footer-link">
+				<a href="${pageContext.request.contextPath}/user/notice/modify?ntNo=${qna.qnaNo}">MODIFY</a>
+				<a href="${pageContext.request.contextPath}/user/notice/remove?ntNo=${qna.qnaNo}">REMOVE</a>
+				<a href="${pageContext.request.contextPath}/user/notice/list">LIST</a>
+			</div>
+		</div>
+		
+		<div class="modal-wrap"> <!-- 이미지 클릭시 나오는 모달창 -->
+			<div class="modal-img"></div>
+		</div>
+		
+		<div class="reply-wrap">
+			<div class="reply-input">
+				<textarea></textarea>
+				<a href="#">등록</a>
+			</div>
+			<div class="reply-list-wrap">
+				<ul class="reply-list">
+					<li>
 						<div>
-							<select id="state-sel">
-								<option value="-1">전체</option>
-								<option value="1">상영중</option>
-								<option value="0">종료</option>
-							</select>
+							<span class="replyer">관리자</span>
+							<dl>
+								<dt>등록일</dt>
+								<dd>
+									2020-01-03 12:22:30
+								</dd>
+							</dl>
+							<dl>
+								<dt>수정일</dt>
+								<dd>
+									2020-01-03 12:22:30
+								</dd>
+							</dl>
 						</div>
 						
-						<div class="addPg-wrap">
-							<a href="${pageContext.request.contextPath}/admin/intranet/program/regist" id="addPg"></a>
-						</div>
+						<div class="reply-content">댓글<br>ㅁㄴㅇㄹ<br>ㅁㅇㄹㄴ</div>
 						
-						<ul id="pg-list">
-							<li class="pg-wrap pgCont">
-								<div class="cont-left">
-									<img>
-								</div>
-								<div class="cont-middle">
-									<div class="cont-midTop">
-										<h2>제목으모갸어매냐ㅓㄹ대ㅑ머</h2>
-									</div>
-									<div class="cont-midBottom">
-										<span>상영중</span>
-										<span>40분</span>
-									</div>
-								</div>
-								<div class="cont-right">
-									<span class="pgDel"></span>
-								</div>
-							</li>
-							<li class="pg-wrap pgSub">
-								<h4>설명</h4>
-								<p>
-									ㅁㄴ앨모ㅕㄷㅎㅁ이ㅑ뫼여ㅑ러ㅗ;매ㅑㅇ러매야ㅗㅎ미야ㅗ해먀ㅗㅇ;랴ㅐ먼ㅇ;ㄻㄴㅇㄹ
-								</p>
-							</li>
-						</ul>
-					</div>
-				</div>		
+						<div class="reply-btn">
+							<a href="#">수정</a>
+							<a href="#">삭제</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>		
 			</div>
 		</div>
 		

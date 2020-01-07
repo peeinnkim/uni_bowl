@@ -5,9 +5,11 @@
 	<resultMap type="NoticeVO" id="noticeMap">
 		<id property="ntNo" column="i_notice" />
 		<result property="ntTitle" column="nt_title" />
+		<result property="ntWriter" column="i_member" />
 		<result property="ntContent" column="nt_content" />
 		<result property="ntRegDate" column="nt_regDate" />
 		<result property="ntModDate" column="nt_modDate" />
+		<result property="ntViewCnt" column="nt_viewCnt" />
 		<result property="ntIsFixed" column="nt_isFixed" />
 		<collection property="files" ofType="NoticeAttachVO" javaType="list">
 			<id property="naNo" column="i_ntAttach" />
@@ -15,11 +17,11 @@
 			<result property="naOrigin" column="na_origin" />
 			<result property="ntNo" column="i_notice" />
 		</collection>
-	</resultMap>
+	</resultMap> 
 
 	<!-- INSERT -->
 	<insert id="insertNotice" useGeneratedKeys="true" keyColumn="i_notice" keyProperty="ntNo">
-		insert into t_notice(nt_title, nt_content, nt_isFixed) values(#{ntTitle}, #{ntContent}, #{ntIsFixed});
+		insert into t_notice(nt_title, i_member, nt_content, nt_isFixed) values(#{ntTitle}, #{ntWriter}, #{ntContent}, #{ntIsFixed});
 	</insert>
 	
 	<insert id="insertNoticeAttach"> <!-- 첨부파일 삽입 -->
@@ -43,7 +45,7 @@
 	</delete>
 
 	
-	<!-- INSERT -->
+	<!-- SELECT -->
 	<select id="selectList" resultMap="noticeMap">
 		select * from t_notice order by i_notice desc;
 	</select>

@@ -15,3 +15,11 @@ update t_notice set nt_title = ?, nt_content = ?, nt_isFixed = ?, nt_modDate = n
 
 delete from t_notice where i_notice=?;
 delete from t_notice_attach where i_notice=?
+
+
+select * from t_program left join t_pg_attach using(i_program);
+
+select * from t_notice;
+
+select m.i_member, m.m_id, q.*
+	from t_qna q left join t_member m using(i_member);

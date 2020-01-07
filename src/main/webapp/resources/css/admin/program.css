@@ -121,7 +121,7 @@ th {
 }
 
 
-/*sadfadffsdfadsfasdf*/
+/* PROGRAM LIST */
 .menu-wrap {
 	width: 90%;
 	margin: 0 auto 5px;
@@ -165,5 +165,12 @@ th {
     cursor: pointer;
 }
 
-
+/* THEATER LIST PART */
+.thImg-wrap {
+	display: none;
+	border: none;
+}
+.thImg-wrap img {
+	width: 100%;
+}
 

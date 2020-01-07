@@ -3,7 +3,6 @@ package com.peeinn.service;
 import java.util.List;
 
 import com.peeinn.domain.MemberVO;
-import com.peeinn.domain.NonMemberVO;
 
 public interface MemberService {
 	
@@ -20,10 +19,5 @@ public interface MemberService {
 	
 	/* ------------ [NON-MEMBER] ------------ */
 	
-	public void registNonMem(NonMemberVO nMem);
-	public List<NonMemberVO> nonMemList();
-	public NonMemberVO searchNonMem(int nmNo);
-	
-	public int totalNonMemCnt();
 	
 }//MemberService

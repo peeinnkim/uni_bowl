@@ -11,6 +11,7 @@
 	<div class="form-wrap">
 		<form id="frm" ${mem.mNo == null? 'action="join"': 'action="modify"'} method="post">
 			<input type="hidden" name="mNo" value="${mem.mNo == null? 0: mem.mNo}" > 
+			<input type="hidden" name="mCode" value="0" > 
 			<p>
 				<label>ID</label>
 				<input type="text" name="mId" value="${mem.mId}" maxlength="15">
