@@ -41,7 +41,7 @@ public class ReplyController {
 		return entity;
 	}
 	
-	@RequestMapping(value="add", method=RequestMethod.POST)
+	@RequestMapping(value="", method=RequestMethod.POST)
 	public ResponseEntity<String> regist(@RequestBody QnAReplyVO vo){
 		logger.info("------------ [registReply] ------------");
 		logger.info("vo->>>>>" + vo.toString());
@@ -76,7 +76,7 @@ public class ReplyController {
 		return entity;
 	}
 	
-	@RequestMapping(value="{qnaNo}", method=RequestMethod.DELETE)
+	@RequestMapping(value="{rpNo}", method=RequestMethod.DELETE)
 	public ResponseEntity<String> delete(@PathVariable("rpNo") int rpNo) {
 		logger.info("----------delete----------");
 		logger.info("rpNo: "+rpNo);

@@ -27,6 +27,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.peeinn.domain.NoticeAttachVO;
 import com.peeinn.domain.NoticeVO;
+import com.peeinn.domain.paging.PageMaker;
+import com.peeinn.domain.paging.SearchCriteria;
 import com.peeinn.service.NoticeService;
 import com.peeinn.util.UploadFileUtils;
 
@@ -43,10 +45,16 @@ public class AdminBoardController {
 	
 	/* ------------------- [ NOTICE PART ] ------------------- */
 	@RequestMapping(value="list", method=RequestMethod.GET)
-	public void noticeList(Model model) {
+	public void noticeList(Model model, SearchCriteria cri) {
 		logger.info("------------ [noticeList GET] ------------");
 		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(ntService.listCnt());
+		
 		model.addAttribute("list", ntService.list());
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("cri", cri);
 	}
 	
 	@RequestMapping(value="read", method=RequestMethod.GET)
@@ -77,12 +85,13 @@ public class AdminBoardController {
 															  "notice",
 														      file.getOriginalFilename(), 
 														      file.getBytes());	
-				String originName = UploadFileUtils.getOriginalFileName("program", thumbName);
+				String originName = UploadFileUtils.getOriginalFileName("notice", thumbName);
 				naList.add(new NoticeAttachVO(0, thumbName, originName, 0));
 			}
 		}
 		
 		NoticeVO notice = new NoticeVO();
+		notice.setNtWriter(nt.getNtWriter());
 		notice.setNtTitle(nt.getNtTitle());
 		notice.setNtContent(nt.getNtContent());
 		notice.setNtIsFixed(nt.getNtIsFixed());
@@ -116,7 +125,7 @@ public class AdminBoardController {
 															  "notice",
 														      file.getOriginalFilename(), 
 														      file.getBytes());	
-				String originName = UploadFileUtils.getOriginalFileName("program", thumbName);
+				String originName = UploadFileUtils.getOriginalFileName("notice", thumbName);
 				naList.add(new NoticeAttachVO(0, thumbName, originName, 0));
 			}
 		}
@@ -135,13 +144,13 @@ public class AdminBoardController {
 		notice.setNtIsFixed(nt.getNtIsFixed());
 		notice.setFiles(naList);
 		
-		ntService.modifyNotice(notice);
+		ntService.modifyNotice(notice, delFiles);
 		
 		return "redirect:/admin/notice/read?ntNo=" + notice.getNtNo();
 	}
 	
 	@RequestMapping(value="remove", method=RequestMethod.GET)
-	public void removeNotice(int ntNo) {
+	public void removeNotice(int ntNo, HttpServletResponse response) throws IOException {
 		logger.info("------------ [removeNotice POST] ------------");
 		
 		NoticeVO notice = ntService.read(ntNo);
@@ -151,9 +160,9 @@ public class AdminBoardController {
 		}
 		
 		ntService.removeNotice(ntNo);
+		response.sendRedirect("list");
 	}
 
-	
 	/* ------------------- [ UPLOAD PART ] ------------------- */
 	@RequestMapping(value="displayFile", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayFile(String fileName){

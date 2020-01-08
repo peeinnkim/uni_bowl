@@ -3,6 +3,9 @@ package com.peeinn.controller.admin;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -20,10 +23,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.peeinn.domain.NoticeAttachVO;
+import com.peeinn.domain.MemberVO;
 import com.peeinn.domain.ProgramVO;
+import com.peeinn.domain.paging.PageMaker;
+import com.peeinn.domain.paging.SearchCriteria;
 import com.peeinn.service.MemberService;
 import com.peeinn.service.ProgramService;
 import com.peeinn.util.UploadFileUtils;
@@ -43,10 +49,48 @@ public class IntranetController {
 
 	/* ------------------- [ MEMBER MNG PART ] ------------------- */
 	@RequestMapping(value="member", method=RequestMethod.GET)
-	public void memberMng(Model model) {
+	public void memberMng(Model model, int memCode, SearchCriteria cri) {
 		logger.info("------------ [memberMng GET] ------------");
+		System.out.println("controller memCode ->>>>>>" + memCode);
 		
-		model.addAttribute("list", memService.list());
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(memService.totalCntByCode(cri, memCode, 0));
+		
+		model.addAttribute("list", memService.searchList(cri, memCode, 0));
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("cri", cri);
+		model.addAttribute("memCode", memCode);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="searchList", method=RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> searchList(int memCode, int state, SearchCriteria cri){
+		logger.info("------------ [stateList GET] ------------");
+		ResponseEntity<Map<String, Object>> entity = null;
+		System.out.println("cri ->>>>>>>>>" + cri);
+		
+		try {
+			List<MemberVO> list = memService.searchList(cri, memCode, state);
+			System.out.println("list ->>>>>>>>" + list);
+
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(memService.totalCntByCode(cri, memCode, state));
+			System.out.println("pageMaker ->>>>>>>" + pageMaker);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("list", list);
+			map.put("pageMaker", pageMaker);
+		
+			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);
+			e.printStackTrace();
+		}
+		
+		return entity;
 	}
 	
 	
@@ -167,6 +211,12 @@ public class IntranetController {
 	}
 	
 	
+	/* ------------------- [ SALES PART ] ------------------- */
+	@RequestMapping(value="sales", method=RequestMethod.GET)
+	public void salesMng() {
+		logger.info("------------ [sales POST] ------------");
+		
+	}
 	
 	
 	/* ------------------- [ UPLOAD PART ] ------------------- */

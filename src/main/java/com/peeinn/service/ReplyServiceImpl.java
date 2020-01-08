@@ -31,7 +31,7 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public List<QnAReplyVO> list() {
-		return dao.selectReply();
+		return dao.selectReplyList();
 	}
 
 	@Override

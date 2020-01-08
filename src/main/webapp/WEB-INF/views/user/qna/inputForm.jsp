@@ -14,6 +14,7 @@
 		<form id="frm" ${qna.qnaNo == null? 'action="regist"': 'action="modify"'} method="post" enctype="multipart/form-data">
 			<input type="text" name="qnaNo" value="${qna.qnaNo == null? '0': qna.qnaNo}">
 			<input type="text" name="qnaWriter" value="${Auth.authNo}">
+			<input type="text" name="qnaWriterId" value="${Auth.authId}">
 			<p>
 				<label>분류</label>
 				<select id="state-sel">
@@ -63,9 +64,6 @@
 		$("input[name='qnaCategory']").val($(this).val());
 	})
 </script>
-
-
-
 
 <%@ include file="../../include/footer.jsp" %>
 

@@ -10,40 +10,95 @@
 		<result property="mBirth" column="m_birth"/>
 		<result property="mTel" column="m_tel"/>
 		<result property="mMail" column="m_mail"/>
-		<result property="mRegdate" column="m_regdate"/>
-		<result property="mQuitdate" column="m_quitdate"/>
+		<result property="mRegDate" column="m_regDate"/>
+		<result property="mQuitDate" column="m_quitDate"/>
 		<result property="mCode" column="m_code"/>
 	</resultMap>
 
 
-	<insert id="insertMem">
+	<insert id="insertMem"> <!-- 회원정보 입력(가입) -->
 		insert into t_member values(0, #{mId}, #{mPw}, #{mNm}, #{mBirth}, #{mTel}, #{mMail}, now(), null, #{mCode});
 	</insert>
 	
-	<update id="updateMem">
+	<update id="updateMem"> <!-- 회원정보 수정 -->
 		update t_member set m_pw = #{mPw}, m_tel = #{mTel}, m_mail = #{mMail} where i_member = #{mNo};
 	</update>
 	
-	<update id="secessMem">
+	<update id="secessMem"> <!-- 회원탈퇴(논리삭제) -->
 		update t_member set m_quitdate = now() where i_member = #{mNo};
 	</update>
 	
-	<select id="selectMemList" resultMap="memberResult">
-		select * from t_member order by i_member desc;
+	<select id="selectAllList" resultMap="memberResult"> <!-- 가입한 모든 사람 -->
+		select * from t_member where order by i_member desc;
 	</select>
 	
-	<select id="selectMem" resultMap="memberResult">
+	<select id="selectMemList" resultMap="memberResult"> <!-- 관리자 제외한 회원 -->
+		select * from t_member where i_member != 2 order by i_member desc;
+	</select>
+	
+	<select id="selectMem" resultMap="memberResult"> <!-- 회원번호로 검색 -->
 		select * from t_member where i_member = #{mNo};
 	</select>
 
-	<select id="selectMemById" resultMap="memberResult">
+	<select id="selectMemById" resultMap="memberResult"> <!-- 회원아이디로 검색(로그인시 이용) -->
 		select * from t_member where m_id = #{mId};
 	</select>
 	
-	<select id="getTotalMemCnt" resultType="int">
-		select count(*) from t_member;
+	<select id="getTotalMemCnt" resultType="int"> <!-- 관리자 제외한 회원 카운트 -->
+		select count(*) from t_member where i_member != 2;
 	</select>
 
-	<!--   [ NON-MEMBER PART ]   -->
-
+	<!-- [ MEMBER LIST BY CODE ] -->
+	<sql id="mCodeSearch">
+		<if test="memCode == 0">
+			where m_code = 0
+		</if>
+		<if test="memCode == 1">
+			where m_code = 1
+		</if>
+		<if test="memCode == 2">
+			where m_code = 2
+		</if>
+	</sql>
+	
+	<!-- SEARCH -->
+	<sql id="keywordSearch">
+		<if test='searchType == "mNo"'>
+			and i_member like CONCAT('%', #{keyword}, '%') 
+		</if>
+		<if test='searchType == "mId"'>
+			and m_id like CONCAT('%', #{keyword}, '%') 
+		</if>
+		<if test='searchType == "mNm"'>
+			and m_nm like CONCAT('%', #{keyword}, '%') 
+		</if>
+		<if test='searchType == "mTl"'>
+			and m_tel like CONCAT('%', #{keyword}, '%') 
+		</if>
+		<if test='searchType == "mMl"'>
+			and m_mail like CONCAT('%', #{keyword}, '%') 
+		</if>
+	</sql>
+	
+	<select id="searchList" resultMap="memberResult"> <!-- 회원코드별 검색 (페이징포함) -->
+		select * from t_member 
+		<include refid="mCodeSearch"></include>
+		<include refid="keywordSearch"></include>
+		<if test="state == 1">
+			and m_quitDate is not null
+		</if>
+		order by i_member desc
+		limit #{cri.pageStart}, #{cri.perPageNum}; 
+	</select>
+	
+	<select id="getMemCntByCode" resultType="int"> <!-- 회원코드별 카운트  -->
+		select count(*) from t_member
+		<include refid="mCodeSearch"></include>
+		<include refid="keywordSearch"></include>
+		<if test="state == 1">
+			and m_quitDate is not null
+		</if>
+	</select>
+	
+	
 </mapper>

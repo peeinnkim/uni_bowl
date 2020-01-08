@@ -11,6 +11,7 @@
 		<result property="ntModDate" column="nt_modDate" />
 		<result property="ntViewCnt" column="nt_viewCnt" />
 		<result property="ntIsFixed" column="nt_isFixed" />
+		<result property="ntWriterId" column="m_id" />
 		<collection property="files" ofType="NoticeAttachVO" javaType="list">
 			<id property="naNo" column="i_ntAttach" />
 			<result property="naThumb" column="na_thumb" />
@@ -44,18 +45,44 @@
 		delete from t_notice_attach where i_notice = #{ntNo};
 	</delete>
 
+	<delete id="deleteAttachByName"> 
+		delete from t_notice_attach where na_thumb = #{name} and i_notice = #{ntNo};
+	</delete>
+
 	
 	<!-- SELECT -->
 	<select id="selectList" resultMap="noticeMap">
 		select * from t_notice order by i_notice desc;
 	</select>
 	
+	<select id="selectNotice" resultMap="noticeMap">
+		select * from t_notice left join t_notice_attach using(i_notice) where i_notice = #{ntNo};
+	</select>
+
 	<select id="noticeCnt" resultType="int">
 		select count(*) from t_notice;
 	</select>
 	
-	<select id="selectNotice" resultMap="noticeMap">
-		select * from t_notice left join t_notice_attach using(i_notice) where i_notice = #{ntNo};
+	
+	<!-- SEARCH -->
+	<sql id="search">
+		<if test='searchType == "t"'>
+			where title like CONCAT('%', #{keyword}, '%') 
+		</if>
+		<if test='searchType == "c"'>
+			where content like CONCAT('%', #{keyword}, '%') 
+		</if>
+		<if test='searchType == "tc"'>
+			where title like CONCAT('%', #{keyword}, '%') 
+			or content like CONCAT('%', #{keyword}, '%')
+		</if>
+	</sql>
+	
+	<select id="listSearch" parameterType="SearchCriteria" resultMap="noticeMap">
+		select * from t_notice 
+			<include refid="search"></include>
+			order by i_notice desc 
+			limit #{pageStart}, #{perPageNum};
 	</select>
 	
 </mapper>

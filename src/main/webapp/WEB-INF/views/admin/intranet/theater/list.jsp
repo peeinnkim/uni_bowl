@@ -31,7 +31,7 @@
 			</tr>
 			<tr class="thImg-wrap">
 				<td colspan="6">
-					<img src="resources/img/mark-basarab-1OtUkD_8svc-unsplash.jpg">
+					<img src="${pageContext.request.contextPath}/resources/img/mark-basarab-1OtUkD_8svc-unsplash.jpg">
 				</td>
 			</tr>
 			
@@ -46,7 +46,7 @@
 				</tr>
 				<tr class="thImg-wrap">
 					<td colspan="6">
-						<img src="resources/img/mark-basarab-1OtUkD_8svc-unsplash.jpg">
+						<img src="${pageContext.request.contextPath}/resources/img/mark-basarab-1OtUkD_8svc-unsplash.jpg">
 					</td>
 				</tr>
 			</c:forEach>

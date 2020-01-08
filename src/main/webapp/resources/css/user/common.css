@@ -97,6 +97,16 @@ a {
 	right: 0;
 	top: 0;
 }
+#side-bar > a {
+	width: 60px;
+	height: 60px;
+	display: block;
+	margin: 0 auto;
+}
+#side-bar > a > #tempIntraIco {
+	width: 60px;
+	height: 60px;
+}
 .error{
 	font-size: 13px;
 	color: red;

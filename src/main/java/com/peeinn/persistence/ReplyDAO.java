@@ -10,7 +10,7 @@ public interface ReplyDAO {
 	public void updateReply(QnAReplyVO rp);
 	public void deleteReply(int rpNo);
 	
-	public List<QnAReplyVO> selectReply();
+	public List<QnAReplyVO> selectReplyList();
 	public List<QnAReplyVO> selectReplyByQnaNo(int qnaNo);
 
 	public int getTotalReplyCnt();

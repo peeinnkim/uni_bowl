@@ -24,9 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.peeinn.domain.AuthVO;
 import com.peeinn.domain.QnAAttachVO;
 import com.peeinn.domain.QnAVO;
+import com.peeinn.domain.paging.PageMaker;
+import com.peeinn.domain.paging.SearchCriteria;
 import com.peeinn.service.QnAService;
 import com.peeinn.util.UploadFileUtils;
 
@@ -43,11 +44,16 @@ public class UserBoardController {
 	/* ------------------- [ QNA PART ] ------------------- */
 
 	@RequestMapping(value="list", method=RequestMethod.GET)
-	public void qnaList(Model model) {
+	public void qnaList(Model model, SearchCriteria cri) {
 		logger.info("------------ [qnaList GET] ------------");
 		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(qnaService.qnaCnt());
 		
 		model.addAttribute("list", qnaService.list());
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("cri", cri);
 	}  
 	
 	@RequestMapping(value="regist", method=RequestMethod.GET)
@@ -62,9 +68,7 @@ public class UserBoardController {
 		logger.info("------------ [qnaRegist POST] ------------");
 		logger.info("controller vo ->>>>>>>" + vo);
 		
-		AuthVO auth = (AuthVO) request.getSession().getAttribute("Auth");
-		String nameKey = auth.getAuthId();
-		System.out.println("controller namekey ->>>>>>>>>" + nameKey);
+		System.out.println("controller namekey ->>>>>>>>>" + vo.getQnaWriterId());
 		
 		List<QnAAttachVO> qaList = new ArrayList<QnAAttachVO>();
 		
@@ -73,10 +77,10 @@ public class UserBoardController {
 				logger.info(file.getOriginalFilename() + " / " + file.getSize());
 				
 				String thumbName = UploadFileUtils.uploadFile(userUploadPath, 
-															  nameKey,
+															  vo.getQnaWriterId(),
 														      file.getOriginalFilename(), 
 														      file.getBytes());	
-				String originName = UploadFileUtils.getOriginalFileName(nameKey, thumbName);
+				String originName = UploadFileUtils.getOriginalFileName(vo.getQnaWriterId(), thumbName);
 				qaList.add(new QnAAttachVO(0, thumbName, originName, 0));
 			}
 		}
@@ -93,9 +97,10 @@ public class UserBoardController {
 	}
 	
 	@RequestMapping(value="read", method=RequestMethod.GET)
-	public void qnaReadGet() {
+	public void qnaReadGet(Model model, int qnaNo) {
 		logger.info("------------ [qnaRead GET] ------------");
 		
+		model.addAttribute("qna", qnaService.read(qnaNo));
 	}
 	
 	/* ------------------- [ UPLOAD PART ] ------------------- */

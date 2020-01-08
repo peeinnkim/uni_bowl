@@ -1,6 +1,8 @@
 package com.peeinn.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.peeinn.domain.NoticeAttachVO;
 import com.peeinn.domain.NoticeVO;
+import com.peeinn.domain.paging.SearchCriteria;
 
 @Repository
 public class NoticeDAOImpl implements NoticeDAO {
@@ -54,6 +57,20 @@ public class NoticeDAOImpl implements NoticeDAO {
 	@Override
 	public void deleteNoticeAttach(int ntNo) {
 		sqlSession.delete(namespace + ".deleteNoticeAttach", ntNo);
+	}
+
+	@Override
+	public void deleteAttachByName(String name, int ntNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("ntNo", ntNo);
+		
+		sqlSession.delete(namespace + ".deleteAttachByName", map);
+	}
+
+	@Override
+	public List<NoticeVO> listSearch(SearchCriteria cri) {
+		return sqlSession.selectList(namespace + ".listSearch", cri);
 	}
 
 }

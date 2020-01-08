@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.peeinn.domain.NoticeAttachVO;
 import com.peeinn.domain.NoticeVO;
+import com.peeinn.domain.paging.SearchCriteria;
 import com.peeinn.persistence.NoticeDAO;
 
 @Service
@@ -43,19 +44,31 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public void modifyNotice(NoticeVO nt) {
-		dao.updateNotice(nt);
+	public void modifyNotice(NoticeVO nt, String[] delFiles) {
+		//db에 삭제
+		if(delFiles != null) {
+			for(String file : delFiles) {
+				dao.deleteAttachByName(file, nt.getNtNo());
+			}
+		}
 		
+		//db에 새로 추가할 file 넣음
 		for(NoticeAttachVO na : nt.getFiles()) {
 			na.setNtNo(nt.getNtNo());
 			dao.insertNoticeAttach(na);
 		}
+		dao.updateNotice(nt);
 	}
 
 	@Override
 	public void removeNotice(int ntNo) {
 		dao.deleteNoticeAttach(ntNo);
 		dao.deleteNotice(ntNo);
+	}
+
+	@Override
+	public List<NoticeVO> listSearch(SearchCriteria cri) {
+		return dao.listSearch(cri);
 	}
 	
 

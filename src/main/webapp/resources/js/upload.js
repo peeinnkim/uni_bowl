@@ -1,7 +1,7 @@
 (function(win, $){
 	$(function(){	
 		$("input[type='file']").change(function(){
-			$(".add-wrap").empty();
+			$(".thumb-wrap").empty();
 			
 			var file = $(this)[0].files;
 			var reader = null;
@@ -14,7 +14,7 @@
 					var $spanImg = $("<span>").addClass("thumb-img").append($img);
 					var $li = $("<li>").append($spanImg);
 					
-					$(".add-wrap").append($li);
+					$(".thumb-wrap").append($li);
 				}
 			}
 		})
@@ -22,7 +22,7 @@
 		$(".delX").click(function(){
 			var fileName = $(this).attr("data-src");
 			var $input = $("<input>").attr("type", "hidden").attr("name", "delFiles").val(fileName);
-			$(".thumb-wrap").append($input);
+			$(".add-wrap").append($input);
 			$(this).parent().remove();
 		})
 		

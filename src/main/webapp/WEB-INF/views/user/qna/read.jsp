@@ -3,6 +3,11 @@
 <%@ include file="../../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/user/board.css" type="text/css" rel="stylesheet">
+<style>
+	.modal-wrap{
+		z-index: 1053203;
+	}
+</style>
 
 <div class="section-title">
 	<h1>QNA</h1>
@@ -11,49 +16,60 @@
 <div class="content-area">
 	<div class="read-wrap">
 		<div class="read-title">
-			<h1><span class="category">${qna.qnaCategory}</span>${qna.qnaTitle}</h1>
+			<h1>
+			<span class="category">
+				<c:choose>
+					<c:when test="${qna.qnaCategory == 1}">예약문의</c:when>
+					<c:when test="${qna.qnaCategory == 2}">시설문의</c:when>
+					<c:when test="${qna.qnaCategory == 3}">기타문의</c:when>
+					<c:when test="${qna.qnaCategory == 4}">제안하기</c:when>
+					<c:otherwise>-</c:otherwise>
+				</c:choose>
+			</span>
+			${qna.qnaTitle}
+			</h1>
 			<div class="title-footer">       
 				<dl>
 					<dt>등록일</dt>
-					<dd><fmt:formatDate value="${qna.ntRegDate}" pattern="yyyy-MM-dd HH:mm"/></dd>
+					<dd><fmt:formatDate value="${qna.qnaRegDate}" pattern="yyyy-MM-dd HH:mm:ss"/></dd>
 				</dl>
-				<c:if test="${nt.ntModDate != null}">
+				<c:if test="${qna.qnaModDate != null}">
 				<dl>
 					<dt>수정일</dt>
 					<dd>
-						<fmt:formatDate value="${qna.ntModDate}" pattern="yyyy-MM-dd HH:mm"/>
+						<fmt:formatDate value="${qna.qnaModDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 					</dd>
 				</dl>
 				</c:if>
 				<dl>
 					<dt>조회수</dt>
-					<dd>${qna.ntViewCnt}</dd>
+					<dd>${qna.qnaViewCnt}</dd>
 				</dl>
 			</div>
 		</div>
 		
 		<div class="read-content">
-			<pre>
-				<c:out value="${qna.qnaContent}" />
-			</pre>
+			<pre><c:out value="${qna.qnaContent}" /></pre>
 			
 			<h5>첨부파일</h5>
 			<ul class="imgFiles-wrap">
-				<c:forEach var="rp" items="${qna.files}">
-					<li><!-- 섬네일 디스플레이 -->
-						<span class="thumb-img" data-src="${rp.rpOrigin}">
-							<img src="${pageContext.request.contextPath}/upload/displayFile?fileName=${rp.rpThumb}">
-						</span>
-					</li>
-				</c:forEach>
+				<c:if test="${qna.files[0].qaThumb != null}"> 
+					<c:forEach var="qa" items="${qna.files}">
+						<li><!-- 섬네일 디스플레이 -->
+							<span class="thumb-img" data-src="${qa.qaOrigin}">
+								<img src="${pageContext.request.contextPath}/user/qna/displayFile?fileName=${qa.qaThumb}">
+							</span>
+						</li>
+					</c:forEach>
+				</c:if> 
 			</ul>
 		</div>
 		
 		<div class="read-footer">
-			<a href="${pageContext.request.contextPath}/user/notice/list" class="btn btn-line">LIST</a>
+			<a href="${pageContext.request.contextPath}/user/qna/list" class="btn btn-line">LIST</a>
 			<div class="footer-link">
-				<a href="${pageContext.request.contextPath}/user/notice/modify?ntNo=${qna.qnaNo}">MODIFY</a>
-				<a href="${pageContext.request.contextPath}/user/notice/remove?ntNo=${qna.qnaNo}">REMOVE</a>
+				<a href="${pageContext.request.contextPath}/user/qna/modify?ntNo=${qna.qnaNo}">MODIFY</a>
+				<a href="${pageContext.request.contextPath}/user/qna/remove?ntNo=${qna.qnaNo}">REMOVE</a>
 			</div>
 		</div>
 		
@@ -102,7 +118,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 <script id="template" type="text/x-handlebars-template">
-{{#list}}
+{{#each.}}
 <li data-rpNo={{rpNo}} class="reply-li">
 	<div>
 		<span class="replyer">관리자</span>
@@ -113,26 +129,34 @@
 		<dl>
 			<dt>수정일</dt>
 			<dd>
-				<c:if test=${rpModDate != null}></c:if>
+				<c:if test="${rpModDate != null}"></c:if>
 				{{prettifyDate rpModDate}}
 			</dd>
 		</dl>
+		<span class="top-btn-wrap">
+			<a class="modBtn"></a>
+			<a class="delBtn"></a>
+		</span>
 	</div>
 						
-	<div class="reply-content"><pre>{{rpContent}}</pre></div>
+	<div class="reply-content">
+		<pre>{{rpContent}}</pre>
+		<textarea class="mod-txt">{{rpContent}}</textarea>
+	</div>
+	
 						
 	<div class="reply-btn">
 		<a class="modReply">수정</a>
-		<a class="delReply">삭제</a>
+		<a class="modCancel">취소</a>
 	</div>
 </li>
-{{/list}}
+{{/each}}
 </script>
 <script>
 	/* 이미지 클릭 시 모달창에 원본사진 나오게 하기 */
 	$(document).on("click", ".thumb-img", function(){
 		var src = $(this).attr("data-src");
-		var $img = $("<img>").attr("src", "${pageContext.request.contextPath}/admin/notice/displayFile?fileName="+src);
+		var $img = $("<img>").attr("src", "${pageContext.request.contextPath}/user/qna/displayFile?fileName="+src);
 		var $modalX = $("<span>").addClass("modalX");
 		
 		$(".modal-img").empty();
@@ -155,11 +179,11 @@
 		var year = date.getFullYear();
 		var month = date.getMonth();
 		var d = date.getDate();
-		var hour = date.getHours();
-		var minute = date.getMinutes();
-		var second = date.getSeconds();
+		var h = date.getHours();
+		var min = date.getMinutes();
+		var sec = date.getSeconds();
 		
-		return year + "-" + month + "-" + d + " " + hour + ":" + minute + ":" + second;
+		return year + "-" + month + "-" + d + " " + h + ":" + min + ":" + sec;
 	})
 	
 	function getReplyList(){
@@ -191,10 +215,12 @@
 	$("#addReply").click(function(){
 		var qnaNo = "${qna.qnaNo}";
 		var content = $("#rpContent").val();
+		var writer = 2;
 		
 		var data = JSON.stringify({
 			qnaNo: qnaNo, 
-			content: content
+			rpContent: content,
+			rpWriter: writer
 		});
 		
 		$.ajax({
@@ -215,15 +241,37 @@
 		})
 	})
 	
+	/* 댓글수정창 */
+	$(document).on("click", ".modBtn", function(){
+		//필요한 창과 버튼 표시
+		$(this).closest("li").find(".mod-txt").css("display", "block");
+		$(this).closest("li").find(".reply-btn").css("display", "block");
+		
+		//필요없는 창과 버튼 감추기
+		$(this).closest("li").find("pre").css("display", "none");
+		$(this).closest("li").find(".top-btn-wrap").css("display", "none");
+	})
+
+	/* 댓글수정취소 */
+	$(document).on("click", ".modCancel", function(){
+		//필요한 창과 버튼 표시
+		$(this).closest("li").find("pre").css("display", "block");
+		$(this).closest("li").find(".top-btn-wrap").css("display", "block");
+
+		//필요없는 창과 버튼 감추기
+		$(this).closest("li").find(".mod-txt").css("display", "none");
+		$(this).closest("li").find(".reply-btn").css("display", "none");
+	})
+	
 	/* 댓글수정 */
 	$(document).on("click", ".modReply", function(){
-		var rpNo = $(this).parents(".reply-li").attr("data-rpNo");
-		var content = $("#rpContent").val();
+		var rpNo = $(this).closest("li").attr("data-rpNo");
+		var content = $(this).closest("li").find(".mod-txt").val();
 		
 		$.ajax({
 			url: "${pageContext.request.contextPath}/admin/replies/" + rpNo,
 			type: "put",
-			data: JSON.stringify({rpContent: content}),
+			data: JSON.stringify({rpNo: rpNo, rpContent: content}),
 			dataType: "text",
 			headers: {"Content-Type":"application/json"},
 			success: function(res){
@@ -231,7 +279,7 @@
 				
 				if(res == "success") {
 					alert("수정되었습니다.");
-					getPageList(nPage);
+					getReplyList();
 				}
 			},
 			error: function(e){
@@ -242,8 +290,8 @@
 	
 	
 	/* 댓글삭제 */
-	$(document).on("click", ".delReply", function(){
-		var rpNo = $(this).parents(".reply-li").attr("data-rpNo");
+	$(document).on("click", ".delBtn", function(){
+		var rpNo = $(this).closest("li").attr("data-rpNo");
 		var result = confirm("정말 삭제하시겠습니까?");
 		
 		if(result == true) {

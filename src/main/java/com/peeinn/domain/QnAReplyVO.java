@@ -10,6 +10,8 @@ public class QnAReplyVO {
 	private Date rpModDate; // 리플수정날짜
 	private int qnaNo; // 글 번호
 
+	private String rpWriterId; // 글쓴사람 아이디
+
 	public QnAReplyVO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -71,10 +73,18 @@ public class QnAReplyVO {
 		this.qnaNo = qnaNo;
 	}
 
+	public String getRpWriterId() {
+		return rpWriterId;
+	}
+
+	public void setRpWriterId(String rpWriterId) {
+		this.rpWriterId = rpWriterId;
+	}
+
 	@Override
 	public String toString() {
 		return "QnAReplyVO [rpNo=" + rpNo + ", rpWriter=" + rpWriter + ", rpContent=" + rpContent + ", rpRegDate="
-				+ rpRegDate + ", rpModDate=" + rpModDate + ", qnaNo=" + qnaNo + "]";
+				+ rpRegDate + ", rpModDate=" + rpModDate + ", qnaNo=" + qnaNo + ", rpWriterId=" + rpWriterId + "]";
 	}
 
 }// QnAReplyVO

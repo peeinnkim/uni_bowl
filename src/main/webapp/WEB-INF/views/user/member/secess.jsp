@@ -13,7 +13,7 @@
 		<form id="frm" action="secess" method="post">
 			<h2>본인 확인을 위해 비밀번호를 한 번 더 입력해주세요</h2>
 			<h3>※ 진행중 예약이 있을 경우 탈퇴가 불가능합니다</h3>
-			<input type="hidden" name="mNo" value="${Auth.mNo}">
+			<input type="hidden" name="mNo" value="${Auth.authNo}">
 			<p>
 				<label>PASSWORD</label>
 				<input type="password" name="mPw">

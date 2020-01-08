@@ -5,7 +5,9 @@
 		</div>
 		
 		<div id="side-bar">
-			사이드 푸터			
+			<a href="${pageContext.request.contextPath}/admin/intranet/sales">
+				<img src="resources/img/no-fishing.png" id="tempIntraIco">
+			</a>			
 		</div>
 	</div>
 </body>

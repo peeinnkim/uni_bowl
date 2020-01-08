@@ -13,6 +13,8 @@ public class NoticeVO {
 	private int ntViewCnt; // 조회수
 	private int ntIsFixed; // 상단고정여부 (0: 일반글 / 1: 상단고정)
 
+	private String ntWriterId;
+
 	private List<NoticeAttachVO> files; // 첨부파일목록
 
 	public NoticeVO() {
@@ -104,11 +106,19 @@ public class NoticeVO {
 		this.files = files;
 	}
 
+	public String getNtWriterId() {
+		return ntWriterId;
+	}
+
+	public void setNtWriterId(String ntWriterId) {
+		this.ntWriterId = ntWriterId;
+	}
+
 	@Override
 	public String toString() {
 		return "NoticeVO [ntNo=" + ntNo + ", ntTitle=" + ntTitle + ", ntWriter=" + ntWriter + ", ntContent=" + ntContent
 				+ ", ntRegDate=" + ntRegDate + ", ntModDate=" + ntModDate + ", ntViewCnt=" + ntViewCnt + ", ntIsFixed="
-				+ ntIsFixed + ", files=" + files + "]";
+				+ ntIsFixed + ", ntWriterId=" + ntWriterId + ", files=" + files + "]";
 	}
 
 }// NoticeVO

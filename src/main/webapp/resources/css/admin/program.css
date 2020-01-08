@@ -119,7 +119,25 @@ th {
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
-
+.search-keyword {
+	float: right;
+	margin-bottom: 5px;
+	position: relative;
+}
+#keyword {
+	padding: 10px 40px 7px 10px;
+}
+#btnSearch {
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	background: url("../../img/search.png") no-repeat;
+	cursor: pointer;
+	position: absolute;
+	right: 4px;
+	top: 12.5%;
+	border: none;
+}
 
 /* PROGRAM LIST */
 .menu-wrap {
@@ -127,7 +145,8 @@ th {
 	margin: 0 auto 5px;
 	overflow: hidden;
 }
-#pgstate-sel {
+#pgstate-sel,
+#state-sel {
 	float: right;
 }
 #addPg {
@@ -174,3 +193,30 @@ th {
 	width: 100%;
 }
 
+
+/* PAGINATION */
+.paging-wrap {
+	margin-top: 5px;
+}
+.paging-wrap > .pagination,
+.paging-wrap > p {
+    clear: both;
+    position: relative;
+    font-size: 11px;
+    text-align: center;
+}
+.pagination > li {
+    display: inline-block;
+    margin: 2px 2px 2px 0;
+    padding: 6px 9px 5px 9px;
+    text-decoration: none;
+    background: #0161b4;
+}
+.pagination > li > a {
+    color: #fff;
+}
+.pagination .current{
+    padding: 6px 9px 5px 9px;
+    font-weight: bold;
+    background: #0950E8;
+}

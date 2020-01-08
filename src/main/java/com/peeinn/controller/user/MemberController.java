@@ -35,7 +35,7 @@ public class MemberController {
 	public String joinMemberGet() {
 		logger.info("------------ [joinMember GET] ------------");
 		
-		return "/user/member/inputForm";
+		return "user/member/inputForm";
 	}
 
 	//가입(처리)
@@ -64,7 +64,7 @@ public class MemberController {
 		
 		if(dbMem == null) { //존재하지 않는 회원
 			request.getSession().setAttribute("error", "아이디가 존재하지 않습니다");
-		} else if(dbMem.getmQuitdate() != null) {
+		} else if(dbMem.getmQuitDate() != null) {
 			request.getSession().setAttribute("error", "아이디가 존재하지 않습니다");
 		} else {
 			if(dbMem.getmPw().equals(mem.getmPw())) { //비밀번호 일치
@@ -82,10 +82,13 @@ public class MemberController {
 	@RequestMapping(value="modify", method=RequestMethod.GET)
 	public String modifyGet(Model model, HttpServletRequest request) {
 		logger.info("------------ [modify GET] ------------");
-		MemberVO authMem = (MemberVO) request.getSession().getAttribute("Auth");
-		model.addAttribute("mem", service.searchById(authMem.getmId()));
+		AuthVO auth = (AuthVO) request.getSession().getAttribute("Auth");
+		System.out.println("auth ->>>>>>>>>>>" + auth);
+		int mNo = auth.getAuthNo();
+		System.out.println("mNo ->>>>>>>>>>>" + mNo);
+		model.addAttribute("mem", service.search(mNo));
 		
-		return "/member/inputForm";
+		return "user/member/inputForm";
 	}
 	
 	//정보수정(처리)
@@ -137,7 +140,7 @@ public class MemberController {
 		MemberVO vo = service.search(mNo);
 		
 		if(vo.getmPw().equals(mPw)) {
-			if(vo.getmQuitdate() == null) {
+			if(vo.getmQuitDate() == null) {
 				service.secession(mNo);
 				model.addAttribute("title", "탈퇴");
 				request.getSession().removeAttribute("Auth");
@@ -147,7 +150,7 @@ public class MemberController {
 		} else {
 			model.addAttribute("error", "비밀번호가 일치하지 않습니다.");
 		}
-		return "/member/secess";
+		return "user/member/secess";
 	}
 	
 	//결과(화면)

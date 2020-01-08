@@ -37,13 +37,15 @@
 			
 			<h5>첨부파일</h5>
 			<ul class="imgFiles-wrap">
-				<c:forEach var="na" items="${nt.files}">
-					<li><!-- 섬네일 디스플레이 -->
-						<span class="thumb-img" data-src="${na.naOrigin}">
-							<img src="${pageContext.request.contextPath}/admin/notice/displayFile?fileName=${na.naThumb}">
-						</span>
-					</li>
-				</c:forEach>
+				<c:if test="${nt.files[0].naThumb != null}">
+					<c:forEach var="na" items="${nt.files}">
+						<li><!-- 섬네일 디스플레이 -->
+							<span class="thumb-img" data-src="${na.naOrigin}">
+								<img src="${pageContext.request.contextPath}/admin/notice/displayFile?fileName=${na.naThumb}">
+							</span>
+						</li>
+					</c:forEach>
+				</c:if>
 			</ul>
 		</div>
 		

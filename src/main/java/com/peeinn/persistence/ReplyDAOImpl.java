@@ -31,8 +31,8 @@ public class ReplyDAOImpl implements ReplyDAO {
 	}
 
 	@Override
-	public List<QnAReplyVO> selectReply() {
-		return sqlSession.selectList(namespace + ".selectReply");
+	public List<QnAReplyVO> selectReplyList() {
+		return sqlSession.selectList(namespace + ".selectReplyList");
 	}
 
 	@Override

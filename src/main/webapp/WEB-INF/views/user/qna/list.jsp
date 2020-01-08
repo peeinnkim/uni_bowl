@@ -13,15 +13,25 @@
 		<div class="search-category">
 			<select>
 				<option>분류</option>
+				<option value="1">예약문의</option>
+				<option value="2">시설문의</option>
+				<option value="3">기타문의</option>
+				<option value="4">제안하기</option>
 			</select>
 		</div>
 		
 		<div class="search-keyword">
-			<select>
-				<option>제목</option>
+			<select id="searchType">
+				<option>- - - - - - - -  All  - - - - - - - -</option>
+				<option value="t" ${cri.searchType == 't'? 'selected': ''}>Title</option>
+				<option value="c" ${cri.searchType == 'c'? 'selected': ''}>Content</option>  
+				<option value="w" ${cri.searchType == 'w'? 'selected': ''}>Writer</option>
+				<option value="tc" ${cri.searchType == 'tc'? 'selected': ''}>Title or Content</option>
+				<option value="tw" ${cri.searchType == 'tw'? 'selected': ''}>Content or Writer</option>
+				<option value="tcw" ${cri.searchType == 'tcw'? 'selected': ''}>Title or Content or Writer</option>
 			</select>
-			<input type="text">
-			<button>검색</button>
+			<input type="text" id="keyword" value="${cri.keyword}">
+			<button id="btnSearch"></button>
 		</div>
 	</div>
 	
@@ -37,17 +47,53 @@
 		<c:forEach var="qna" items="${list}">
 			<tr>
 				<td>${qna.qnaNo}</td>
-				<td class="qna-title">${qna.qnaTitle}</td>
-				<td>${qna.qnaWriter}</td>
+				<td class="qna-title"><a href="${pageContext.request.contextPath}/user/qna/read?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
+				<td>${qna.qnaWriterId}</td>
 				<td><fmt:formatDate value="${qna.qnaRegDate}" pattern="yyyy-MM-dd"/></td>
 				<td>${qna.qnaViewCnt}</td>
 			</tr>
 		</c:forEach>
 	</table>
 	
-	<ul id="pagination"></ul>
+	<div class="paging-wrap">
+		<ul class="pagination">
+			<c:if test="${pageMaker.prev == true}">
+				<li class="prev-li">
+					<a href="listPage?page=${pageMaker.startPage}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+						◀
+					</a>
+				</li>
+			</c:if>
+			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+				<li ${idx == pageMaker.cri.page? 'class=active': ''}>
+					<a href="listPage?page=${idx}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+						${idx}
+					</a>									
+				</li>
+			</c:forEach>
+			<c:if test="${pageMaker.next == true}">
+				<li class="next-li">
+					<a href="listPage?page=${pageMaker.endPage+1}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+						▶
+					</a>
+				</li>
+			</c:if>
+		</ul>
+		<p>${pageMaker.cri.page} / ${pageMaker.totalPager} <small>페이지</small></p>
+	</div>
+	
 	<a href="${pageContext.request.contextPath}/user/qna/regist">등록</a>
 </div>	
+
+<script>
+	$("#btnSearch").click(function(){
+		var sType = $("#searchType").val();
+		var sKey = $("#keyword").val();
+		
+		location.href = "list?searchType=" + sType + "&keyword=" + sKey;
+		
+	})
+</script>
 
 <%@ include file="../../include/footer.jsp" %>
 

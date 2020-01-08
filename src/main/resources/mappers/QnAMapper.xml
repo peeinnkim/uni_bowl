@@ -10,6 +10,7 @@
 		<result property="qnaRegDate" column="qna_regDate" />
 		<result property="qnaModDate" column="qna_modDate" />
 		<result property="qnaViewCnt" column="qna_viewCnt" />
+		<result property="qnaWriterId" column="m_id" />
 		<collection property="files" ofType="QnAAttachVO" javaType="list" >
 			<id property="qaNo" column="i_attach" />
 			<result property="qaThumb" column="qa_thumb"/>
@@ -18,8 +19,12 @@
 		</collection>
 	</resultMap>
 	
-	<insert id="insertQnA">
+	<insert id="insertQnA" useGeneratedKeys="true" keyColumn="i_qna" keyProperty="qnaNo">
 		insert into t_qna(qna_title, qna_category, qna_content, i_member) values(#{qnaTitle}, #{qnaCategory}, #{qnaContent}, #{qnaWriter});
+	</insert>
+
+	<insert id="insertQnaAttach">
+		insert into t_qna_attach values(#{qaNo}, #{qaThumb}, #{qaOrigin}, #{qnaNo});
 	</insert>
 	
 	<select id="selectQnAList" resultMap="qnaResult">
@@ -28,9 +33,52 @@
 			order by i_qna desc;
 	</select>
 
+	<select id="selectQnA" resultMap="qnaResult">
+		select m.i_member, m.m_id, qna.*, qa.*
+			from t_qna qna left join t_member m using(i_member)
+			left join t_qna_attach qa using(i_qna) 
+			where i_qna = #{qnaNo};
+	</select>
+
 	<select id="getTotalQnACnt" resultType="int">
 		select count(*) from t_qna;
 	</select>
 	
+	<!-- SEARCH -->
+	<sql id="search">
+		<if test='searchType == "t"'>
+			where qna_title like CONCAT('%', #{keyword}, '%') 
+		</if>
+		<if test='searchType == "c"'>
+			where qnaContent like CONCAT('%', #{keyword}, '%') 
+		</if>
+		<if test='searchType == "w"'>
+			where qnaWriterId like CONCAT('%', #{keyword}, '%') 
+		</if>
+		<if test='searchType == "tc"'>
+			where qna_title like CONCAT('%', #{keyword}, '%') 
+			or qnaContent like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test='searchType == "tw"'>
+			where qna_title like CONCAT('%', #{keyword}, '%') 
+			or qnaWriterId like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test='searchType == "tcw"'>
+			where qna_title like CONCAT('%', #{keyword}, '%') 
+			or qnaContent like CONCAT('%', #{keyword}, '%') 
+			or qnaWriterId like CONCAT('%', #{keyword}, '%')
+		</if>
+	</sql>
+	
+	<select id="listSearch" parameterType="SearchCriteria" resultType="QnAVO">
+		select m.i_member, m.m_id, qna.*
+			from t_qna qna left join t_member m using(i_member)
+			left join t_qna_attach qa using(i_qna) 
+			<include refid="search"></include>
+			order by i_qna desc 
+			limit #{pageStart}, #{perPageNum};
+	</select>
+	
+
 
 </mapper>

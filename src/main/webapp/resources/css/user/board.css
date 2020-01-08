@@ -10,6 +10,8 @@
 }
 .search-keyword {
 	float: right;
+	margin-bottom: 5px;
+	position: relative;
 }
 .search-keyword > select,
 .search-keyword > input,
@@ -29,13 +31,27 @@ option {
 }
 input {
 	padding: 10px 10px 7px;
-	background: white;
     border: none;
     border-bottom: 2px solid black;
     outline: grey;
 }
 button {
 	padding: 7px;
+	background: transparent;
+	border: none;
+}
+#keyword {
+	padding: 10px 40px 7px 10px;
+}
+#btnSearch {
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	background: url("../../img/search.png") no-repeat;
+	cursor: pointer;
+	position: absolute;
+	right: 4px;
+	top: 12.5%;
 }
 table {
 	border-collapse: collapse;
@@ -56,6 +72,31 @@ th, td {
 	text-align: left;
 	text-overflow: ellipsis;
 	overflow: hidden;
+}
+.paging-wrap {
+	margin-top: 5px;
+}
+.paging-wrap > .pagination,
+.paging-wrap > p {
+    clear: both;
+    position: relative;
+    font-size: 11px;
+    text-align: center;
+}
+.pagination > li {
+    display: inline-block;
+    margin: 2px 2px 2px 0;
+    padding: 6px 9px 5px 9px;
+    text-decoration: none;
+    background: #0161b4;
+}
+.pagination > li > a {
+    color: #fff;
+}
+.pagination .current{
+    padding: 6px 9px 5px 9px;
+    font-weight: bold;
+    background: #0950E8;
 }
 
 /* ------------ [REGIST] ------------ */
@@ -97,6 +138,7 @@ textarea {
 }
 .thumb-wrap > li, 
 .add-wrap > li {
+	min-height: 100px;
 	padding: 5px;
 	float: left;
 	overflow: hidden;
@@ -280,9 +322,12 @@ dd {
 	width: 98%;
 	margin: 15px auto;	
 }
-.reply-list > li {
+.reply-list > .reply-li {
 	border: 2px solid black;
 	padding: 20px 25px 15px;
+}
+.reply-li > div:first-child {
+	overflow: hidden;
 }
 .replyer {
 	font-size: 16px;
@@ -294,25 +339,57 @@ dd {
 	font-style: normal;
 	font-size: 12px;
 }
-.reply-content pre {
+.reply-content > pre {
+	width: 98%;
 	background: yellow;
+	height: 45px;
     padding: 10px;
     margin: 9px 0;
     font-size: 14px;
     line-height: 25px;
 }
+.reply-content > .mod-txt {
+	width: 98%;
+	height: 45px;
+    padding: 10px;
+    margin: 9px 0;
+    font-size: 14px;
+    line-height: 25px;
+    display: none;
+}
+.top-btn-wrap {
+	float: right;
+}
+.modBtn {
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	background: url("../../img/write.png") no-repeat;
+	transform: rotate(180deg);
+	cursor: pointer;
+}
+.delBtn {
+	width: 24px;
+	height: 24px;
+	margin-left: 9px;
+	display: inline-block;
+	background: url("../../img/remove.png") no-repeat;
+	cursor: pointer;
+}
 .reply-btn {
 	text-align: right;
+	display: none;
 }
 .reply-btn > a {
 	height: 45px;
 	margin-left: 11px;
 	padding: 12px;
-	background: green;
 	line-height: 45px;
-	cursor: pointer;
+	background-color: #fff;
+    border: 1px solid #888;
+    color: #888;
+    cursor: pointer;
 }
-
 
 
 

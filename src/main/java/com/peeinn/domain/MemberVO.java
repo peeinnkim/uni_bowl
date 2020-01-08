@@ -10,8 +10,8 @@ public class MemberVO {
 	private String mBirth; // 생일
 	private String mTel; // 전화번호
 	private String mMail; // 메일
-	private Date mRegdate; // 가입일
-	private Date mQuitdate; // 탈퇴일 (탈퇴일 존재여부로 탈퇴회원 구분)
+	private Date mRegDate; // 가입일
+	private Date mQuitDate; // 탈퇴일 (탈퇴일 존재여부로 탈퇴회원 구분)
 	private int mCode; // 회원분류코드(0: 회원 / 1: 비회원 / 2: 운영자)
 
 	public int getmNo() {
@@ -70,20 +70,20 @@ public class MemberVO {
 		this.mMail = mMail;
 	}
 
-	public Date getmRegdate() {
-		return mRegdate;
+	public Date getmRegDate() {
+		return mRegDate;
 	}
 
-	public void setmRegdate(Date mRegdate) {
-		this.mRegdate = mRegdate;
+	public void setmRegDate(Date mRegDate) {
+		this.mRegDate = mRegDate;
 	}
 
-	public Date getmQuitdate() {
-		return mQuitdate;
+	public Date getmQuitDate() {
+		return mQuitDate;
 	}
 
-	public void setmQuitdate(Date mQuitdate) {
-		this.mQuitdate = mQuitdate;
+	public void setmQuitDate(Date mQuitDate) {
+		this.mQuitDate = mQuitDate;
 	}
 
 	public int getmCode() {
@@ -97,7 +97,7 @@ public class MemberVO {
 	@Override
 	public String toString() {
 		return "MemberVO [mNo=" + mNo + ", mId=" + mId + ", mPw=" + mPw + ", mNm=" + mNm + ", mBirth=" + mBirth
-				+ ", mTel=" + mTel + ", mMail=" + mMail + ", mRegdate=" + mRegdate + ", mQuitdate=" + mQuitdate
+				+ ", mTel=" + mTel + ", mMail=" + mMail + ", mRegDate=" + mRegDate + ", mQuitDate=" + mQuitDate
 				+ ", mCode=" + mCode + "]";
 	}
 

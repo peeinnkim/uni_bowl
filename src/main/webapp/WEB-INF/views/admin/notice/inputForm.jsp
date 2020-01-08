@@ -13,6 +13,7 @@
 	<div class="form-wrap">
 		<form id="frm" ${nt.ntNo == null? 'action="regist"': 'action="modify"'} method="post" enctype="multipart/form-data">
 			<input type="text" name="ntNo" value="${nt.ntNo == null? '0': nt.ntNo}">
+			<input type="text" name="ntWriter" value="${Auth.authNo}">
 			<p>
 				<label>상단고정</label>
 				<input type="checkbox" ${nt.ntIsFixed == null ? '' : (nt.ntIsFixed == 0? '': 'checked="checked"')}>
@@ -35,7 +36,7 @@
 	 				<c:forEach var="na" items="${nt.files}">
 						<li>
 							<span class="thumb-img">
-								<img src="${pageContext.request.contextPath}/user/notice/displayFile?fileName=${na.naThumb}">
+								<img src="${pageContext.request.contextPath}/admin/notice/displayFile?fileName=${na.naThumb}">
 								<span class="delX" data-src="${na.naThumb}"></span>
 							</span>
 						</li>

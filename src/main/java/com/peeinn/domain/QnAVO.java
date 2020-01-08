@@ -13,6 +13,8 @@ public class QnAVO {
 	private Date qnaModDate; // 문의수정날짜
 	private int qnaViewCnt; // 조회수
 
+	private String qnaWriterId; // 글쓴사람 아이디
+
 	private List<QnAAttachVO> files; // 첨부파일 모음
 
 	public int getQnaNo() {
@@ -79,6 +81,14 @@ public class QnAVO {
 		this.qnaViewCnt = qnaViewCnt;
 	}
 
+	public String getQnaWriterId() {
+		return qnaWriterId;
+	}
+
+	public void setQnaWriterId(String qnaWriterId) {
+		this.qnaWriterId = qnaWriterId;
+	}
+
 	public List<QnAAttachVO> getFiles() {
 		return files;
 	}
@@ -91,7 +101,7 @@ public class QnAVO {
 	public String toString() {
 		return "QnAVO [qnaNo=" + qnaNo + ", qnaTitle=" + qnaTitle + ", qnaWriter=" + qnaWriter + ", qnaContent="
 				+ qnaContent + ", qnaCategory=" + qnaCategory + ", qnaRegDate=" + qnaRegDate + ", qnaModDate="
-				+ qnaModDate + ", qnaViewCnt=" + qnaViewCnt + ", files=" + files + "]";
+				+ qnaModDate + ", qnaViewCnt=" + qnaViewCnt + ", qnaWriterId=" + qnaWriterId + ", files=" + files + "]";
 	}
 
 }// QnAVO

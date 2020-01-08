@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 <link href="${pageContext.request.contextPath}/resources/css/admin/common.css" type="text/css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 </head>
 <body>
 	<div id="container">
@@ -19,10 +20,11 @@
 	
 		<div class="intra-nav">
 			<ul>
-				<li><a href="#">매출관리</a></li>
-				<li><a href="#">예약관리</a></li>
-				<li><a href="#">상영관관리</a></li>
-				<li><a href="#">회원관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/intranet/sales">매출관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/intranet/sales">예약관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/intranet/program/list">프로그램관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/intranet/theater/list">상영관관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/intranet/member?memCode=0">회원관리</a></li>
 			</ul>
 		</div>
 		
