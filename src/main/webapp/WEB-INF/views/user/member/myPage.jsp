@@ -1,49 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../../include/header.jsp" %>
 
-<style>
-	.form-wrap {
-		background: white;
-		width: 90%;
-		padding: 20px;
-		margin: 0 auto;
-	}
-	.mp-top {
-		overflow: hidden;
-    	padding: 35px 30px;
-    	border-top: 2px solid #000;
-    	border-bottom: 1px solid #ccc;
-	}
-	.mp-top > h1 {
-	    font-size: 35px;
-    	font-weight: normal;
-	}
-	.mp-top > h1 > small {
-		font-size: 20px;
-	}
-	#mod-info {
-	    width: 27px;
-	    height: 27px;
-	    display: inline-block;
-	    background: url(/uni_bowl/resources/img/settings.png) no-repeat center;
-	    background-size: contain;
-	    vertical-align: baseline;
-	}
-	.mp-bottom {
-	    padding: 35px 30px;
-    	border-bottom: 1px solid #ccc;
-	}
-	.mp-bottom > table {
-		border-collapse: collapse;
-		width: 100%;
-		margin: 0 auto;
-	}
-	.mp-bottom > table td,
-	.mp-bottom > table th  {
-		border: 1px solid black;
-		padding: 3px;
-	}
-</style>
+<link href="${pageContext.request.contextPath}/resources/css/user/myPage.css" type="text/css" rel="stylesheet">
 
 <div class="section-title">
 	<h1>MY PAGE</h1>
@@ -58,21 +16,42 @@
 		</div>
 		<div class="mp-bottom">
 			<div class="rsv-info">
-				진행중 예약: 3건
-				<a href="#">전체보기</a>
+				<h2>나으예약</h2>
+				<span>진행중 예약: <span id="cur-rsvCnt">3</span>건</span>
+				<a href="${pageContext.request.contextPath}/user/rsv/list" id="show-allRsv">전체보기</a>
 			</div>
-			<table>
+			<table id="main-tb">
 				<tr>
 					<th>예약번호</th>
 					<th>프로그램명</th>
 					<th>상영날짜</th>
-					<th>취소하기</th>
+					<th>상영관</th>
+					<th>예약상태</th>
+					<th>예약취소</th>
 				</tr>
-				<tr>
+				<tr class="added-tr">
 					<td>1234</td>
-					<td>어쩌구저쩌구 이런 프로그램</td>
+					<td class="list-title"><a href="#">어쩌구저쩌구 이런 프로그램</a></td>
 					<td>2020-01-03 14:30</td>
-					<td><button>취소</button></td>
+					<td>어쩌구관</td>
+					<td>결제완료</td>
+					<td><a href="#" class="cancelRsvBtn"></a></td>
+				</tr>
+				<tr class="added-tr">
+					<td>1234</td>
+					<td class="list-title"><a href="#">어쩌구저쩌구 이런 프로그램</a></td>
+					<td>2020-01-03 14:30</td>
+					<td>어쩌구관</td>
+					<td>결제완료</td>
+					<td><a href="#" class="cancelRsvBtn"></a></td>
+				</tr>
+				<tr class="added-tr">
+					<td>1234</td>
+					<td class="list-title"><a href="#">어쩌구저쩌구 이런 프로그램</a></td>
+					<td>2020-01-03 14:30</td>
+					<td>어쩌구관</td>
+					<td>결제완료</td>
+					<td><a href="#" class="cancelRsvBtn"></a></td>
 				</tr>
 			</table>
 		</div>

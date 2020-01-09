@@ -34,6 +34,44 @@
 		</div>
 		
 		<ul class="pg-list">
+			<li>
+				<div class="pgTime-wrap">
+					<span class="pgTime hour"><em>29</em>시</span>
+					<span class="pgTime minute"><em>60</em>분</span>			
+				</div>
+				<div class="pgTitle-wrap">
+					<a href="#">웅앵웅앵 제목제목 웅asdfasdfadsf</a>  
+				</div>
+				<div class="pgDel-wrap">
+					<span class="delX"></span>
+				</div>
+			</li>
+			<li>
+				<div class="pgTime-wrap">
+					<span class="pgTime hour"><em>29</em>시</span>
+					<span class="pgTime minute"><em>60</em>분</span>			
+				</div>
+				<div class="pgTitle-wrap">
+					<a href="#">웅앵웅앵 제목제목 웅asd</a>  
+				</div>
+				<div class="pgDel-wrap">
+					<span class="delX"></span>
+				</div>
+			</li>
+			<li>
+				<div class="pgTime-wrap">
+					<span class="pgTime hour"><em>29</em>시</span>
+					<span class="pgTime minute"><em>60</em>분</span>			
+				</div>
+				<div class="pgTitle-wrap">
+					<a href="#">웅앵웅앵 제목제목 웅asf</a>  
+				</div>
+				<div class="pgDel-wrap">
+					<span class="delX"></span>
+				</div>
+			</li>
+		
+		
 <%-- 			<c:forEach var="pg" items="${list}">
 				<li>
 					<div class="pgTime-wrap">

@@ -8,7 +8,7 @@
 <div class="content-wrap">
 	<div class="cont-center">
 		<div class="menu-wrap">
-			<a href="${pageContext.request.contextPath}/admin/intranet/program/regist" id="addPg"></a>
+			<a href="${pageContext.request.contextPath}/admin/intranet/theater/regist" id="addPg"></a>
 		</div>
 		
 		<table>

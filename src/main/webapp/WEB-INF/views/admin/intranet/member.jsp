@@ -33,6 +33,7 @@
 		background: green;
 	}
 </style>
+<script src="${pageContext.request.contextPath}/resources/js/getSearchList.js"></script>
 
 <h2>회원관리</h2>
 
@@ -59,7 +60,7 @@
 				<button id="btnSearch"></button>
 			</div>
 				
-			<c:if test="${memCode != 1}">
+			<c:if test="${cri.memCode != 1}">
 				<select id="state-sel">
 					<option value="0" selected="selected">전체회원</option>
 					<option value="1">탈퇴회원</option>
@@ -68,7 +69,7 @@
 		</div>
 		
 		
-		<table id="mem-tb">
+		<table id="main-tb">
 			<tr>
 				<th>회원번호</th>
 				<th>아이디</th>
@@ -136,6 +137,7 @@
 </div>
 
 
+
 <!-- HandleBars -->
 <script id="template" type="text/x-handlebars-template">
 	{{#list}}
@@ -153,6 +155,30 @@
 </script>
 
 <script>
+	//탭에 따라 클래스 바꾸기
+	setOnClass();
+	function setOnClass(){
+		$("#mem-sel > li").removeClass("on");
+		$("#mem-sel > li:eq(${memCode})").addClass("on");
+	}
+	
+	//변경되는 상태에 따라 리스트 뿌리기
+	$("#state-sel").change(function(){
+		var data = {"memCode": ${cri.memCode} , 
+					"state": $("#state-sel").val() , 
+					"searchType": $("#searchType").val(), 
+					"keyword": $("#keyword").val(), 
+					"page": 1, 
+					"perPageNum": 10};
+		
+		getListPage(data);
+		
+	}) 
+	
+</script>
+
+
+<script>
 	var nPage = 1;
 	
 	//페이지 누르면 페이지 정보 바뀌기
@@ -167,7 +193,7 @@
 		$("#mem-sel > li:eq(${memCode})").addClass("on");
 	}
 
-	//동적 추가되는 테이블 
+	//동적 추가되는 테이블 날짜
 	Handlebars.registerHelper("prettifyDate", function(dd){
 		if(dd == null) {
 			return "-";
@@ -178,16 +204,19 @@
 		var month = date.getMonth()+1;
 		var d = date.getDate();
 		
-		if(month < 10) {
-			month = "0" + month;
-		}
-		
-		return year + "/" + month + "/" + d;
+		return year + "-" + zeroZeroDate(month) + "-" + zeroZeroDate(d);;
 	})
+	
+	function zeroZeroDate(val){
+		if(val < 10) {
+			val = "0" + val;
+		}
+		return val;
+	}
 	
 	//변경되는 상태에 따라 리스트 뿌리기
 	$("#state-sel").change(function(){
-		var data = {"memCode": "${memCode}" , 
+		var data = {"memCode": ${cri.memCode} , 
 					"state": $("#state-sel").val() , 
 					"searchType": $("#searchType").val(), 
 					"keyword": $("#keyword").val(), 
@@ -200,7 +229,7 @@
 	
 	//키워드 검색에 따라 리스트 뿌리기
 	$("#btnSearch").click(function(){
-		var data = {"memCode": "${memCode}" , 
+		var data = {"memCode": ${cri.memCode} , 
 				"state": $("#state-sel").val() , 
 				"searchType": $("#searchType").val(), 
 				"keyword": $("#keyword").val(), 
@@ -226,8 +255,8 @@
 				var func = Handlebars.compile(source);
 				var str = func(res);
 				
-				//댓글 리스트 가져오기
-				$("#mem-tb").append(str);
+				//리스트 추가
+				$("#main-tb").append(str);
 				
 				//페이지네이션 지우기
 				$(".pagination").empty();

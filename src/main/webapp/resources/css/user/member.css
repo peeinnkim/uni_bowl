@@ -1,25 +1,6 @@
 @charset "UTF-8";
 
 /* ------------ [INPUT TAP] ------------ */
-select {
-    padding: 7px 10px 8px 2px;
-    background: white;
-    border: none;
-    border-bottom: 2px solid black;
-	outline-color: grey;
-}
-option {
-	padding: 7px 10px 7px 2px;
-}
-input {
-	padding: 11px 10px 8px;
-	background: #EAEAEA;
-    border: none;
-    outline-color: grey;
-}
-button {
-	padding: 7px;
-}
 .form-wrap {
 	background: white;
 	width: 60%;

@@ -166,6 +166,4 @@ public class MemberController {
 		
 	}
 	
-	
-	
 }//MemberController

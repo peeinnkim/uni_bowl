@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.TheaterMapper">
+
+	<resultMap type="TheaterVO" id="thResult">
+		<id property="thNo" column="i_theater" />
+		<result property="thNm" column="th_nm" />
+		<result property="thSeatCnt" column="th_seatCnt" />
+		<result property="thFloor" column="th_floor" />
+		<result property="thChart" column="th_chart" />
+	</resultMap>
+
+	<insert id="insertTh">
+		insert into t_theater values(0, #{thNm}, #{thSeatCnt}, #{thFloor}, #{thChart});
+	</insert>
+	
+	<select id="selectList" resultMap="thResult">
+		select * from t_theater order by th_nm asc;
+	</select>
+
+</mapper>

@@ -30,7 +30,10 @@
 	
 	<update id="updatePg">
 		update t_program 
-			set pg_title = #{pgTitle}, pg_detail = #{pgDetail}, pg_poster = #{pgPoster}, pg_thumb = #{pgThumb}, pg_time = #{pgTime}, pg_isRunning = #{pgIsRunning}
+			set pg_title = #{pgTitle}, pg_detail = #{pgDetail}, pg_time = #{pgTime}, pg_isRunning = #{pgIsRunning}
+			<if test="pgPoster != null and pgThumb != null">
+				, pg_poster = #{pgPoster}, pg_thumb = #{pgThumb} 
+			</if>
 			where i_program = #{pgNo};
 	</update>
 	

@@ -3,7 +3,7 @@ package com.peeinn.service;
 import java.util.List;
 
 import com.peeinn.domain.MemberVO;
-import com.peeinn.domain.paging.SearchCriteria;
+import com.peeinn.domain.paging.CodeStateCriteria;
 
 public interface MemberService {
 	
@@ -12,13 +12,13 @@ public interface MemberService {
 	public void secession(int mNo);
 	
 	public List<MemberVO> list();
-	public List<MemberVO> searchList(SearchCriteria cri, int memCode, int state);
+	public List<MemberVO> searchList(CodeStateCriteria cri);
 	
 	public MemberVO search(int mNo);
 	public MemberVO searchById(String mId);
 
 	public int totalCnt();
-	public int totalCntByCode(SearchCriteria cri, int memCode, int state);
+	public int totalCntByCode(CodeStateCriteria cri);
 	
 	
 	/* ------------ [NON-MEMBER] ------------ */

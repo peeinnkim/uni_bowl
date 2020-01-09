@@ -70,6 +70,11 @@ public class NoticeServiceImpl implements NoticeService {
 	public List<NoticeVO> listSearch(SearchCriteria cri) {
 		return dao.listSearch(cri);
 	}
+
+	@Override
+	public int listSearchCnt(SearchCriteria cri) {
+		return dao.listSearchCnt(cri);
+	}
 	
 
 }

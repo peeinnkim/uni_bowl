@@ -5,6 +5,40 @@
 <title>Insert title here</title>
 <link href="resources/css/user/common.css" type="text/css" rel="stylesheet">
 <link href="resources/css/user/board.css" type="text/css" rel="stylesheet">
+<style>
+.list-title {
+	width: 43%;
+}
+.mp-bottom > table td {
+	padding: 20px 5px;
+	text-align: center;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	font-size: 15px;
+}
+.mp-bottom > table th {
+	font-size: 15px;
+	padding: 10px 5px;
+	text-align: center;
+	border-top: 2px solid black;
+	border-bottom: 1px dotted grey;
+}
+.list-title {
+	width: 43%;
+}
+.cancelRsvBtn {
+	width: 45px;
+	height: 20px;
+	padding: 5px;
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+    background: pink;
+    font-size: 14px;
+    border-radius: 5px 5px;
+    box-shadow: 0px 1px 2px grey;
+}
+</style>
 </head>
 <body>
 	<div id="container">
@@ -40,96 +74,42 @@
 		
 		<div id="section">
 			<div class="inner-section">
+
+<div class="section-title">
+	<h1>MY RESERVATION</h1>
+</div>
+
 <div class="content-area">
-	<div class="read-wrap">
-		<div class="read-title">
-			<h1><span class="category">${qna.qnaCategory}</span>${qna.qnaTitle}</h1>
-			<div class="title-footer">       
-				<dl>
-					<dt>등록일</dt>
-					<dd><fmt:formatDate value="${qna.ntRegDate}" pattern="yyyy-MM-dd HH:mm"/></dd>
-				</dl>
-				<c:if test="${nt.ntModDate != null}">
-				<dl>
-					<dt>수정일</dt>
-					<dd>
-						<fmt:formatDate value="${qna.ntModDate}" pattern="yyyy-MM-dd HH:mm"/>
-					</dd>
-				</dl>
-				</c:if>
-				<dl>
-					<dt>조회수</dt>
-					<dd>${qna.ntViewCnt}</dd>
-				</dl>
-			</div>
-		</div>
-		
-		<div class="read-content">
-			<pre>
-				<c:out value="${qna.qnaContent}" />
-			</pre>
-			
-			<h5>첨부파일</h5>
-			<ul class="imgFiles-wrap">
-				<c:forEach var="rp" items="${qna.files}">
-					<li><!-- 섬네일 디스플레이 -->
-						<span class="thumb-img" data-src="${rp.rpOrigin}">
-							<!-- <img src="${pageContext.request.contextPath}/upload/displayFile?fileName=${rp.rpThumb}"> -->
-						</span>
-					</li>
-				</c:forEach>
-			</ul>
-		</div>
-		
-		<div class="read-footer">
-			<a href="#" class="btn btn-line">LIST</a>
-			<div class="footer-link">
-				<a href="${pageContext.request.contextPath}/user/notice/modify?ntNo=${qna.qnaNo}">MODIFY</a>
-				<a href="${pageContext.request.contextPath}/user/notice/remove?ntNo=${qna.qnaNo}">REMOVE</a>
-				<a href="${pageContext.request.contextPath}/user/notice/list">LIST</a>
-			</div>
-		</div>
-		
-		<div class="modal-wrap"> <!-- 이미지 클릭시 나오는 모달창 -->
-			<div class="modal-img"></div>
-		</div>
-		
-		<div class="reply-wrap">
-			<div class="reply-input">
-				<textarea></textarea>
-				<a href="#">등록</a>
-			</div>
-			<div class="reply-list-wrap">
-				<ul class="reply-list">
-					<li>
-						<div>
-							<span class="replyer">관리자</span>
-							<dl>
-								<dt>등록일</dt>
-								<dd>
-									2020-01-03 12:22:30
-								</dd>
-							</dl>
-							<dl>
-								<dt>수정일</dt>
-								<dd>
-									2020-01-03 12:22:30
-								</dd>
-							</dl>
-						</div>
-						
-						<div class="reply-content">댓글<br>ㅁㄴㅇㄹ<br>ㅁㅇㄹㄴ</div>
-						
-						<div class="reply-btn">
-							<a href="#">수정</a>
-							<a href="#">삭제</a>
-						</div>
-					</li>
-				</ul>
-			</div>
+	<div class="search-wrap">
+		<div class="search-category">
+			<select>
+				<option>예약전체</option>
+				<option value="1">진행중</option>
+				<option value="2">종료</option>
+				<option value="3">취소</option>
+			</select>
 		</div>
 	</div>
-</div>		
+	
+	<table id="main-tb">
+		<tr>
+			<th>예약번호</th>
+			<th>프로그램명</th>
+			<th>상영날짜</th>
+			<th>상영관</th>
+			<th>예약상태</th>
+			<th></th>
+		</tr>
+		<tr class="added-tr">
+			<td>1234</td>
+			<td class="list-title"><a href="#">어쩌구저쩌구 이런 프로그램</a></td>
+			<td>2020-01-03 14:30</td>
+			<td>어쩌구관</td>
+			<td>결제완료</td>
+			<td><a href="#" class="cancelRsvBtn">취소</a></td>
+		</tr>
+	</table>
+</div>			
 			</div>
 		</div>
 		

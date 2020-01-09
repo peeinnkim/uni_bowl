@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.peeinn.domain.MemberVO;
-import com.peeinn.domain.paging.SearchCriteria;
+import com.peeinn.domain.paging.CodeStateCriteria;
 import com.peeinn.persistence.MemberDAO;
 
 @Service
@@ -51,14 +51,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<MemberVO> searchList(SearchCriteria cri, int memCode, int state) {
+	public List<MemberVO> searchList(CodeStateCriteria cri) {
 		System.out.println("SERVICE CRI->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + cri);
-		return dao.searchList(cri, memCode, state);
+		return dao.searchList(cri);
 	}
 
 	@Override
-	public int totalCntByCode(SearchCriteria cri, int memCode, int state) {
-		return dao.getMemCntByCode(cri, memCode, state);
+	public int totalCntByCode(CodeStateCriteria cri) {
+		return dao.getMemCntByCode(cri);
 	}
 
 }//MemberServiceImpl

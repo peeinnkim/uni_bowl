@@ -17,4 +17,9 @@ public class RsvController {
 		logger.info("------------ [RSV1 GET] ------------");
 	}
 	
+	@RequestMapping(value="list", method=RequestMethod.GET)
+	public void rsvList() {
+		logger.info("------------ [rsvList GET] ------------");
+	}
+	
 }//RsvController

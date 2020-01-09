@@ -21,5 +21,6 @@ public interface NoticeDAO {
 	public List<NoticeVO> listSearch(SearchCriteria cri);
 	
 	public int noticeCnt();
+	public int listSearchCnt(SearchCriteria cri);
 	
 }//NoticeDAO

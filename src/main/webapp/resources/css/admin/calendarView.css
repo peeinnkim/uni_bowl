@@ -19,7 +19,7 @@
 }
 #prevBtn {
 	float: left;
-	background: url("../../img/prev.png") no-repeat;
+	background: url("../../img/icon/prev.png") no-repeat;
    	display: inline-block;
     width: 40px;
     height: 40px;
@@ -29,7 +29,7 @@
 }
 #nextBtn {
 	float: left;
-	background: url("../../img/next.png") no-repeat;
+	background: url("../../img/icon/next.png") no-repeat;
 	display: inline-block;
     width: 40px;
     height: 40px;
@@ -83,7 +83,7 @@
 	width: 80%;
 }
 #addPg {
-    background: url(../../img/plus.png) no-repeat;
+    background: url(../../img/icon/plus.png) no-repeat;
     display: inline-block;
     width: 27px;
     height: 27px;
@@ -94,15 +94,17 @@
 .pg-list > li {
 	width: 100%;
 	height: 80px;
+	padding: 5px 0;
 	border: 2px solid black;
+	border-radius: 10px;
 	overflow: hidden;
 	margin: 5px 0;
 }
 .pg-list > li > .pgTime-wrap {
-	width: 19%;
+	width: 18%;
 	height: 100%;
-	background: beige;
 	float: left;
+	border-right: 3px dashed silver;
 }
 .pgTime {
 	display: block;
@@ -114,29 +116,30 @@
 }
 .pg-list > li > .pgTitle-wrap {
 	float: left;
+	width: 72%;
 	height: 100%;
-	background: pink;
 	padding-left: 8px;
+}
+.pgTitle-wrap > a {
+	width: 100%;
+	font-size: 1.2em;
+	display: inline-block;
+	line-height: 80px;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
-.pgTitle-wrap > a {
-	font-size: 1.3em;
-	display: inline-block;
-	line-height: 80px;
-}
 .pg-list > li > .pgDel-wrap {
 	float: right;
-	width: 24px;
+	width: 7%;
 	height: 100%;
-	background: dimgrey;
 }
 .delX {
 	width: 24px;
     height: 24px;
-    display: inline-block;
-    background: url(../../img/remove.png) no-repeat;
+    display: block;
+    margin: 28px auto 0;
+    background: url(../../img/icon/delete.png) no-repeat;
+    background-size: contain;
     cursor: pointer;
-    margin-top: 100%;
 }
 

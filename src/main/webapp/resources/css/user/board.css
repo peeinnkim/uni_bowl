@@ -19,27 +19,6 @@
 	float: left;
 	margin: 0px 3px;
 }
-select {
-    padding: 7px 10px 8px 2px;
-    background: white;
-    border: none;
-    border-bottom: 2px solid black;
-    outline: grey;
-}
-option {
-	padding: 7px 10px 7px 2px;
-}
-input {
-	padding: 10px 10px 7px;
-    border: none;
-    border-bottom: 2px solid black;
-    outline: grey;
-}
-button {
-	padding: 7px;
-	background: transparent;
-	border: none;
-}
 #keyword {
 	padding: 10px 40px 7px 10px;
 }
@@ -47,7 +26,7 @@ button {
 	width: 24px;
 	height: 24px;
 	display: inline-block;
-	background: url("../../img/search.png") no-repeat;
+	background: url("../../img/icon/search.png") no-repeat;
 	cursor: pointer;
 	position: absolute;
 	right: 4px;
@@ -58,14 +37,14 @@ table {
 	width: 90%;
 	margin: 0 auto;
 }
-th {
-	border-top: 2px solid black;
-}
 th, td {
 	padding: 20px 5px;
 	text-align: center;
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
+}
+th {
+	border-top: 2px solid black;
 }
 .list-title {
 	width: 70%;
@@ -160,7 +139,7 @@ textarea {
     position: absolute;
     right: 2px;
     top: 3px;
-    background: url(../../img/remove.png) no-repeat;
+    background: url(../../img/icon/remove.png) no-repeat;
     cursor: pointer;
 }
 .modal-wrap {
@@ -184,7 +163,7 @@ textarea {
     position: absolute;
     right: 5px;
     top: 5px;
-    background: url(../../img/remove.png) no-repeat;
+    background: url(../../img/icon/remove.png) no-repeat;
     cursor: pointer;
 }
 
@@ -364,7 +343,7 @@ dd {
 	width: 24px;
 	height: 24px;
 	display: inline-block;
-	background: url("../../img/write.png") no-repeat;
+	background: url("../../img/icon/write.png") no-repeat;
 	transform: rotate(180deg);
 	cursor: pointer;
 }
@@ -373,7 +352,7 @@ dd {
 	height: 24px;
 	margin-left: 9px;
 	display: inline-block;
-	background: url("../../img/remove.png") no-repeat;
+	background: url("../../img/icon/remove.png") no-repeat;
 	cursor: pointer;
 }
 .reply-btn {

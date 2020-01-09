@@ -7,6 +7,9 @@
 	.cont-center {
 		width: 50% !important;
 	}
+	#state-sel {
+		float: none;
+	}
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/upload.js"></script>
 
@@ -60,6 +63,10 @@
 </div>
 
 <script>
+	$("input[type='file']").change(function(){
+		$(".delX").click();
+	})
+
 	$("#state-sel").change(function(){
 		$("input[name='pgIsRunning']").val($(this).val());
 	})

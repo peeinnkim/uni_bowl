@@ -25,15 +25,15 @@
 				<th>설명</th>
 				<th>러닝타임</th>
 				<th>상태</th>
-				<th></th>
+				<th>삭제</th>
 			</tr>
 			
 			<c:forEach var="pg" items="${list}">
 				<tr>
 					<td>${pg.pgNo}</td>
-					<td><img src="${pageContext.request.contextPath}/admin/intranet/displayFile?fileName=${pg.pgThumb}"></td>
+					<td class="poster-wrap"><img src="${pageContext.request.contextPath}/admin/intranet/displayFile?fileName=${pg.pgThumb}"></td>
 					<td class="title-wrap"><a href="${pageContext.request.contextPath}/admin/intranet/program/modify?pgNo=${pg.pgNo}">${pg.pgTitle}</a></td>
-					<td class="detail-wrap">${pg.pgDetail}</td>
+					<td class="detail-wrap"><pre><c:out value="${pg.pgDetail}"/></pre></td>
 					<td class="etc-wrap">${pg.pgTime}분</td>
 					<td class="etc-wrap">${pg.pgIsRunning == 1? '상영중': '상영대기'}</td>
 					<td class="del-wrap"><a href="${pageContext.request.contextPath}/admin/intranet/program/remove?pgNo=${pg.pgNo}" class="pgDel"></a></td>

@@ -6,7 +6,7 @@
 		
 		<div id="side-bar">
 			<a href="${pageContext.request.contextPath}/admin/intranet/sales">
-				<img src="resources/img/no-fishing.png" id="tempIntraIco">
+				<img src="${pageContext.request.contextPath}/resources/img/no-fishing.png" id="tempIntraIco">
 			</a>			
 		</div>
 	</div>

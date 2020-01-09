@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+.form-wrap {
+	background: white;
+	width: 90%;
+	padding: 20px;
+	margin: 0 auto;
+}
+.mp-top {
+	overflow: hidden;
+   	padding: 35px 30px;
+   	border-top: 2px solid #000;
+   	border-bottom: 1px solid #ccc;
+}
+.mp-top > h1 {
+    font-size: 35px;
+   	font-weight: normal;
+}
+.mp-top > h1 > small {
+	font-size: 20px;
+}
+#mod-info {
+    width: 27px;
+    height: 27px;
+    display: inline-block;
+    background: url("../../img/icon/settings.png") no-repeat center;
+    background-size: contain;
+    vertical-align: baseline;
+}
+.mp-bottom {
+    padding: 35px 30px;
+   	border-bottom: 1px solid #ccc;
+}
+.mp-bottom > .rsv-info {
+	margin-bottom: 5px;
+}
+.mp-bottom > .rsv-info > h2 {
+	margin-right: 5px;
+	display: inline-block;
+}
+.mp-bottom > .rsv-info > span {
+	margin-bottom: 5px;
+	font-size: 14px;
+}
+#cur-rsvCnt {
+	font-weight: bold;
+	font-size: 15px;
+}
+#show-allRsv {
+	color: mediumorchid;
+	margin-left: 13px;
+	font-weight: bold;
+	font-size: 13px;
+}
+#show-allRsv:hover {
+	text-decoration: underline;
+}
+.mp-bottom > table {
+	border-collapse: collapse;
+	width: 100%;
+	margin: 0 auto;
+}
+.mp-bottom > table td {
+	padding: 20px 5px;
+	text-align: center;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	font-size: 15px;
+}
+.mp-bottom > table th {
+	font-size: 15px;
+	padding: 10px 5px;
+	text-align: center;
+	border-top: 2px solid black;
+	border-bottom: 1px dotted grey;
+}
+.list-title {
+	width: 43%;
+}
+.cancelRsvBtn{
+	width: 30px;
+    height: 30px;
+    display: block;
+    margin: 0 auto;
+    background: url("../../img/icon/cancel.png") no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+

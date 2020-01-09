@@ -62,7 +62,7 @@
 	</sql>
 	
 	<!-- SEARCH -->
-	<sql id="keywordSearch">
+ 	<sql id="keywordSearch">
 		<if test='searchType == "mNo"'>
 			and i_member like CONCAT('%', #{keyword}, '%') 
 		</if>
@@ -88,7 +88,7 @@
 			and m_quitDate is not null
 		</if>
 		order by i_member desc
-		limit #{cri.pageStart}, #{cri.perPageNum}; 
+		limit #{pageStart}, #{perPageNum}; 
 	</select>
 	
 	<select id="getMemCntByCode" resultType="int"> <!-- 회원코드별 카운트  -->

@@ -17,5 +17,6 @@ public interface NoticeService {
 	public List<NoticeVO> listSearch(SearchCriteria cri);
 
 	public int listCnt();
+	public int listSearchCnt(SearchCriteria cri);
 	
 }//NoticeService

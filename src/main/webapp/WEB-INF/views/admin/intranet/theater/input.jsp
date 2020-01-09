@@ -31,21 +31,33 @@ td {
 <h2>상영관 추가</h2>
 <div class="content-wrap">
 	<div class="cont-center">
-		<div id="set-wrap">
+		<form id="set-wrap" action="regist" method="post">
 			<table>
 				<tr>
+					<td>위치</td>
+					<td><input type="text" name="thFloor">층</td>
+					<td>배치도</td>
+					<td><input type="text" name="thChart"></td>
+					<td rowspan="2"></td>
+				</tr>
+				<tr>
 					<td>상영관명</td>
-					<td><input type="text"></td>
+					<td><input type="text" name="thName"></td>
 					<td>수용인원</td>
-					<td><input type="text" id="capacity"></td>
+					<td><input type="text" name="thSeatCnt"></td>
 					<td rowspan="2"><button>dfsd</button></td>
 				</tr>
 				<tr>
 					<td>전체좌석<br>(복도포함)</td>
 					<td colspan="3"><input type="text" id="rows"> X <input type="text" id="cols"></td>
 				</tr>
+				<tr>
+					<td>
+						<input type="submit" value="등록">
+					</td>
+				</tr>
 			</table>
-		</div>
+		</form>
 		
 		<div id="tb-wrap"></div>
 		
@@ -57,7 +69,7 @@ td {
 		$("#tb-wrap").empty();
 		var rows = $("#rows").val(); //ul
 		var cols = $("#cols").val(); //li
-		var capa = $("#capacity").val();
+		var capa = $("input[name='thSeatCnt']").val();
 		
 		if((rows * cols) < capa) {
 			alert("좌석은 수용인원과 같거나 많아야합니다.");

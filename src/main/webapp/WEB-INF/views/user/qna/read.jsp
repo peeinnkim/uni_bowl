@@ -177,14 +177,21 @@
 	Handlebars.registerHelper("prettifyDate", function(dd){
 		var date = new Date(dd);
 		var year = date.getFullYear();
-		var month = date.getMonth();
+		var month = date.getMonth()+1;
 		var d = date.getDate();
 		var h = date.getHours();
 		var min = date.getMinutes();
 		var sec = date.getSeconds();
 		
-		return year + "-" + month + "-" + d + " " + h + ":" + min + ":" + sec;
+		return year + "-" + zeroZeroDate(month) + "-" + zeroZeroDate(d) + " " + zeroZeroDate(h) + ":" + zeroZeroDate(min) + ":" + zeroZeroDate(sec);
 	})
+	
+	function zeroZeroDate(val){
+		if(val < 10) {
+			val = "0" + val;
+		}
+		return val;
+	}
 	
 	function getReplyList(){
 		$.ajax({

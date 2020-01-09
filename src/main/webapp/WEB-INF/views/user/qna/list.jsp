@@ -3,6 +3,11 @@
 <%@ include file="../../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/user/board.css" type="text/css" rel="stylesheet">
+<style>
+	.list-title {
+		width: 43%;
+	}
+</style>
 
 <div class="section-title">
 	<h1>QNA</h1>
@@ -35,7 +40,7 @@
 		</div>
 	</div>
 	
-	<table>
+	<table id="main-tb">
 		<tr>
 			<th>NO</th>
 			<th>TITLE</th>

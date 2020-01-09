@@ -27,11 +27,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.peeinn.domain.MemberVO;
+import com.peeinn.domain.OrgResultVO;
 import com.peeinn.domain.ProgramVO;
+import com.peeinn.domain.TheaterVO;
+import com.peeinn.domain.paging.CodeStateCriteria;
 import com.peeinn.domain.paging.PageMaker;
-import com.peeinn.domain.paging.SearchCriteria;
 import com.peeinn.service.MemberService;
 import com.peeinn.service.ProgramService;
+import com.peeinn.service.TheaterService;
 import com.peeinn.util.UploadFileUtils;
 
 @Controller
@@ -39,44 +42,45 @@ import com.peeinn.util.UploadFileUtils;
 public class IntranetController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(IntranetController.class);
+	@Resource(name="adminUploadPath") 
+	private String adminUploadPath;
 	@Autowired
 	MemberService memService;
 	@Autowired
 	ProgramService pgService;
-	@Resource(name="adminUploadPath") 
-	private String adminUploadPath;
-	
+	@Autowired
+	TheaterService thService;
 
+	
 	/* ------------------- [ MEMBER MNG PART ] ------------------- */
 	@RequestMapping(value="member", method=RequestMethod.GET)
-	public void memberMng(Model model, int memCode, SearchCriteria cri) {
+	public void memberMng(Model model, CodeStateCriteria cri) {
 		logger.info("------------ [memberMng GET] ------------");
-		System.out.println("controller memCode ->>>>>>" + memCode);
+		System.out.println("controller cri ->>>>>>" + cri);
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(memService.totalCntByCode(cri, memCode, 0));
+		pageMaker.setTotalCount(memService.totalCntByCode(cri));
 		
-		model.addAttribute("list", memService.searchList(cri, memCode, 0));
+		model.addAttribute("list", memService.searchList(cri));
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("cri", cri);
-		model.addAttribute("memCode", memCode);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="searchList", method=RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> searchList(int memCode, int state, SearchCriteria cri){
+	public ResponseEntity<Map<String, Object>> searchList(CodeStateCriteria cri){
 		logger.info("------------ [stateList GET] ------------");
 		ResponseEntity<Map<String, Object>> entity = null;
 		System.out.println("cri ->>>>>>>>>" + cri);
 		
 		try {
-			List<MemberVO> list = memService.searchList(cri, memCode, state);
+			List<MemberVO> list = memService.searchList(cri);
 			System.out.println("list ->>>>>>>>" + list);
 
 			PageMaker pageMaker = new PageMaker();
 			pageMaker.setCri(cri);
-			pageMaker.setTotalCount(memService.totalCntByCode(cri, memCode, state));
+			pageMaker.setTotalCount(memService.totalCntByCode(cri));
 			System.out.println("pageMaker ->>>>>>>" + pageMaker);
 			
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -135,12 +139,6 @@ public class IntranetController {
 		pgService.regist(pg);
 		response.sendRedirect("list");
 	}
-
-	@RequestMapping(value="program/org", method=RequestMethod.GET)
-	public void pgOrg(Model model) {
-		logger.info("------------ [pgOrg GET] ------------");
-		
-	}
 	
 	@RequestMapping(value="program/modify", method=RequestMethod.GET)
 	public String modifyGet(Model model, int pgNo) {
@@ -156,7 +154,9 @@ public class IntranetController {
 	@RequestMapping(value="program/modify", method=RequestMethod.POST)
 	public void modifyPost(Model model, ProgramVO program, String delFiles, MultipartFile imageFiles, HttpServletResponse response) throws IOException {
 		logger.info("------------ [modify POST] ------------");
+		logger.info("삭제할 파일 ->>>" + delFiles);
 		ProgramVO pg = new ProgramVO();
+		pg.setPgNo(program.getPgNo());
 		pg.setPgTitle(program.getPgTitle());
 		pg.setPgTime(program.getPgTime());
 		pg.setPgIsRunning(program.getPgIsRunning());
@@ -174,7 +174,7 @@ public class IntranetController {
 			pg.setPgPoster(originName);
 			pg.setPgThumb(thumbName);
 		}
-
+		
 		//파일 삭제 
 		if(delFiles != null) { //파일 삭제를 아무것도 안하면 null이 넘어오니까 예외처리 해줘야함
 			UploadFileUtils.deleteFile(adminUploadPath, "program", delFiles);
@@ -196,20 +196,57 @@ public class IntranetController {
 		response.sendRedirect("list");
 	}
 	
+	@RequestMapping(value="program/pgChoice", method=RequestMethod.GET)
+	public void pgChoice(Model model) {
+		logger.info("------------ [pgChoice GET] ------------");
+		
+		model.addAttribute("list", pgService.list());
+	}
+	
 	/* ------------------- [ THEATER PART ] ------------------- */
 	@RequestMapping(value="theater/list", method=RequestMethod.GET)
 	public void thList() {
 		logger.info("------------ [theaterList GET] ------------");
 		
 	}
-
+	
 	@RequestMapping(value="theater/regist", method=RequestMethod.GET)
-	public String thRegistList() {
+	public String thRegistGet() {
 		logger.info("------------ [theaterRegist GET] ------------");
 		
 		return "admin/intranet/theater/input";
 	}
 	
+	@RequestMapping(value="theater/regist", method=RequestMethod.POST)
+	public void thRegistPost(TheaterVO th) {
+		logger.info("------------ [theaterRegist POST] ------------");
+		
+		thService.regist(th);
+	}
+	
+	
+	/* ------------------- [ ORGANIZATION PART ] ------------------- */
+	@RequestMapping(value="org/list", method=RequestMethod.GET)
+	public void orgList() {
+		logger.info("------------ [orgList GET] ------------");
+		
+	}
+	
+	@RequestMapping(value="org/regist", method=RequestMethod.GET)
+	public String orgRegistGet(Model model) {
+		logger.info("------------ [orgLIst GET] ------------");
+		
+		model.addAttribute("list", thService.list());
+		
+		return "admin/intranet/org/input";
+	}
+	
+	@RequestMapping(value="org/regist", method=RequestMethod.POST)
+	public void orgRegistPost(OrgResultVO ores) {
+		logger.info("------------ [orgLIst GET] ------------");
+		logger.info("controller ores->>>>>>>>" + ores);
+		
+	}
 	
 	/* ------------------- [ SALES PART ] ------------------- */
 	@RequestMapping(value="sales", method=RequestMethod.GET)

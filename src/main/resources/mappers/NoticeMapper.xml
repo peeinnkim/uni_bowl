@@ -67,14 +67,14 @@
 	<!-- SEARCH -->
 	<sql id="search">
 		<if test='searchType == "t"'>
-			where title like CONCAT('%', #{keyword}, '%') 
+			where nt_title like CONCAT('%', #{keyword}, '%') 
 		</if>
 		<if test='searchType == "c"'>
-			where content like CONCAT('%', #{keyword}, '%') 
+			where nt_content like CONCAT('%', #{keyword}, '%') 
 		</if>
 		<if test='searchType == "tc"'>
-			where title like CONCAT('%', #{keyword}, '%') 
-			or content like CONCAT('%', #{keyword}, '%')
+			where nt_title like CONCAT('%', #{keyword}, '%') 
+			or nt_content like CONCAT('%', #{keyword}, '%')
 		</if>
 	</sql>
 	
@@ -83,6 +83,11 @@
 			<include refid="search"></include>
 			order by i_notice desc 
 			limit #{pageStart}, #{perPageNum};
+	</select>
+
+	<select id="listSearchCnt" resultType="int">
+		select count(*) from t_notice 
+			<include refid="search"></include>;
 	</select>
 	
 </mapper>

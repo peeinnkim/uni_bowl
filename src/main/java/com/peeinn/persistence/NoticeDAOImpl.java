@@ -73,4 +73,9 @@ public class NoticeDAOImpl implements NoticeDAO {
 		return sqlSession.selectList(namespace + ".listSearch", cri);
 	}
 
+	@Override
+	public int listSearchCnt(SearchCriteria cri) {
+		return sqlSession.selectOne(namespace + ".listSearchCnt", cri);
+	}
+
 }
