@@ -47,6 +47,7 @@ button {
 	left: 0;
 	top: 0;
 	z-index: 100;
+	box-shadow: 2px 2px 7px #8C8C8C;
 }
 .header {
 	width: 50%;
@@ -115,6 +116,7 @@ button {
 	position: fixed;
 	right: 0;
 	top: 0;
+	box-shadow: -2px 0px 7px #8C8C8C;
 }
 #side-bar > a {
 	width: 60px;

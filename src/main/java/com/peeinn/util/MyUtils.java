@@ -1,12 +1,15 @@
 package com.peeinn.util;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-public class DateUtils {
+public class MyUtils {
 	
+	/* String to Date */
 	public static Date parseStringToDate(String strDate) throws ParseException {
 		if (strDate == null || strDate.isEmpty()) {
 			throw new ParseException("Empty string", 0);
@@ -63,6 +66,28 @@ public class DateUtils {
 		
 	}//parseStringToDate
 	
+	/* 비밀번호 암호화 */
+	public static String encryptSHA256(String str) {
+		String sha;
+
+		try {
+			MessageDigest sh = MessageDigest.getInstance("SHA-256");
+			sh.update(str.getBytes());
+			byte byteData[] = sh.digest();
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < byteData.length; i++) {
+				sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+			}
+
+			sha = sb.toString();
+
+		} catch (NoSuchAlgorithmException e) {
+			System.out.println("Encrypt Error - NoSuchAlgorithmException");
+			sha = null;
+		}
+
+		return sha;
+	}//encryptSHA256(암호화)
 	
 
 }// DateUtils

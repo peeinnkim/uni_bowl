@@ -38,7 +38,7 @@ import com.peeinn.service.MemberService;
 import com.peeinn.service.OrgService;
 import com.peeinn.service.ProgramService;
 import com.peeinn.service.TheaterService;
-import com.peeinn.util.DateUtils;
+import com.peeinn.util.MyUtils;
 import com.peeinn.util.UploadFileUtils;
 
 @Controller
@@ -245,7 +245,7 @@ public class IntranetController {
 	public String orgRegistGet(Model model, String tempDate, HttpSession session) throws ParseException {
 		logger.info("------------ [orgLIst GET] ------------");
 		OrgResultVO ores = new OrgResultVO();
-		ores.getOrg().setOrgDate(DateUtils.parseStringToDate(tempDate));
+		ores.getOrg().setOrgDate(MyUtils.parseStringToDate(tempDate));
 		
 		session.setAttribute("aTempDate", ores);
 		System.out.println("세션 임시날짜값 입력완료");
@@ -259,7 +259,7 @@ public class IntranetController {
 		logger.info("------------ [orgLIst POST] ------------");
 		logger.info("controller org->>>>>>>>" + org);
 		
-		org.setOrgDate(DateUtils.parseStringToDate(strDate));
+		org.setOrgDate(MyUtils.parseStringToDate(strDate));
 		orgService.regist(org);
 		response.sendRedirect("list");
 	}

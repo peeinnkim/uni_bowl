@@ -1,0 +1,114 @@
+@charset "UTF-8";
+
+.content-area {
+	overflow: hidden;
+}
+.rsv-left {
+	width: 65%;
+	float: left;
+	background: tan;
+}
+.seat-row {
+	width: 100%; 
+	margin: 0 auto; 
+	padding: 0; 
+	clear: both;
+}
+.seat-row > li {
+	float: left; 
+	margin-top:20px; 
+	margin-right: 2px;
+}
+.seat {
+	width: 21px; 
+	height: 28px;	
+	display: block;
+}
+.seat-empty {
+	background: url("../../img/rsv/icon-seat1.png") no-repeat;	
+	background-size: contain;
+}
+.seat-active {
+	background: url("../../img/rsv/icon-seat2.png") no-repeat;	
+	background-size: contain;
+}
+.seat-none {
+	background: url("../../img/rsv/icon-seat3.png") no-repeat;	
+	background-size: contain;
+}
+.seat-disabled {
+	background: none;	
+}
+.premiumSingle-empty {
+	background: url("../../img/rsv/icon-seat4.png") no-repeat;	
+	background-size: contain;
+}
+.premiumDouble-empty {
+	background: url("../../img/rsv/icon-seat5.png") no-repeat;	
+	background-size: contain;
+}
+
+.btn-area {
+	clear: both;
+	position: relative;
+}
+.btn-area > a {
+	display: inline-block;
+    position: relative;
+    min-width: 100px;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 35px;
+    font-size: 18px;
+    overflow: hidden;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    z-index: 1;
+    vertical-align: middle;
+   	background-color: #fff;
+    border: 1px solid #888;
+    color: #888;
+}
+#btnNext {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+
+.rsv-right {
+	float: right;
+	width: 20%;
+}
+.rsv-right > dl {
+	border-collapse: collapse;
+	width: 90%;
+	margin: 0 auto;
+}
+dt {
+	padding: 10px 10px 10px 15px;
+	height: 30px;
+	background: pink;
+	font-size: 17px;
+	line-height: 30px;
+}
+dd {
+	padding: 17px 0px 10px 30px;
+	height: 40px;
+	font-size: 14px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

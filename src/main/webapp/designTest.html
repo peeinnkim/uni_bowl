@@ -4,41 +4,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="resources/css/user/common.css" type="text/css" rel="stylesheet">
-<link href="resources/css/user/board.css" type="text/css" rel="stylesheet">
-<style>
-.list-title {
-	width: 43%;
-}
-.mp-bottom > table td {
-	padding: 20px 5px;
-	text-align: center;
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
-	font-size: 15px;
-}
-.mp-bottom > table th {
-	font-size: 15px;
-	padding: 10px 5px;
-	text-align: center;
-	border-top: 2px solid black;
-	border-bottom: 1px dotted grey;
-}
-.list-title {
-	width: 43%;
-}
-.cancelRsvBtn {
-	width: 45px;
-	height: 20px;
-	padding: 5px;
-    display: block;
-    margin: 0 auto;
-    cursor: pointer;
-    background: pink;
-    font-size: 14px;
-    border-radius: 5px 5px;
-    box-shadow: 0px 1px 2px grey;
-}
-</style>
+<link href="resources/css/user/rsv.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 	<div id="container">
@@ -80,35 +46,52 @@
 </div>
 
 <div class="content-area">
-	<div class="search-wrap">
-		<div class="search-category">
-			<select>
-				<option>예약전체</option>
-				<option value="1">진행중</option>
-				<option value="2">종료</option>
-				<option value="3">취소</option>
-			</select>
+	<div class="rsv-left">
+		<div class="seat-area">
+			<div class="seat-img"></div>
+			<div class="seat-icons">
+				<ul class="seat-row">
+					<li><a class="seat seat-empty"></a></li>
+					<li><a class="seat seat-empty"></a></li>
+					<li><a class="seat seat-active"></a></li>
+					<li><a class="seat seat-active"></a></li>
+					<li><a class="seat seat-none"></a></li>
+					<li><a class="seat seat-none"></a></li>
+					<li><a class="seat seat-disabled"></a></li>
+					<li><a class="seat seat-disabled"></a></li>
+					<li><a class="seat seat-disabled"></a></li>
+					<li><a class="seat seat-disabled"></a></li>
+					<li><a class="seat premiumSingle-empty"></a></li>
+					<li><a class="seat premiumDouble-empty"></a></li>
+					<li><a class="seat premiumSingle-empty"></a></li>
+					<li><a class="seat premiumDouble-empty"></a></li>
+					<li><a class="seat premiumSingle-empty"></a></li>
+					<li><a class="seat premiumDouble-empty"></a></li>
+					<li><a class="seat premiumSingle-empty"></a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="btn-area">
+			<a href="#" id="btnCancel">취소</a>
+			<a href="#" id="btnNext">다음</a>
 		</div>
 	</div>
-	
-	<table id="main-tb">
-		<tr>
-			<th>예약번호</th>
-			<th>프로그램명</th>
-			<th>상영날짜</th>
-			<th>상영관</th>
-			<th>예약상태</th>
-			<th></th>
-		</tr>
-		<tr class="added-tr">
-			<td>1234</td>
-			<td class="list-title"><a href="#">어쩌구저쩌구 이런 프로그램</a></td>
-			<td>2020-01-03 14:30</td>
-			<td>어쩌구관</td>
-			<td>결제완료</td>
-			<td><a href="#" class="cancelRsvBtn">취소</a></td>
-		</tr>
-	</table>
+
+	<div class="rsv-right">
+		<dl>
+			<dt>프로그램명</dt>
+			<dd>Finding Aurora</dd>
+			
+			<dt>상영관</dt>
+			<dd>DOME 2</dd>
+
+			<dt>상영날짜</dt>
+			<dd>2020년 09월 24일 (목)</dd>
+
+			<dt>상영시간</dt>
+			<dd>18:00~</dd>
+		</dl>
+	</div>
 </div>			
 			</div>
 		</div>

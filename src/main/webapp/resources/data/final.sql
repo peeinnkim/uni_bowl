@@ -39,9 +39,10 @@ select * from t_member;
 
 -- 예약 한건을 위해 이렇게 많은 테이블을 조인해야해요
 select * from t_org org 
-		join t_org_detail dt using(i_org) 
-		join t_program pg using(i_program)
-		join t_theater th using(i_theater);
+	join t_theater th using(i_theater)
+	join t_program pg using(i_program)
+	where DATE(org.org_date) = DATE(curdate())
+	order by org.org_date asc;
 
 select * from t_org join t_program using(i_program);
 
