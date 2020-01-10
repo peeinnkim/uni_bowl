@@ -3,16 +3,18 @@ package com.peeinn.persistence;
 import java.util.List;
 
 import com.peeinn.domain.OrgVO;
+import com.peeinn.domain.org.OrgResultVO;
 
 public interface OrgDAO {
 
-	public void insertOrg(OrgVO od);
-	public void updateOrg(OrgVO od);
-	public void deleteOrg(int odNo);
+	public void insertOrg(OrgVO org);
+	public void updateOrg(OrgVO org);
+	public void deleteOrg(int orgNo);
 	
-	public List<OrgVO> selectOrgList();
+	public List<OrgResultVO> selectOrgList();
+	public List<OrgResultVO> selectOrgListByDate(String sDate);
 	
-	public OrgVO selectOrg();
+	public OrgResultVO selectOrg(int orgNo);
 	
 	public int getTotalOrgCnt();
 	

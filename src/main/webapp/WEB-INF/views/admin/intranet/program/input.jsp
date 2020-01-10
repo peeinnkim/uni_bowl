@@ -30,10 +30,10 @@
 			<p>
 				<label>상태</label>
 				<select id="state-sel">
-					<option value="1">상영중</option>
-					<option value="0">상영대기</option>
+					<option value="1" ${pg.pgIsRunning == 1? 'selected="selected"' : ''}>상영중</option>
+					<option value="0" ${pg.pgIsRunning == 0? 'selected="selected"' : ''}>상영대기</option>
 				</select>
-				<input type="hidden" name="pgIsRunning" value="1">
+				<input type="hidden" name="pgIsRunning" value="${pg.pgIsRunning == null? '1' : pg.pgIsRunning}">
 			</p>
 			<p>
 				<label>설명</label>

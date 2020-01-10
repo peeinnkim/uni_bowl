@@ -7,6 +7,7 @@
      <typeAliases>
      	<package name="com.peeinn.domain"/>
      	<package name="com.peeinn.domain.paging"/>
+     	<package name="com.peeinn.domain.org"/>
      </typeAliases>
      
      

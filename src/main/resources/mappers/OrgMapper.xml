@@ -1,37 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.OrgMapper">
-
+	<!-- ORG -->
 	<resultMap type="OrgVO" id="orgResult">
 		<id property="orgNo" column="i_org" />
 		<result property="orgDate" column="org_date" />
-		<collection property="pgList" javaType="list" resultMap="mappers.ProgramMapper.programResult" />
+		<result property="orgThNo" column="i_theater" />
+		<result property="orgPgNo" column="i_program" />
+	</resultMap>
+	
+	<!-- org-program-theater -->
+	<resultMap type="OrgResultVO" id="oresResult"> 
+		<association property="org" resultMap="orgResult"/>
+		<association property="th" resultMap="mappers.TheaterMapper.thResult"/>
+		<association property="pg" resultMap="mappers.ProgramMapper.programResult"/>
 	</resultMap>
 
-
 	<insert id="insertOrg">
-		insert into t_org(org_date) values(#{orgDate});
+		insert into t_org(org_date, i_theater, i_program) values(#{orgDate}, #{orgThNo}, #{orgPgNo});
 	</insert>
 
 	<update id="updateOrg">
-		update t_org set org_date = #{orgDate}, i_program = #{pgNo} where i_org = #{orgNo};
+		update t_org set org_date = #{orgDate}, i_theater = #{thNo}, i_program = #{pgNo} where i_org = #{orgNo};
 	</update>
 
 	<delete id="deleteOrg">
 		delete from t_org where i_org = #{orgNo};
 	</delete>
 	
-	<select id="selectOrgList" resultMap="orgResult">
-		select * from t_org join t_program using(i_program);
+	<select id="selectOrgList" resultMap="oresResult">
+		select * from t_org org 
+			join t_theater th using(i_theater)
+			join t_program pg using(i_program)
+			order by org.org_date asc;
+	</select>
+
+	<select id="selectOrgListByDate" resultMap="oresResult">
+		select * from t_org org 
+				join t_theater th using(i_theater)
+				join t_program pg using(i_program)
+			<if test="sDate != ''">
+				where DATE(org.org_date) = #{sDate}
+			</if>
+			<if test="sDate == ''">
+				where DATE(org.org_date) = DATE(curdate())
+			</if>
+			order by org.org_date asc;
 	</select>
 	
-	<select id="selectOrg" resultMap="orgResult">
-		select * from t_org join t_program using(i_program) where i_org = #{orgNo};
+	<select id="selectOrg" resultMap="oresResult">
+		select * from t_org org 
+				join t_theater th using(i_theater)
+				join t_program pg using(i_program)
+			where i_org = #{orgNo};
 	</select>
 	
 	<select id="getTotalOrgCnt" resultType="int">
 		select count(*) from t_org;
 	</select>
-
 
 </mapper>

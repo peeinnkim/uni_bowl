@@ -50,13 +50,13 @@
 
 	<!-- [ MEMBER LIST BY CODE ] -->
 	<sql id="mCodeSearch">
-		<if test="memCode == 0">
+		<if test="code == 0">
 			where m_code = 0
 		</if>
-		<if test="memCode == 1">
+		<if test="code == 1">
 			where m_code = 1
 		</if>
-		<if test="memCode == 2">
+		<if test="code == 2">
 			where m_code = 2
 		</if>
 	</sql>

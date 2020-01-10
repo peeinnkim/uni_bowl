@@ -3,6 +3,7 @@ package com.peeinn.controller.admin;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,14 +28,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.peeinn.domain.MemberVO;
-import com.peeinn.domain.OrgResultVO;
+import com.peeinn.domain.OrgVO;
 import com.peeinn.domain.ProgramVO;
 import com.peeinn.domain.TheaterVO;
+import com.peeinn.domain.org.OrgResultVO;
 import com.peeinn.domain.paging.CodeStateCriteria;
 import com.peeinn.domain.paging.PageMaker;
 import com.peeinn.service.MemberService;
+import com.peeinn.service.OrgService;
 import com.peeinn.service.ProgramService;
 import com.peeinn.service.TheaterService;
+import com.peeinn.util.DateUtils;
 import com.peeinn.util.UploadFileUtils;
 
 @Controller
@@ -45,11 +49,13 @@ public class IntranetController {
 	@Resource(name="adminUploadPath") 
 	private String adminUploadPath;
 	@Autowired
-	MemberService memService;
+	private MemberService memService;
 	@Autowired
-	ProgramService pgService;
+	private ProgramService pgService;
 	@Autowired
-	TheaterService thService;
+	private TheaterService thService;
+	@Autowired
+	private OrgService orgService;
 
 	
 	/* ------------------- [ MEMBER MNG PART ] ------------------- */
@@ -205,9 +211,10 @@ public class IntranetController {
 	
 	/* ------------------- [ THEATER PART ] ------------------- */
 	@RequestMapping(value="theater/list", method=RequestMethod.GET)
-	public void thList() {
+	public void thList(Model model) {
 		logger.info("------------ [theaterList GET] ------------");
 		
+		model.addAttribute("list", thService.list());
 	}
 	
 	@RequestMapping(value="theater/regist", method=RequestMethod.GET)
@@ -218,35 +225,45 @@ public class IntranetController {
 	}
 	
 	@RequestMapping(value="theater/regist", method=RequestMethod.POST)
-	public void thRegistPost(TheaterVO th) {
+	public void thRegistPost(TheaterVO th, HttpServletResponse response) throws IOException {
 		logger.info("------------ [theaterRegist POST] ------------");
 		
 		thService.regist(th);
+		response.sendRedirect("list");
 	}
 	
 	
 	/* ------------------- [ ORGANIZATION PART ] ------------------- */
 	@RequestMapping(value="org/list", method=RequestMethod.GET)
-	public void orgList() {
+	public void orgList(Model model) {
 		logger.info("------------ [orgList GET] ------------");
 		
+		model.addAttribute("list", orgService.orgByDateList(""));
 	}
 	
 	@RequestMapping(value="org/regist", method=RequestMethod.GET)
-	public String orgRegistGet(Model model) {
+	public String orgRegistGet(Model model, String tempDate, HttpSession session) throws ParseException {
 		logger.info("------------ [orgLIst GET] ------------");
+		OrgResultVO ores = new OrgResultVO();
+		ores.getOrg().setOrgDate(DateUtils.parseStringToDate(tempDate));
 		
+		session.setAttribute("aTempDate", ores);
+		System.out.println("세션 임시날짜값 입력완료");
 		model.addAttribute("list", thService.list());
 		
 		return "admin/intranet/org/input";
 	}
 	
 	@RequestMapping(value="org/regist", method=RequestMethod.POST)
-	public void orgRegistPost(OrgResultVO ores) {
-		logger.info("------------ [orgLIst GET] ------------");
-		logger.info("controller ores->>>>>>>>" + ores);
+	public void orgRegistPost(OrgVO org, String strDate, HttpServletResponse response) throws IOException, ParseException {
+		logger.info("------------ [orgLIst POST] ------------");
+		logger.info("controller org->>>>>>>>" + org);
 		
+		org.setOrgDate(DateUtils.parseStringToDate(strDate));
+		orgService.regist(org);
+		response.sendRedirect("list");
 	}
+
 	
 	/* ------------------- [ SALES PART ] ------------------- */
 	@RequestMapping(value="sales", method=RequestMethod.GET)

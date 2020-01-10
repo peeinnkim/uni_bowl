@@ -56,9 +56,7 @@
 	border: 1px solid black;
 	padding: 10px;
 	text-align: center;
-}
-#cal-table td > a {
-	display: block;
+	cursor: pointer;
 }
 #cal-table td:first-child{
 	color: red;
@@ -70,7 +68,7 @@
 	background: firebrick;
 }
 
-
+/* 리스트 */
 .cont-right > h3 {
 	width: 80%;
 	text-align: center;
@@ -78,7 +76,6 @@
 	font-size: 1.6em;
 	letter-spacing: 0.14em;
 }
-
 .pg-list, .addPg-wrap {
 	width: 80%;
 }

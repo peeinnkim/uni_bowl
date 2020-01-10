@@ -40,7 +40,7 @@
 		var no = $("input[type='radio']:checked").attr("data-val");
 		var title = $("input[type='radio']:checked").closest("tr").find(".title-wrap").text();
 		var runningTime = $("input[type='radio']:checked").closest("tr").find(".etc-wrap").text();
-		var str = "<input type='hidden' name='orPgNo' value='"+no+"'>"
+		var str = "<input type='hidden' name='orgPgNo' value='"+no+"'>"
 				+ "<span id='rtrt' data-rt='"+runningTime+"'>"+title+"</span>";
 		
  		window.opener.getReturnValue(str);

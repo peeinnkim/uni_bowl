@@ -1,12 +1,12 @@
 package com.peeinn.domain;
 
 import java.util.Date;
-import java.util.List;
 
 public class OrgVO {
-	private int orgNo;
-	private Date orgDate;
-	private List<ProgramVO> pgList;
+	private int orgNo; // 상영상세정보 번호
+	private Date orgDate; // 상영날짜
+	private int orgThNo; // 상영관 번호
+	private int orgPgNo; // 프로그램 번호
 
 	public int getOrgNo() {
 		return orgNo;
@@ -24,17 +24,25 @@ public class OrgVO {
 		this.orgDate = orgDate;
 	}
 
-	public List<ProgramVO> getPgList() {
-		return pgList;
+	public int getOrgThNo() {
+		return orgThNo;
 	}
 
-	public void setPgList(List<ProgramVO> pgList) {
-		this.pgList = pgList;
+	public void setOrgThNo(int orgThNo) {
+		this.orgThNo = orgThNo;
+	}
+
+	public int getOrgPgNo() {
+		return orgPgNo;
+	}
+
+	public void setOrgPgNo(int orgPgNo) {
+		this.orgPgNo = orgPgNo;
 	}
 
 	@Override
 	public String toString() {
-		return "OrgVO [orgNo=" + orgNo + ", orgDate=" + orgDate + ", pgList=" + pgList + "]";
+		return "OrgVO [orgNo=" + orgNo + ", orgDate=" + orgDate + ", orgThNo=" + orgThNo + ", orgPgNo=" + orgPgNo + "]";
 	}
 
 }// OrgVO

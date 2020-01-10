@@ -1,3 +1,4 @@
+<%@page import="com.peeinn.domain.org.OrgResultVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../../include/header.jsp" %>
@@ -30,48 +31,26 @@
 		<h3>PROGRAM LIST</h3>
 		
 		<div class="addPg-wrap">
-			<a href="${pageContext.request.contextPath}/admin/intranet/program/regist" id="addPg"></a>
+			<a id="addPg" style="cursor:pointer;"></a>
 		</div>
 		
 		<ul class="pg-list">
-			<li>
-				<div class="pgTime-wrap">
-					<span class="pgTime hour"><em>29</em>시</span>
-					<span class="pgTime minute"><em>60</em>분</span>			
-				</div>
-				<div class="pgTitle-wrap">
-					<a href="#">웅앵웅앵 제목제목 웅asdfasdfadsf</a>  
-				</div>
-				<div class="pgDel-wrap">
-					<span class="delX"></span>
-				</div>
-			</li>
-			<li>
-				<div class="pgTime-wrap">
-					<span class="pgTime hour"><em>29</em>시</span>
-					<span class="pgTime minute"><em>60</em>분</span>			
-				</div>
-				<div class="pgTitle-wrap">
-					<a href="#">웅앵웅앵 제목제목 웅asd</a>  
-				</div>
-				<div class="pgDel-wrap">
-					<span class="delX"></span>
-				</div>
-			</li>
-			<li>
-				<div class="pgTime-wrap">
-					<span class="pgTime hour"><em>29</em>시</span>
-					<span class="pgTime minute"><em>60</em>분</span>			
-				</div>
-				<div class="pgTitle-wrap">
-					<a href="#">웅앵웅앵 제목제목 웅asf</a>  
-				</div>
-				<div class="pgDel-wrap">
-					<span class="delX"></span>
-				</div>
-			</li>
-		
-		
+			<c:forEach var="ores" items="${list}">
+				<li>
+					<div class="pgTime-wrap">
+						<fmt:formatDate var="sdsd" value="${ores.org.orgDate}" pattern="HH:mm"/>
+						<c:set var="sd" value="${fn:split(sdsd, ':')}"></c:set>
+						<span class="pgTime hour"><em>${sd[0]}</em>시</span>
+						<span class="pgTime minute"><em>${sd[1]}</em>분</span>			
+					</div>
+					<div class="pgTitle-wrap">
+						<a href="#">${ores.pg.pgTitle}</a>  
+					</div>
+					<div class="pgDel-wrap">
+						<span class="delX"></span>
+					</div>
+				</li>
+			</c:forEach>
 <%-- 			<c:forEach var="pg" items="${list}">
 				<li>
 					<div class="pgTime-wrap">
@@ -90,7 +69,16 @@
 	</div> 
 </div>
 
-
+<script>
+	$("#addPg").click(function(){
+		var y = $("#cal-year").text();
+		var m = $("#cal-month").text();
+		var d = $(".tOn").attr("data-date");
+		var tempDate = y + "-" + m + "-" + d + " 00:00:00";
+		
+		location.href = "${pageContext.request.contextPath}/admin/intranet/org/regist?tempDate=" + tempDate;
+	})
+</script>
 
 <%@ include file="../../include/footer.jsp" %>
 

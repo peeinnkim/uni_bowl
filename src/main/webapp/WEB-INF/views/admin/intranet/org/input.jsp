@@ -17,11 +17,16 @@
 
 <div class="content-wrap">
 	<div class="cont-center">
-		<form id="frm" ${ores.orNo == null? 'action="regist"': 'action="modify"'} method="post" enctype="multipart/form-data">
-			<input type="hidden" name="pgNo" value="${ores.orNo == null? '0': ores.orNo}">
+		<form id="frm" ${ores.org.orgNo == null? 'action="regist"': 'action="modify"'} method="post">
+			<p>
+				<label>날짜</label>
+				<fmt:formatDate var="calDate" value="${ores.org.orgDate == null? aTempDate.org.orgDate : ores.org.orgDate}" pattern="yyyy-MM-dd"/>
+				<input type="text" id="tempDate"  value="${calDate}">
+				<input type="text" name="strDate" value="${calDate} 10:00">
+			</p>
 			<p>
 				<label>상영관 선택</label>
-				<select name="orThNo">
+				<select name="orgThNo">
 					<c:forEach var="th" items="${list}">
 						<option value="${th.thNo}">${th.thNm}</option>
 					</c:forEach>
@@ -31,8 +36,7 @@
 				<label>상영 시간</label>
 				<input type="number" id="ipHour" value="10" min="10" max="22" maxlength="2">
 				<input type="number" id="ipMinute" min="0" max="60" step="10" value="00" maxlength="2">
-				<input type="text" name="orStartTime" value="10:00">
-				<input type="text" name="orEndTime"><input type="button" value="ㅁㄻㅇㄹ" id="btbtbt">
+				<input type="text" name="tempStartTime" value="10:00">
 			</p>
 			<p>
 				<label>프로그램 선택</label>
@@ -47,13 +51,15 @@
 </div>
 
 <script>
+	/* 시간입력(시) */
 	$("#ipHour").change(function(){
 		var hour = $("#ipHour").val();
 		var minute = $("#ipMinute").val();
 		
-		$("input[name='orStartTime']").val(hour + ":" + minute);
+		$("input[name='tempStartTime']").val(hour + ":" + minute);
 	})
 
+	/* 시간입력(분) */
 	$("#ipMinute").change(function(){
 		var hour = $("#ipHour").val();
 		var minute = $("#ipMinute").val();
@@ -65,40 +71,31 @@
 			$("#ipMinute").val(minute);
 		}
 		
-		$("input[name='orStartTime']").val(hour + ":" + minute);
+		$("input[name='tempStartTime']").val(hour + ":" + minute);
 	})
-	
-	function getStartTime(){
-		var hour = $("#ipHour").val();
-		var minute = $("#ipMinute").val();
-		
-		if(hour < 10) {
-			hour = "0" + hour;
-			$("#ipHour").val(hour);
-			
-		} else if (minute < 10) {
-			minute = "0" + minute;
-			$("#ipMinute").val("0" + minute);
-		}
-	}
-	
+	/* 프로그램 선택창 띄우기 */
 	$("#btnChoicePg").click(function(){
 		window.open("${pageContext.request.contextPath}/admin/intranet/program/pgChoice", 
 					"프로그램 선택", 
 					"width=400, height=400, left=600, top=200"); 
 	})
 	
+	/* 새 창에서 보낸 값 받기 */
 	function getReturnValue(returnValue) {
 		$("#pgList").text("");
 		$("#pgList").append(returnValue);
 	}
-	
-	$("#btbtbt").click(function(){
-		getEndTime();
+
+	$("form").submit(function(){
+		var dt = $("#tempDate").val();
+		var tm = $("input[name='tempStartTime']").val();
+		
+		$("input[name='strDate']").val(dt + " " + tm + ":00");
 	})
 	
+	/* 새 창에서 받아온 러닝타임 값으로 끝나는 시간 계산하기 */
 	function getEndTime(){
-		var startTime = $("input[name='orStartTime']").val().split(":");
+		var startTime = $("input[name='tempStartTime']").val().split(":");
 		var runningTime = $("#rtrt").attr("data-rt");
 		var rntne = runningTime.replace("분", ""); 
 		
@@ -107,7 +104,7 @@
 		
 		if(min >= 60) {
 			var aNum = Math.floor(min/60);
-			var aMin = min%60;
+			var aMin = Math.floor(min%60);
 			
 			h = Number(startTime[0]) + Number(aNum);
 			min = aMin;
@@ -115,6 +112,7 @@
 		
 		$("input[name='orEndTime']").val(h+":"+min);
 	}
+	
 </script>
 
 

@@ -41,9 +41,9 @@
 	<div class="cont-center">
 		<div>
 			<ul id="mem-sel">
-				<li><a href="${pageContext.request.contextPath}/admin/intranet/member?memCode=0">회원</a></li>
-				<li><a href="${pageContext.request.contextPath}/admin/intranet/member?memCode=1">비회원</a></li>
-				<li><a href="${pageContext.request.contextPath}/admin/intranet/member?memCode=2">관리자</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/intranet/member?code=0">회원</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/intranet/member?code=1">비회원</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/intranet/member?code=2">관리자</a></li>
 			</ul>
 			
 			<div class="search-keyword">
@@ -60,7 +60,7 @@
 				<button id="btnSearch"></button>
 			</div>
 				
-			<c:if test="${cri.memCode != 1}">
+			<c:if test="${cri.code != 1}">
 				<select id="state-sel">
 					<option value="0" selected="selected">전체회원</option>
 					<option value="1">탈퇴회원</option>
@@ -95,10 +95,10 @@
 					<td>
 						<c:choose>
 							<c:when test="${mem.mQuitDate != null}">
-								<fmt:formatDate value="${mem.mQuitDate}" pattern="yyyy-MM-dd"/>
+								<span class="quitted"><fmt:formatDate value="${mem.mQuitDate}" pattern="yyyy-MM-dd"/></span>
 							</c:when>
 							<c:otherwise>
-								-
+								- 
 							</c:otherwise>
 						</c:choose>
 					</td>
@@ -159,12 +159,14 @@
 	setOnClass();
 	function setOnClass(){
 		$("#mem-sel > li").removeClass("on");
-		$("#mem-sel > li:eq(${memCode})").addClass("on");
+		$("#mem-sel > li:eq(${code})").addClass("on");
 	}
+	
+	$(".quitted").closest("tr").css("background", "silver");
 	
 	//변경되는 상태에 따라 리스트 뿌리기
 	$("#state-sel").change(function(){
-		var data = {"memCode": ${cri.memCode} , 
+		var data = {"code": ${cri.code} , 
 					"state": $("#state-sel").val() , 
 					"searchType": $("#searchType").val(), 
 					"keyword": $("#keyword").val(), 
@@ -190,7 +192,7 @@
 	setOnClass();
 	function setOnClass(){
 		$("#mem-sel > li").removeClass("on");
-		$("#mem-sel > li:eq(${memCode})").addClass("on");
+		$("#mem-sel > li:eq(${code})").addClass("on");
 	}
 
 	//동적 추가되는 테이블 날짜
@@ -216,12 +218,12 @@
 	
 	//변경되는 상태에 따라 리스트 뿌리기
 	$("#state-sel").change(function(){
-		var data = {"memCode": ${cri.memCode} , 
-					"state": $("#state-sel").val() , 
-					"searchType": $("#searchType").val(), 
-					"keyword": $("#keyword").val(), 
-					"page": 1, 
-					"perPageNum": 10};
+		var data = {"code" : ${cri.code} , 
+					"state" : $("#state-sel").val() , 
+					"searchType" : $("#searchType").val(), 
+					"keyword" : $("#keyword").val(), 
+					"page" : 1, 
+					"perPageNum" : 10};
 		
 		getListPage(data);
 		
@@ -229,12 +231,12 @@
 	
 	//키워드 검색에 따라 리스트 뿌리기
 	$("#btnSearch").click(function(){
-		var data = {"memCode": ${cri.memCode} , 
-				"state": $("#state-sel").val() , 
-				"searchType": $("#searchType").val(), 
-				"keyword": $("#keyword").val(), 
-				"page": 1, 
-				"perPageNum": 10};
+		var data = {"code" : ${cri.code} , 
+				"state" : $("#state-sel").val() , 
+				"searchType" : $("#searchType").val(), 
+				"keyword" : $("#keyword").val(), 
+				"page" : 1, 
+				"perPageNum" : 10};
 	
 		getListPage(data);
 	})

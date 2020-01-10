@@ -14,10 +14,10 @@
 			var todayDate = today.getDate();
 			
 			//타이틀 출력
-			if(m <= 9) {
-				title.innerHTML = y + ". 0" + (m+1) + ".";
+			if(m < 9) {
+				title.innerHTML = "<span id='cal-year'>" + y + "</span>. <span id='cal-month'>0" + (m+1) + "</span>.";
 			} else {
-				title.innerHTML = y + ". " + (m+1) + ".";
+				title.innerHTML = "<span id='cal-year'>" + y + "</span>. <span id='cal-month'>" + (m+1) + "</span>.";
 			}
 			
 			
@@ -69,9 +69,9 @@
 						code_saver += "<td></td>";
 					} else{
 						if(day_saver == todayDate) {
-							code_saver += "<td class='tOn'><a href='"+day_saver+"'>"+day_saver+"</a></td>";
+							code_saver += "<td data-date='"+day_saver+"'>"+day_saver+"</td>";
 						} else {
-							code_saver += "<td><a href='"+day_saver+"'>"+day_saver+"</a></td>";
+							code_saver += "<td data-date='"+day_saver+"'>"+day_saver+"</td>";
 						}
 						
 						day_saver++;
@@ -103,5 +103,11 @@
 			today.setMonth(today.getMonth()+1);
 			calendar();
 		}
+		
+		$(document).on("click", "td", function(){
+			$("td").removeClass("tOn");
+			$(this).addClass("tOn");
+		})
+		
 	})
 })(window, jQuery);
