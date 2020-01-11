@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="resources/css/admin/common.css" type="text/css" rel="stylesheet">
-<link href="resources/css/admin/program.css" type="text/css" rel="stylesheet">
+<link href="resources/css/admin/theater.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 	<div id="container">
@@ -22,70 +22,95 @@
 		</div>
 
 		<div class="intra-content">	
-			<div class="content-wrap">
-				<div class="cont-center">
-					<div class="menu-wrap">
-						<a href="${pageContext.request.contextPath}/admin/intranet/program/regist" id="addPg"></a>
-					</div>
-					
-					<table>
-						<tr>
-							<th>no</th>
-							<th>상영관이름</th>
-							<th>수용인원</th>
-							<th>위치</th>
-							<th>스케쥴</th>
-							<th></th>
-						</tr>
-						
-						<tr onclick="ck()">
-							<td>3</td>
-							<td>어쩌구저쩌구관</td>
-							<td>30석</td>
-							<td>3층</td>
-							<td><a href="#">스케쥴</a></td>
-							<td><a href="#" id="thDel">삭제</a></td>
-						</tr>
-						<tr class="thImg-wrap">
-							<td colspan="6">
-								<img src="resources/img/mark-basarab-1OtUkD_8svc-unsplash.jpg">
-							</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>어쩌구저쩌구관</td>
-							<td>30석</td>
-							<td>3층</td>
-							<td><a href="#">스케쥴</a></td>
-							<td><a href="#" id="thDel">삭제</a></td>
-						</tr>
-						
-						
-<!-- 						<c:forEach var="th" items="${list}">
-							<tr>
-								<td>${th.thNo}</td>
-								<td><a href="#">${th.thNm}</a></td>
-								<td>${th.thSeatCnt}</td>
-								<td>${th.thFloor}</td>
-								<td><a href="#">스케쥴</a></td>
-								<td><a href="#" id="thDel">삭제</a></td>
-							</tr>
-						</c:forEach> -->
-					</table>
+		
+<h2>상영관 추가</h2>
+		
+<div class="content-wrap">
+	<div class="cont-center">
+		<form id="set-wrap" action="regist" method="post">
+			<table>
+				<tr>
+					<th>위치</th>
+					<td><input type="text" name="thFloor" maxlength="2" class="ipNum"> 층</td>
+					<th>수용인원</th>
+					<td><input type="text" name="thSeatCnt" maxlength="3" class="ipNum"> 명</td>
+					<th rowspan="2">
+					<button id="crtStBtn" type="button">좌석생성</button>
+					<input type="submit" value="등록">
+					</th>
+				</tr>
+				<tr>
+					<th>상영관명</th>
+					<td><input type="text" name="thName"></td>
+					<th>전체좌석<br>(복도포함)</th>
+					<td>
+						<input type="text" maxlength="3" id="rows" class="ipNum"> X <input type="text" maxlength="3" id="cols" class="ipNum">
+					</td>
+				</tr>
+			</table>
+		</form>
+		
+		<div class="crt-seat-wrap">
+			<div class="seat-div">
+				<div>
+					<dl>
+						<dt class="seat seat-empty"></dt>
+						<dd>빈 좌석</dd>
+					</dl>
+					<dl>
+						<dt class="seat seat-active"></dt>
+						<dd>선택한 좌석</dd>
+					</dl>
+					<dl>
+						<dt class="seat premiumSingle-empty"></dt>
+						<dd>비싼 싱글석</dd>
+					</dl>
+					<dl>
+						<dt class="seat premiumDouble-empty"></dt>
+						<dd>비싼 더블석</dd>
+					</dl>
 				</div>
 			</div>
+			
+			<div id="show-seat-wrap">
+				<ul class="seat-row">
+					<li><a class="seat seat-empty"></a></li>
+					<li><a class="seat seat-empty"></a></li>
+					<li><a class="seat seat-active"></a></li>
+					<li><a class="seat seat-active"></a></li>
+					<li><a class="seat seat-none"></a></li>
+					<li><a class="seat seat-none"></a></li>
+					<li><a class="seat seat-disabled"></a></li>
+					<li><a class="seat seat-disabled"></a></li>
+					<li><a class="seat seat-disabled"></a></li>
+					<li><a class="seat seat-disabled"></a></li>
+					<li><a class="seat premiumSingle-empty"></a></li>
+					<li><a class="seat premiumDouble-empty"></a></li>
+					<li><a class="seat premiumSingle-empty"></a></li>
+					<li><a class="seat premiumDouble-empty"></a></li>
+					<li><a class="seat premiumSingle-empty"></a></li>
+					<li><a class="seat premiumDouble-empty"></a></li>
+					<li><a class="seat premiumSingle-empty"></a></li>
+					<li><a class="seat premiumSingle-empty"></a></li>
+					<li><a class="seat premiumDouble-empty"></a></li>
+					<li><a class="seat premiumSingle-empty"></a></li>
+					<li><a class="seat premiumDouble-empty"></a></li>
+					<li><a class="seat premiumSingle-empty"></a></li>
+					<li><a class="seat premiumSingle-empty"></a></li>
+					<li><a class="seat premiumDouble-empty"></a></li>
+					<li><a class="seat premiumDouble-empty"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+			
+			
 		</div>
 	</div>
 	
 	
-	<script>
-		
-		function ck(){
-			var dd = document.getElementsByClassName("thImg-wrap")[0];		
-			
-			dd.style.display = "table-row";
-		}
-	</script>
+
 	
 </body>
 </html>

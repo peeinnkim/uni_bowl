@@ -47,7 +47,7 @@ button {
 	left: 0;
 	top: 0;
 	z-index: 100;
-	box-shadow: 2px 2px 7px #8C8C8C;
+	box-shadow: 0 0 30px rgba(0, 0, 0, .1);
 }
 .header {
 	width: 50%;
@@ -103,7 +103,7 @@ button {
 .main-banner {
 	width: 700px;
 	height: 700px;
-	background: url("../img/mark-basarab-1OtUkD_8svc-unsplash.jpg") no-repeat;
+	background: url("../../img/mark-basarab-1OtUkD_8svc-unsplash.jpg") no-repeat;
 	background-size: cover;
 }
 
@@ -116,7 +116,7 @@ button {
 	position: fixed;
 	right: 0;
 	top: 0;
-	box-shadow: -2px 0px 7px #8C8C8C;
+	box-shadow: 0 0 30px rgba(0, 0, 0, .1);
 }
 #side-bar > a {
 	width: 60px;

@@ -36,7 +36,7 @@
 			</tr>
 			
 			<c:forEach var="th" items="${list}">
-				<tr>
+				<tr onclick="ck()">
 					<td>${th.thNo}</td>
 					<td><a href="#">${th.thNm}</a></td>
 					<td>${th.thSeatCnt}</td>
@@ -64,6 +64,12 @@
 			return false;
 		}
 	})
+		
+	function ck(){
+		var dd = document.getElementsByClassName("thImg-wrap")[0];		
+	
+		dd.style.display = "table-row";
+	}
 </script>
 
 <%@ include file="../../include/footer.jsp" %>

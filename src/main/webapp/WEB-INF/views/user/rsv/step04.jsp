@@ -1,49 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="resources/css/user/common.css" type="text/css" rel="stylesheet">
-<link href="resources/css/user/rsv.css" type="text/css" rel="stylesheet">
-</head>
-<body>
-	<div id="container">
-		<div id="header-wrap">
-			<div class="header logo">
-				<a href="#">宇宙漁缸</a>
-			</div>
-			
-			<div class="header mem-menu">
-				<ul>
-					<li>JOIN</li>
-					<li>LOGIN</li>
-				</ul>
-			</div>
-			
-			<div class="header nav">
-				<ul>
-					<li><a href="#">HOME</a></li>
-					<li>
-						<a>ABOUT</a>
-						<ul>
-							<li><a href="#">UNIVERSE FISH-BOWL</a></li>
-							<li><a href="#">THEATER</a></li>
-							<li><a href="#">PROGRAM</a></li>
-						</ul>
-					</li>
-					<li><a href="#">NOTICE</a></li>
-					<li><a href="#">QnA</a></li>
-					<li><a href="#">ONLINE SHOP</a></li>
-				</ul>
-			</div>
-		</div>
-		
-		<div id="section">
-			<div class="inner-section">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="../../include/header.jsp" %>
 
 <div class="section-title">
-	<h1>MY RESERVATION</h1>
+	<h1>STEP01</h1>
 </div>
+
+<h2>상영스케쥴</h2> 
 
 <div class="content-area">
 	<div class="rsv-cpl-wrap">
@@ -127,13 +90,7 @@
 		<a href="#" id="btnCancel">홈</a>
 		<a href="#" id="btnNext">예약리스트</a>
 	</div>
-</div>			
-			</div>
-		</div>
-		
-		<div id="side-bar">
-			<a href="#"><img src="resources/img/no-fishing.png" id="tempIntraIco"></a>
-		</div>
-	</div>
-</body>
-</html>
+</div>		
+
+<%@ include file="../../include/footer.jsp" %>
+
