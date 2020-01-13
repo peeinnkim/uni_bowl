@@ -59,10 +59,10 @@ button {
 }
 .intra-content {
 	width: 80%;
-	height: 100%;
 	background: lightcoral;
 	float: right;
-	padding: 20px;
+	padding: 20px 20px 50px;
+	overflow: auto;
 }
 .intra-content > h2 {
 	width: 100%;

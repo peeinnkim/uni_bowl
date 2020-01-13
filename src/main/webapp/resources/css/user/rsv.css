@@ -4,7 +4,7 @@
 	overflow: hidden;
 }
 .rsv-left {
-	width: 780px;
+	width: 870px;
 	float: left;
 	background: tan;
 }
@@ -43,8 +43,8 @@
 	margin-right: 2px;
 }
 .seat {
-	width: 21px; 
-	height: 28px;	
+ 	width: 22px;
+    height: 32px;
 	display: block;
 }
 .seat-empty {
@@ -130,7 +130,6 @@ dd {
 
 /* INPUT INFOMATION */
 .pay-area {
-	background: green;
 	width: 100%;
 	margin: 0 auto 20px;
 }
@@ -140,14 +139,14 @@ table {
 }
 th, td {
 	border: 1px solid black;
-	padding: 5px 3px 5px 5px;
+	padding: 7px 3px 7px 5px;
 }
 .title-tr > td {
 	font-size: 1.5em;
-	padding: 20px 0px 15px 5px;
+	padding: 20px 0px 15px 20px;
 }
 th {
-	width: 100px;
+	width: 120px;
 }
 .pNum, .cNum {
 	width: 50px;
@@ -168,29 +167,36 @@ th {
 	background: pink;
 	overflow: hidden;
 }
+.cpl-info-wrap {
+	width: 1100px;
+	margin: 0 auto;
+	overflow: hidden;
+}
 .cpl-info {
 	float: left;
-	width: 31%;
+	width: 320px;
 	border: 2px solid black;
-	margin: 0 7px 0 15px;
+	margin: 0 20px;
+	font-size: 14px;
 }
 .cpl-info > h3 {
 	border-bottom: 3px dotted black;
+	padding: 20px 10px;
 }
 .cpl-info > ul > li {
 	overflow: hidden;
-	padding: 10px 0;
+	padding: 20px 0;
 	background: orange;
 }
 .cpl-info > ul > li > label {
-	width: 100px;
+	width: 27%;
 	float: left;
 	background: lavender;
-	padding-left: 5px;
+	padding-left: 8px;
 }
 .cpl-info > ul > li > span {
 	float: right;
-	width: 240px;
+	width: 65%;
 	text-align: right;
 	background: tan;
 	padding-right: 8px;

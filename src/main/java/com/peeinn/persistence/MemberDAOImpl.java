@@ -53,8 +53,6 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public List<MemberVO> searchList(CodeStateCriteria cri) {
-		System.out.println("DAO CRI->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + cri);
-		
 		return sqlSession.selectList(namespace + ".searchList", cri);
 	}
 

@@ -159,7 +159,7 @@ th {
 .del-wrap {
 	width: 4.5%;
 }
-.pgDel {
+.pgDel, .thDel {
     width: 30px;
     height: 30px;
     display: block;

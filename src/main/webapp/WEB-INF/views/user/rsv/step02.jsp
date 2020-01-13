@@ -5,10 +5,8 @@
 <link href="${pageContext.request.contextPath}/resources/css/user/rsv.css" type="text/css" rel="stylesheet">
 
 <div class="section-title">
-	<h1>STEP01</h1>
+	<h1>STEP02</h1>
 </div>
-
-<h2>상영스케쥴</h2>
 
 <div class="content-area">
 	<div class="rsv-left">

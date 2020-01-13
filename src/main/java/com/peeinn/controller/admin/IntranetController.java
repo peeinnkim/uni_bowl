@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.peeinn.domain.MemberVO;
 import com.peeinn.domain.OrgVO;
 import com.peeinn.domain.ProgramVO;
+import com.peeinn.domain.SeatVO;
 import com.peeinn.domain.TheaterVO;
 import com.peeinn.domain.org.OrgResultVO;
 import com.peeinn.domain.paging.CodeStateCriteria;
@@ -224,12 +225,50 @@ public class IntranetController {
 		return "admin/intranet/theater/input";
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="theater/regist", method=RequestMethod.POST)
-	public void thRegistPost(TheaterVO th, HttpServletResponse response) throws IOException {
+	public ResponseEntity<Map<String, Object>> thRegistPost(TheaterVO th) {
 		logger.info("------------ [theaterRegist POST] ------------");
+		ResponseEntity<Map<String, Object>> entity = null;
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		thService.regist(th);
-		response.sendRedirect("list");
+		try {
+			thService.regist(th);
+			map.put("result", "success");
+			map.put("no", th.getThNo());
+			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			map.put("result", "fail");
+			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.BAD_REQUEST);
+			e.printStackTrace();
+		}
+		
+		return entity;
+	}
+	
+	/* ------------------- [ SEAT PART ] ------------------- */
+	@RequestMapping(value="theater/seat", method=RequestMethod.GET)
+	public void stRegistGet() {
+		logger.info("------------ [seatRegist POST] ------------");
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="theater/seat/regist", method=RequestMethod.POST)
+	public ResponseEntity<String> stRegistPost(List<SeatVO> stList){
+		logger.info("------------ [seatRegist POST] ------------");
+		logger.info("stList ->>" + stList);
+		
+		ResponseEntity<String> entity = null;
+		
+		try {
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+			
+		} catch (Exception e) {
+			entity = new ResponseEntity<String>("fail", HttpStatus.OK);
+		}
+		
+		return entity;
 	}
 	
 	

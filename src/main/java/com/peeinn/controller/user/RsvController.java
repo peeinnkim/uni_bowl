@@ -24,6 +24,21 @@ public class RsvController {
 		
 		model.addAttribute("list", orgService.orgByDateList(""));
 	}
+	@RequestMapping(value="step02", method=RequestMethod.GET)
+	public void registRsv2(Model model) {
+		logger.info("------------ [RSV1 GET] ------------");
+		
+	}
+	@RequestMapping(value="step03", method=RequestMethod.GET)
+	public void registRsv3(Model model) {
+		logger.info("------------ [RSV1 GET] ------------");
+		
+	}
+	@RequestMapping(value="step04", method=RequestMethod.GET)
+	public void registRsv4(Model model) {
+		logger.info("------------ [RSV1 GET] ------------");
+		
+	}
 	
 	@RequestMapping(value="list", method=RequestMethod.GET)
 	public void rsvList() {

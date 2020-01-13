@@ -5,10 +5,8 @@
 <link href="${pageContext.request.contextPath}/resources/css/user/rsv.css" type="text/css" rel="stylesheet">
 
 <div class="section-title">
-	<h1>STEP01</h1>
+	<h1>STEP03</h1>
 </div>
-
-<h2>상영스케쥴</h2>    
     
 <div class="content-area">
 	<div class="rsv-left">
@@ -45,15 +43,18 @@
 							<input type="text" maxlength="4" class="pNum">
 							<input type="text" maxlength="4" class="pNum">
 						</td>
-						<th></th>
-						<td></td>
+						<td colspan="2"></td>
 					</tr>
 					<tr class="title-tr">
 						<td colspan="4">결제정보</td>
 					</tr>
 					<tr>
 						<th>카드종류</th>
-						<td><input type="text"></td>
+						<td>
+							<select>
+								<option>SHINHAN CARD</option>
+							</select>
+						</td>
 						<th>카드번호</th>
 						<td>
 							<input type="text" maxlength="4" class="cNum">
@@ -63,6 +64,7 @@
 						</td>
 					</tr>
 					<tr>
+						<td colspan="2"></td>
 						<th>유효번호</th>
 						<td>
 							<label>월</label>

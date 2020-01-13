@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.SeatMapper">
+	
+	<resultMap type="SeatVO" id="seatResult">
+		<id property="stNo" column="i_seat" />
+		<result property="stNm" column="st_nm" />
+		<result property="stDnm" column="st_dNm" />
+		<result property="stThNo" column="i_theater" />
+		<result property="stSgNo" column="i_seatGrade" />
+	</resultMap>
+	
+	<insert id="insertSt">
+		insert info t_seat values(0, #{stNm}, #{stDnm}, #{thNo}, #{sgNo});
+	</insert>
+	
+	<update id="updateSt">
+		update t_seat set st_nm = #{stNm}, st_dNm = #{stDnm}, i_seatGrade = #{stSgNo} where i_seat = #{stNo}; 
+	</update>
+	
+	<select id="selectList" resultMap="seatResult">
+		select * from t_seat st join t_seat_grade sg using(i_seatGrade) order by st.seat_name *1 asc;
+	</select>
+
+
+
+</mapper>

@@ -17,7 +17,8 @@
 				<th>상영관이름</th>
 				<th>수용인원</th>
 				<th>위치</th>
-				<th>스케쥴</th>
+				<th>상영표</th>
+				<th>좌석관리</th>
 				<th></th>
 			</tr>
 			
@@ -26,11 +27,12 @@
 				<td>어쩌구저쩌구관</td>
 				<td>30석</td>
 				<td>3층</td>
-				<td><a href="#">스케쥴</a></td>
-				<td><a href="#" class="thDel">삭제</a></td>
+				<td><a href="#">상영표 보기</a></td>
+				<td><a href="#">좌석표 보기</a></td>
+				<td><a href="#" class="thDel"></a></td>
 			</tr>
 			<tr class="thImg-wrap">
-				<td colspan="6">
+				<td colspan="7">
 					<img src="${pageContext.request.contextPath}/resources/img/mark-basarab-1OtUkD_8svc-unsplash.jpg">
 				</td>
 			</tr>
@@ -41,11 +43,12 @@
 					<td><a href="#">${th.thNm}</a></td>
 					<td>${th.thSeatCnt}</td>
 					<td>${th.thFloor}</td>
-					<td><a href="#">스케쥴</a></td>
-					<td><a href="#" class="thDel">삭제</a></td>
+					<td><a href="#">상영표 보기</a></td>
+					<td><a href="#">좌석표 보기</a></td>
+					<td><a href="#" class="thDel"></a></td>
 				</tr>
 				<tr class="thImg-wrap">
-					<td colspan="6">
+					<td colspan="7">
 						<img src="${pageContext.request.contextPath}/resources/img/mark-basarab-1OtUkD_8svc-unsplash.jpg">
 					</td>
 				</tr>

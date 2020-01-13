@@ -16,7 +16,6 @@
 	<h1>STEP01</h1>
 </div>
 
-<h2>상영스케쥴</h2>
 
 <div class="content-area">
 	<div class="cont-left">
