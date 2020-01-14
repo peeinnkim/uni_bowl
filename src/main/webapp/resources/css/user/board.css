@@ -370,8 +370,18 @@ dd {
     cursor: pointer;
 }
 
-
-
+/* 상단고정 게시물 */
+.ntTop-tr {
+	background: pink;
+}
+.ntTop-tr > td:first-child > span {
+	width: 22px;
+	height: 22px;
+	display: inline-block;
+	background: url("../../img/icon/notice.png") no-repeat;
+	background-size: contain;
+	cursor: pointer;
+}
 
 
 

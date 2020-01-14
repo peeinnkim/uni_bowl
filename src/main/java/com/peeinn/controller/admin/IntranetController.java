@@ -4,11 +4,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -22,6 +24,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,6 +42,7 @@ import com.peeinn.domain.paging.PageMaker;
 import com.peeinn.service.MemberService;
 import com.peeinn.service.OrgService;
 import com.peeinn.service.ProgramService;
+import com.peeinn.service.SeatService;
 import com.peeinn.service.TheaterService;
 import com.peeinn.util.MyUtils;
 import com.peeinn.util.UploadFileUtils;
@@ -57,6 +62,8 @@ public class IntranetController {
 	private TheaterService thService;
 	@Autowired
 	private OrgService orgService;
+	@Autowired
+	private SeatService stService;
 
 	
 	/* ------------------- [ MEMBER MNG PART ] ------------------- */
@@ -247,30 +254,71 @@ public class IntranetController {
 		return entity;
 	}
 	
+	@RequestMapping(value="theater/modifyRowAndCol", method = RequestMethod.GET)
+	public String modifyRowAndCol(int row, int col, int thNo) {
+		logger.info("------------ [modifyRowAndCol GET] ------------");
+		
+		TheaterVO th = new TheaterVO();
+		th.setThNo(thNo);
+		th.setThRow(row);
+		th.setThCol(col);
+		
+		thService.modifyRowAndCol(th);
+		
+		return "redirect:/admin/intranet/theater/list";
+	}
+
+	@RequestMapping(value="theater/remove", method = RequestMethod.GET)
+	public String removeTh(int thNo) {
+		logger.info("------------ [removeTh GET] ------------");
+		
+		thService.remove(thNo);
+		
+		return "redirect:/admin/intranet/theater/list";
+	}
+	
 	/* ------------------- [ SEAT PART ] ------------------- */
 	@RequestMapping(value="theater/seat", method=RequestMethod.GET)
-	public void stRegistGet() {
-		logger.info("------------ [seatRegist POST] ------------");
+	public String stRegistGet(Model model, int thNo) {
+		logger.info("------------ [seatRegist GET] ------------");
+		
+		List<SeatVO> list = stService.listByThNo(thNo);
+		
+		if(list != null) {
+			TheaterVO rowCol = thService.getRowAndCol(thNo);
+			model.addAttribute("row", rowCol.getThRow());
+			model.addAttribute("col", rowCol.getThCol());
+			model.addAttribute("list", list);
+			
+			logger.info("row ->>>" + rowCol.getThRow());
+			logger.info("col ->>>" + rowCol.getThCol());
+			logger.info("list ->>>" + list);
+		}
+		
+		model.addAttribute("th", thService.search(thNo));
+		model.addAttribute("modify", true);
+		
+		return "admin/intranet/theater/input";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="theater/seat/regist", method=RequestMethod.POST)
-	public ResponseEntity<String> stRegistPost(List<SeatVO> stList){
+	public ResponseEntity<String> stRegistPost(@RequestBody List<SeatVO> stList) {
 		logger.info("------------ [seatRegist POST] ------------");
-		logger.info("stList ->>" + stList);
-		
+		logger.info("stList ->>>>>" + stList.size());
+		logger.info("stList ->>>>>" + stList);
 		ResponseEntity<String> entity = null;
 		
 		try {
+			stService.regist(stList); 
 			entity = new ResponseEntity<String>("success", HttpStatus.OK);
-			
 		} catch (Exception e) {
-			entity = new ResponseEntity<String>("fail", HttpStatus.OK);
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;
 	}
-	
 	
 	/* ------------------- [ ORGANIZATION PART ] ------------------- */
 	@RequestMapping(value="org/list", method=RequestMethod.GET)

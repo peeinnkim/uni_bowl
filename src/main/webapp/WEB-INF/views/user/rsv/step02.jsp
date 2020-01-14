@@ -16,53 +16,41 @@
 					<dt class="seat seat-empty"></dt>
 					<dd>빈 좌석</dd>
 				</dl>
-				<dl>
-					<dt class="seat seat-active"></dt>
-					<dd>선택한 좌석</dd>
-				</dl>
-				<dl>
-					<dt class="seat seat-disabled"></dt>
-					<dd>이미 예약된 좌석</dd>
-				</dl>
+
 				<dl>
 					<dt class="seat premiumSingle-empty"></dt>
-					<dd>비싼 싱글석</dd>
+					<dd>프리미엄 싱글석</dd>
 				</dl>
 				<dl>
 					<dt class="seat premiumDouble-empty"></dt>
-					<dd>비싼 더블석</dd>
+					<dd>프리미엄 더블석</dd>
+				</dl>
+				<dl>
+					<dt class="seat seat-active"></dt>
+					<dd>현재 선택한 좌석</dd>
+				</dl>
+				<dl>
+					<dt class="seat seat-none"></dt>
+					<dd>이미 예약된 좌석</dd>
 				</dl>
 			</div>
+			
 			<div class="seat-img"></div>
-			<div class="seat-icons">
-				<ul class="seat-row">
-					<li><a class="seat seat-empty"></a></li>
-					<li><a class="seat seat-empty"></a></li>
-					<li><a class="seat seat-active"></a></li>
-					<li><a class="seat seat-active"></a></li>
-					<li><a class="seat seat-none"></a></li>
-					<li><a class="seat seat-none"></a></li>
-					<li><a class="seat seat-disabled"></a></li>
-					<li><a class="seat seat-disabled"></a></li>
-					<li><a class="seat seat-disabled"></a></li>
-					<li><a class="seat seat-disabled"></a></li>
-					<li><a class="seat premiumSingle-empty"></a></li>
-					<li><a class="seat premiumDouble-empty"></a></li>
-					<li><a class="seat premiumSingle-empty"></a></li>
-					<li><a class="seat premiumDouble-empty"></a></li>
-					<li><a class="seat premiumSingle-empty"></a></li>
-					<li><a class="seat premiumDouble-empty"></a></li>
-					<li><a class="seat premiumSingle-empty"></a></li>
-					<li><a class="seat premiumSingle-empty"></a></li>
-					<li><a class="seat premiumDouble-empty"></a></li>
-					<li><a class="seat premiumSingle-empty"></a></li>
-					<li><a class="seat premiumDouble-empty"></a></li>
-					<li><a class="seat premiumSingle-empty"></a></li>
-					<li><a class="seat premiumSingle-empty"></a></li>
-					<li><a class="seat premiumDouble-empty"></a></li>
-					<li><a class="seat premiumDouble-empty"></a></li>
-				</ul>
+			<div class="seat-icons" style="width:${col * 24}px;">
+				<input type="hidden" name="stThNo">
+				<c:if test="${list != null}">
+					<c:set var="cName" value='<%=new String[]{"", "seat-empty", "premiumSingle-empty", "premiumDouble-empty", "seat-none", "seat-disabled"} %>'/>
+						<c:forEach var="rowIdx" begin="0" end="${row-1}">
+						<ul class="seat-row">
+						 <c:forEach var="st" items="${list}" begin="${rowIdx*col}" end="${(rowIdx*col)+col-1}"> 
+							<li><a class='seat ${cName[st.stSgNo]} added-seat' data-cNo='${st.stSgNo}'>${st.stNm}</a></li> 
+						 </c:forEach> 
+						</ul>
+					</c:forEach> 
+				</c:if>
 			</div>
+			
+			
 		</div>
 		<div class="btn-area">
 			<a href="#" id="btnCancel">취소</a>

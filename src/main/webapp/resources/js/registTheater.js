@@ -1,9 +1,11 @@
 /* SEAT 지정 */
 var cDefault = "seat";
 var cName = "seat-empty";
+var cNo = "1";
 
 function getCName(obj){
 	cName = $(obj).attr("data-cNm");
+	cNo = $(obj).attr("data-cNo");
 }			
 
 $(function(){	
@@ -30,7 +32,7 @@ $(function(){
 		var thFloor = $("input[name='thFloor']").val();
 		
 		var data = {
-				"thName" : thName,
+				"thNm" : thName,
 				"thSeatCnt": thSeatCnt,
 				"thFloor" : thFloor
 		};
@@ -52,9 +54,9 @@ $(function(){
 					}
 					
 					$("#cThNo").val(res.no);
-					$("#cThName").val(thName);
-					$("#cThCnt").val(thSeatCnt);
-					$("#cThFloor").val(thFloor);
+					$("#cThName").text(thName);
+					$("#cThCnt").text(thSeatCnt);
+					$("#cThFloor").text(thFloor);
 					$(".crt-th-wrap").hide();
 					$(".crted-th-wrap").show();
 					
@@ -78,6 +80,8 @@ $(function(){
 		}
 		
 		$("#show-seat-wrap > div").empty();
+		
+		//가로세로길이 받아오기
 		var rows = $("#rows").val(); //ul
 		var cols = $("#cols").val(); //li
 		var capa = $("#cThCnt").text();
@@ -94,13 +98,16 @@ $(function(){
 		
 		var code_saver = "";
 		var idx, rowStr;
+		var thNo = $("#cThNo").val();
 		
 		for(var i=0; i<rows; i++) {
 			rowStr = String.fromCharCode(97+i);
 			idx = 0;
 			code_saver += "<ul class='seat-row'>";
 			for(var j=0; j<cols; j++) {
-				code_saver += "<li><a title='"+rowStr+"-"+(++idx)+"' class='seat seat-empty added-seat'>"+rowStr+idx+"</a></li>";
+				code_saver += "<li>" +
+							  "<a class='seat seat-empty added-seat' data-cNo='1'>"+rowStr+(++idx)+"</a>" +
+							  "</li>";
 			}
 			code_saver += "</ul>";
 		}
@@ -113,11 +120,11 @@ $(function(){
 	/* SEAT 지정 */
 	$(document).on("click", ".seat", function(){
 		$(this).removeClass();
-		$(this).addClass(cDefault + " " + cName);
+		$(this).attr("data-cNo", cNo);
+		$(this).addClass(cDefault + " " + cName + "  added-seat");
 	})
 	
-	
-	var stArr = ["seat-empty", "premiumSingle-empty", "premiumDouble-empty", "seat-disabled"];
+	/* 라벨링(추후 저장버튼에 넣을 예정) */
 	$("#reLabelBtn").click(function(){
 		var idx, rowStr;
 		var ulLen = $(".seat-row").length;
@@ -130,48 +137,47 @@ $(function(){
 			
 			for(var j=0; j<liLen; j++) {
 				if($(".seat-row:eq("+i+") > li:eq("+j+") > a").hasClass("seat-disabled")) {
-					$(this).attr("data-sgNo", 4);
-					continue;
+					$(".seat-row:eq("+i+") > li:eq("+j+") > a").text("-");
+				} else {
+					$(".seat-row:eq("+i+") > li:eq("+j+") > a").text(rowStr + (++idx));
 				}
-				
-				$(".seat-row:eq("+i+") > li:eq("+j+") > a").text(rowStr + (++idx));
 			}
 		}
 		
 	})//$("#reLabelBtn").click
 	
-
 	
+	/* 좌석 저장 */
 	$("#stSaveBtn").click(function(){
 		var pName = $("input[name='pName']").val();
-		var data = JSON.stringify({
-			stNm: $(".added-seat").attr("title"), 
-			stDnm: $(".added-seat").text(), 
-			stThNo: $("#cThNo").val(),
-			stSgNo: $(".added-seat")
-		});
+		var stObjArr = [];
 		
-		$(".added-seat").each(function(){
-			alert($(this).attr("title"));
+		$(".added-seat").each(function(i, obj){
+			stObjArr.push({
+				stNm: $(obj).text(), 
+				stThNo: $("#cThNo").val(),
+				stSgNo: $(obj).attr("data-cNo")
+			});
 		})
-		
-		
-/*		$.ajax({
-			url: pName + "/admin/intranet/seat/regist",
+
+		$.ajax({
+			url: pName + "/admin/intranet/theater/seat/regist",
 			type: "post",
-			data: data,
-			headers: {"Content-Type":"application/json"},
+			data: JSON.stringify(stObjArr),
 			dataType: "text",
-			sueccess: function(res){
+			headers: {"Content-Type":"application/json"},
+			success: function(res){
 				console.log(res);
+				
+				if(res == "success") {
+					location.href = pName + "/admin/intranet/theater/modifyRowAndCol?row=" + $("#rows").val() + "&col=" + $("#cols").val() + "&thNo=" + $("#cThNo").val();
+				}
 			},
 			error: function(e){
 				console.log(e);
 			}
-		})*/
-	})
-	
-	
+		})
+	})//$("#stSaveBtn").click
 	
 })
 

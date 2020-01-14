@@ -5,6 +5,8 @@ public class TheaterVO {
 	private String thNm; // 상영관 이름
 	private int thSeatCnt; // 상영관 좌석수
 	private int thFloor; // 상영관 위치(층)
+	private int thRow; // 상영관 좌석row
+	private int thCol; // 상영관 좌석col
 	private String thChart; // 상영관 좌석표
 
 	public int getThNo() {
@@ -19,7 +21,7 @@ public class TheaterVO {
 		return thNm;
 	}
 
-	public void setThName(String thNm) {
+	public void setThNm(String thNm) {
 		this.thNm = thNm;
 	}
 
@@ -39,6 +41,22 @@ public class TheaterVO {
 		this.thFloor = thFloor;
 	}
 
+	public int getThRow() {
+		return thRow;
+	}
+
+	public void setThRow(int thRow) {
+		this.thRow = thRow;
+	}
+
+	public int getThCol() {
+		return thCol;
+	}
+
+	public void setThCol(int thCol) {
+		this.thCol = thCol;
+	}
+
 	public String getThChart() {
 		return thChart;
 	}
@@ -50,7 +68,7 @@ public class TheaterVO {
 	@Override
 	public String toString() {
 		return "TheaterVO [thNo=" + thNo + ", thNm=" + thNm + ", thSeatCnt=" + thSeatCnt + ", thFloor=" + thFloor
-				+ ", thChart=" + thChart + "]";
+				+ ", thRow=" + thRow + ", thCol=" + thCol + ", thChart=" + thChart + "]";
 	}
 
 }// TheaterVO

@@ -23,6 +23,10 @@
 	<delete id="deleteReply">
 		delete from t_reply_qna where i_reply = #{rpNo};
 	</delete>
+	
+	<delete id="deleteReplyBtQnaNo">
+		delete from t_reply_qna where i_qna = #{qnaNo};
+	</delete>
 
 	<select id="selectReplyList" resultMap="replyResult"> <!-- 전체 리스트 -->
 		select * from t_reply_qna order by i_reply desc;

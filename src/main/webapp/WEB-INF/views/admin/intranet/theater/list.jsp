@@ -28,7 +28,7 @@
 				<td>30석</td>
 				<td>3층</td>
 				<td><a href="#">상영표 보기</a></td>
-				<td><a href="#">좌석표 보기</a></td>
+				<td><a href="#">좌석관리</a></td>
 				<td><a href="#" class="thDel"></a></td>
 			</tr>
 			<tr class="thImg-wrap">
@@ -40,12 +40,12 @@
 			<c:forEach var="th" items="${list}">
 				<tr onclick="ck()">
 					<td>${th.thNo}</td>
-					<td><a href="#">${th.thNm}</a></td>
-					<td>${th.thSeatCnt}</td>
-					<td>${th.thFloor}</td>
+					<td><a href="#">${th.thNm} 관</a></td>
+					<td>${th.thSeatCnt} 석</td>
+					<td>${th.thFloor} 층</td>
 					<td><a href="#">상영표 보기</a></td>
-					<td><a href="#">좌석표 보기</a></td>
-					<td><a href="#" class="thDel"></a></td>
+					<td><a href="${pageContext.request.contextPath}/admin/intranet/theater/seat?thNo=${th.thNo}">좌석관리</a></td>
+					<td><a href="${pageContext.request.contextPath}/admin/intranet/theater/remove?thNo=${th.thNo}" class="thDel"></a></td>
 				</tr>
 				<tr class="thImg-wrap">
 					<td colspan="7">

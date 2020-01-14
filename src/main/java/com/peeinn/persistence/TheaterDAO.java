@@ -7,6 +7,11 @@ import com.peeinn.domain.TheaterVO;
 public interface TheaterDAO {
 
 	public void insertTh(TheaterVO th);
+	public void updateRowCol(TheaterVO th);
+	public void deleteTh(int thNo);
+	
+	public TheaterVO selectTh(int thNo);
+	public TheaterVO getRowAndCol(int thNo);
 	
 	public List<TheaterVO> selectList();
 	

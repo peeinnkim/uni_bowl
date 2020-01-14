@@ -19,6 +19,7 @@
 		</collection>
 	</resultMap>
 	
+	<!-- INSERT -->
 	<insert id="insertQnA" useGeneratedKeys="true" keyColumn="i_qna" keyProperty="qnaNo">
 		insert into t_qna(qna_title, qna_category, qna_content, i_member) values(#{qnaTitle}, #{qnaCategory}, #{qnaContent}, #{qnaWriter});
 	</insert>
@@ -27,6 +28,27 @@
 		insert into t_qna_attach values(#{qaNo}, #{qaThumb}, #{qaOrigin}, #{qnaNo});
 	</insert>
 	
+	<!-- UPDATE -->
+	<update id="updateQnA">
+		update t_qna
+			set qna_title = #{qnaTitle}, qna_content = #{qnaContent}, qna_category = #{qnaCategory}, qna_modDate = now()
+			where i_qna = #{qnaNo};
+	</update>
+	
+	<!-- DELETE -->
+	<delete id="deleteQnA">
+		delete from t_qna where i_qna = #{qnaNo};
+	</delete>
+	
+	<delete id="deleteQnAAttach"> <!-- 첨부파일 제거 -->
+		delete from t_qna_attach where i_qna = #{qnaNo};
+	</delete>
+	
+	<delete id="deleteAttachByName">
+		delete from t_qna_attach where qa_thumb = #{name} and i_qna = #{qnaNo};
+	</delete>
+	
+	<!-- SELECT -->
 	<select id="selectQnAList" resultMap="qnaResult">
 		select m.i_member, m.m_id, q.*
 			from t_qna q left join t_member m using(i_member)
@@ -70,13 +92,20 @@
 		</if>
 	</sql>
 	
-	<select id="listSearch" parameterType="SearchCriteria" resultType="QnAVO">
-		select m.i_member, m.m_id, qna.*
-			from t_qna qna left join t_member m using(i_member)
-			left join t_qna_attach qa using(i_qna) 
-			<include refid="search"></include>
-			order by i_qna desc 
+	<select id="listSearch" parameterType="SearchCriteria" resultMap="qnaResult">
+		select m.i_member, m.m_id, qna.i_qna, qna.qna_title, qna.qna_content, qna.qna_category, qna.qna_regDate, qna.qna_modDate, qna.qna_viewCnt,
+			qna.qna_viewCnt, qa.i_attach, qa.qa_thumb, qa.qa_origin
+			from t_qna qna 
+				left join t_member m using(i_member) 
+				left join t_qna_attach qa using(i_qna) 
+				<include refid="search"></include>
+			order by i_qna desc
 			limit #{pageStart}, #{perPageNum};
+	</select>
+	
+	<select id="listSearchCnt" resultType="int">
+		select count(*) from t_qna 
+			<include refid="search"></include>;
 	</select>
 	
 

@@ -8,12 +8,15 @@ import com.peeinn.domain.paging.SearchCriteria;
 public interface QnAService {
 	
 	public void regist(QnAVO qna);
+	public void modify(QnAVO qna, String[] delFiles);
+	public void remove(int qnaNo);
 	
+	public QnAVO read(int qnaNo);
+
 	public List<QnAVO> list();
 	public List<QnAVO> listSearch(SearchCriteria cri);
 
-	public QnAVO read(int qnaNo);
-	
 	public int qnaCnt();
+	public int listSearchCnt(SearchCriteria cri);
 	
 }//QnAService

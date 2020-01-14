@@ -5,21 +5,32 @@
 	<resultMap type="SeatVO" id="seatResult">
 		<id property="stNo" column="i_seat" />
 		<result property="stNm" column="st_nm" />
-		<result property="stDnm" column="st_dNm" />
 		<result property="stThNo" column="i_theater" />
 		<result property="stSgNo" column="i_seatGrade" />
 	</resultMap>
 	
 	<insert id="insertSt">
-		insert info t_seat values(0, #{stNm}, #{stDnm}, #{thNo}, #{sgNo});
+		insert into t_seat values(0, #{stNm}, #{stThNo}, #{stSgNo});
 	</insert>
 	
 	<update id="updateSt">
-		update t_seat set st_nm = #{stNm}, st_dNm = #{stDnm}, i_seatGrade = #{stSgNo} where i_seat = #{stNo}; 
+		update t_seat set st_nm = #{stNm}, i_seatGrade = #{stSgNo} where i_seat = #{stNo}; 
+	</update>
+
+	<update id="updateStState">
+		update t_seat set i_seatGrade = #{stSgNo} where st_nm = #{stNm} and i_theater = #{stThNo}; 
 	</update>
 	
+	<delete id="deleteSt">
+		delete from t_seat where i_theater = #{stThNo};
+	</delete>
+	
 	<select id="selectList" resultMap="seatResult">
-		select * from t_seat st join t_seat_grade sg using(i_seatGrade) order by st.seat_name *1 asc;
+		select * from t_seat order by i_seat asc;
+	</select>
+	
+	<select id="selectListByThNo" resultMap="seatResult">
+		select * from t_seat where i_theater = #{thNo} order by i_seat asc;
 	</select>
 
 

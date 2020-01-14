@@ -68,8 +68,8 @@
 		<div class="read-footer">
 			<a href="${pageContext.request.contextPath}/user/qna/list" class="btn btn-line">LIST</a>
 			<div class="footer-link">
-				<a href="${pageContext.request.contextPath}/user/qna/modify?ntNo=${qna.qnaNo}">MODIFY</a>
-				<a href="${pageContext.request.contextPath}/user/qna/remove?ntNo=${qna.qnaNo}">REMOVE</a>
+				<a href="${pageContext.request.contextPath}/user/qna/modify?qnaNo=${qna.qnaNo}">MODIFY</a>
+				<a href="${pageContext.request.contextPath}/user/qna/remove?qnaNo=${qna.qnaNo}" id="delQnA">REMOVE</a>
 			</div>
 		</div>
 		
@@ -171,6 +171,13 @@
 	$(document).on("click", ".modalX", function(){
 		$(".modal-wrap").css("display", "none");
 	})
+	
+	$("#delQnA").click(function(){
+		var result = confirm("정말 삭제하시겠습니까?");
+		
+		if(result == false) { return false; }
+	})
+	
 	
 	/* -------------- [ REPLY ] -------------- */
 	/* 핸들바즈 날짜변경 */

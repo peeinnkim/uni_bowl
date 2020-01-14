@@ -7,15 +7,33 @@
 		<result property="thNm" column="th_nm" />
 		<result property="thSeatCnt" column="th_seatCnt" />
 		<result property="thFloor" column="th_floor" />
+		<result property="thRow" column="th_row" />
+		<result property="thCol" column="th_col" />
 		<result property="thChart" column="th_chart" />
 	</resultMap>
 
 	<insert id="insertTh" useGeneratedKeys="true" keyColumn="i_theater" keyProperty="thNo">
-		insert into t_theater values(0, #{thNm}, #{thSeatCnt}, #{thFloor}, #{thChart});
+		insert into t_theater(th_nm, th_seatCnt, th_floor) values(#{thNm}, #{thSeatCnt}, #{thFloor});
 	</insert>
+	
+	<update id="updateRowCol">
+		update t_theater set th_row = #{thRow}, th_col = #{thCol} where i_theater = #{thNo};
+	</update>
+	
+	<delete id="deleteTh">
+		delete from t_theater where i_theater = #{thNo};
+	</delete>
 	
 	<select id="selectList" resultMap="thResult">
 		select * from t_theater order by th_nm asc;
+	</select>
+
+	<select id="selectTh" resultMap="thResult">
+		select * from t_theater where i_theater = #{thNo};
+	</select>
+
+	<select id="getRowAndCol" resultMap="thResult">
+		select th_row, th_col from t_theater where i_theater = #{thNo};
 	</select>
 
 </mapper>

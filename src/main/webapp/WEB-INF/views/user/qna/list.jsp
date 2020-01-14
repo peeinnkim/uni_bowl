@@ -50,7 +50,7 @@
 		</tr>
 		
 		<c:forEach var="qna" items="${list}">
-			<tr>
+			<tr class="added-tr">
 				<td>${qna.qnaNo}</td>
 				<td class="qna-title"><a href="${pageContext.request.contextPath}/user/qna/read?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
 				<td>${qna.qnaWriterId}</td>
@@ -90,13 +90,30 @@
 	<a href="${pageContext.request.contextPath}/user/qna/regist">등록</a>
 </div>	
 
+
+<script src="${pageContext.request.contextPath}/resources/js/getSearchList.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+<script id="template" type="text/x-handlebars-template">
+{{#list}}
+<tr class="added-tr">
+	<td>{{qnaNo}}</td>
+	<td class="qna-title"><a href="${pageContext.request.contextPath}/user/qna/read?qnaNo={{qnaNo}}">{{qnaTitle}}</a></td>
+	<td>{{qnaWriterId}}</td>
+	<td>{{pDate qnaRegDate}}</td>
+	<td>{{qnaViewCnt}}</td>
+</tr>
+{{/list}}
+</script>
 <script>
 	$("#btnSearch").click(function(){
-		var sType = $("#searchType").val();
-		var sKey = $("#keyword").val();
+		var data = { 
+				"searchType": $("#searchType").val(), 
+				"keyword": $("#keyword").val(), 
+				"page": 1, 
+				"perPageNum": 10
+			};
 		
-		location.href = "list?searchType=" + sType + "&keyword=" + sKey;
-		
+		getListPage(data);
 	})
 </script>
 

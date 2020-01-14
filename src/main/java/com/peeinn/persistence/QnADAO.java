@@ -10,12 +10,17 @@ public interface QnADAO {
 
 	public void insertQnA(QnAVO qna);
 	public void insertQnaAttach(QnAAttachVO qa);
+	public void updateQnA(QnAVO qna);
+	public void deleteQnA(int qnaNo);
+	public void deleteQnAAttach(int qnaNo);
+	public void deleteAttachByName(String name, int qnaNo);
 	
+	public QnAVO selectQnA(int qnaNo);
+
 	public List<QnAVO> selectQnAList();
 	public List<QnAVO> listSearch(SearchCriteria cri);
 
-	public QnAVO selectQnA(int qnaNo);
-	
 	public int getTotalQnACnt();
+	public int listSearchCnt(SearchCriteria cri);
 	
 }//QnADAO

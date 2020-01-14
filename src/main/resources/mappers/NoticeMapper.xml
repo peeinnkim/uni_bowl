@@ -12,6 +12,7 @@
 		<result property="ntViewCnt" column="nt_viewCnt" />
 		<result property="ntIsFixed" column="nt_isFixed" />
 		<result property="ntWriterId" column="m_id" />
+		<result property="ntSort" column="sort" />
 		<collection property="files" ofType="NoticeAttachVO" javaType="list">
 			<id property="naNo" column="i_ntAttach" />
 			<result property="naThumb" column="na_thumb" />
@@ -79,15 +80,23 @@
 	</sql>
 	
 	<select id="listSearch" parameterType="SearchCriteria" resultMap="noticeMap">
-		select * from t_notice 
-			<include refid="search"></include>
-			order by i_notice desc 
-			limit #{pageStart}, #{perPageNum};
+		select * from (
+			select *, 1 sort from t_notice where nt_isFixed = 1
+			union all
+			select *, 2 sort from t_notice
+		) sNt 
+		<include refid="search"></include>
+		order by sNt.sort asc, i_notice desc
+		limit #{pageStart}, #{perPageNum};
 	</select>
 
 	<select id="listSearchCnt" resultType="int">
-		select count(*) from t_notice 
-			<include refid="search"></include>;
+		select count(*) from (
+			select *, 1 sort from t_notice where nt_isFixed = 1
+			union all
+			select *, 2 sort from t_notice
+		) sNt
+		<include refid="search"></include>;
 	</select>
 	
 </mapper>

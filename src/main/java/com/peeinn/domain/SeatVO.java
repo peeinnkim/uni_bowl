@@ -3,7 +3,6 @@ package com.peeinn.domain;
 public class SeatVO {
 	private int stNo;
 	private String stNm;
-	private String stDnm;
 	private int stThNo;
 	private int stSgNo;
 
@@ -21,14 +20,6 @@ public class SeatVO {
 
 	public void setStNm(String stNm) {
 		this.stNm = stNm;
-	}
-
-	public String getStDnm() {
-		return stDnm;
-	}
-
-	public void setStDnm(String stDnm) {
-		this.stDnm = stDnm;
 	}
 
 	public int getStThNo() {
@@ -49,8 +40,7 @@ public class SeatVO {
 
 	@Override
 	public String toString() {
-		return "SeatVO [stNo=" + stNo + ", stNm=" + stNm + ", stDnm=" + stDnm + ", stThNo=" + stThNo + ", stSgNo="
-				+ stSgNo + "]";
+		return "SeatVO [stNo=" + stNo + ", stNm=" + stNm + ", stThNo=" + stThNo + ", stSgNo=" + stSgNo + "]";
 	}
 
 }// SeatVO

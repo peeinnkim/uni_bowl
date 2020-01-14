@@ -25,4 +25,24 @@ public class TheaterDAOImpl implements TheaterDAO {
 		return sqlSession.selectList(namespace + ".selectList");
 	}
 
+	@Override
+	public TheaterVO selectTh(int thNo) {
+		return sqlSession.selectOne(namespace + ".selectTh", thNo);
+	}
+
+	@Override
+	public void updateRowCol(TheaterVO th) {
+		sqlSession.update(namespace + ".updateRowCol", th);
+	}
+
+	@Override
+	public void deleteTh(int thNo) {
+		sqlSession.delete(namespace + ".deleteTh", thNo);
+	}
+
+	@Override
+	public TheaterVO getRowAndCol(int thNo) {
+		return sqlSession.selectOne(namespace + ".getRowAndCol", thNo);
+	}
+
 }//TheaterDAOImpl

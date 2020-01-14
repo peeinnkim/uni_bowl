@@ -10,18 +10,19 @@
 
 <div class="content-wrap">
 	<div class="cont-center">
+		<c:if test="${modify == null}">
 		<ul class="crt-th-wrap">
 			<li>
 				<label>상영관명</label>
-				<span><input type="text" name="thName"></span>
+				<span><input type="text" name="thName" value="${th.thNm}"> 관</span>
 			</li>
 			<li>
 				<label>수용인원</label>
-				<span><input type="text" name="thSeatCnt" maxlength="3" class="ipNum"> 명</span>
+				<span><input type="text" name="thSeatCnt" maxlength="3" class="ipNum" value="${th.thSeatNum}"> 명</span>
 			</li>
 			<li>
 				<label>위치</label>
-				<span><input type="text" name="thFloor" maxlength="2" class="ipNum"> 층</span>
+				<span><input type="text" name="thFloor" maxlength="2" class="ipNum" value="${th.thFloor}"> 층</span>
 			</li>
 			<li style="width: 100%; text-align: right;">
 				<span>
@@ -29,51 +30,52 @@
 				</span>
 			</li>
 		</ul>
+		</c:if>
 		
-		<div class="crted-th-wrap">
-			<input type="text" id="cThNo" value="1">
+		<div class="crted-th-wrap" style="${modify != null? 'display:block;': ''}">
+			<input type="text" id="cThNo" value="${th.thNo}">
 			<p>
 				<label>상영관명</label>
-				<span><em id="cThName">어쩌구저쩌구</em> 관</span>
+				<span><em id="cThName">${th.thNm}</em> 관</span>
 			</p>
 			<p>
 				<label>수용인원</label>
-				<span><em id="cThCnt">5</em> 명</span>
+				<span><em id="cThCnt">${th.thSeatCnt}</em> 명</span>
 			</p>
 			<p>
 				<label>위치</label>
-				<span><em id="cThFloor">3</em> 층</span>
+				<span><em id="cThFloor">${th.thFloor}</em> 층</span>
 			</p>
 		</div>
 		
-		<div class="crt-seat-pre">
+		<div class="crt-seat-pre" style="${modify != null? 'display:block;': ''}">
 			<h2>좌석 설정</h2>
 			<label>전체좌석<br>(복도포함)</label>
 			<span>
-				<input type="text" maxlength="3" id="rows" class="ipNum" placeholder="열"> X 
-				<input type="text" maxlength="3" id="cols" class="ipNum" placeholder="행">
-				<button id="crtStBtn">좌석생성</button>
+				<input type="text" name="thRow" maxlength="3" id="rows" class="ipNum" placeholder="열"> X 
+				<input type="text" name="thCol" maxlength="3" id="cols" class="ipNum" placeholder="행">
+				<button id="crtStBtn" type="button">좌석생성</button>
 			</span>
 		</div>
 		
-		<div class="crt-seat-wrap">
+		<div class="crt-seat-wrap" style="${modify != null? 'display:block;': ''}">
 			<div class="seat-div">
 				<h2>좌석 등급</h2>
 				<div>
 					<dl>
-						<dt class="seatEx seat-empty" data-cNm="seat-empty" onclick="getCName(this)"></dt>
+						<dt class="seatEx seat-empty" data-cNm="seat-empty" data-cNo="1" onclick="getCName(this)"></dt>
 						<dd>일반석</dd>
 					</dl>
 					<dl>
-						<dt class="seatEx premiumSingle-empty" data-cNm="premiumSingle-empty" onclick="getCName(this)"></dt>
+						<dt class="seatEx premiumSingle-empty" data-cNm="premiumSingle-empty" data-cNo="2" onclick="getCName(this)"></dt>
 						<dd>프리미엄 싱글석</dd>
 					</dl>
 					<dl>
-						<dt class="seatEx premiumDouble-empty" data-cNm="premiumDouble-empty" onclick="getCName(this)"></dt>
+						<dt class="seatEx premiumDouble-empty" data-cNm="premiumDouble-empty" data-cNo="3" onclick="getCName(this)"></dt>
 						<dd>프리미엄 더블석</dd>
 					</dl>
 					<dl>
-						<dt class="seatEx seat-none" data-cNm="seat-disabled" onclick="getCName(this)"></dt>
+						<dt class="seatEx seat-none" data-cNm="seat-disabled" data-cNo="5" onclick="getCName(this)"></dt>
 						<dd>비좌석</dd>
 					</dl>
 				</div>
@@ -81,13 +83,25 @@
 			
 			<div class="seat-save-wrap">
 				<button id="stSaveBtn">저장</button>
-				<button id="reLabelBtn">라벨링</button>
+				<button id="reLabelBtn" type="button">라벨링</button>
 			</div>
 			<div id="show-seat-wrap">
-				<div></div>
+				<input type="hidden" name="stThNo">
+				<div style="width:${col * 24}px;">
+				<c:if test="${list != null}">
+					<c:set var="cName" value='<%=new String[]{"", "seat-empty", "premiumSingle-empty", "premiumDouble-empty", "seat-none", "seat-disabled"} %>'/>
+						<c:forEach var="rowIdx" begin="0" end="${row-1}">
+						<ul class="seat-row">
+						 <c:forEach var="st" items="${list}" begin="${rowIdx*col}" end="${(rowIdx*col)+col-1}"> 
+							<li><a class='seat ${cName[st.stSgNo]} added-seat' data-cNo='${st.stSgNo}'>${st.stNm}</a></li> 
+						 </c:forEach> 
+						</ul>
+					</c:forEach> 
+				</c:if>
+				</div>
 			</div>
-			
 		</div>
+		
 	</div>
 </div>
 

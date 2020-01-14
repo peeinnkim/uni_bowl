@@ -37,7 +37,7 @@ select m.i_member, m.m_id, rp.* from t_reply_qna rp join t_member m using(i_memb
 
 select * from t_member;
 
--- 예약 한건을 위해 이렇게 많은 테이블을 조인해야해요
+-- 오늘 예약 보기
 select * from t_org org 
 	join t_theater th using(i_theater)
 	join t_program pg using(i_program)
@@ -47,8 +47,37 @@ select * from t_org org
 select * from t_org join t_program using(i_program);
 
 select * from t_theater;
+select * from t_seat;
+select * from t_seat_grade;
+
+delete from t_seat_grade;
+
+select * from t_seat order by st_nm *1 asc;
+select * from t_seat order by i_seat asc;
 
 
+show variables like 'max_allowed_packet'; 
+
+select * from t_qna_attach;
+
+select m.i_member, m.m_id, qna.i_qna, qna.qna_title, qna.qna_content, qna.qna_category, 
+	   qna.qna_regDate, qna.qna_modDate, qna.qna_viewCnt, qa.i_attach, qa.qa_thumb, qa.qa_origin
+	from t_qna qna 
+		left join t_member m using(i_member) 
+		left join t_qna_attach qa using(i_qna) 
+	where qna_title like CONCAT('%', '이', '%') order by i_qna desc;
+
+select th_row, th_col from t_theater where i_theater = 1;
+
+select * from t_seat where i_theater = 2 order by i_seat asc;
+
+select * from t_notice;
 
 
+select * from (
+	select *, 1 sort from t_notice where nt_isFixed = 1
+	union all
+	select *, 2 sort from t_notice
+) sNt; 
+order by sNt.sort asc, i_notice desc;
 

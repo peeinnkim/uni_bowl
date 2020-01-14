@@ -14,6 +14,7 @@ public class NoticeVO {
 	private int ntIsFixed; // 상단고정여부 (0: 일반글 / 1: 상단고정)
 
 	private String ntWriterId;
+	private int ntSort;
 
 	private List<NoticeAttachVO> files; // 첨부파일목록
 
@@ -114,11 +115,19 @@ public class NoticeVO {
 		this.ntWriterId = ntWriterId;
 	}
 
+	public int getNtSort() {
+		return ntSort;
+	}
+
+	public void setNtSort(int ntSort) {
+		this.ntSort = ntSort;
+	}
+
 	@Override
 	public String toString() {
 		return "NoticeVO [ntNo=" + ntNo + ", ntTitle=" + ntTitle + ", ntWriter=" + ntWriter + ", ntContent=" + ntContent
 				+ ", ntRegDate=" + ntRegDate + ", ntModDate=" + ntModDate + ", ntViewCnt=" + ntViewCnt + ", ntIsFixed="
-				+ ntIsFixed + ", ntWriterId=" + ntWriterId + ", files=" + files + "]";
+				+ ntIsFixed + ", ntWriterId=" + ntWriterId + ", ntSort=" + ntSort + ", files=" + files + "]";
 	}
 
 }// NoticeVO

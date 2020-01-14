@@ -8,7 +8,6 @@
 	list-style: square;
 	background: #ccc;
 	padding: 10px;
-	display: none;
 }
 .crt-th-wrap > li {
 	line-height: 40px;
@@ -34,7 +33,7 @@
 	overflow: hidden;
 	border: 1px dotted grey;
 	text-align: center;
-	/* display: none; */
+	display: none; 
 }
 .crted-th-wrap > p {
 	display: inline-block;
@@ -57,7 +56,7 @@
 	margin: 10px auto;
 	padding: 30px;
 	background: pink;
-	/* display: none; */
+	display: none;
 }
 .crt-seat-pre > h2 {
 	text-align: center;
@@ -69,7 +68,7 @@
 	width: 90%;
 	margin: 0 auto;
 	background: beige;
-	/* display: none; */
+	display: none;
 	overflow: hidden;
 }
 .seat-div {

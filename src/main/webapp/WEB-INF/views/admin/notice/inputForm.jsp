@@ -33,6 +33,7 @@
 			<ul class="thumb-wrap"></ul>
 			<ul class="add-wrap">
 				<c:if test="${nt.ntNo != null}"> <!-- 수정모드일때만 나오게 -->
+					<c:if test="${nt.files[0].naThumb != null}">
 	 				<c:forEach var="na" items="${nt.files}">
 						<li>
 							<span class="thumb-img">
@@ -41,6 +42,7 @@
 							</span>
 						</li>
 					</c:forEach> 
+					</c:if>
 				</c:if>
 			</ul>
 			<p>

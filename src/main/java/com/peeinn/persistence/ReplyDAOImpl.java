@@ -45,5 +45,10 @@ public class ReplyDAOImpl implements ReplyDAO {
 		return sqlSession.selectOne(namespace + ".getTotalReplyCnt");
 	}
 
+	@Override
+	public void deleteReplyBtQnaNo(int qnaNo) {
+		sqlSession.delete(namespace + ".deleteReplyBtQnaNo", qnaNo);
+	}
+
 
 }

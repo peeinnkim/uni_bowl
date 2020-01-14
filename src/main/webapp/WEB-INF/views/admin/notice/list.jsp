@@ -35,8 +35,8 @@
 			<th>CNT</th>
 		</tr>
 		<c:forEach var="nt" items="${list}">
-			<tr class="added-tr">
-				<td>${nt.ntNo}</td>
+			<tr class="added-tr ${nt.ntSort == 1? 'ntTop-tr': ''}">
+				<td>${nt.ntSort == 1? '<span></span>': nt.ntNo}</td>
 				<td class="list-title"><a href="${pageContext.request.contextPath}/admin/notice/read?ntNo=${nt.ntNo}&page=${pageMaker.cri.page}">${nt.ntTitle}</a></td>
 				<td>관리자</td>
 				<td><fmt:formatDate value="${nt.ntRegDate}" pattern="yyyy-MM-dd HH:mm"/></td>
@@ -76,7 +76,7 @@
 </div>	
 
 
-<%-- <script src="${pageContext.request.contextPath}/resources/js/getSearchList.js"></script> --%>
+<script src="${pageContext.request.contextPath}/resources/js/getSearchList.js"></script>
 <!-- HandleBars -->
 <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 <script id="template" type="text/x-handlebars-template">
@@ -85,40 +85,13 @@
 	<td>{{ntNo}}</td>
 	<td class="list-title"><a href="${pageContext.request.contextPath}/admin/notice/read?ntNo={{ntNo}}">{{ntTitle}}</a></td>
 	<td>관리자</td>
-	<td>{{prettifyDate ntRegDate}}</td>
+	<td>{{pDateTime ntRegDate}}</td>
 	<td>{{ntViewCnt}}</td>
 </tr>
 {{/list}}
 </script>	<!-- &page={{pageMaker.cri.page}} -->
 
 <script>	
-	var nPage = 1;
-
-	//페이지 누르면 페이지 정보 바뀌기
-	$(document).on("click", $(".pagination > li"), function(){
-		nPage = $(this).attr("data-page");
-	})
-	
-	//동적 추가되는 테이블 날짜
-	Handlebars.registerHelper("prettifyDate", function(dd){
-		var date = new Date(dd);
-		var year = date.getFullYear();
-		var month = date.getMonth()+1;
-		var d = date.getDate();
-		var h = date.getHours();
-		var min = date.getMinutes();
-		var sec = date.getSeconds();
-		
-		return year + "-" + zeroZeroDate(month) + "-" + zeroZeroDate(d) + " " + zeroZeroDate(h) + ":" + zeroZeroDate(min);
-	})
-	
-	function zeroZeroDate(val){
-		if(val < 10) {
-			val = "0" + val;
-		}
-		return val;
-	}
-	
 	//키워드 검색에 따라 리스트 뿌리기
 	$("#btnSearch").click(function(){
 		var data = { 
@@ -127,69 +100,8 @@
 				"page": 1, 
 				"perPageNum": 10
 			};
-	
 		getListPage(data);
 	})
-	
-	//리스트 뿌리기 최종판
-	function getListPage(data){
-		$.ajax({
-			url: "searchList",
-			type: "post",
-			data: data,
-			dataType: "json",
-			success: function(res){
-				console.log(res);
-				
-				$(".added-tr").remove();
-				
-				var source = $("#template").html();
-				var func = Handlebars.compile(source);
-				var str = func(res);
-				
-				//리스트 추가
-				$("#main-tb").append(str);
-				
-				//페이지네이션 지우기
-				$(".pagination").empty();
-				
-				//make a page-maker
-				var startPage = res.pageMaker.startPage;
-				var endPage = res.pageMaker.endPage;
-				
-				for(var i=startPage; i<=endPage; i++) {
-					var $li = $("<li>");
-					var $a = $("<a>").attr("href", "#").attr("data-page", i).append(i);
-					$li.append($a);
-					
-					if(i == nPage) {
-						$li.addClass("on");
-					}
-					
-					$(".pagination").append($li);
-				}
-				
-				if(res.pageMaker.prev == true) {
-					var $li = $("<li>").addClass("previous");
-					var $a = $("<a>").attr("href", "#").attr("data-page", res.pageMaker.startPage-1).append("◀");
-					$li.append($a);
-					$(".pagination").prepend($li);
-				}
-				
-				if(res.pageMaker.next == true) {
-					var $li = $("<li>").addClass("next");
-					var $a = $("<a>").attr("href", "#").attr("data-page", res.pageMaker.endPage+1).append("▶");
-					$li.append($a);
-					$(".pagination").append($li);
-				}
-			},
-			error : function(e){
-				console.log(e);
-			}
-		})
-	}
-	
-
 </script>
 <%@ include file="../../include/footer.jsp" %>
 

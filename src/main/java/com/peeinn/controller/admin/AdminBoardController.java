@@ -28,8 +28,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mysql.fabric.Response;
-import com.peeinn.domain.MemberVO;
 import com.peeinn.domain.NoticeAttachVO;
 import com.peeinn.domain.NoticeVO;
 import com.peeinn.domain.paging.PageMaker;
@@ -55,9 +53,9 @@ public class AdminBoardController {
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(ntService.listCnt());
+		pageMaker.setTotalCount(ntService.listSearchCnt(cri));
 		
-		model.addAttribute("list", ntService.list());
+		model.addAttribute("list", ntService.listSearch(cri));
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("cri", cri);
 	}
@@ -117,7 +115,7 @@ public class AdminBoardController {
 	}
 	
 	@RequestMapping(value="modify", method=RequestMethod.POST)
-	public String modifyPost(Model model, NoticeVO nt, String[] delFiles, List<MultipartFile> imageFiles, HttpSession session) throws IOException {
+	public String modifyPost(Model model, NoticeVO nt, String[] delFiles, List<MultipartFile> imageFiles) throws IOException {
 		logger.info("------------ [modify POST] ------------");
 		
 		List<NoticeAttachVO> naList = new ArrayList<NoticeAttachVO>();
