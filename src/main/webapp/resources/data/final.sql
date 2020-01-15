@@ -81,3 +81,5 @@ select * from (
 ) sNt; 
 order by sNt.sort asc, i_notice desc;
 
+select * from t_program;
+

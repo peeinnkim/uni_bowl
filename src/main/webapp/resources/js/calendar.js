@@ -15,9 +15,9 @@
 			
 			//타이틀 출력
 			if(m < 9) {
-				title.innerHTML = "<span id='cal-year'>" + y + "</span>. <span id='cal-month'>0" + (m+1) + "</span>.";
+				title.innerHTML = "<span id='cal-year'>" + y + "</span>年 <span id='cal-month'>0" + (m+1) + "</span>月";
 			} else {
-				title.innerHTML = "<span id='cal-year'>" + y + "</span>. <span id='cal-month'>" + (m+1) + "</span>.";
+				title.innerHTML = "<span id='cal-year'>" + y + "</span>年 <span id='cal-month'>" + (m+1) + "</span>月";
 			}
 			
 			
@@ -30,7 +30,7 @@
 			var lastDayArr = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 			
 			//요일 배열
-			var dayArr = ["일", "월", "화", "수", "목", "금", "토"];
+			var dayArr = ["日", "月", "火", "水", "木", "金", "土"];
 			
 			//2월 예외 (윤년)
 			//윤년 조건 : 4년주기. !100년주기. 400년주기.
@@ -69,9 +69,9 @@
 						code_saver += "<td></td>";
 					} else{
 						if(day_saver == todayDate) {
-							code_saver += "<td data-date='"+day_saver+"'>"+day_saver+"</td>";
+							code_saver += "<td class='tOn' data-date='"+y+"-"+zeroZeroDate(m+1)+"-"+zeroZeroDate(day_saver)+"'>"+day_saver+"</td>";
 						} else {
-							code_saver += "<td data-date='"+day_saver+"'>"+day_saver+"</td>";
+							code_saver += "<td data-date='"+y+"-"+zeroZeroDate(m+1)+"-"+zeroZeroDate(day_saver)+"'>"+day_saver+"</td>";
 						}
 						
 						day_saver++;
@@ -107,7 +107,45 @@
 		$(document).on("click", "td", function(){
 			$("td").removeClass("tOn");
 			$(this).addClass("tOn");
+			
+			var sDate = $(this).attr("data-date");
+			
+			listByDate(sDate);
 		})
 		
+
 	})
 })(window, jQuery);
+
+//10보다 작은애들 0 붙이기
+function zeroZeroDate(val){
+	if(val < 10) {
+		val = "0" + val;
+	}
+	return val;
+}
+
+function listByDate(sDate){
+	$.ajax({
+		url: "listByDate",
+		type: "get",
+		data: {"sDate": sDate},
+		dataType: "json",
+		success: function(res){
+			console.log(res);
+			
+			$(".main-list").empty();
+			
+			var source = $("#template").html();
+			var func = Handlebars.compile(source);
+			var str = func(res);
+			
+			//댓글 리스트 가져오기
+			$(".main-list").append(str);
+			
+		},
+		error: function(e){
+			console.log(e);
+		}
+	})
+}

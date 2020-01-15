@@ -9,12 +9,8 @@ public class PayVO {
 	private String pyValidMonth; // 유효번호 -월
 	private String pyValidYear; // 유효번호 -년
 	private Date pyDate; // 결제날짜
-	private int pyMemCode; // 결제한 사람 회원여부 (0:회원 / 1:비회원)
-	private int pyMem; // 결제한사람
-
-	public PayVO() {
-		// TODO Auto-generated constructor stub
-	}
+	private Date pydDate; // 취소날짜
+	private int pyState; // 결제상태
 
 	public int getPyNo() {
 		return pyNo;
@@ -64,27 +60,27 @@ public class PayVO {
 		this.pyDate = pyDate;
 	}
 
-	public int getPyMemCode() {
-		return pyMemCode;
+	public Date getPydDate() {
+		return pydDate;
 	}
 
-	public void setPyMemCode(int pyMemCode) {
-		this.pyMemCode = pyMemCode;
+	public void setPydDate(Date pydDate) {
+		this.pydDate = pydDate;
 	}
 
-	public int getPyMem() {
-		return pyMem;
+	public int getPyState() {
+		return pyState;
 	}
 
-	public void setPyMem(int pyMem) {
-		this.pyMem = pyMem;
+	public void setPyState(int pyState) {
+		this.pyState = pyState;
 	}
 
 	@Override
 	public String toString() {
 		return "PayVO [pyNo=" + pyNo + ", pyType=" + pyType + ", pyNum=" + pyNum + ", pyValidMonth=" + pyValidMonth
-				+ ", pyValidYear=" + pyValidYear + ", pyDate=" + pyDate + ", pyMemCode=" + pyMemCode + ", pyMem="
-				+ pyMem + "]";
+				+ ", pyValidYear=" + pyValidYear + ", pyDate=" + pyDate + ", pydDate=" + pydDate + ", pyState="
+				+ pyState + "]";
 	}
 
 }// PayVO

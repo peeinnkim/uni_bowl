@@ -34,7 +34,7 @@
 			<a id="addPg" style="cursor:pointer;"></a>
 		</div>
 		
-		<ul class="pg-list">
+		<ul class="main-list">
 			<c:forEach var="ores" items="${list}">
 				<li>
 					<div class="pgTime-wrap">
@@ -51,30 +51,45 @@
 					</div>
 				</li>
 			</c:forEach>
-<%-- 			<c:forEach var="pg" items="${list}">
-				<li>
-					<div class="pgTime-wrap">
-						<span class="pgTime hour"><em>29</em>시</span>
-						<span class="pgTime minute"><em>60</em>분</span>			
-					</div>
-					<div class="pgTitle-wrap">
-						<a href="${pageContext.request.contextPath}/admin/intranet/program/modify?pgNo=${pg.pgNo}">${pg.pgTitle}</a>
-					</div>
-					<div class="pgDel-wrap">
-						<span class="delX"></span>
-					</div>
-				</li>
-			</c:forEach> --%>
 		</ul>
 	</div> 
 </div>
 
+
+<!-- HandleBars -->
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+<script id="template" type="text/x-handlebars-template">
+{{#each.}}
+<li>
+	<div class="pgTime-wrap">
+		<span class="pgTime hour"><em>{{pHour org.orgDate}}</em>시</span>
+		<span class="pgTime minute"><em>{{pMinute org.orgDate}}</em>분</span>			
+	</div>
+	<div class="pgTitle-wrap">
+		<a href="#">{{pg.pgTitle}}</a>  
+	</div>
+	<div class="pgDel-wrap">
+		<span class="delX"></span>
+	</div>
+</li>
+{{/each}}
+</script>
+
 <script>
+	Handlebars.registerHelper("pHour", function(dd){
+		var date = new Date(dd);
+		var hour = date.getHours();
+		return zeroZeroDate(hour);
+	})
+	Handlebars.registerHelper("pMinute", function(dd){
+		var date = new Date(dd);
+		var minute = date.getMinutes();
+		return zeroZeroDate(minute);
+	})
+
 	$("#addPg").click(function(){
-		var y = $("#cal-year").text();
-		var m = $("#cal-month").text();
 		var d = $(".tOn").attr("data-date");
-		var tempDate = y + "-" + m + "-" + d + " 00:00:00";
+		var tempDate = d + " 00:00:00";
 		
 		location.href = "${pageContext.request.contextPath}/admin/intranet/org/regist?tempDate=" + tempDate;
 	})

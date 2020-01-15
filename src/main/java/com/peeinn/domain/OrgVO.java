@@ -1,6 +1,9 @@
 package com.peeinn.domain;
 
+import java.text.ParseException;
 import java.util.Date;
+
+import com.peeinn.util.MyUtils;
 
 public class OrgVO {
 	private int orgNo; // 상영상세정보 번호
@@ -22,6 +25,10 @@ public class OrgVO {
 
 	public void setOrgDate(Date orgDate) {
 		this.orgDate = orgDate;
+	}
+	
+	public void setOrgDate(String orgDate) throws ParseException {
+		this.orgDate = MyUtils.parseStringToDate(orgDate);
 	}
 
 	public int getOrgThNo() {

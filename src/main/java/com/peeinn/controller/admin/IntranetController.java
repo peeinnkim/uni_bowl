@@ -4,13 +4,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -24,7 +22,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -289,10 +286,6 @@ public class IntranetController {
 			model.addAttribute("row", rowCol.getThRow());
 			model.addAttribute("col", rowCol.getThCol());
 			model.addAttribute("list", list);
-			
-			logger.info("row ->>>" + rowCol.getThRow());
-			logger.info("col ->>>" + rowCol.getThCol());
-			logger.info("list ->>>" + list);
 		}
 		
 		model.addAttribute("th", thService.search(thNo));
@@ -326,6 +319,23 @@ public class IntranetController {
 		logger.info("------------ [orgList GET] ------------");
 		
 		model.addAttribute("list", orgService.orgByDateList(""));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="org/listByDate", method=RequestMethod.GET)
+	public ResponseEntity<List<OrgResultVO>> listByDate(String sDate){
+		logger.info("------------ [listByDate GET] ------------");
+		ResponseEntity<List<OrgResultVO>> entity = null;
+		
+		try {
+			List<OrgResultVO> list = orgService.orgByDateList(sDate);
+			entity = new ResponseEntity<List<OrgResultVO>>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<List<OrgResultVO>>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 	}
 	
 	@RequestMapping(value="org/regist", method=RequestMethod.GET)

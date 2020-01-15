@@ -8,33 +8,50 @@
 	float: left;
 	background: tan;
 }
-.seat-area {
-	background: green;
-	width: 580px;
-	height: 580px;
-	margin: 0 auto;
-}
 
 /* CHOICE SEAT */
 .seat-div {
-	overflow: hidden;
+	width: 90%;
+	margin: 20px auto;
+	border: 2px solid black;
+	padding: 25px;
+}
+.seat-div > h2 {
 	width: 70%;
+	text-align: center;
+	font-weight: normal;
+	letter-spacing: 0.05em;
+	margin: 0 auto 15px;
+	padding-bottom: 8px;
+}
+.seat-div > div {
+	overflow: hidden;
+	width: 100%;
 	margin: 0 auto;
 }
-.seat-div > dl {
-	float: left;
-	width: 20%;
+.seat-div > div > dl {
+	font-size: 13px;
+	display: inline-block;
+	margin: 0 27px;
 }
-.seat-div > dt, 
-.seat-div > dd {
-	float: left;
+.seat-div > div > dl > dt {
+	display: inline-block;
+} 
+.seat-div > div > dl > dd {
+    display: inline;
+    vertical-align: super;
+    margin-left: 5px;
+}
+
+.seat-img,
+.seat-icons {
+	margin: 0 auto;
 }
 .seat-row {
 	width: 100%; 
 	height: 50px;
 	margin: 0 auto; 
 	padding: 0; 
-	background: yellow;
 	clear: both;
 }
 .seat-row > li {
@@ -42,10 +59,15 @@
 	margin-top:20px; 
 	margin-right: 2px;
 }
+.seatEx,
 .seat {
- 	width: 22px;
+    width: 22px;
     height: 32px;
-	display: block;
+    display: block;
+    text-align: center;
+    font-size: 10px;
+    line-height: 28px;
+    cursor: pointer;
 }
 .seat-empty {
 	background: url("../../img/rsv/icon-seat1.png") no-repeat;	
@@ -60,7 +82,9 @@
 	background-size: contain;
 }
 .seat-disabled {
-	background: none;	
+	background: url("../../img/rsv/icon-seat2.png") no-repeat;	
+	background-size: contain;
+	filter: grayscale(1);
 }
 .premiumSingle-empty {
 	background: url("../../img/rsv/icon-seat4.png") no-repeat;	
@@ -103,24 +127,32 @@
 
 .rsv-right {
 	float: right;
-	width: 300px;
+	width: 320px;
 }
 .rsv-right > dl {
-	border-collapse: collapse;
 	width: 90%;
 	margin: 0 auto;
+	border: 1px solid black;
+	padding: 20px;
 }
-dt {
-	padding: 10px 10px 10px 15px;
+.rsv-right > dl > dt {
 	height: 25px;
-	background: pink;
+	border-bottom: 1px solid black;
 	font-size: 17px;
 	line-height: 25px;
+	font-weight: bold;
+	padding-top: 5px;
 }
-dd {
-	padding: 17px 0px 10px 30px;
-	height: 30px;
+.rsv-right > dl > dd {
 	font-size: 14px;
+	text-align: right;
+	padding: 7px 0;
+}
+.rsv-right > dl > dt > small {
+	font-size: 13px;
+}
+#cSeat-cnt {
+	font-size: 15px;
 }
 .comm-wrap {
 	margin-top: 15px;

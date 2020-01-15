@@ -11,7 +11,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -28,8 +27,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.peeinn.domain.NoticeAttachVO;
-import com.peeinn.domain.NoticeVO;
 import com.peeinn.domain.QnAAttachVO;
 import com.peeinn.domain.QnAVO;
 import com.peeinn.domain.paging.PageMaker;
