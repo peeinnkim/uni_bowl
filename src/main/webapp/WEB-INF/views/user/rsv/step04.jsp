@@ -12,7 +12,7 @@
 	<div class="rsv-cpl-wrap">
 		<div class="rsv-cpl-top">
 			<h1>예약이 완료되었습니다</h1>
-			<h2>예약번호: 20200111-000001</h2>
+			<h2>예약번호: ${rRes.rrRsv.rsvNo}</h2>
 		</div>
 		<div class="rsv-cpl-bottom">
 			<div class="cpl-info-wrap">
@@ -21,41 +21,41 @@
 					<ul>
 						<li>
 							<label>예약자</label>
-							<span>김믜믜</span>
-						</li>
-						<li>
-							<label>에약인원</label>
-							<span>성인 2명 / 어린이 2명</span>
+							<span>${rRes.rrMem.mNm}</span>
 						</li>
 						<li>
 							<label>연락처</label>
-							<span>010-1234-1234</span>
+							<span>${rRes.rrMem.mTel}</span>
 						</li>
 						<li>
 							<label>이메일</label>
-							<span>asdf@asdf.asdf</span>
+							<span>${rRes.rrMem.mMail}</span>
 						</li>
 					</ul>
 				</div>
 				
 				<div class="cpl-info">
-					<h3>프로그램 정보</h3>
+					<h3>상영 정보</h3>
 					<ul>
 						<li>
 							<label>프로그램명</label>
-							<span>Finding Aurora</span>
+							<span>${rRes.rrOres.pg.pgTitle}</span>
 						</li>
 						<li>
 							<label>상영관</label>
-							<span>왕관 (2층)</span>
+							<span>${rRes.rrOres.th.thNm} 관 (${rRes.rrOres.th.thFloor} 층)</span>
 						</li>
 						<li>
 							<label>상영일시</label>
-							<span>2022-03-03 13:00</span>
+							<span><fmt:formatDate value="${rRes.rrOres.org.orgDate}" pattern="yyyy-MM-dd HH:mm"/></span>
 						</li>
 						<li>
 							<label>좌석</label>
-							<span>총 2석 A-21 A-22</span>
+							<span>
+								<c:forEach var="rSt" items="${rRes.rrRsv.rsvSeatList}">
+									${rSt.stNm} 
+								</c:forEach>
+							</span>
 						</li>
 					</ul>
 				</div>
@@ -65,19 +65,20 @@
 					<ul>
 						<li>
 							<label>결제금액</label>
-							<span>100,000원</span>
+							<span><fmt:formatNumber value="${rRes.rrPay.pyPrice}" pattern="###,###" /> 원</span>
 						</li>
 						<li>
 							<label>카드종류</label>
-							<span>SHINHAN CARD</span>
+							<span>${rRes.rrPay.pyType}</span>
 						</li>
 						<li>
 							<label>카드번호</label>
-							<span>1234-****-****-1234</span>
+							<c:set var="num" value="${fn:split(rRes.rrPay.pyNum, '-')}"></c:set>
+							<span>${num[0]}-****-****-${num[3]}</span>
 						</li>
 						<li>
 							<label>결제일시</label>
-							<span>2020-01-11 13:23:24</span>
+							<span><fmt:formatDate value="${rRes.rrPay.pyDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 						</li>
 					</ul>
 				</div>

@@ -10,7 +10,7 @@
     
 <div class="content-area">
 	<div class="rsv-left">
-		<form action="step04" method="post">
+		<form id="frm" action="step03" method="post">
 		<div class="pay-area">
 			<div class="pay-wrap">
 				<table>
@@ -19,35 +19,21 @@
 					</tr>
 					<tr>
 						<th>예약자 이름</th>
-						<td><input type="text" name="mNm" value="${mem.mNm}"></td>
-						<th>인원</th>
+						<td><input type="text" name="mNm" value="${mem.mNm == null? '비회원': mem.mNm}"></td>
+						<th></th>
 						<td>
-							<label>성인</label>
-							<select>
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-								<option>4</option>
-							</select>
-							<label>어린이</label>
-							<select>
-								<option>0</option>
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-								<option>4</option>
-							</select>
 						</td>
 					</tr>
 					<tr>
 						<th>연락처</th>
 						<td>
 							<c:set var="p" value="${fn:split(mem.mTel, '-')}"></c:set>
-							<input type="text" maxlength="4" class="pNum" value="${p[0]}" onchange="getTel()">
-							<input type="text" maxlength="4" class="pNum" value="${p[1]}" onchange="getTel()">
-							<input type="text" maxlength="4" class="pNum" value="${p[2]}" onchange="getTel()">
+							<input type="text" maxlength="4" name="tel1" class="pNum" value="${p[0]}" onchange="getTel()">
+							<input type="text" maxlength="4" name="tel2" class="pNum" value="${p[1]}" onchange="getTel()">
+							<input type="text" maxlength="4" name="tel3" class="pNum" value="${p[2]}" onchange="getTel()">
+							<input type="hidden" name="mTel">
 						</td>
-						<th>이메일</th>
+						<th>이메일(선택)</th>
 						<td>
 							<input type="text" name="mMail" value="${mem.mMail}">
 						</td>
@@ -59,15 +45,29 @@
 						<th>카드종류</th>
 						<td>
 							<select name="pyType">
+								<option selected="selected">선택</option>
+								<option>AMEX CARD</option>
+								<option>BC CARD</option>
+								<option>CITIBANK CARD</option>
+								<option>DINERS CARD</option>
+								<option>HYUNDAI CARD</option>
+								<option>JCB CARD</option>
+								<option>KEB CARD</option>
+								<option>KOOKMIN CARD</option>
+								<option>LOTTE CARD</option>
+								<option>MASTER OVERSEAS</option>
 								<option>SHINHAN CARD</option>
+								<option>SAMSUNG CARD</option>
+								<option>VISA OVERSEAS</option>
+								<option>UNION PAY</option>
 							</select>
 						</td>
 						<th>카드번호</th>
 						<td>
-							<input type="text" maxlength="4" class="cNum" onchange="getPyNum()">
-							<input type="text" maxlength="4" class="cNum" onchange="getPyNum()">
-							<input type="text" maxlength="4" class="cNum" onchange="getPyNum()">
-							<input type="text" maxlength="4" class="cNum" onchange="getPyNum()">
+							<input type="text" maxlength="4" name="num1" class="cNum" onchange="getPyNum()">
+							<input type="text" maxlength="4" name="num2" class="cNum" onchange="getPyNum()">
+							<input type="text" maxlength="4" name="num3" class="cNum" onchange="getPyNum()">
+							<input type="text" maxlength="4" name="num4" class="cNum" onchange="getPyNum()">
 							<input type="hidden" name="pyNum">
 						</td>
 					</tr>
@@ -122,21 +122,18 @@
 			<dt>상영시간</dt>
 			<dd><fmt:formatDate value="${tempOres.org.orgDate}" pattern="HH:mm ~"/></dd>
 			
-			<dt>선택좌석 <small>(총 <span id="cSeat-cnt">0</span>석 선택)</small></dt>
+			<dt>선택좌석 <small>(총 <span id="cSeat-cnt"></span>석 선택)</small></dt>
 			<dd id="cSeat-box">
-				<c:forEach var="seat" items="${seatList}">
-					${seat} 
+				
+				<c:set var="sum" value="0"/>
+				<c:forEach var="st" items="${seatList}">
+					${st.stNm} 
 				</c:forEach>
-			</dd>
-			
-			<dt>인원</dt>
-			<dd>
-				성인 <span>2</span>명 / 어린이 <span>1</span>명
 			</dd>
 
 			<dt>총 금액</dt>
 			<dd>
-				<span>35,000원</span>
+				<span><fmt:formatNumber value="${tempPay.pyPrice}" pattern="###,###" /> 원</span>
 			</dd>
 		</dl>
 	</div>
@@ -146,6 +143,25 @@
 	$("#btnNext").click(function(){
 		$("form").submit();
 	})
+	
+	//전화번호 조합하기
+	function getTel(){
+		var tel1 = frm.tel1.value;
+		var tel2 = frm.tel2.value;
+		var tel3 = frm.tel3.value;
+		
+		frm.mTel.value = tel1 + "-" + tel2 + "-" + tel3;
+	}
+
+	//전화번호 조합하기
+	function getPyNum(){
+		var num1 = frm.num1.value;
+		var num2 = frm.num2.value;
+		var num3 = frm.num3.value;
+		var num4 = frm.num4.value;
+		
+		frm.pyNum.value = num1 + "-" + num2 + "-" + num3 + "-" + num4;
+	}
 </script>
 
 

@@ -1,9 +1,7 @@
 @charset "UTF-8";
-@import url('https://fonts.googleapis.com/css?family=M+PLUS+1p:100,300&display=swap');
 
 .cal-wrap {
 	width: 100%;
-	font-family: 'M PLUS 1p', sans-serif;
 }
 .cal-wrap > .cal-top {
 	width: 400px;
@@ -18,7 +16,7 @@
 	font-size: 2.5em;
 	letter-spacing: 0.15em;
 	text-align: center;
-	font-weight: normal;
+	font-weight: lighter;
 }
 #prevBtn {
 	float: left;

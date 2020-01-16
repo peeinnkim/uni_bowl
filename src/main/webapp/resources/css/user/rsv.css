@@ -73,7 +73,7 @@
 	background: url("../../img/rsv/icon-seat1.png") no-repeat;	
 	background-size: contain;
 }
-.seat-active {
+.exActive, .seat-active {
 	background: url("../../img/rsv/icon-seat2.png") no-repeat;	
 	background-size: contain;
 }
@@ -154,9 +154,9 @@
 #cSeat-cnt {
 	font-size: 15px;
 }
-.comm-wrap {
-	margin-top: 15px;
-	background: green;
+#seat-price {
+	font-size: 16px;
+	font-weight: bold;	
 }
 
 

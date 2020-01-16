@@ -11,6 +11,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
+		System.out.println("LOGINPOST INTERCEPTOR");
 		Object auth = request.getSession().getAttribute("Auth");
 		Object dest = request.getSession().getAttribute("dest");
 		
@@ -18,6 +19,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			if(dest != null) {//이동할 목적지가 저장되어 있을 경우 그곳으로 이동
 				response.sendRedirect((String)dest);
 			} else { //목적지가 저장되어있지 않을 경우 home으로 이동
+				System.out.println("HOME 이동");
 				response.sendRedirect(request.getContextPath()); 
 			}
 		} else {

@@ -143,6 +143,7 @@ dd {
     text-align: center;
     font-size: 10px;
     line-height: 28px;
+	font-weight: bold;
 }
 .seat-empty {
 	background: url("../../img/rsv/icon-seat1.png") no-repeat;	

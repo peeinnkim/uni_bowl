@@ -12,7 +12,6 @@
 	<div class="rsv-left">
 		<div class="seat-area">
 			<div class="seat-notice">
-				어쩌구저쩌구 공지사항
 			</div>
 			
 			<div class="seat-div">
@@ -31,7 +30,7 @@
 						<dd>프리미엄 더블</dd>
 					</dl>
 					<dl>
-						<dt class="seatEx seat-active"></dt>
+						<dt class="seatEx exActive"></dt>
 						<dd>현재 선택한 좌석</dd>
 					</dl>
 					<dl>
@@ -49,7 +48,7 @@
 						<c:forEach var="rowIdx" begin="0" end="${row-1}">
 						<ul class="seat-row">
 						 <c:forEach var="st" items="${list}" begin="${rowIdx*col}" end="${(rowIdx*col)+col-1}"> 
-							<li><a class='seat ${cName[st.stSgNo]} added-seat' data-cNo='${st.stSgNo}' onclick="getStInfo(this)">${st.stNm == '-'? '' : st.stNm}</a></li> 
+							<li><a class='seat added-seat ${cName[st.stSgNo]}' data-cNo='${st.stSgNo}' data-stNo='${st.stNo}' onclick="getStInfo(this)">${st.stNm == '-'? '' : st.stNm}</a></li> 
 						 </c:forEach> 
 						</ul>
 					</c:forEach> 
@@ -82,6 +81,9 @@
 			
 			<dt>선택좌석 <small>(총 <span id="cSeat-cnt">0</span>석 선택)</small></dt>
 			<dd id="cSeat-box"></dd>
+
+			<dt>금액</dt>
+			<dd><span id="seat-price">0</span> 원</dd>
 		</dl>
 		<fmt:formatDate var="sDateSaver" value="${tempOres.org.orgDate}" pattern="yyyy-MM-dd"/>
 	</div>
@@ -94,7 +96,15 @@
 	})
 	
 	$("#btnNext").click(function(){
-		var seatList = $("#cSeat-box").text().split(" ");
+		var seatList = [];
+		$(".seat-active").each(function(){
+			seatList.push({
+				"stNo" : $(this).attr("data-stNo"),
+				"stNm" : $(this).text(),
+				"stSgNo": $(this).attr("data-cNo")
+			});
+		})
+		var price = removeComma($("#seat-price").text());
 		
  		$.ajax({
 			url: "${pageContext.request.contextPath}/user/rsv/step02",
@@ -106,7 +116,7 @@
 				console.log(res);
 				
 				if(res == "success") {
-					location.href = "${pageContext.request.contextPath}/user/rsv/step03";
+					location.href = "${pageContext.request.contextPath}/user/rsv/step03?pr="+price;
 				}
 			},
 			error: function(e){

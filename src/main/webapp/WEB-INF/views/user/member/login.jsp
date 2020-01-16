@@ -16,11 +16,11 @@
 		<form id="frm" action="loginPost" method="post">
 			<p>
 				<label>ID</label>
-				<input type="text" name="mId">
+				<input type="text" name="mId" value="mlmlml">
 			</p>
 			<p>
 				<label>PASSWORD</label>
-				<input type="password" name="mPw">
+				<input type="password" name="mPw" value="mlml3434">
 				<input type="submit" value="LOGIN">
 			</p>
 			<p>

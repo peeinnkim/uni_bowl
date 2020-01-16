@@ -40,4 +40,9 @@ public class SeatDAOImpl implements SeatDAO {
 		return sqlSession.selectList(namespace + ".selectListByThNo", thNo);
 	}
 
+	@Override
+	public void udpateStState(SeatVO st) {
+		sqlSession.update(namespace + ".updateStState" + st);
+	}
+
 }//SeatDAOImpl

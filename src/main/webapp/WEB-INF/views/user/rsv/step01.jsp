@@ -42,6 +42,7 @@
 						<span class="pgTime minute"><em>${sd[1]}</em>분</span>
 						<fmt:formatDate var="oDate" value="${ores.org.orgDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 						<input type="hidden" name="orgDate" value="${oDate}">	
+						<input type="hidden" name="orgNo" value="${ores.org.orgNo}">
 					</div>
 					<div class="pgTitle-wrap">
 						<a class="fSubmit">${ores.pg.pgTitle}</a>  
@@ -66,7 +67,8 @@
 	<div class="pgTime-wrap">
 		<span class="pgTime hour"><em>{{pHour org.orgDate}}</em>시</span>
 		<span class="pgTime minute"><em>{{pMinute org.orgDate}}</em>분</span>
-		<input type="hidden" name="orgDate" value="{{pDateTime org.orgDate}}">				
+		<input type="hidden" name="orgDate" value="{{pDateTime org.orgDate}}">		
+		<input type="hidden" name="orgNo" value="{{org.orgNo}}">		
 	</div>
 	<div class="pgTitle-wrap">
 		<a class="fSubmit">{{pg.pgTitle}}</a>  
@@ -104,10 +106,12 @@
 	
 	
 	$(document).on("click", ".fSubmit", function(){
+		var orgNo = $(this).closest("li").find("input[name='orgNo']").val();
 		var orgDate = $(this).closest("li").find("input[name='orgDate']").val();
 		var orgPgNo = $(this).closest("li").find("input[name='orgPgNo']").val();
 		var orgThNo = $(this).closest("li").find("input[name='orgThNo']").val();
 		var data = {
+			orgNo : orgNo,
 			orgDate: orgDate,
 			orgPgNo: orgPgNo,
 			orgThNo : orgThNo

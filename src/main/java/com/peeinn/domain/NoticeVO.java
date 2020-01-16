@@ -1,7 +1,10 @@
 package com.peeinn.domain;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+
+import com.peeinn.util.MyUtils;
 
 public class NoticeVO {
 	private int ntNo; // 공지번호
@@ -75,12 +78,20 @@ public class NoticeVO {
 		this.ntRegDate = ntRegDate;
 	}
 
+	public void setNtRegDate(String ntRegDate) throws ParseException {
+		this.ntRegDate = MyUtils.parseStringToDate(ntRegDate);
+	}
+
 	public Date getNtModDate() {
 		return ntModDate;
 	}
 
 	public void setNtModDate(Date ntModDate) {
 		this.ntModDate = ntModDate;
+	}
+
+	public void setNtModDate(String ntModDate) throws ParseException {
+		this.ntModDate = MyUtils.parseStringToDate(ntModDate);
 	}
 
 	public int getNtViewCnt() {

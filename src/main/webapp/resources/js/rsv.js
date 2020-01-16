@@ -4,8 +4,10 @@ $(function(){
 
 var dClass = "seat added-seat";
 var sgArr = ["", "seat-empty", "premiumSingle-empty", "premiumDouble-empty", "seat-none", "seat-disabled"];
+var priceArr = [0, 16000, 21000, 42000, 0, 0];
 var cSeat = [];
-var cSeatIdx;
+var cSeatIdx
+var cSeatPrice = 0;
 
 function getStInfo(obj) {
 	var stNm = $(obj).text();
@@ -23,12 +25,18 @@ function getStInfo(obj) {
 		cSeat.splice(cSeat.indexOf(stNm), 1);
 		$("#cSeat-box").empty();
 		
-		cSeatIdx = 0;
-		cSeat.forEach(function(val){
-			++cSeatIdx;
-			$("#cSeat-box").append(val + " ");
-		});
-		$("#cSeat-cnt").text(cSeatIdx);
+//		cSeatIdx = 0;
+//		cSeat.forEach(function(val){
+//			++cSeatIdx;
+//			$("#cSeat-box").append(val + " ");
+//		});
+//		$("#cSeat-cnt").text(cSeatIdx);
+		
+		//금액 빼기
+		if(cSeatPrice > 0) {
+			cSeatPrice -= priceArr[currentSgNo];
+		}
+		
 		
 	} else{ //non-active상태일때
 		//오른쪽에 선택된 좌석 표시
@@ -37,22 +45,38 @@ function getStInfo(obj) {
 			return;
 		} 
 
-		$("#cSeat-box").empty();
+		
 		cSeat.push(stNm);
 		cSeat.sort();
 		
-		cSeatIdx = 0;
-		cSeat.forEach(function(val){
-			++cSeatIdx;
-			$("#cSeat-box").append(val + " ");
-		});
-		$("#cSeat-cnt").text(cSeatIdx);
+		//금액 더하기
+		cSeatPrice += priceArr[currentSgNo];
 
 		//아이콘변경
 		$(obj).removeClass();
 		$(obj).addClass(dClass + " " + "seat-active");
 	}
 	
+	$("#cSeat-box").empty();
+	cSeatIdx = 0;
+	cSeat.forEach(function(val){
+		++cSeatIdx;
+		$("#cSeat-box").append(val + " ");
+	});
+	$("#cSeat-cnt").text(cSeatIdx);
+	
+	$("#seat-price").text(addComma(cSeatPrice));
+	
+}
+
+//콤마 추가
+function addComma(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+//콤마 제거
+function removeComma(str){
+	n = parseInt(str.replace(/,/g,""));
+	return n;
 }
 
 

@@ -1,7 +1,10 @@
 package com.peeinn.domain;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+
+import com.peeinn.util.MyUtils;
 
 public class QnAVO {
 	private int qnaNo; // 문의번호
@@ -65,12 +68,20 @@ public class QnAVO {
 		this.qnaRegDate = qnaRegDate;
 	}
 
+	public void setQnaRegDate(String qnaRegDate) throws ParseException {
+		this.qnaRegDate = MyUtils.parseStringToDate(qnaRegDate);
+	}
+
 	public Date getQnaModDate() {
 		return qnaModDate;
 	}
 
 	public void setQnaModDate(Date qnaModDate) {
 		this.qnaModDate = qnaModDate;
+	}
+
+	public void setQnaModDate(String qnaModDate) throws ParseException {
+		this.qnaModDate = MyUtils.parseStringToDate(qnaModDate);
 	}
 
 	public int getQnaViewCnt() {

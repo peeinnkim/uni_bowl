@@ -1,6 +1,9 @@
 package com.peeinn.domain;
 
+import java.text.ParseException;
 import java.util.Date;
+
+import com.peeinn.util.MyUtils;
 
 public class QnAReplyVO {
 	private int rpNo; // 리플고유번호
@@ -55,6 +58,10 @@ public class QnAReplyVO {
 
 	public void setRpRegDate(Date rpRegDate) {
 		this.rpRegDate = rpRegDate;
+	}
+
+	public void setRpRegDate(String rpRegDate) throws ParseException {
+		this.rpRegDate = MyUtils.parseStringToDate(rpRegDate);
 	}
 
 	public Date getRpModDate() {

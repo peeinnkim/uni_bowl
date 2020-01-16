@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.RsvMapper">
+
+	<!-- RSV PART -->
+	<resultMap type="RsvVO" id="rsvResult">
+		<id property="rsvNo" column="i_rsv" />
+		<result property="rsvDate" column="rsv_date" />
+		<result property="rsvCdate" column="rsv_cDate" />
+		<result property="rsvOrgNo" column="i_org" />
+		<result property="rsvMemNo" column="i_member" />
+		<collection property="rsvSeatList" ofType="SeatVO" javaType="list" resultMap="mappers.SeatMapper.seatResult"/>
+	</resultMap>
+	
+	<resultMap type="RsvResultVO" id="rsvCplResult">
+		<association property="rrRsv" javaType="RsvVO">
+			<id property="rsvNo" column="i_rsv" />
+			<result property="rsvDate" column="rsv_date" />
+			<result property="rsvCdate" column="rsv_cDate" />
+			<result property="rsvOrgNo" column="i_org" />
+			<result property="rsvMemNo" column="i_member" />
+			<collection property="rsvSeatList" ofType="SeatVO" javaType="list" resultMap="mappers.SeatMapper.seatResult"/>
+		</association>
+		
+		<association property="rrSg" javaType="SeatGradeVO">
+			<id property="sgNo" column="i_seatGrade"/>
+			<result property="sgNm" column="sg_nm" />
+			<result property="sgPrice" column="sg_price" />
+		</association>
+		
+		<association property="rrMem" resultMap="mappers.MemberMapper.memberResult" />
+		<association property="rrPay" resultMap="payResult" />
+		<association property="rrOres" resultMap="mappers.OrgMapper.oresResult" />
+	</resultMap>
+	
+	<insert id="insertRsv" useGeneratedKeys="true" keyColumn="i_rsv" keyProperty="rsvNo">
+		insert into t_rsv values(0, now(), null, #{rsvOrgNo}, #{rsvMemNo});
+	</insert>
+
+	<insert id="insretRsvStInfo">
+		insert into t_rsv_seat_info values(0, #{stNo}, #{rsvNo});
+	</insert>
+
+	<update id="cancelRsv">
+		update t_rsv set rsv_cDate = now() where i_rsv = #{rsvNo};
+	</update>
+	
+	<delete id="deleteRsvStInfo">
+		delete from t_rsv_seat_info where i_rsv = ${rsvNo};
+	</delete>
+
+	<select id="selectRsvListByMemNo" resultMap="rsvCplResult">
+		select * from t_rsv rsv 
+			join t_rsv_seat_info using(i_rsv) 
+			join t_seat st using(i_seat) 
+			join t_seat_grade sg using(i_seatGrade)
+			join t_member mem using(i_member)
+			join t_pay py using(i_rsv)
+		where rsv.i_member = #{rsvMemNo};
+	</select>
+
+	<select id="selectRsvList" resultMap="rsvCplResult">
+		select * from t_rsv rsv 
+			join t_rsv_seat_info using(i_rsv) 
+			join t_seat st using(i_seat) 
+			join t_seat_grade sg using(i_seatGrade)
+			join t_member mem using(i_member);
+	</select>
+	
+	<select id="selectRsv" resultMap="rsvCplResult">
+		select * from t_rsv rsv
+			right join t_rsv_seat_info using(i_rsv) 
+			join t_org using(i_org)
+			join t_program using(i_program)
+			join t_theater using(i_theater)
+			join t_seat using(i_seat)
+			join t_pay using(i_rsv)
+			join t_member mem on rsv.i_member = mem.i_member
+		where i_rsv = #{rsvNo};
+	</select>
+
+	<!-- PAY PART -->
+	<resultMap type="PayVO" id="payResult">
+		<id property="pyNo" column="i_pay" />
+		<result property="pyPrice" column="py_price" />
+		<result property="pyType" column="py_type" />
+		<result property="pyNum" column="py_num" />
+		<result property="pyValidMonth" column="py_validMonth" />
+		<result property="pyValidYear" column="py_validYear" />
+		<result property="pyDate" column="py_date" />
+		<result property="pycDate" column="py_cDate" />
+		<result property="pyState" column="py_state" />
+		<result property="pyRsvNo" column="i_rsv" />
+		<result property="pyMemNo" column="i_member" />
+	</resultMap>
+	
+	<insert id="insertPay">
+		insert into t_pay values(0, #{pyPrice}, #{pyType}, #{pyNum}, #{pyValidMonth}, #{pyValidYear}, now(), null, 0, #{pyRsvNo}, #{pyMemNo});
+	</insert>
+	
+	<update id="cancelPay">
+		update t_pay set py_cDate = now() where i_rsv = #{rsvNo};
+	</update>
+	
+	<select id="selectPayList">
+		select * from t_pay order by i_pay desc;
+	</select>
+	
+	<select id="selectPay">
+		select * from t_pay where i_pay = #{pyNo};
+	</select>
+	
+	
+</mapper>

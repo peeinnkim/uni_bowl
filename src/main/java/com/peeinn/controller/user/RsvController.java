@@ -20,11 +20,15 @@ import com.peeinn.domain.AuthVO;
 import com.peeinn.domain.MemberVO;
 import com.peeinn.domain.OrgVO;
 import com.peeinn.domain.PayVO;
+import com.peeinn.domain.RsvVO;
+import com.peeinn.domain.SeatVO;
 import com.peeinn.domain.TheaterVO;
 import com.peeinn.domain.org.OrgResultVO;
+import com.peeinn.domain.org.RsvResultVO;
 import com.peeinn.service.MemberService;
 import com.peeinn.service.OrgService;
 import com.peeinn.service.ProgramService;
+import com.peeinn.service.RsvService;
 import com.peeinn.service.SeatService;
 import com.peeinn.service.TheaterService;
 
@@ -43,6 +47,9 @@ public class RsvController {
 	private TheaterService thService;
 	@Autowired
 	private ProgramService pgService;
+	@Autowired
+	private RsvService rsvService;
+	
 	
 	@RequestMapping(value="step01", method=RequestMethod.GET)
 	public void registRsv1(Model model, String savedDate) {
@@ -112,9 +119,10 @@ public class RsvController {
 	
 	@ResponseBody
 	@RequestMapping(value="step02", method=RequestMethod.POST)
-	public ResponseEntity<String> registRsv2(@RequestBody String[] seatList, HttpSession session) {
+	public ResponseEntity<String> registRsv2(@RequestBody List<SeatVO> seatList, HttpSession session) {
 		logger.info("------------ [RSV2 POST] ------------");
 		ResponseEntity<String> entity = null;
+		logger.info("seatList ->>" + seatList);
 		
 		try {
 			session.setAttribute("seatList", seatList);
@@ -128,25 +136,61 @@ public class RsvController {
 	}
 	
 	@RequestMapping(value="step03", method=RequestMethod.GET)
-	public void registRsv3(Model model, HttpSession session) {
+	public void registRsv3(Model model, int pr, HttpSession session) {
 		logger.info("------------ [RSV3 GET] ------------");
+		logger.info("pr ->>>" + pr);
+		
+		PayVO tempPay = new PayVO();
+		tempPay.setPyPrice(pr);
+		session.setAttribute("tempPay", tempPay);
 		
 		AuthVO auth = (AuthVO) session.getAttribute("Auth");
-		
 		model.addAttribute("mem", memService.search(auth.getAuthNo()));
 	}
 	
-	@RequestMapping(value="step04", method=RequestMethod.GET)
-	public void registRsv4(Model model) {
-		logger.info("------------ [RSV4 GET] ------------");
+	@RequestMapping(value="step03", method=RequestMethod.POST)
+	public String registRsv3(MemberVO mem, PayVO pay, HttpSession session) {
+		logger.info("------------ [RSV3 POST] ------------");
+		session.setAttribute("tempMem", mem);
 		
+		AuthVO auth = (AuthVO) session.getAttribute("Auth");
+		OrgResultVO tempOres = (OrgResultVO) session.getAttribute("tempOres");
+		List<SeatVO> seatList = (List<SeatVO>) session.getAttribute("seatList");
+		PayVO py = (PayVO) session.getAttribute("tempPay");
+		
+		RsvVO rsv = new RsvVO();
+		rsv.setRsvMemNo(auth.getAuthNo());
+		rsv.setRsvOrgNo(tempOres.getOrg().getOrgNo());
+		rsv.setRsvSeatList(seatList);
+		logger.info("STEP03 rsv ->>>>" + rsv);
+		
+		pay.setPyPrice(py.getPyPrice());
+		pay.setPyMemNo(auth.getAuthNo());
+		logger.info("STEP03 pay ->>>>" + pay);
+		
+		try {
+			int lastRsvNo = rsvService.registRsv(rsv, pay);
+
+			return "redirect:/user/rsv/step04?no="+lastRsvNo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
+		}
 	}
 	
-	@RequestMapping(value="step04", method=RequestMethod.POST)
-	public void registRsv4(MemberVO member, PayVO pay) {
+	@RequestMapping(value="step04", method=RequestMethod.GET)
+	public void registRsv4(int no, Model model, HttpSession session) {
 		logger.info("------------ [RSV4 GET] ------------");
+		RsvResultVO rRes = rsvService.search(no);
+		logger.info("rRes", rRes);
+		model.addAttribute("rRes", rRes);
+		
+		//세션에 저장한 임시정보 삭제
+		session.removeAttribute("tempMem");
+		session.removeAttribute("tempPay");
+		session.removeAttribute("seatList");
+		session.removeAttribute("tempOres");
 	}
-	
 	
 	@RequestMapping(value="list", method=RequestMethod.GET)
 	public void rsvList() {
