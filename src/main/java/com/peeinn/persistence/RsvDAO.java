@@ -7,21 +7,25 @@ import com.peeinn.domain.RsvVO;
 import com.peeinn.domain.org.RsvResultVO;
 
 public interface RsvDAO {
-
+	
 	/* RSV PART */
 	public void insertRsv(RsvVO rsv);
 	public void cancelRsv(int rsvNo);
 	
-	public List<RsvResultVO> selectList();
-	public List<RsvResultVO> selectListByMemNo(int memNo);
-	
+	public List<RsvVO> selectRsvList();
+
 	public RsvResultVO selectRsv(int rsvNo);
 	
-	/* RSV-SEAT */
-	public void insertRsvStInfo(int stNo, int rsvNo);
+	
+	/* RSV INFO PART */
+	public void insertRsvInfo(int rsvNo, int orgNo, int stNo);
+	
 	
 	/* PAY PART */
 	public void insertPay(PayVO pay);
 	public void cancelPay(int rsvNo);
+	
+	public List<PayVO> selectPayList();
+
 	
 }//RsvDAO

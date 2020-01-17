@@ -22,6 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -266,13 +267,58 @@ public class IntranetController {
 	}
 
 	@RequestMapping(value="theater/remove", method = RequestMethod.GET)
-	public String removeTh(int thNo) {
+	public String removeTh(Model model, int thNo) {
 		logger.info("------------ [removeTh GET] ------------");
 		
+		if(thService.isThRsved(thNo) > 0) {
+			model.addAttribute("isRsved", true);
+			return "redirect:/admin/intranet/theater/list";
+		}
 		thService.remove(thNo);
-		
 		return "redirect:/admin/intranet/theater/list";
 	}
+	
+	@RequestMapping(value="theater/modify", method=RequestMethod.GET)
+	public String modifyTh(Model model, int thNo) {
+		logger.info("------------ [modifyTh GET] ------------");
+		
+		if(thService.isThRsved(thNo) > 0) {
+			model.addAttribute("isRsved", true);
+			return "redirect:/admin/intranet/theater/list";
+		}
+		
+		model.addAttribute("th", thService.search(thNo));
+		
+		return "admin/intranet/theater/input";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="theater/modify/{stMod}", method=RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> modifyThPost(TheaterVO th, @PathVariable int stMod) {
+		logger.info("------------ [theaterRegist POST] ------------");
+		logger.info("stMod ->>" + stMod);
+		ResponseEntity<Map<String, Object>> entity = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		try {
+			thService.modify(th);
+			if(stMod == 0) {
+				map.put("result", "success");
+				entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			} else {
+				map.put("result", "needStMod");
+				map.put("no", th.getThNo());
+				entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			}
+			
+		} catch (Exception e) {
+			map.put("result", "fail");
+			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.BAD_REQUEST);
+			e.printStackTrace();
+		}
+		
+		return entity;
+	}	
 	
 	/* ------------------- [ SEAT PART ] ------------------- */
 	@RequestMapping(value="theater/seat", method=RequestMethod.GET)
@@ -291,7 +337,7 @@ public class IntranetController {
 		model.addAttribute("th", thService.search(thNo));
 		model.addAttribute("modify", true);
 		
-		return "admin/intranet/theater/input";
+		return "admin/intranet/theater/seatInput";
 	}
 	
 	@ResponseBody
@@ -361,6 +407,12 @@ public class IntranetController {
 		response.sendRedirect("list");
 	}
 
+	@RequestMapping(value="org/remove", method=RequestMethod.GET)
+	public void orgRemoveGet(int orgNo) {
+		logger.info("------------ [orgLIst POST] ------------");
+		
+		orgService.remove(orgNo);
+	}
 	
 	/* ------------------- [ SALES PART ] ------------------- */
 	@RequestMapping(value="sales", method=RequestMethod.GET)

@@ -16,10 +16,6 @@
 	<update id="updateSt">
 		update t_seat set st_nm = #{stNm}, i_seatGrade = #{stSgNo} where i_seat = #{stNo}; 
 	</update>
-
-	<update id="updateStState">
-		update t_seat set i_seatGrade = #{stSgNo} where st_nm = #{stNm} and i_theater = #{stThNo}; 
-	</update>
 	
 	<delete id="deleteSt">
 		delete from t_seat where i_theater = #{stThNo};

@@ -14,11 +14,12 @@ import com.peeinn.domain.org.RsvResultVO;
 
 @Repository
 public class RsvDAOImpl implements RsvDAO {
-	
+
 	@Autowired
 	private SqlSession sqlSession;
 	private static final String namespace = "mappers.RsvMapper";
 
+	/* RSV PART */
 	@Override
 	public void insertRsv(RsvVO rsv) {
 		sqlSession.insert(namespace + ".insertRsv", rsv);
@@ -30,14 +31,17 @@ public class RsvDAOImpl implements RsvDAO {
 	}
 
 	@Override
-	public void insertRsvStInfo(int stNo, int rsvNo) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("stNo", stNo);
-		map.put("rsvNo", rsvNo);
-		
-		sqlSession.insert(namespace + ".insretRsvStInfo", map);
+	public List<RsvVO> selectRsvList() {
+		return sqlSession.selectList(namespace + ".selectRsvList");
+	}
+	
+	@Override
+	public RsvResultVO selectRsv(int rsvNo) {
+		return sqlSession.selectOne(namespace + ".selectRsv", rsvNo);
 	}
 
+
+	/* PAY PART */
 	@Override
 	public void insertPay(PayVO pay) {
 		sqlSession.insert(namespace + ".insertPay", pay);
@@ -49,18 +53,21 @@ public class RsvDAOImpl implements RsvDAO {
 	}
 
 	@Override
-	public List<RsvResultVO> selectList() {
-		return sqlSession.selectList(namespace + ".selectList");
+	public List<PayVO> selectPayList() {
+		return sqlSession.selectList(namespace + ".selectPayList");
 	}
 
+	
+	/* RSV INFO PART */
 	@Override
-	public List<RsvResultVO> selectListByMemNo(int memNo) {
-		return sqlSession.selectList(namespace + ".selectList", memNo);
+	public void insertRsvInfo(int rsvNo, int orgNo, int stNo) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("rsvNo", rsvNo);
+		map.put("orgNo", orgNo);
+		map.put("stNo", stNo);
+
+		sqlSession.insert(namespace + ".insertRsvInfo", map);
 	}
 
-	@Override
-	public RsvResultVO selectRsv(int rsvNo) {
-		return sqlSession.selectOne(namespace + ".selectRsv", rsvNo);
-	}
 
-}
+}//RsvDAOImpl

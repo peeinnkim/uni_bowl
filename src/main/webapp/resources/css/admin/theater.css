@@ -134,22 +134,21 @@ dd {
 	margin-top:20px; 
 	margin-right: 2px;
 }
-.seatEx, 
+.seatEx,
 .seat {
     width: 22px;
     height: 32px;
     display: block;
-    cursor: pointer;
     text-align: center;
     font-size: 10px;
     line-height: 28px;
-	font-weight: bold;
+    cursor: pointer;
 }
 .seat-empty {
 	background: url("../../img/rsv/icon-seat1.png") no-repeat;	
 	background-size: contain;
 }
-.seat-active {
+.exActive, .seat-active {
 	background: url("../../img/rsv/icon-seat2.png") no-repeat;	
 	background-size: contain;
 }
@@ -158,7 +157,9 @@ dd {
 	background-size: contain;
 }
 .seat-disabled {
-	background: none;	
+	background: url("../../img/rsv/icon-seat2.png") no-repeat;	
+	background-size: contain;
+	filter: grayscale(1);
 }
 .premiumSingle-empty {
 	background: url("../../img/rsv/icon-seat4.png") no-repeat;	

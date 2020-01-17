@@ -5,9 +5,16 @@
 		</div>
 		
 		<div id="side-bar">
-			<a href="${pageContext.request.contextPath}/admin/intranet/sales">
-				<img src="${pageContext.request.contextPath}/resources/img/no-fishing.png" id="tempIntraIco">
-			</a>			
+			<div class="side-top">
+				<a href="${pageContext.request.contextPath}/admin/intranet/sales" id="intraBtn"></a>			
+				<a href="${pageContext.request.contextPath}/user/rsv/step01" id="rsvBtn">RESERVATION</a>
+			</div>		
+			<div class="side-bottom">
+				<span>
+					宇宙魚缸 UNIVISH BOWL<br>
+					Somewhere In The Universe
+				</span>
+			</div>
 		</div>
 	</div>
 </body>

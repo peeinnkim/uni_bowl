@@ -192,7 +192,7 @@
 	setOnClass();
 	function setOnClass(){
 		$("#mem-sel > li").removeClass("on");
-		$("#mem-sel > li:eq(${code})").addClass("on");
+		$("#mem-sel > li:eq(${cri.code})").addClass("on");
 	}
 
 	//동적 추가되는 테이블 날짜

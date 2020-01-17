@@ -41,8 +41,8 @@ public class SeatDAOImpl implements SeatDAO {
 	}
 
 	@Override
-	public void udpateStState(SeatVO st) {
-		sqlSession.update(namespace + ".updateStState" + st);
+	public void changeStState(SeatVO st) {
+		sqlSession.update(namespace + ".changeStState", st);
 	}
 
 }//SeatDAOImpl

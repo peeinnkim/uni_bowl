@@ -44,6 +44,7 @@ button {
 #header-wrap {
 	width: 15%;
 	background: cadetblue;
+	padding: 50px 0;
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -63,9 +64,54 @@ button {
 }
 .mem-menu > ul > li {
 	float: left;
+	font-size: 15px;
+	font-weight: bold;
+	text-align: center;
+	margin: 0 15px;
+} 
+/* 로그인중 */
+ul.onLogin > li {
+	float: none;
+	font-size: 15px;
+	font-weight: bold;
+	text-align: center;
+}
+.onLogin {
+	float: none;
+	font-size: 15px;
+	font-weight: bold;
+	text-align: center;
+	margin: 3px 0;
+}
+.id-area {
+	font-size: 13px;
+}
+.id-area > small {
+	color: yellow;
+	font-weight: normal;
 }
 .nav > ul > li {
+	font-weight: bold;
+	font-size: 17px;
 	padding: 10px 0;
+	text-align: center;
+}
+.nav > ul > li:hover {
+	border-bottom: 2px solid black;	
+}
+.nav > ul > li:hover .sub-nav {
+	display: block;
+}
+.sub-nav {
+	margin-top: 7px;
+	display: none;
+}
+.sub-nav > li {
+	padding: 10px 0;
+	font-size: 15px;
+}
+.sub-nav > li:hover {
+	border-bottom: 2px solid black;	
 }
 
 /*----------------------------------*/
@@ -125,16 +171,43 @@ button {
 	top: 0;
 	box-shadow: 0 0 30px rgba(0, 0, 0, .1);
 }
-#side-bar > a {
+.side-top {
+	width: 100%;
+	height: 52%;
+	padding: 20px 0;
+	box-shadow: 0 0 30px rgba(0, 0, 0, .1);
+}
+.side-top > #intraBtn {
 	width: 60px;
 	height: 60px;
 	display: block;
-	margin: 0 auto;
+	margin: 10px auto;
+	background: url("../../img/no-fishing.png") no-repeat;
+	background-size: cover;
 }
-#side-bar > a > #tempIntraIco {
-	width: 60px;
-	height: 60px;
+.side-top > #rsvBtn {
+    width: 73%;
+    font-size: 19px;
+    font-weight: bold;
+    margin: 50px auto;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    letter-spacing: 0.5em;
 }
+.side-bottom {
+	width: 100%;
+	padding: 20px 0;
+}
+.side-bottom > span {
+    display: inline-block;
+    font-size: 11px;
+    writing-mode: vertical-rl;
+    letter-spacing: 0.4em;
+    color: grey;
+}
+
+
+
 .error{
 	font-size: 13px;
 	color: red;

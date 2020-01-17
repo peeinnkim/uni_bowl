@@ -2,7 +2,7 @@ package com.peeinn.domain;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.List;
+import java.util.Map;
 
 import com.peeinn.util.MyUtils;
 
@@ -10,10 +10,10 @@ public class RsvVO {
 	private int rsvNo;
 	private Date rsvDate;
 	private Date rsvCdate;
-	private int rsvOrgNo;
 	private int rsvMemNo;
 
-	private List<SeatVO> rsvSeatList;
+	private PayVO rsvPay;
+	private Map<String, Object> rsvInfoMap;
 
 	public int getRsvNo() {
 		return rsvNo;
@@ -47,14 +47,6 @@ public class RsvVO {
 		this.rsvCdate = MyUtils.parseStringToDate(rsvCdate);
 	}
 
-	public int getRsvOrgNo() {
-		return rsvOrgNo;
-	}
-
-	public void setRsvOrgNo(int rsvOrgNo) {
-		this.rsvOrgNo = rsvOrgNo;
-	}
-
 	public int getRsvMemNo() {
 		return rsvMemNo;
 	}
@@ -63,18 +55,27 @@ public class RsvVO {
 		this.rsvMemNo = rsvMemNo;
 	}
 
-	public List<SeatVO> getRsvSeatList() {
-		return rsvSeatList;
+	public PayVO getRsvPay() {
+		return rsvPay;
 	}
 
-	public void setRsvSeatList(List<SeatVO> rsvSeatList) {
-		this.rsvSeatList = rsvSeatList;
+	public void setRsvPay(PayVO rsvPay) {
+		this.rsvPay = rsvPay;
+	}
+
+
+	public Map<String, Object> getRsvInfoMap() {
+		return rsvInfoMap;
+	}
+
+	public void setRsvInfoMap(Map<String, Object> rsvInfoMap) {
+		this.rsvInfoMap = rsvInfoMap;
 	}
 
 	@Override
 	public String toString() {
-		return "RsvVO [rsvNo=" + rsvNo + ", rsvDate=" + rsvDate + ", rsvCdate=" + rsvCdate + ", rsvOrgNo=" + rsvOrgNo
-				+ ", rsvMemNo=" + rsvMemNo + ", rsvSeatList=" + rsvSeatList + "]";
+		return "RsvVO [rsvNo=" + rsvNo + ", rsvDate=" + rsvDate + ", rsvCdate=" + rsvCdate + ", rsvMemNo=" + rsvMemNo
+				+ ", rsvPay=" + rsvPay + ", rsvInfoMap=" + rsvInfoMap + "]";
 	}
 
 }// RsvVO

@@ -105,11 +105,13 @@
 	}) 
 	
 	
+	//ORGANIZAION 정보 넘기기 OrgVO(상영번호, 날짜, 프로그램번호, 상영관번호)
 	$(document).on("click", ".fSubmit", function(){
 		var orgNo = $(this).closest("li").find("input[name='orgNo']").val();
 		var orgDate = $(this).closest("li").find("input[name='orgDate']").val();
 		var orgPgNo = $(this).closest("li").find("input[name='orgPgNo']").val();
 		var orgThNo = $(this).closest("li").find("input[name='orgThNo']").val();
+		
 		var data = {
 			orgNo : orgNo,
 			orgDate: orgDate,

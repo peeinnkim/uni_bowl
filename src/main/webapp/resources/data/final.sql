@@ -83,3 +83,49 @@ order by sNt.sort asc, i_notice desc;
 
 select * from t_program;
 
+select *
+from t_rsv rsv 
+join t_rsv_seat_info using(i_rsv) 
+join t_seat st using(i_seat) 
+join t_seat_grade sg using(i_seatGrade)
+join t_member mem using(i_member)
+join t_pay py using(i_rsv);
+
+select * from t_org;
+select * from t_rsv;
+select * from t_rsv_seat_info;
+select * from t_seat where st_isRsved = 1;
+select * from t_pay;
+
+
+select * from t_rsv rsv
+	right join t_rsv_seat_info using(i_rsv) 
+	join t_org using(i_org)
+	join t_program using(i_program)
+	join t_theater using(i_theater)
+	join t_seat using(i_seat)
+	join t_pay using(i_rsv)
+	join t_member mem on rsv.i_member = mem.i_member
+where i_rsv = 6;
+
+select count(*) from t_theater join t_seat using(i_theater) where i_theater = 2 and st_isRsved = 1;
+
+select * from t_theater;
+
+select count(*) from t_org org 
+	join t_theater th using(i_theater)
+	join t_program pg using(i_program)
+	join t_rsv rsv using(i_org)
+	order by i_theater asc, org.org_date asc;
+
+
+select * from t_rsv_info ri 
+	join t_rsv rsv using(i_rsv)
+	join t_org org using(i_org) join t_theater th using(i_theater) join t_program pg using(i_program)
+	join t_seat st using(i_seat)
+	join t_pay pay using(i_rsv)
+	join t_member mem on rsv.i_member = mem.i_member
+	order by i_rsv desc;
+
+
+

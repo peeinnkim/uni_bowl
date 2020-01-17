@@ -11,32 +11,7 @@
 
 <div class="content-wrap">
 	<div class="cont-center">
-		<input type="hidden" name='thNo' value="${th.thNo == null? '0' : th.thNo}">
-		<ul class="crt-th-wrap">
-			<li>
-				<label>상영관명</label>
-				<span><input type="text" name="thName" value="${th.thNm}"> 관</span>
-			</li>
-			<li>
-				<label>수용인원</label>
-				<span>
-					<input type="text" name="thSeatCnt" maxlength="3" class="ipNum" value="${th.thSeatCnt}"> 명
-					<input type="hidden" name="seatCntSave" value="${th.thSeatCnt}">
-				</span>
-			</li>
-			<li>
-				<label>위치</label>
-				<span><input type="text" name="thFloor" maxlength="2" class="ipNum" value="${th.thFloor}"> 층</span>
-			</li>
-			<li style="width: 100%; text-align: right;">
-				<span>
-					<button id="crtThBtn">저장</button>
-				</span>
-			</li>
-		</ul>
-		
-		<c:if test="${th.thNo == null}">
-		<div class="crted-th-wrap">
+		<div class="crted-th-wrap" style="display:block;">
 			<input type="hidden" id="cThNo" value="${th.thNo}">
 			<p>
 				<label>상영관명</label>
@@ -52,7 +27,7 @@
 			</p>
 		</div>
 		
-		<div class="crt-seat-pre">
+		<div class="crt-seat-pre" style="display:block;">
 			<h2>좌석 설정</h2>
 			<label>전체좌석<br>(복도포함)</label>
 			<span>
@@ -62,7 +37,7 @@
 			</span>
 		</div>
 		
-		<div class="crt-seat-wrap">
+		<div class="crt-seat-wrap" style="display:block;">
 			<div class="seat-div">
 				<h2>좌석 등급</h2>
 				<div>
@@ -94,7 +69,6 @@
 				<div style="width:${col * 24}px;">
 				<c:if test="${list != null}">
 					<c:set var="cName" value='<%=SeatGradeVO.getSgclassarr() %>'/>
-					<c:set var="cName2" value='<%=new String[]{"", "seat-empty", "premiumSingle-empty", "premiumDouble-empty", "seat-none", "seat-disabled"} %>'/>
 						<c:forEach var="rowIdx" begin="0" end="${row-1}">
 						<ul class="seat-row">
 						 <c:forEach var="st" items="${list}" begin="${rowIdx*col}" end="${(rowIdx*col)+col-1}"> 
@@ -106,7 +80,7 @@
 				</div>
 			</div>
 		</div>
-		</c:if>
+		
 	</div>
 </div>
 

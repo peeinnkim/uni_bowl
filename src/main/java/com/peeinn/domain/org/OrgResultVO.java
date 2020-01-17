@@ -4,6 +4,7 @@ import com.peeinn.domain.OrgVO;
 import com.peeinn.domain.ProgramVO;
 import com.peeinn.domain.TheaterVO;
 
+//Intranet 등록에 사용
 public class OrgResultVO {
 	private OrgVO org; // 상세정보 객체
 	private TheaterVO th; // 상영관 객체

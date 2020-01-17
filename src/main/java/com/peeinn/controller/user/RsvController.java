@@ -1,6 +1,8 @@
 package com.peeinn.controller.user;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -85,8 +87,7 @@ public class RsvController {
 	public ResponseEntity<String> registRsv1(@RequestBody OrgVO tempOrg, HttpSession session) {
 		logger.info("------------ [RSV1 POST] ------------");
 		logger.info("OrgVO ->>>>" + tempOrg);
-		session.removeAttribute("tempOres");
-		System.out.println(">>세션 삭제 완료<<");
+		
 		ResponseEntity<String> entity = null;
 		OrgResultVO ores = new OrgResultVO();
 		ores.setOrg(tempOrg);
@@ -95,7 +96,7 @@ public class RsvController {
 		
 		try {
 			session.setAttribute("tempOres", ores);
-			System.out.println(">>세션 추가 완료<<");
+			System.out.println(">>TempOres 세션 추가 완료<<");
 			entity = new ResponseEntity<String>("success", HttpStatus.OK);
 		} catch (Exception e) {
 			entity = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
@@ -122,9 +123,9 @@ public class RsvController {
 	public ResponseEntity<String> registRsv2(@RequestBody List<SeatVO> seatList, HttpSession session) {
 		logger.info("------------ [RSV2 POST] ------------");
 		ResponseEntity<String> entity = null;
-		logger.info("seatList ->>" + seatList);
 		
 		try {
+			logger.info("seatList ->>" + seatList);
 			session.setAttribute("seatList", seatList);
 			entity = new ResponseEntity<String>("success", HttpStatus.OK);
 			
@@ -138,30 +139,35 @@ public class RsvController {
 	@RequestMapping(value="step03", method=RequestMethod.GET)
 	public void registRsv3(Model model, int pr, HttpSession session) {
 		logger.info("------------ [RSV3 GET] ------------");
-		logger.info("pr ->>>" + pr);
+		logger.info("pr ->>>" + pr); //price
 		
 		PayVO tempPay = new PayVO();
 		tempPay.setPyPrice(pr);
 		session.setAttribute("tempPay", tempPay);
 		
 		AuthVO auth = (AuthVO) session.getAttribute("Auth");
+		logger.info("auth ->>>" + auth);
 		model.addAttribute("mem", memService.search(auth.getAuthNo()));
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="step03", method=RequestMethod.POST)
 	public String registRsv3(MemberVO mem, PayVO pay, HttpSession session) {
 		logger.info("------------ [RSV3 POST] ------------");
-		session.setAttribute("tempMem", mem);
 		
 		AuthVO auth = (AuthVO) session.getAttribute("Auth");
 		OrgResultVO tempOres = (OrgResultVO) session.getAttribute("tempOres");
 		List<SeatVO> seatList = (List<SeatVO>) session.getAttribute("seatList");
 		PayVO py = (PayVO) session.getAttribute("tempPay");
 		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("seatList", seatList);
+		map.put("ores", tempOres);
+		
 		RsvVO rsv = new RsvVO();
 		rsv.setRsvMemNo(auth.getAuthNo());
-		rsv.setRsvOrgNo(tempOres.getOrg().getOrgNo());
-		rsv.setRsvSeatList(seatList);
+		rsv.setRsvPay(pay);
+		rsv.setRsvInfoMap(map);
 		logger.info("STEP03 rsv ->>>>" + rsv);
 		
 		pay.setPyPrice(py.getPyPrice());
@@ -181,12 +187,11 @@ public class RsvController {
 	@RequestMapping(value="step04", method=RequestMethod.GET)
 	public void registRsv4(int no, Model model, HttpSession session) {
 		logger.info("------------ [RSV4 GET] ------------");
-		RsvResultVO rRes = rsvService.search(no);
+		RsvResultVO rRes = rsvService.rsvSearch(no);
 		logger.info("rRes", rRes);
 		model.addAttribute("rRes", rRes);
 		
 		//세션에 저장한 임시정보 삭제
-		session.removeAttribute("tempMem");
 		session.removeAttribute("tempPay");
 		session.removeAttribute("seatList");
 		session.removeAttribute("tempOres");

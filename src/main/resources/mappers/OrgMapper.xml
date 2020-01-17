@@ -30,9 +30,9 @@
 	
 	<select id="selectOrgList" resultMap="oresResult">
 		select * from t_org org 
-			join t_theater th using(i_theater)
-			join t_program pg using(i_program)
-			order by org.org_date asc;
+				join t_theater th using(i_theater)
+				join t_program pg using(i_program)
+			order by i_theater asc, org.org_date asc;
 	</select>
 
 	<select id="selectOrgListByDate" resultMap="oresResult">
@@ -45,7 +45,7 @@
 			<if test="sDate == ''">
 				where DATE(org.org_date) = DATE(curdate())
 			</if>
-			order by org.org_date asc;
+			order by i_theater asc, org.org_date asc;
 	</select>
 	
 	<select id="selectOrg" resultMap="oresResult">

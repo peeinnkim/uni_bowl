@@ -12,9 +12,9 @@
 <div class="content-area">
 	<div class="form-wrap">
 		<form id="frm" ${qna.qnaNo == null? 'action="regist"': 'action="modify"'} method="post" enctype="multipart/form-data">
-			<input type="text" name="qnaNo" value="${qna.qnaNo == null? '0': qna.qnaNo}">
-			<input type="text" name="qnaWriter" value="${Auth.authNo}">
-			<input type="text" name="qnaWriterId" value="${Auth.authId}">
+			<input type="hidden" name="qnaNo" value="${qna.qnaNo == null? '0': qna.qnaNo}">
+			<input type="hidden" name="qnaWriter" value="${Auth.authNo}">
+			<input type="hidden" name="qnaWriterId" value="${Auth.authId}">
 			<p>
 				<label>분류</label>
 				<select id="state-sel">
@@ -24,7 +24,7 @@
 					<option value="3">기타문의</option>
 					<option value="4">제안하기</option>
 				</select>
-				<input type="text" name="qnaCategory" value="${qna.qnaCategory}">
+				<input type="hidden" name="qnaCategory" value="${qna.qnaCategory}">
 			</p>
 			<p>
 				<label>제목</label>

@@ -72,22 +72,18 @@ button {
 }
 .content-wrap {
 	width: 100%;
-	background: beige;
 	overflow: hidden;
 }
 .content-wrap > .cont-center {
 	width: 100%;
-	background: orangered;
 	margin: 0 auto;
 }
 .content-wrap > .cont-left {
 	width: 55%;
-	background: lavender;
 	float: left;
 }
 .content-wrap > .cont-right {
 	width: 40%;
-	background: seagreen;
 	float: right;
 }
 

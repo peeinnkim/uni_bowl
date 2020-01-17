@@ -27,46 +27,80 @@ $(function(){
 		
 		//상영관 추가
 		var pName = $("input[name='pName']").val();
+		var thNo = $("input[name='thNo']").val();
 		var thName = $("input[name='thName']").val();
 		var thSeatCnt = $("input[name='thSeatCnt']").val();
 		var thFloor = $("input[name='thFloor']").val();
+		var seatCntSave = $("input[name='seatCntSave']").val();
 		
 		var data = {
+				"thNo" : thNo,
 				"thNm" : thName,
 				"thSeatCnt": thSeatCnt,
 				"thFloor" : thFloor
 		};
 		
-		$.ajax({
-			url: pName + "/admin/intranet/theater/regist",
-			type: "post",
-			data: data,
-			dataType: "json",
-			success: function(res){
-				console.log(res);
-				
-				if(res.result == "success") {
-					var addConfirm = confirm("좌석 설정을 하시겠습니까?");
+		if(thNo == 0) { //thNo가 없으면 추가
+			$.ajax({
+				url: pName + "/admin/intranet/theater/regist",
+				type: "post",
+				data: data,
+				dataType: "json",
+				success: function(res){
+					console.log(res);
 					
-					if(addConfirm == false) {
-						location.href = pName + "/admin/intranet/theater/list";
-						return;
+					if(res.result == "success") {
+						alert("좌석 설정을 진행합니다.");
+						
+						$("#cThNo").val(res.no);
+						$("#cThName").text(thName);
+						$("#cThCnt").text(thSeatCnt);
+						$("#cThFloor").text(thFloor);
+						$(".crt-th-wrap").hide();
+						$(".crted-th-wrap").show();
+						
+						$(".crt-seat-pre").show();
 					}
+				},
+				error: function(e){
+					console.log(e);
+					}
+				})
+				
+		} else { //thNo가 있으면 수정
+			alert("수정!!!");
+			var url;
+			
+			if(thSeatCnt == seatCntSave) {
+				url = pName + "/admin/intranet/theater/modify/0";
+			} else {
+				url = pName + "/admin/intranet/theater/modify/1";
+			}
+			
+			$.ajax({
+				url: url,
+				type: "post",
+				data: data,
+				dataType: "json",
+				success: function(res){
+					console.log(res);
 					
-					$("#cThNo").val(res.no);
-					$("#cThName").text(thName);
-					$("#cThCnt").text(thSeatCnt);
-					$("#cThFloor").text(thFloor);
-					$(".crt-th-wrap").hide();
-					$(".crted-th-wrap").show();
-					
-					$(".crt-seat-pre").show();
-				}
-			},
-			error: function(e){
-				console.log(e);
-				}
-			})
+					if(res.result == "success") {
+						alert("수정되었습니다.");
+						location.href = pName + "/admin/intranet/theater/list";
+						
+					} else if (res.result == "needStMod") {
+						alert("좌석변경을 해주세요.");
+						location.href = pName + "/admin/intranet/theater/seat/Modify?thNo="+thNo;
+					}
+				},
+				error: function(e){
+					console.log(e);
+					}
+				})
+		}
+		
+		
 	})//$("#crtThBtn").click
 	
 		

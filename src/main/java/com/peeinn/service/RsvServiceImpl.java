@@ -1,36 +1,38 @@
 package com.peeinn.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.peeinn.domain.PayVO;
 import com.peeinn.domain.RsvVO;
 import com.peeinn.domain.SeatVO;
+import com.peeinn.domain.org.OrgResultVO;
 import com.peeinn.domain.org.RsvResultVO;
 import com.peeinn.persistence.RsvDAO;
-import com.peeinn.persistence.SeatDAO;
 
 @Service
 public class RsvServiceImpl implements RsvService {
 
 	@Autowired
 	private RsvDAO dao;
-	@Autowired
-	private SeatDAO stDao;
 
+	/* RSV PART */
+	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional
 	public int registRsv(RsvVO rsv, PayVO pay) {
 		dao.insertRsv(rsv);
 		pay.setPyRsvNo(rsv.getRsvNo());
 		dao.insertPay(pay);
+
+		Map<String, Object> map = rsv.getRsvInfoMap();	
+		List<SeatVO> seatList = (List<SeatVO>) map.get("seatList");
+		OrgResultVO ores = (OrgResultVO) map.get("ores");
 		
-		for(SeatVO st : rsv.getRsvSeatList()) {
-			dao.insertRsvStInfo(st.getStNo(), rsv.getRsvNo());
-			stDao.updateSt(st);
+		for(SeatVO st : seatList) {
+			dao.insertRsvInfo(rsv.getRsvNo(), ores.getOrg().getOrgNo(), st.getStNo());
 		}
 		
 		return rsv.getRsvNo();
@@ -43,19 +45,22 @@ public class RsvServiceImpl implements RsvService {
 	}
 
 	@Override
-	public List<RsvResultVO> list() {
-		return dao.selectList();
+	public List<RsvVO> rsvList() {
+		return dao.selectRsvList();
 	}
-
+	
 	@Override
-	public List<RsvResultVO> listByMemNo(int memNo) {
-		return dao.selectListByMemNo(memNo);
-	}
-
-	@Override
-	public RsvResultVO search(int rsvNo) {
+	public RsvResultVO rsvSearch(int rsvNo) {
 		return dao.selectRsv(rsvNo);
 	}
+
+	
+	/* PAY PART */
+	@Override
+	public List<PayVO> payList() {
+		return dao.selectPayList();
+	}
+
 
 
 }

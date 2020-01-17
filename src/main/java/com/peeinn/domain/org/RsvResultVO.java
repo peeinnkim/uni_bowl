@@ -1,39 +1,75 @@
 package com.peeinn.domain.org;
 
-import com.peeinn.domain.MemberVO;
-import com.peeinn.domain.PayVO;
-import com.peeinn.domain.RsvVO;
-import com.peeinn.domain.SeatGradeVO;
+import java.util.Date;
+import java.util.List;
 
-public class RsvResultVO {
-	private RsvVO rrRsv;
-	private SeatGradeVO rrSg;
+import com.peeinn.domain.MemberVO;
+import com.peeinn.domain.OrgVO;
+import com.peeinn.domain.PayVO;
+import com.peeinn.domain.ProgramVO;
+import com.peeinn.domain.SeatVO;
+import com.peeinn.domain.TheaterVO;
+
+public class RsvResultVO extends OrgResultVO {
+	private int rrRsvNo;
+	private Date rrRsvDate;
+	private Date rrRsvCdate;
 	private MemberVO rrMem;
 	private PayVO rrPay;
-	private OrgResultVO rrOres;
+	private List<SeatVO> rrSeatList;
 
-	public RsvResultVO() {
-		rrRsv = new RsvVO();
-		rrSg = new SeatGradeVO();
-		rrMem = new MemberVO();
-		rrPay = new PayVO();
-		rrOres = new OrgResultVO();
+	@Override
+	public OrgVO getOrg() {
+		return super.getOrg();
 	}
 
-	public RsvVO getRrRsv() {
-		return rrRsv;
+	@Override
+	public void setOrg(OrgVO org) {
+		super.setOrg(org);
 	}
 
-	public void setRrRsv(RsvVO rrRsv) {
-		this.rrRsv = rrRsv;
+	@Override
+	public TheaterVO getTh() {
+		return super.getTh();
 	}
 
-	public SeatGradeVO getRrSg() {
-		return rrSg;
+	@Override
+	public void setTh(TheaterVO th) {
+		super.setTh(th);
 	}
 
-	public void setRrSg(SeatGradeVO rrSg) {
-		this.rrSg = rrSg;
+	@Override
+	public ProgramVO getPg() {
+		return super.getPg();
+	}
+
+	@Override
+	public void setPg(ProgramVO pg) {
+		super.setPg(pg);
+	}
+
+	public int getRrRsvNo() {
+		return rrRsvNo;
+	}
+
+	public void setRrRsvNo(int rrRsvNo) {
+		this.rrRsvNo = rrRsvNo;
+	}
+
+	public Date getRrRsvDate() {
+		return rrRsvDate;
+	}
+
+	public void setRrRsvDate(Date rrRsvDate) {
+		this.rrRsvDate = rrRsvDate;
+	}
+
+	public Date getRrRsvCdate() {
+		return rrRsvCdate;
+	}
+
+	public void setRrRsvCdate(Date rrRsvCdate) {
+		this.rrRsvCdate = rrRsvCdate;
 	}
 
 	public MemberVO getRrMem() {
@@ -52,18 +88,18 @@ public class RsvResultVO {
 		this.rrPay = rrPay;
 	}
 
-	public OrgResultVO getRrOres() {
-		return rrOres;
+	public List<SeatVO> getRrSeatList() {
+		return rrSeatList;
 	}
 
-	public void setRrOres(OrgResultVO rrOres) {
-		this.rrOres = rrOres;
+	public void setRrSeatList(List<SeatVO> rrSeatList) {
+		this.rrSeatList = rrSeatList;
 	}
 
 	@Override
 	public String toString() {
-		return "RsvResultVO [rrRsv=" + rrRsv + ", rrSg=" + rrSg + ", rrMem=" + rrMem + ", rrPay=" + rrPay + ", rrOres="
-				+ rrOres + "]";
+		return "RsvResultVO [rrRsvNo=" + rrRsvNo + ", rrRsvDate=" + rrRsvDate + ", rrRsvCdate=" + rrRsvCdate
+				+ ", rrMem=" + rrMem + ", rrPay=" + rrPay + ", rrSeatList=" + rrSeatList + "]";
 	}
 
-}// RsvSeatVO
+}// RsvResultVO

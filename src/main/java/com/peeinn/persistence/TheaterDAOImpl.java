@@ -45,4 +45,14 @@ public class TheaterDAOImpl implements TheaterDAO {
 		return sqlSession.selectOne(namespace + ".getRowAndCol", thNo);
 	}
 
+	@Override
+	public int isThRsved(int thNo) {
+		return sqlSession.selectOne(namespace + ".isThRsved", thNo);
+	}
+
+	@Override
+	public void updateTh(TheaterVO th) {
+		sqlSession.update(namespace + ".updateTh", th);
+	}
+
 }//TheaterDAOImpl

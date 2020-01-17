@@ -54,6 +54,10 @@
 			<mapping path="/user/member/secess"/>
 			<mapping path="/user/member/result"/>
 			<mapping path="/user/qna/regist"/>
+			<mapping path="/user/rsv/step01"/>
+			<mapping path="/user/rsv/step02"/>
+			<mapping path="/user/rsv/step03"/>
+			<mapping path="/user/rsv/step04"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
 	</interceptors>     

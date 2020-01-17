@@ -12,7 +12,9 @@
 
 
 <script>
-	
+	$("button").click(function(){
+		location.href="${pageContext.request.contextPath}";
+	})
 </script>
 
 <%@ include file="../../include/footer.jsp" %>

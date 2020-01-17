@@ -8,12 +8,15 @@ import com.peeinn.domain.org.RsvResultVO;
 
 public interface RsvService {
 	
+	/* RSV PART */
 	public int registRsv(RsvVO rsv, PayVO pay);
 	public void cancelRsv(int rsvNo);
 	
-	public List<RsvResultVO> list();
-	public List<RsvResultVO> listByMemNo(int memNo);
+	public List<RsvVO> rsvList();
 	
-	public RsvResultVO search(int rsvNo);
+	public RsvResultVO rsvSearch(int rsvNo);
+	
+	/* PAY PART */
+	public List<PayVO> payList();
 	
 }//RsvService

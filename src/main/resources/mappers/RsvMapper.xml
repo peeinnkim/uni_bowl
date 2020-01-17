@@ -7,77 +7,63 @@
 		<id property="rsvNo" column="i_rsv" />
 		<result property="rsvDate" column="rsv_date" />
 		<result property="rsvCdate" column="rsv_cDate" />
-		<result property="rsvOrgNo" column="i_org" />
 		<result property="rsvMemNo" column="i_member" />
-		<collection property="rsvSeatList" ofType="SeatVO" javaType="list" resultMap="mappers.SeatMapper.seatResult"/>
+		<association property="rsvPay" resultMap="payResult"/>
+		<collection property="rsvInfoMap" javaType="map" ofType="OrgStInfoVO">
+			<association property="osOres" resultMap="mappers.OrgMapper.oresResult"/>
+			<association property="osSt" resultMap="mappers.SeatMapper.seatResult"/>
+		</collection>
 	</resultMap>
-	
-	<resultMap type="RsvResultVO" id="rsvCplResult">
-		<association property="rrRsv" javaType="RsvVO">
-			<id property="rsvNo" column="i_rsv" />
-			<result property="rsvDate" column="rsv_date" />
-			<result property="rsvCdate" column="rsv_cDate" />
-			<result property="rsvOrgNo" column="i_org" />
-			<result property="rsvMemNo" column="i_member" />
-			<collection property="rsvSeatList" ofType="SeatVO" javaType="list" resultMap="mappers.SeatMapper.seatResult"/>
-		</association>
-		
-		<association property="rrSg" javaType="SeatGradeVO">
-			<id property="sgNo" column="i_seatGrade"/>
-			<result property="sgNm" column="sg_nm" />
-			<result property="sgPrice" column="sg_price" />
-		</association>
-		
-		<association property="rrMem" resultMap="mappers.MemberMapper.memberResult" />
-		<association property="rrPay" resultMap="payResult" />
-		<association property="rrOres" resultMap="mappers.OrgMapper.oresResult" />
-	</resultMap>
-	
+
 	<insert id="insertRsv" useGeneratedKeys="true" keyColumn="i_rsv" keyProperty="rsvNo">
-		insert into t_rsv values(0, now(), null, #{rsvOrgNo}, #{rsvMemNo});
+		insert into t_rsv values(0, now(), null, #{rsvMemNo});
 	</insert>
-
-	<insert id="insretRsvStInfo">
-		insert into t_rsv_seat_info values(0, #{stNo}, #{rsvNo});
-	</insert>
-
+	
 	<update id="cancelRsv">
 		update t_rsv set rsv_cDate = now() where i_rsv = #{rsvNo};
 	</update>
 	
-	<delete id="deleteRsvStInfo">
-		delete from t_rsv_seat_info where i_rsv = ${rsvNo};
-	</delete>
-
-	<select id="selectRsvListByMemNo" resultMap="rsvCplResult">
-		select * from t_rsv rsv 
-			join t_rsv_seat_info using(i_rsv) 
-			join t_seat st using(i_seat) 
-			join t_seat_grade sg using(i_seatGrade)
-			join t_member mem using(i_member)
-			join t_pay py using(i_rsv)
-		where rsv.i_member = #{rsvMemNo};
-	</select>
-
-	<select id="selectRsvList" resultMap="rsvCplResult">
-		select * from t_rsv rsv 
-			join t_rsv_seat_info using(i_rsv) 
-			join t_seat st using(i_seat) 
-			join t_seat_grade sg using(i_seatGrade)
-			join t_member mem using(i_member);
+	<!-- RSVINFO PART -->
+	<resultMap type="RsvResultVO" id="rResResult">
+		<id property="rrRsvNo" column="i_rsv" />
+		<result property="rrRsvDate" column="rsv_date" />
+		<result property="rrRsvCdate" column="rsv_cDate" />
+		<association property="rrMem" resultMap="mappers.MemberMapper.memberResult"/>
+		<association property="rrPay" resultMap="payResult"/>
+		<association property="org" resultMap="mappers.OrgMapper.orgResult"/>
+		<association property="th" resultMap="mappers.TheaterMapper.thResult"/>
+		<association property="pg" resultMap="mappers.ProgramMapper.programResult"/>
+		<collection property="rrSeatList" ofType="SeatVO" javaType="list" resultMap="mappers.SeatMapper.seatResult"/>
+	</resultMap>
+	
+	<insert id="insertRsvInfo">
+		insert into t_rsv_info values(0, #{rsvNo}, #{orgNo}, #{stNo});
+	</insert>
+	
+	<select id="selectRsv" resultMap="rResResult">
+		select * from t_rsv_info ri 
+				join t_rsv rsv using(i_rsv)
+				join t_org org using(i_org) 
+				join t_theater th using(i_theater) 
+				join t_program pg using(i_program)
+				join t_seat st using(i_seat)
+				join t_pay pay using(i_rsv)
+				join t_member mem on rsv.i_member = mem.i_member
+			where i_rsv = #{rsvNo};
 	</select>
 	
-	<select id="selectRsv" resultMap="rsvCplResult">
-		select * from t_rsv rsv
-			right join t_rsv_seat_info using(i_rsv) 
-			join t_org using(i_org)
-			join t_program using(i_program)
-			join t_theater using(i_theater)
-			join t_seat using(i_seat)
-			join t_pay using(i_rsv)
-			join t_member mem on rsv.i_member = mem.i_member
-		where i_rsv = #{rsvNo};
+	<select id="selectRsvList" resultMap="rResResult">
+		select * from t_rsv_info ri 
+				join t_rsv rsv using(i_rsv)
+				join t_org org using(i_org) 
+				join t_theater th using(i_theater) 
+				join t_program pg using(i_program)
+				join t_seat st using(i_seat)
+				join t_pay pay using(i_rsv)
+				join t_member mem on rsv.i_member = mem.i_member
+			order by i_rsv desc;
 	</select>
+	
 
 	<!-- PAY PART -->
 	<resultMap type="PayVO" id="payResult">

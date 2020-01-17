@@ -48,4 +48,14 @@ public class TheaterServiceImpl implements TheaterService {
 		return dao.getRowAndCol(thNo);
 	}
 
+	@Override
+	public int isThRsved(int thNo) {
+		return dao.isThRsved(thNo);
+	}
+
+	@Override
+	public void modify(TheaterVO th) {
+		dao.updateTh(th);
+	}
+
 }//TheaterServiceImpl

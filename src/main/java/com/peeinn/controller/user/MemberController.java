@@ -98,7 +98,7 @@ public class MemberController {
 		
 		service.modify(mem);
 		
-		response.sendRedirect(request.getContextPath() + "/member/myPage");
+		response.sendRedirect(request.getContextPath() + "/user/member/myPage");
 	}
 	
 	//아이디 중복체크(데이터)

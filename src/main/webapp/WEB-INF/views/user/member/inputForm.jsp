@@ -68,7 +68,7 @@
 			</p>
 			<p>
 				<input type="submit" ${mem.mNo == null? 'value="JOIN"': 'value="modify"'}>
-				<input type="reset" value="취소">
+				<input type="reset" value="CANCEL">
 			</p>
 		</form>
 	</div>

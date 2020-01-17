@@ -12,7 +12,7 @@
 	<div class="rsv-cpl-wrap">
 		<div class="rsv-cpl-top">
 			<h1>예약이 완료되었습니다</h1>
-			<h2>예약번호: ${rRes.rrRsv.rsvNo}</h2>
+			<h2>예약번호: ${rRes.rrRsvNo}</h2>
 		</div>
 		<div class="rsv-cpl-bottom">
 			<div class="cpl-info-wrap">
@@ -39,20 +39,20 @@
 					<ul>
 						<li>
 							<label>프로그램명</label>
-							<span>${rRes.rrOres.pg.pgTitle}</span>
+							<span>${rRes.pg.pgTitle}</span>
 						</li>
 						<li>
 							<label>상영관</label>
-							<span>${rRes.rrOres.th.thNm} 관 (${rRes.rrOres.th.thFloor} 층)</span>
+							<span>${rRes.th.thNm} 관 (${rRes.th.thFloor} 층)</span>
 						</li>
 						<li>
 							<label>상영일시</label>
-							<span><fmt:formatDate value="${rRes.rrOres.org.orgDate}" pattern="yyyy-MM-dd HH:mm"/></span>
+							<span><fmt:formatDate value="${rRes.org.orgDate}" pattern="yyyy-MM-dd HH:mm"/></span>
 						</li>
 						<li>
 							<label>좌석</label>
 							<span>
-								<c:forEach var="rSt" items="${rRes.rrRsv.rsvSeatList}">
+								<c:forEach var="rSt" items="${rRes.rrSeatList}">
 									${rSt.stNm} 
 								</c:forEach>
 							</span>

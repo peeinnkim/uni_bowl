@@ -4,9 +4,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="resources/css/user/common.css" type="text/css" rel="stylesheet">
-<link href="resources/css/admin/calendarView.css" type="text/css" rel="stylesheet">
+<link href="resources/css/user/rsv.css" type="text/css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="resources/js/calendar.js"></script>
 </head>
 <body>
 	<div id="container">
@@ -16,9 +15,9 @@
 			</div>
 			
 			<div class="header mem-menu">
-				<ul>
-					<li>JOIN</li>
-					<li>LOGIN</li>
+				<ul class="onLogin">
+					<li class="id-area">mlmlml님 <small>on</small></li>
+					<li>MY PAGE</li>
 				</ul>
 			</div>
 			
@@ -27,8 +26,8 @@
 					<li><a href="#">HOME</a></li>
 					<li>
 						<a>ABOUT</a>
-						<ul>
-							<li><a href="#">UNIVERSE FISH-BOWL</a></li>
+						<ul class="sub-nav">
+							<li><a href="#">UNIVISH BOWL</a></li>
 							<li><a href="#">THEATER</a></li>
 							<li><a href="#">PROGRAM</a></li>
 						</ul>
@@ -48,44 +47,102 @@
 </div>
 
 <div class="content-area">
-	<div class="cont-left">
-		<div class="cal-wrap">
-			<div class="cal-top">
-				<span id="prevBtn"></span>
-				<h1 id="cal-title"></h1>
-				<span id="nextBtn"></span>
+	<div class="rsv-cpl-wrap">
+		<div class="rsv-cpl-top">
+			<h1>예약이 완료되었습니다</h1>
+			<h2>예약번호: 3</h2>
+		</div>
+		<div class="rsv-cpl-bottom">
+			<div class="cpl-info-wrap">
+				<div class="cpl-info">
+					<h3>예약 정보</h3>
+					<ul>
+						<li>
+							<label>예약자</label>
+							<span>김믜믜</span>
+						</li>
+						<li>
+							<label>연락처</label>
+							<span>010-1234-1234</span>
+						</li>
+						<li>
+							<label>이메일</label>
+							<span>mlml@mlml.ml</span>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="cpl-info">
+					<h3>상영 정보</h3>
+					<ul>
+						<li>
+							<label>프로그램명</label>
+							<span>Finding Aurora</span>
+						</li>
+						<li>
+							<label>상영관</label>
+							<span>테스트 관 (5 층)</span>
+						</li>
+						<li>
+							<label>상영일시</label>
+							<span>2020-01-01 33:33</span>
+						</li>
+						<li>
+							<label>좌석</label>
+							<span>A5 A6</span>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="cpl-info">
+					<h3>결제 정보</h3>
+					<ul>
+						<li>
+							<label>결제금액</label>
+							<span>130,000 원</span>
+						</li>
+						<li>
+							<label>카드종류</label>
+							<span>SHINHAN CARD</span>
+						</li>
+						<li>
+							<label>카드번호</label>
+							<span>1234-****-****-1234</span>
+						</li>
+						<li>
+							<label>결제일시</label>
+							<span>2020-01-01 33:33:33</span>
+						</li>
+					</ul>
+				</div>
 			</div>
-	
-			<table id="cal-table"></table>
+		</div>
+		
+		<div class="comm-wrap">
+			<div>어쩌구저쩌고 홍보홍보</div>
 		</div>
 	</div>
-	
-	<div class="cont-right">
-		<h3>PROGRAM LIST</h3>
-		
-		<ul class="pg-list">
-			<li>
-				<div class="pgTime-wrap">
-					<span class="pgTime hour"><em>11</em>시</span>
-					<span class="pgTime minute"><em>11</em>분</span>			
-				</div>
-				<div class="pgTitle-wrap">
-					<a href="#">어쩌구저쩌구</a>  
-				</div>
-				<div class="pgDel-wrap">
-					<span class="delX"></span>
-				</div>
-			</li>
-		</ul>
-	</div> 
-</div>
+	<div class="btn-area">
+		<a href="#" id="btnCancel">홈</a>
+		<a href="#" id="btnNext">예약리스트</a>
+	</div>
+</div>		
 
 
 			</div>
 		</div>
 		
 		<div id="side-bar">
-			<a href="#"><img src="resources/img/no-fishing.png" id="tempIntraIco"></a>
+			<div class="side-top">
+				<a href="${pageContext.request.contextPath}/admin/intranet/sales" id="intraBtn"></a>			
+				<a href="#" id="rsvBtn">RESERVATION</a>
+			</div>
+			<div class="side-bottom">
+				<span>
+					宇宙魚缸 UNIVISH BOWL<br>
+					Somewhere In The Universe
+				</span>
+			</div>
 		</div>
 	</div>
 </body>

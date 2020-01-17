@@ -42,13 +42,16 @@
 			
 			<div class="seat-img" style="width:${col * 24}px;"></div>
 			<div class="seat-icons" style="width:${col * 24}px;">
-				<input type="hidden" name="stThNo">
+				<input type="hidden" name="stThNo" value="${tempOres.org.orgThNo}">
 				<c:if test="${list != null}">
 					<c:set var="cName" value='<%=new String[]{"", "seat-empty", "premiumSingle-empty", "premiumDouble-empty", "seat-none", "seat-disabled"} %>'/>
 						<c:forEach var="rowIdx" begin="0" end="${row-1}">
 						<ul class="seat-row">
 						 <c:forEach var="st" items="${list}" begin="${rowIdx*col}" end="${(rowIdx*col)+col-1}"> 
-							<li><a class='seat added-seat ${cName[st.stSgNo]}' data-cNo='${st.stSgNo}' data-stNo='${st.stNo}' onclick="getStInfo(this)">${st.stNm == '-'? '' : st.stNm}</a></li> 
+							<li>
+								<a class='seat added-seat ${cName[st.stSgNo]}' data-cNo='${st.stSgNo}' 
+									data-stNo='${st.stNo}' onclick="getStInfo(this)">${st.stNm == '-'? '' : st.stNm}</a>
+							</li> 
 						 </c:forEach> 
 						</ul>
 					</c:forEach> 
@@ -101,6 +104,7 @@
 			seatList.push({
 				"stNo" : $(this).attr("data-stNo"),
 				"stNm" : $(this).text(),
+				"stThNo" : $("input[name='stThNo']").val(),
 				"stSgNo": $(this).attr("data-cNo")
 			});
 		})

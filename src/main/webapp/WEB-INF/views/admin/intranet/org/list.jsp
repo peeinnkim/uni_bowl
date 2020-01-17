@@ -44,10 +44,11 @@
 						<span class="pgTime minute"><em>${sd[1]}</em>분</span>			
 					</div>
 					<div class="pgTitle-wrap">
+						${ores.th.thNm} 관
 						<a href="#">${ores.pg.pgTitle}</a>  
 					</div>
 					<div class="pgDel-wrap">
-						<span class="delX"></span>
+						<a href="${pageContext.request.contextPath}/admin/intranet/org/remove?orgNo=${ores.org.orgNo}" class="delX"></a>
 					</div>
 				</li>
 			</c:forEach>
@@ -92,6 +93,16 @@
 		var tempDate = d + " 00:00:00";
 		
 		location.href = "${pageContext.request.contextPath}/admin/intranet/org/regist?tempDate=" + tempDate;
+	})
+	
+	$(".delX").click(function(){
+		var result = confirm("정말 삭제하시겠습니까?");
+		
+		if(result == true) {
+			return true;
+		} else {
+			return false;
+		}
 	})
 </script>
 

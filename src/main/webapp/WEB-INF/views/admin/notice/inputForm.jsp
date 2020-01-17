@@ -12,12 +12,12 @@
 <div class="content-area">
 	<div class="form-wrap">
 		<form id="frm" ${nt.ntNo == null? 'action="regist"': 'action="modify"'} method="post" enctype="multipart/form-data">
-			<input type="text" name="ntNo" value="${nt.ntNo == null? '0': nt.ntNo}">
-			<input type="text" name="ntWriter" value="${Auth.authNo}">
+			<input type="hidden" name="ntNo" value="${nt.ntNo == null? '0': nt.ntNo}">
+			<input type="hidden" name="ntWriter" value="${Auth.authNo}">
 			<p>
 				<label>상단고정</label>
 				<input type="checkbox" ${nt.ntIsFixed == null ? '' : (nt.ntIsFixed == 0? '': 'checked="checked"')}>
-				<input type="text" name="ntIsFixed" value="0">
+				<input type="hidden" name="ntIsFixed" value="0">
 			</p>
 			<p>
 				<label>제목</label>

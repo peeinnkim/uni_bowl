@@ -3,6 +3,9 @@
 <%@ include file="../../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/admin/program.css" type="text/css" rel="stylesheet">
+<style>
+	.rsvCaution { width: 100%; color: red; font-size: 15px; text-align: center; }
+</style>
 
 <h2>상영관 관리</h2>
 <div class="content-wrap">
@@ -22,25 +25,10 @@
 				<th></th>
 			</tr>
 			
-			<tr>
-				<td>3</td>
-				<td>어쩌구저쩌구관</td>
-				<td>30석</td>
-				<td>3층</td>
-				<td><a href="#">상영표 보기</a></td>
-				<td><a href="#">좌석관리</a></td>
-				<td><a href="#" class="thDel"></a></td>
-			</tr>
-			<tr class="thImg-wrap">
-				<td colspan="7">
-					<img src="${pageContext.request.contextPath}/resources/img/mark-basarab-1OtUkD_8svc-unsplash.jpg">
-				</td>
-			</tr>
-			
 			<c:forEach var="th" items="${list}">
 				<tr onclick="ck()">
 					<td>${th.thNo}</td>
-					<td><a href="#">${th.thNm} 관</a></td>
+					<td><a href="${pageContext.request.contextPath}/admin/intranet/theater/modify?thNo=${th.thNo}">${th.thNm} 관</a></td>
 					<td>${th.thSeatCnt} 석</td>
 					<td>${th.thFloor} 층</td>
 					<td><a href="#">상영표 보기</a></td>
@@ -54,6 +42,9 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<c:if test="${isRsved == true}">
+			<p class="rsvCaution">해당 상영관에 예약된 좌석이 있어 상영관 정보 변경이 불가능합니다.</p>
+		</c:if>
 	</div>
 </div>
 
@@ -69,9 +60,9 @@
 	})
 		
 	function ck(){
-		var dd = document.getElementsByClassName("thImg-wrap")[0];		
+/* 		var dd = document.getElementsByClassName("thImg-wrap")[0];		
 	
-		dd.style.display = "table-row";
+		dd.style.display = "table-row"; */
 	}
 </script>
 

@@ -25,26 +25,21 @@ function getStInfo(obj) {
 		cSeat.splice(cSeat.indexOf(stNm), 1);
 		$("#cSeat-box").empty();
 		
-//		cSeatIdx = 0;
-//		cSeat.forEach(function(val){
-//			++cSeatIdx;
-//			$("#cSeat-box").append(val + " ");
-//		});
-//		$("#cSeat-cnt").text(cSeatIdx);
-		
 		//금액 빼기
 		if(cSeatPrice > 0) {
 			cSeatPrice -= priceArr[currentSgNo];
 		}
 		
-		
 	} else{ //non-active상태일때
+		//이미 선택된 좌석일때
+		if($(obj).hasClass("seat-none")) {
+			return;
+		}
 		//오른쪽에 선택된 좌석 표시
 		if(cSeat.length == 5) {
 			alert("좌석 선택은 5개 까지만 가능합니다.");
 			return;
 		} 
-
 		
 		cSeat.push(stNm);
 		cSeat.sort();

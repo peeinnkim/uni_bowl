@@ -20,8 +20,14 @@
 			
 			<div class="header mem-menu">
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/user/member/join">JOIN</a></li>
-					<li><a href="${pageContext.request.contextPath}/user/member/login">LOGIN</a></li>
+					<c:if test="${Auth == null}">
+						<li><a href="${pageContext.request.contextPath}/user/member/join">JOIN</a></li>
+						<li><a href="${pageContext.request.contextPath}/user/member/login">LOGIN</a></li>
+					</c:if>
+					<c:if test="${Auth != null}">
+						<li class="onLogin id-area">${Auth}님 <small>on</small></li>
+						<li class="onLogin"><a href="${pageContext.request.contextPath}/user/member/myPage">MY PAGE</a></li>
+					</c:if>
 				</ul>
 			</div>
 			
@@ -36,8 +42,8 @@
 							<li><a href="#">PROGRAM</a></li>
 						</ul>
 					</li>
-					<li><a href="${pageContext.request.contextPath}/user/board/notice/list">NOTICE</a></li>
-					<li><a href="${pageContext.request.contextPath}/user/board/qna/list">QnA</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/notice/list">NOTICE</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/qna/list">QnA</a></li>
 					<li><a href="#">ONLINE SHOP</a></li>
 				</ul>
 			</div>

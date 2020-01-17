@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.peeinn.domain.MemberVO;
+import com.peeinn.domain.AuthVO;
 
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 
@@ -15,7 +15,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
-		MemberVO auth = (MemberVO)session.getAttribute("Auth");
+		AuthVO auth = (AuthVO)session.getAttribute("Auth");
 		
 		if(auth == null) { //아직 로그인 전
 			//강제 이동 전에 원래 가려고 했던 주소와 쿼리 저장
