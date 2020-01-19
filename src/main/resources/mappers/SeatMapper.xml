@@ -7,6 +7,7 @@
 		<result property="stNm" column="st_nm" />
 		<result property="stThNo" column="i_theater" />
 		<result property="stSgNo" column="i_seatGrade" />
+		<result property="stOrgNo" column="i_org" />
 	</resultMap>
 	
 	<insert id="insertSt">
@@ -25,6 +26,12 @@
 		select * from t_seat order by i_seat asc;
 	</select>
 	
+	<select id="selectListByThAndOrg" resultMap="seatResult">
+		select * from t_seat left join t_rsv_info using(i_seat) 
+			where i_theater = #{thNo} and (i_org is null or i_org = #{orgNo}) 
+			order by i_seat asc;
+	</select>
+
 	<select id="selectListByThNo" resultMap="seatResult">
 		select * from t_seat where i_theater = #{thNo} order by i_seat asc;
 	</select>

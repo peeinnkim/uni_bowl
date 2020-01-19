@@ -3,7 +3,7 @@
 <%@ include file="../../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/admin/calendarView.css" type="text/css" rel="stylesheet">
-<script src="${pageContext.request.contextPath}/resources/js/calendar.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/rsv.js"></script>
 <style>
 	.delX {
 		background: url("${pageContext.request.contextPath}/resources/img/icon/next.png") no-repeat;
@@ -16,18 +16,56 @@
 </div>
 
 <div class="content-area">
-	<div class="cont-left">
-		<div class="cal-wrap">
-			<div class="cal-top">
-				<input type="hidden" id="sDate" value="${sDate}">
-				<span id="prevBtn"></span>
-				<h1 id="cal-title"></h1>
-				<span id="nextBtn"></span>
-			</div>
-	
-			<table id="cal-table"></table>
+	<div class="cont-top">
+		<ul class="date-ul">
+			<li id="datePrev"></li>
+			<li>01/11 <small>(月)</small></li>
+			<li>01/12 <small>(火)</small></li>
+			<li>01/13 <small>(水)</small></li>
+			<li>01/14 <small>(木)</small></li>
+			<li>01/15 <small>(金)</small></li>
+			<li id="dateNext"></li>
+		</ul>
+		<div>
+			2020年 01月 11日  (月)
 		</div>
 	</div>
+	
+	<div class="cont-bottom">
+		<h2>PROGRAM LIST</h2>
+		<div class="main-list">
+			<div class="list-box"> 
+				<div class="list-info">
+					<div class="info-img"></div>
+					<div class="info-txt">
+						<h1>${ores.pg.pgTitle}</h1>
+						<p>어쩌구저쩌구 설명설명</p>
+					</div>
+				</div>
+				<div class="list-time">
+					<div class="time-box">
+						<fmt:formatDate var="sdsd" value="${ores.org.orgDate}" pattern="HH:mm"/>
+						<h3>${sdsd}</h3>
+						<em>상영관 1</em>
+						<p><span>10</span> / 30席</p>
+					</div>
+					<div class="time-box">
+						<h3>03:00</h3>
+						<em>상영관 1</em>
+						<p><span>10</span> / 30席</p>
+					</div>
+					<div class="time-box">
+						<h3>03:00</h3>
+						<em>상영관 1</em>
+						<p><span>10</span> / 30席</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>	
+
+<div class="content-area">
 	
 	<div class="cont-right">
 		<h3>PROGRAM LIST</h3>

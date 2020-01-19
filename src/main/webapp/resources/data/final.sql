@@ -105,8 +105,7 @@ select * from t_rsv rsv
 	join t_theater using(i_theater)
 	join t_seat using(i_seat)
 	join t_pay using(i_rsv)
-	join t_member mem on rsv.i_member = mem.i_member
-where i_rsv = 6;
+	join t_member mem on rsv.i_member = mem.i_member;
 
 select count(*) from t_theater join t_seat using(i_theater) where i_theater = 2 and st_isRsved = 1;
 
@@ -126,6 +125,29 @@ select * from t_rsv_info ri
 	join t_pay pay using(i_rsv)
 	join t_member mem on rsv.i_member = mem.i_member
 	order by i_rsv desc;
+
+
+delete from t_rsv_info where i_rsv = 3;
+delete from t_pay where i_rsv = 3;
+delete from t_Rsv where i_rsv=3;
+
+
+select * from t_seat join t_rsv_info using(i_seat) where i_theater = 1 order by i_seat asc;
+
+select * from t_seat left join t_rsv_info using(i_seat) where i_theater = 1 and (i_org is null or i_org = 4) order by i_seat asc;
+
+select st.i_seat, st.st_nm, st.i_theater, st.i_seatGrade, org.i_org, org.org_date
+from t_org org join t_seat st using(i_theater) 
+where org.i_theater = 1 and org.i_org = 4 order by i_seat asc;
+
+select st.*, org.i_org, ri.i_org 
+from t_seat st left join t_rsv_info ri using(i_seat) 
+join t_org org on org.i_theater = st.i_theater
+where ri.i_org = 5
+order by st.i_seat asc;
+
+
+
 
 
 

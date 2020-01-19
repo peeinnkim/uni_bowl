@@ -25,7 +25,10 @@
 						<li><a href="${pageContext.request.contextPath}/user/member/login">LOGIN</a></li>
 					</c:if>
 					<c:if test="${Auth != null}">
-						<li class="onLogin id-area">${Auth}님 <small>on</small></li>
+						<li class="onLogin id-area">
+							${Auth.authId}님 <small>on</small>
+							<a href="#" id="logoutBtn"></a>
+						</li>
 						<li class="onLogin"><a href="${pageContext.request.contextPath}/user/member/myPage">MY PAGE</a></li>
 					</c:if>
 				</ul>
@@ -33,11 +36,11 @@
 			
 			<div class="header nav">
 				<ul>
-					<li><a href="#">HOME</a></li>
+					<li><a href="${pageContext.request.contextPath}">HOME</a></li>
 					<li>
 						<a>ABOUT</a>
-						<ul>
-							<li><a href="#">UNIVERSE FISH-BOWL</a></li>
+						<ul class="sub-nav">
+							<li><a href="#">UNIVISH-BOWL</a></li>
 							<li><a href="#">THEATER</a></li>
 							<li><a href="#">PROGRAM</a></li>
 						</ul>

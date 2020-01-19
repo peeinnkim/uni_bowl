@@ -32,6 +32,11 @@ public class SeatServiceImpl implements SeatService {
 	}
 
 	@Override
+	public List<SeatVO> listByThAndOrg(int thNo, int orgNo) {
+		return dao.selectListByThAndOrg(thNo, orgNo);
+	}
+
+	@Override
 	public List<SeatVO> listByThNo(int thNo) {
 		return dao.selectStListByThNo(thNo);
 	}

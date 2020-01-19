@@ -22,8 +22,8 @@
 			<ul>
 				<li><a href="${pageContext.request.contextPath}/admin/intranet/sales">매출관리</a></li>
 				<li><a href="${pageContext.request.contextPath}/admin/intranet/sales">예약관리</a></li>
-				<li><a href="${pageContext.request.contextPath}/admin/intranet/program/list">프로그램관리</a></li>
 				<li><a href="${pageContext.request.contextPath}/admin/intranet/theater/list">상영관관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/intranet/program/list">프로그램관리</a></li>
 				<li><a href="${pageContext.request.contextPath}/admin/intranet/org/list">상영스케쥴관리</a></li>
 				<li><a href="${pageContext.request.contextPath}/admin/intranet/member?code=0">회원관리</a></li>
 			</ul>

@@ -11,5 +11,6 @@ public interface SeatService {
 	
 	public List<SeatVO> list();
 	public List<SeatVO> listByThNo(int thNo);
+	public List<SeatVO> listByThAndOrg(int thNo, int orgNo);
 	
 }//SeatService

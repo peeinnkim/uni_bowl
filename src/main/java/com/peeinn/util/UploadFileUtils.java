@@ -42,7 +42,7 @@ public class UploadFileUtils {
 		BufferedImage destImg = Scalr.resize(sourceImg, 
 											 Scalr.Method.AUTOMATIC, 
 											 Scalr.Mode.FIT_TO_HEIGHT,
-											 100);	
+											 150);	
 		
 		//이미지 데이터가 들어갈 파일 만들기
 		String thumbnailName = uploadPath + "/s_" + fileName; //썸네일에는 s_가 붙음

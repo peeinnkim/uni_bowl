@@ -90,6 +90,13 @@ ul.onLogin > li {
 	color: yellow;
 	font-weight: normal;
 }
+.id-area > #logoutBtn {
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	background: url("../../img/icon/logout.png") no-repeat;
+	background-size: cover;
+}
 .nav > ul > li {
 	font-weight: bold;
 	font-size: 17px;

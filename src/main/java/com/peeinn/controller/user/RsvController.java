@@ -115,7 +115,7 @@ public class RsvController {
 		TheaterVO rowCol = thService.getRowAndCol(tempOres.getTh().getThNo());
 		model.addAttribute("row", rowCol.getThRow());
 		model.addAttribute("col", rowCol.getThCol());
-		model.addAttribute("list", stService.listByThNo(tempOres.getTh().getThNo()));
+		model.addAttribute("list", stService.listByThAndOrg(tempOres.getTh().getThNo(), tempOres.getOrg().getOrgNo()));
 	}
 	
 	@ResponseBody

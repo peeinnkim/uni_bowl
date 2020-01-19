@@ -1,6 +1,8 @@
 package com.peeinn.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +38,22 @@ public class SeatDAOImpl implements SeatDAO {
 	}
 
 	@Override
+	public void changeStState(SeatVO st) {
+		sqlSession.update(namespace + ".changeStState", st);
+	}
+
+	@Override
 	public List<SeatVO> selectStListByThNo(int thNo) {
 		return sqlSession.selectList(namespace + ".selectListByThNo", thNo);
 	}
 
 	@Override
-	public void changeStState(SeatVO st) {
-		sqlSession.update(namespace + ".changeStState", st);
+	public List<SeatVO> selectListByThAndOrg(int thNo, int orgNo) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("thNo", thNo);
+		map.put("orgNo", orgNo);
+		
+		return sqlSession.selectList(namespace + ".selectListByThAndOrg", map);
 	}
 
 }//SeatDAOImpl

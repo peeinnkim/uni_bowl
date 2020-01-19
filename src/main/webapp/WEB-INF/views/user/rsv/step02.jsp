@@ -1,3 +1,4 @@
+<%@page import="com.peeinn.domain.SeatGradeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../../include/header.jsp" %>
@@ -44,12 +45,12 @@
 			<div class="seat-icons" style="width:${col * 24}px;">
 				<input type="hidden" name="stThNo" value="${tempOres.org.orgThNo}">
 				<c:if test="${list != null}">
-					<c:set var="cName" value='<%=new String[]{"", "seat-empty", "premiumSingle-empty", "premiumDouble-empty", "seat-none", "seat-disabled"} %>'/>
+					<c:set var="cName" value='<%=SeatGradeVO.getSgclassarr() %>'/>
 						<c:forEach var="rowIdx" begin="0" end="${row-1}">
 						<ul class="seat-row">
 						 <c:forEach var="st" items="${list}" begin="${rowIdx*col}" end="${(rowIdx*col)+col-1}"> 
 							<li>
-								<a class='seat added-seat ${cName[st.stSgNo]}' data-cNo='${st.stSgNo}' 
+								<a class='seat added-seat ${st.stOrgNo != ""? cName[4]: cName[st.stSgNo]}' data-cNo='${st.stSgNo}' 
 									data-stNo='${st.stNo}' onclick="getStInfo(this)">${st.stNm == '-'? '' : st.stNm}</a>
 							</li> 
 						 </c:forEach> 

@@ -1,0 +1,57 @@
+@charset "UTF-8";
+
+.cont-top {
+	background: lightgreen;
+}
+.date-ul {
+	overflow: hidden;
+	position: relative;
+	border: 3px solid black;
+}
+.date-ul > li {
+	float: left;
+	width: 19%;
+	height: 70px;
+	line-height: 70px;
+	text-align: center;
+	box-shadow: 0 0 30px rgba(0, 0, 0, .1);
+	font-size: 1.6em;
+}
+#datePrev {
+	width: 2.5%;
+	height: 70px;
+	line-height: 70px;
+	background: url("../../img/icon/prev.png") no-repeat;
+	background-size: contain;
+	background-position: center;
+	display: inline-block;
+}
+#dateNext {
+	width: 2.5%;
+	height: 70px;
+	line-height: 70px;
+	background: url("../../img/icon/next.png") no-repeat;
+	background-size: contain;
+	background-position: center;
+	display: inline-block;
+}
+
+.cont-bottom {
+	overflow: hidden;
+}
+.cont-sec {
+	float: left;
+	height: 50px;
+}
+.sec1 {
+	width: 20%;
+	background: red;
+}
+.sec2 {
+	width: 20%;
+	background: yellow;
+}
+.sec3 {
+	width: 50%;
+	background: green;
+}

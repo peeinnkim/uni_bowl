@@ -6,6 +6,8 @@ public class SeatVO {
 	private int stThNo;
 	private int stSgNo;
 
+	private int stOrgNo;
+
 	public int getStNo() {
 		return stNo;
 	}
@@ -38,9 +40,18 @@ public class SeatVO {
 		this.stSgNo = stSgNo;
 	}
 
+	public int getStOrgNo() {
+		return stOrgNo;
+	}
+
+	public void setStOrgNo(int stOrgNo) {
+		this.stOrgNo = stOrgNo;
+	}
+
 	@Override
 	public String toString() {
-		return "SeatVO [stNo=" + stNo + ", stNm=" + stNm + ", stThNo=" + stThNo + ", stSgNo=" + stSgNo + "]";
+		return "SeatVO [stNo=" + stNo + ", stNm=" + stNm + ", stThNo=" + stThNo + ", stSgNo=" + stSgNo + ", stOrgNo="
+				+ stOrgNo + "]";
 	}
 
 }// SeatVO

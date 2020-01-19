@@ -13,5 +13,6 @@ public interface SeatDAO {
 	
 	public List<SeatVO> selectStList();
 	public List<SeatVO> selectStListByThNo(int thNo);
+	public List<SeatVO> selectListByThAndOrg(int thNo, int orgNo);
 	
 }//SeatDAO
