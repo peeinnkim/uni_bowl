@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,6 +77,14 @@ public class MemberController {
 				request.getSession().setAttribute("error", "비밀번호가 일치하지 않습니다");
 			}
 		}
+	}
+	
+	//로그아웃
+	@RequestMapping(value="logout", method=RequestMethod.GET)
+	public String logout(HttpSession session) {
+		logger.info("------------ [loggout] ------------");
+		session.removeAttribute("Auth");
+		return "redirect:/";
 	}
 	
 	//정보수정(화면)

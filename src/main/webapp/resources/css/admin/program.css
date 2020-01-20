@@ -8,6 +8,7 @@ form > p > label {
 	float: left;
     width: 90px;
     font-size: 18px;
+    font-weight: bold;
     letter-spacing: 0.15em;
     text-align: center;
     padding: 7px 10px 7px 4px;
@@ -43,13 +44,14 @@ textarea {
 	text-align: center;
 }
 .thumb-img {
-	height: 100px;
+	height: 150px;
+	display: block;
 	margin: 0 auto;
 	position: relative;
 	cursor: pointer;
 }
 .thumb-img > img {
-	height: 100px;
+	height: 150px;
 }
 .thumb-img > .delX {
 	width: 24px;
@@ -146,6 +148,9 @@ th {
 .title-wrap {
 	width: 27%;
 	font-size: 18px;
+}
+.title-wrap > a {
+	font-weight: bold;
 }
 .detail-wrap {
 	width: 38%;

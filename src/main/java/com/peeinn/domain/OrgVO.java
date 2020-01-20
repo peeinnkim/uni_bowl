@@ -8,6 +8,8 @@ import com.peeinn.util.MyUtils;
 public class OrgVO {
 	private int orgNo; // 상영상세정보 번호
 	private Date orgDate; // 상영날짜
+	private String orgStime; // 시작시간
+	private String orgEtime; // 마치는시간
 	private int orgThNo; // 상영관 번호
 	private int orgPgNo; // 프로그램 번호
 
@@ -26,9 +28,25 @@ public class OrgVO {
 	public void setOrgDate(Date orgDate) {
 		this.orgDate = orgDate;
 	}
-	
+
 	public void setOrgDate(String orgDate) throws ParseException {
 		this.orgDate = MyUtils.parseStringToDate(orgDate);
+	}
+
+	public String getOrgStime() {
+		return orgStime;
+	}
+
+	public void setOrgStime(String orgStime) {
+		this.orgStime = orgStime;
+	}
+
+	public String getOrgEtime() {
+		return orgEtime;
+	}
+
+	public void setOrgEtime(String orgEtime) {
+		this.orgEtime = orgEtime;
 	}
 
 	public int getOrgThNo() {
@@ -49,7 +67,8 @@ public class OrgVO {
 
 	@Override
 	public String toString() {
-		return "OrgVO [orgNo=" + orgNo + ", orgDate=" + orgDate + ", orgThNo=" + orgThNo + ", orgPgNo=" + orgPgNo + "]";
+		return "OrgVO [orgNo=" + orgNo + ", orgDate=" + orgDate + ", orgStime=" + orgStime + ", orgEtime=" + orgEtime
+				+ ", orgThNo=" + orgThNo + ", orgPgNo=" + orgPgNo + "]";
 	}
 
 }// OrgVO

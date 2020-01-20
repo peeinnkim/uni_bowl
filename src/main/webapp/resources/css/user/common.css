@@ -102,12 +102,17 @@ ul.onLogin > li {
 	font-size: 17px;
 	padding: 10px 0;
 	text-align: center;
+	border-bottom: 2px solid transparent;
 }
+.nav > ul > li:nth-child(2):hover {
+	border-bottom: 2px solid transparent;
+} 
 .nav > ul > li:hover {
 	border-bottom: 2px solid black;	
+	transition: 0.3s all ease-out;
 }
-.nav > ul > li:hover .sub-nav {
-	display: block;
+.nav > ul > li .sub-nav {
+	border-bottom: 2px solid transparent;
 }
 .sub-nav {
 	margin-top: 7px;

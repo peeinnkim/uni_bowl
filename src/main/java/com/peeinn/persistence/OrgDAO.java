@@ -12,10 +12,13 @@ public interface OrgDAO {
 	public void deleteOrg(int orgNo);
 	
 	public List<OrgResultVO> selectOrgList();
-	public List<OrgResultVO> selectOrgListByDate(String sDate);
+	public List<OrgResultVO> selectOrgListByDate(String sDate, int orgThNo);
+	public List<OrgResultVO> selectOrgDateList(String sDate);
 	
 	public OrgResultVO selectOrg(int orgNo);
 	
 	public int getTotalOrgCnt();
+
+	public List<Integer> getRepeatCntByProgram();
 	
 }//OrgDAO

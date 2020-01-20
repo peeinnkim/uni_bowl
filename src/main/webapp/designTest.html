@@ -6,6 +6,18 @@
 <link href="resources/css/user/common.css" type="text/css" rel="stylesheet">
 <link href="resources/css/user/rsv.css" type="text/css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="resources/js/rsv.js"></script>
+<script>
+	$(function(){
+		$(".nav > ul > li:eq(1)").click(function(){
+			if($(".sub-nav").css("display") == "none") {
+				$(".sub-nav").slideDown();
+			} else {
+				$(".sub-nav").slideUp();
+			}
+		})
+	})
+</script>
 </head>
 <body>
 	<div id="container">
@@ -48,18 +60,8 @@
 
 <div class="content-area">
 	<div class="cont-top">
-		<ul class="date-ul">
-			<li id="datePrev"></li>
-			<li>01/11 <small>(月)</small></li>
-			<li>01/12 <small>(火)</small></li>
-			<li>01/13 <small>(水)</small></li>
-			<li>01/14 <small>(木)</small></li>
-			<li>01/15 <small>(金)</small></li>
-			<li id="dateNext"></li>
-		</ul>
-		<div>
-			2020年 01月 11日  (月)
-		</div>
+		<ul class="date-ul"></ul>
+		<div class="date-box" id="orgDate"></div>
 	</div>
 	
 	<div class="cont-bottom">

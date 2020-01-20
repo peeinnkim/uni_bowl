@@ -43,12 +43,12 @@
     <beans:bean id="loginInterceptor" class="com.peeinn.interceptor.LoginInterceptor"></beans:bean>
     <beans:bean id="authInterceptor" class="com.peeinn.interceptor.AuthInterceptor"></beans:bean>
 	
- 	<interceptors>
-		<interceptor> <!-- 로그인 키 저장 -->
+<!--  	<interceptors>
+		<interceptor> 로그인 키 저장
 			<mapping path="/user/member/loginPost"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
-		<interceptor> <!-- 로그인 필터 -->
+		<interceptor> 로그인 필터
 			<mapping path="/user/member/myPage"/>
 			<mapping path="/user/member/modify"/>
 			<mapping path="/user/member/secess"/>
@@ -60,7 +60,7 @@
 			<mapping path="/user/rsv/step04"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
-	</interceptors>     
+	</interceptors>      -->
 	
 	
 	

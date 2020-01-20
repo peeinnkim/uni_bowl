@@ -146,8 +146,22 @@ join t_org org on org.i_theater = st.i_theater
 where ri.i_org = 5
 order by st.i_seat asc;
 
+select * from t_org
+	order by i_theater asc, org_date asc;
 
+select * from t_theater;
+select * from t_seat;
 
+select * from t_org org 
+		join t_theater th using(i_theater)
+	join t_program pg using(i_program)
+	where org.org_date = DATE(curdate())
+order by org.i_program asc, org.org_sTime asc;
 
+select count(i_program) from t_org org 
+	join t_program pg using(i_program)
+	where org.org_date = DATE(curdate())
+group by i_program
+order by org.i_theater asc, org.org_sTime asc;
 
 

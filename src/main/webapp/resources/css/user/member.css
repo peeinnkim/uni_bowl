@@ -18,6 +18,7 @@
     letter-spacing: 0.15em;
     vertical-align: middle;
     padding: 7px 10px 7px 4px;
+    font-weight: 600;
 }
 .form-wrap > form > p > .regInfo {
 	font-size: 12px;

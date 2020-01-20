@@ -2,7 +2,7 @@
 	$(function(){	
 		//오늘 날짜
 		var today = new Date();
-			
+		
 		function calendar(){
 			//객체 접근
 			var title = document.getElementById("cal-title");
@@ -110,6 +110,7 @@
 			
 			var sDate = $(this).attr("data-date");
 			
+			$("#tempDate").val(sDate);
 			listByDate(sDate);
 		})
 		
@@ -125,11 +126,14 @@ function zeroZeroDate(val){
 	return val;
 }
 
-function listByDate(sDate){
+//리스트 가져오기
+function listByDate(sDate) {
+	var orgThNo = $("#sel-th").val();
+	
 	$.ajax({
 		url: "listByDate",
 		type: "get",
-		data: {"sDate": sDate},
+		data: {"sDate": sDate, "orgThNo": orgThNo},
 		dataType: "json",
 		success: function(res){
 			console.log(res);
@@ -140,7 +144,6 @@ function listByDate(sDate){
 			var func = Handlebars.compile(source);
 			var str = func(res);
 			
-			//댓글 리스트 가져오기
 			$(".main-list").append(str);
 			
 		},
@@ -149,3 +152,8 @@ function listByDate(sDate){
 		}
 	})
 }
+
+
+
+
+

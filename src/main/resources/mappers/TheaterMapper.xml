@@ -12,22 +12,29 @@
 		<result property="thChart" column="th_chart" />
 	</resultMap>
 
+	<!-- INSERT -->
 	<insert id="insertTh" useGeneratedKeys="true" keyColumn="i_theater" keyProperty="thNo">
 		insert into t_theater(th_nm, th_seatCnt, th_floor) values(#{thNm}, #{thSeatCnt}, #{thFloor});
 	</insert>
 	
+	
+	<!-- UPDATE -->
 	<update id="updateRowCol">
 		update t_theater set th_row = #{thRow}, th_col = #{thCol} where i_theater = #{thNo};
 	</update>
-	
-	<delete id="deleteTh">
-		delete from t_theater where i_theater = #{thNo};
-	</delete>
 	
 	<update id="updateTh">
 		update t_theater set th_nm = #{thNm}, th_seatCnt = #{thSeatCnt}, th_floor = #{thFloor} where i_theater = #{thNo};
 	</update>
 	
+	
+	<!-- DELETE -->
+	<delete id="deleteTh">
+		delete from t_theater where i_theater = #{thNo};
+	</delete>
+	
+
+	<!-- SELECT -->
 	<select id="selectList" resultMap="thResult">
 		select * from t_theater order by i_theater desc;
 	</select>
@@ -43,5 +50,5 @@
 	<select id="isThRsved" resultType="int"> <!-- 상영관에 예약된 좌석이 있나 확인-->
 		select count(*) from t_theater join t_seat using(i_theater) where i_theater = #{thNo} and st_isRsved = 1;
 	</select>
-
+	
 </mapper>

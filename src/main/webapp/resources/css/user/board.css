@@ -117,7 +117,7 @@ textarea {
 }
 .thumb-wrap > li, 
 .add-wrap > li {
-	min-height: 100px;
+	min-height: 150px;
 	padding: 5px;
 	float: left;
 	overflow: hidden;
@@ -125,13 +125,13 @@ textarea {
 	text-align: center;
 }
 .thumb-img {
-	height: 100px;
+	height: 150px;
 	margin: 0 auto;
 	position: relative;
 	cursor: pointer;
 }
 .thumb-img > img {
-	height: 100px;
+	height: 150px;
 }
 .thumb-img > .delX {
 	width: 24px;

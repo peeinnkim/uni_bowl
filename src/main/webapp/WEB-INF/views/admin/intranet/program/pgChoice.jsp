@@ -5,6 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	#container { width: 450px; padding: 15px;}
+	table { width: 100%; border-collapse: collapse; }
+	th { padding: 10px 0; border-bottom: 1px solid black; font-size: 15px; }
+	td { padding: 15px 0; font-size: 14px; text-align: center; }
+</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
@@ -39,7 +45,7 @@
 	$("#btnAdd").click(function(){
 		var no = $("input[type='radio']:checked").attr("data-val");
 		var title = $("input[type='radio']:checked").closest("tr").find(".title-wrap").text();
-		var runningTime = $("input[type='radio']:checked").closest("tr").find(".etc-wrap").text();
+		var runningTime = $("input[type='radio']:checked").closest("tr").find(".etc-wrap").text().replace("분", "");
 		var str = "<input type='hidden' name='orgPgNo' value='"+no+"'>"
 				+ "<span id='rtrt' data-rt='"+runningTime+"'>"+title+"</span>";
 		

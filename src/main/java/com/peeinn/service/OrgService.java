@@ -12,10 +12,13 @@ public interface OrgService {
 	public void remove(int orgNo);
 	
 	public List<OrgResultVO> orgResultList();
-	public List<OrgResultVO> orgByDateList(String sDate);
+	public List<OrgResultVO> orgByDateList(String sDate, int orgThNo);
+	public List<OrgResultVO> orgDateList(String sDate);
 	
 	public OrgResultVO search(int orgNo);
 	
 	public int orgCnt();
+	
+	public List<Integer> repeatCntByPg();
 	
 }//OrgResultService

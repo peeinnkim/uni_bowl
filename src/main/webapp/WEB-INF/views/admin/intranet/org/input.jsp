@@ -36,7 +36,8 @@
 				<label>상영 시간</label>
 				<input type="number" id="ipHour" value="10" min="10" max="22" maxlength="2">
 				<input type="number" id="ipMinute" min="0" max="60" step="10" value="00" maxlength="2">
-				<input type="text" name="tempStartTime" value="10:00">
+				<input type="text" name="tempStartTime" value="11:00">
+				<input type="text" name="tempEndTime" value="00:00">
 			</p>
 			<p>
 				<label>프로그램 선택</label>
@@ -77,9 +78,9 @@
 	$("#btnChoicePg").click(function(){
 		window.open("${pageContext.request.contextPath}/admin/intranet/program/pgChoice", 
 					"프로그램 선택", 
-					"width=400, height=400, left=600, top=200"); 
+					"width=480, height=520, left=600, top=200"); 
 	})
-	
+	                  
 	/* 새 창에서 보낸 값 받기 */
 	function getReturnValue(returnValue) {
 		$("#pgList").text("");

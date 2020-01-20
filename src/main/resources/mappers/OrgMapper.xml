@@ -5,6 +5,8 @@
 	<resultMap type="OrgVO" id="orgResult">
 		<id property="orgNo" column="i_org" />
 		<result property="orgDate" column="org_date" />
+		<result property="orgStime" column="org_sTime" />
+		<result property="orgEtime" column="org_eTime" />
 		<result property="orgThNo" column="i_theater" />
 		<result property="orgPgNo" column="i_program" />
 	</resultMap>
@@ -16,18 +18,28 @@
 		<association property="pg" resultMap="mappers.ProgramMapper.programResult"/>
 	</resultMap>
 
+
+	<!-- INSERT -->
 	<insert id="insertOrg">
-		insert into t_org(org_date, i_theater, i_program) values(#{orgDate}, #{orgThNo}, #{orgPgNo});
+		insert into t_org(org_date, org_sTime, org_eTime, i_theater, i_program) values(#{orgDate}, #{orgStime}, #{orgEtime}, #{orgThNo}, #{orgPgNo});
 	</insert>
 
+
+	<!-- UPDATE -->
 	<update id="updateOrg">
-		update t_org set org_date = #{orgDate}, i_theater = #{thNo}, i_program = #{pgNo} where i_org = #{orgNo};
+		update t_org 
+			set org_date = #{orgDate}, org_sTime = #{orgStime}, org_eTime = #{orgEtime}, i_theater = #{orgThNo}, i_program = #{orgPgNo} 
+			where i_org = #{orgNo};
 	</update>
 
+
+	<!-- DELETE -->
 	<delete id="deleteOrg">
 		delete from t_org where i_org = #{orgNo};
 	</delete>
 	
+	
+	<!-- SELECT -->
 	<select id="selectOrgList" resultMap="oresResult">
 		select * from t_org org 
 				join t_theater th using(i_theater)
@@ -39,13 +51,27 @@
 		select * from t_org org 
 				join t_theater th using(i_theater)
 				join t_program pg using(i_program)
+				where i_theater = #{orgThNo}
 			<if test="sDate != ''">
-				where DATE(org.org_date) = #{sDate}
+				and org.org_date = #{sDate}
 			</if>
 			<if test="sDate == ''">
-				where DATE(org.org_date) = DATE(curdate())
+				and org.org_date = DATE(curdate())
 			</if>
-			order by i_theater asc, org.org_date asc;
+			order by org.org_sTime asc;
+	</select>
+
+	<select id="selectOrgDateList" resultMap="oresResult">
+		select * from t_org org 
+				join t_theater th using(i_theater)
+				join t_program pg using(i_program)
+			<if test="sDate != ''">
+				where org.org_date = #{sDate}
+			</if>
+			<if test="sDate == ''">
+				where org.org_date = DATE(curdate())
+			</if>
+			order by org.i_program asc, org.org_sTime asc;
 	</select>
 	
 	<select id="selectOrg" resultMap="oresResult">
@@ -57,6 +83,13 @@
 	
 	<select id="getTotalOrgCnt" resultType="int">
 		select count(*) from t_org;
+	</select>
+	
+	<select id="getRepeatCntByProgram" resultType="int">
+		select count(i_program) from t_org org 
+			join t_program pg using(i_program)
+		where org.org_date = DATE(curdate())
+		group by i_program order by org.i_program asc, org.org_sTime asc;
 	</select>
 
 </mapper>

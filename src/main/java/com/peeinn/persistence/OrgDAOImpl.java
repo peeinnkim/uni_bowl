@@ -49,11 +49,25 @@ public class OrgDAOImpl implements OrgDAO {
 	}
 
 	@Override
-	public List<OrgResultVO> selectOrgListByDate(String sDate) {
-		Map<String, String> map = new HashMap<String, String>();
+	public List<OrgResultVO> selectOrgListByDate(String sDate, int orgThNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("sDate", sDate);
+		map.put("orgThNo", orgThNo);
 		
 		return sqlSession.selectList(namespace + ".selectOrgListByDate", map);
+	}
+
+	@Override
+	public List<OrgResultVO> selectOrgDateList(String sDate) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("sDate", sDate);
+		
+		return sqlSession.selectList(namespace + ".selectOrgDateList", map);
+	}
+
+	@Override
+	public List<Integer> getRepeatCntByProgram() {
+		return sqlSession.selectList(namespace + ".getRepeatCntByProgram");
 	}
 
 

@@ -1,22 +1,24 @@
 @charset "UTF-8";
 
-.cal-wrap {
-	width: 100%;
-}
-.cal-wrap > .cal-top {
-	width: 400px;
-	margin: 0 auto;
+.cal-center {
 	overflow: hidden;
+}
+.cal-wrap {
+	width: 25%;
+	text-align: center;
+	float: left;
+	padding: 15px;
+}
+.title-wrap {
+	width: 100%;
 	text-align: center;
 }
 #cal-title {
-	float: left;
-	width: 336px;
 	display: inline-block;
-	font-size: 2.5em;
+	font-size: 1.7em;
 	letter-spacing: 0.15em;
 	text-align: center;
-	font-weight: lighter;
+	font-weight: normal;
 }
 #prevBtn {
 	float: left;
@@ -26,7 +28,7 @@
     height: 32px;
     background-size: contain;
     cursor: pointer;
-    margin-top: 15px;
+    margin-top: 4px;
 }
 #nextBtn {
 	float: right;
@@ -36,15 +38,12 @@
     height: 32px;
     background-size: contain;
     cursor: pointer;
-    margin-top: 15px;
+    margin-top: 4px;
 }
 
-
-
-
 #cal-table {
-	width: 90%;
-	margin: 15px auto;
+	width: 100%;
+	margin: 20px auto;
 	border-collapse: collapse;
 }
 #cal-table th {
@@ -53,7 +52,7 @@
 	font-size: 15px;
 }
 #cal-table td {
-	height: 70px;
+	height: 15px;
 	font-size: 1.3em;
 	padding: 10px;
 	text-align: center;
@@ -68,83 +67,139 @@
 	color: blue;
 }
 .tOn {
-	background: firebrick;
-	border-radius: 50px;
-	color: white;
+	font-weight: bold;
+	text-decoration: underline;
+}
+.sel-wrap {
+	width: 100%;
+	overflow: hidden;
+	border-top: 1px dashed black;
+	padding-top: 20px;
+}
+.sel-wrap > label {
+	display: inline-block;
+	width: 100px;
+	font-weight: bold;
+}
+#sel-th {
+	width: 120px;
 }
 
 /* 리스트 */
-.cont-right > h3 {
-	width: 80%;
+.list-wrap {
+	float: left;
+	width: 30%;
+	margin-left: 40px;
+	padding: 30px;
+}
+.list-wrap > h3 {
 	text-align: center;
-	font-weight: normal;
-	font-size: 1.6em;
-	letter-spacing: 0.14em;
+	letter-spacing: 0.15em;
 }
-.main-list, .addPg-wrap {
-	width: 80%;
-}
-#addPg {
-    background: url(../../img/icon/plus.png) no-repeat;
-    display: inline-block;
-    width: 23px;
-    height: 23px;
-    background-size: contain;
-    float: right;
-    margin-bottom: 8px;
+.main-list {
+	overflow: hidden;
+	margin: 15px 0;
 }
 .main-list > li {
-	width: 100%;
-	height: 80px;
-	padding: 5px 0;
+	height: 53px;
 	border: 2px solid black;
-	border-radius: 10px;
+	border-radius: 8px;
+	padding: 15px;
 	overflow: hidden;
-	margin: 5px 0;
+	margin-bottom: 7px;
 }
-.main-list > li > .pgTime-wrap {
-	width: 18%;
+.list-time {
+	width: 17%;
 	height: 100%;
+	display: inline-block;
 	float: left;
-	border-right: 3px dashed silver;
+	text-align: center;
 }
-.pgTime {
+.list-time > .sTime {
+	font-size: 1.2em;
 	display: block;
-	text-align: center;
+	font-weight: bold;
 }
-.pgTime > em {
-	font-style: normal;
-	font-size: 1.7em;
+.list-time > .eTime {
+	font-size: 14px;
+	display: block;
+	font-weight: bold;
 }
-.main-list > li > .pgTitle-wrap {
-	float: left;
-	width: 68%;
+.list-title {
+	width: 70%;
 	height: 100%;
-	padding-left: 12px;
+	float: left;
 	text-align: center;
+	text-overflow: ellipsis;
 	cursor: pointer;
 }
-.pgTitle-wrap > a {
-	width: 100%;
-	font-size: 1.2em;
-	display: inline-block;
-	line-height: 80px;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-.main-list > li > .pgDel-wrap {
-	float: right;
-	width: 7%;
-	height: 100%;
-	margin-right: 3px;
+.list-title > span {
+    font-size: 1.1em;
+    line-height: 53px;
+    font-weight: 600;
 }
 .delX {
-	width: 24px;
-    height: 24px;
-    display: block;
-    margin: 28px auto 0;
+	width: 6%;
+    height: 100%;
+    display: inline-block;
     background: url(../../img/icon/delete.png) no-repeat;
     background-size: contain;
+    background-position: center;
     cursor: pointer;
+	float: right;
+}
+
+
+/* REGIST */
+.input-wrap {
+	float: right;
+	width: 27%;
+	padding: 30px;
+	background: beige;
+	border-radius: 3px;
+	box-shadow: 0 0 5px rgba(0,0,0,.1);
+	position: relative;
+}
+.input-wrap > .addBtn {
+    position: absolute;
+    right: 105px;
+    top: 35px;
+	width: 20px; 
+	height: 20px;
+    display: inline-block;
+    background: url(../../img/icon/plus.png) no-repeat;
+    background-size: contain;
+    background-position: center;
+    cursor: pointer;
+}
+.input-wrap > h3 {
+	text-align: center;
+	letter-spacing: 0.15em;
+}
+.input-wrap > .input-form {
+	margin: 15px 0;
+	font-size: 15px;
+}
+.input-wrap > .input-form > p {
+	margin: 15px 0;
+}
+.input-wrap > .input-form > p > label {
+    display: inline-block;
+    width: 90px;
+    font-weight: bold;
+}
+.input-wrap > .input-form > p > select {
+	background: #EAEAEA;
+    border: none;
+    outline-color: grey;
+}
+#pgList {
+	color: #666;
+	margin-left: 5px;
+	font-size: 14px;
+	display:inline-block;
+}
+.input-btn-area {
+	text-align: right;
 }
 

@@ -46,8 +46,18 @@ public class OrgServiceImpl implements OrgService {
 	}
 
 	@Override
-	public List<OrgResultVO> orgByDateList(String sDate) {
-		return dao.selectOrgListByDate(sDate);
+	public List<OrgResultVO> orgByDateList(String sDate, int orgThNo) {
+		return dao.selectOrgListByDate(sDate, orgThNo);
+	}
+
+	@Override
+	public List<OrgResultVO> orgDateList(String sDate) {
+		return dao.selectOrgDateList(sDate);
+	}
+
+	@Override
+	public List<Integer> repeatCntByPg() {
+		return dao.getRepeatCntByProgram();
 	}
 
 }//OrgServiceImpl

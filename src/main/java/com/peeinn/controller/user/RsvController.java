@@ -57,12 +57,14 @@ public class RsvController {
 	public void registRsv1(Model model, String savedDate) {
 		logger.info("------------ [RSV1 GET] ------------");
 		
+		List<Integer> repeatList = orgService.repeatCntByPg();
+		
 		if(savedDate == null) {
 			savedDate = "";
 		}
-		
 		model.addAttribute("sDate", savedDate);
-		model.addAttribute("list", orgService.orgByDateList(savedDate));
+		model.addAttribute("rList", repeatList);
+		model.addAttribute("list", orgService.orgDateList(savedDate));
 	}
 	
 	@ResponseBody
@@ -72,7 +74,7 @@ public class RsvController {
 		ResponseEntity<List<OrgResultVO>> entity = null;
 		
 		try {
-			List<OrgResultVO> list = orgService.orgByDateList(sDate);
+			List<OrgResultVO> list = orgService.orgDateList(sDate);
 			entity = new ResponseEntity<List<OrgResultVO>>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

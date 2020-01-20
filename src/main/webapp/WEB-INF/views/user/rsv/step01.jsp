@@ -2,14 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../../include/header.jsp" %>
 
-<link href="${pageContext.request.contextPath}/resources/css/admin/calendarView.css" type="text/css" rel="stylesheet">
-<script src="${pageContext.request.contextPath}/resources/js/rsv.js"></script>
-<style>
-	.delX {
-		background: url("${pageContext.request.contextPath}/resources/img/icon/next.png") no-repeat;
-		background-size: contain;
-	}
-</style>
+<link href="${pageContext.request.contextPath}/resources/css/user/rsv.css" type="text/css" rel="stylesheet">
 
 <div class="section-title">
 	<h1>STEP01</h1>
@@ -17,86 +10,49 @@
 
 <div class="content-area">
 	<div class="cont-top">
-		<ul class="date-ul">
-			<li id="datePrev"></li>
-			<li>01/11 <small>(月)</small></li>
-			<li>01/12 <small>(火)</small></li>
-			<li>01/13 <small>(水)</small></li>
-			<li>01/14 <small>(木)</small></li>
-			<li>01/15 <small>(金)</small></li>
-			<li id="dateNext"></li>
-		</ul>
-		<div>
-			2020年 01月 11日  (月)
-		</div>
+		<ul class="date-ul"></ul>
+		<div class="date-box" id="orgDate"></div>
 	</div>
 	
 	<div class="cont-bottom">
 		<h2>PROGRAM LIST</h2>
 		<div class="main-list">
-			<div class="list-box"> 
-				<div class="list-info">
-					<div class="info-img"></div>
-					<div class="info-txt">
-						<h1>${ores.pg.pgTitle}</h1>
-						<p>어쩌구저쩌구 설명설명</p>
+			<c:set var="sum" value="0" />
+			<c:forEach var="rIdx" items="${rList}">
+				<div class="list-box"> 
+					<div class="list-info">
+						<div class="info-img">
+							<img src="${pageContext.request.contextPath}/admin/notice/displayFile?fileName=${list[sum].pg.pgThumb}">
+						</div>
+						<div class="info-txt">
+							<h1>${list[sum].pg.pgTitle}</h1>
+							<p>${list[sum].pg.pgDetail}</p>
+						</div>
+					</div>
+					<div class="list-time">
+						<c:forEach var="tm" begin="${sum}" end="${sum+rIdx-1}">
+						<div class="time-box">
+							<c:set var="h" value="${fn:split(list[tm].org.orgStime, ':')}"></c:set>
+							<c:set var="m" value="${fn:split(list[tm].org.orgEtime, ':')}"></c:set>
+							<b>${list[tm].th.thNm} 관</b>
+							<h3>${h[0]}:${h[1]}</h3>
+							<em>~ ${m[0]}:${m[1]}</em>
+							<p><span>10</span> / 30席</p>
+							<input type="hidden" name="orgNo" value="${list[tm].org.orgNo}">
+							<input type="hidden" name="orgPgNo" value="${list[tm].pg.pgNo}">
+							<input type="hidden" name="orgThNo" value="${list[tm].th.thNo}">
+						</div>
+						</c:forEach>
 					</div>
 				</div>
-				<div class="list-time">
-					<div class="time-box">
-						<fmt:formatDate var="sdsd" value="${ores.org.orgDate}" pattern="HH:mm"/>
-						<h3>${sdsd}</h3>
-						<em>상영관 1</em>
-						<p><span>10</span> / 30席</p>
-					</div>
-					<div class="time-box">
-						<h3>03:00</h3>
-						<em>상영관 1</em>
-						<p><span>10</span> / 30席</p>
-					</div>
-					<div class="time-box">
-						<h3>03:00</h3>
-						<em>상영관 1</em>
-						<p><span>10</span> / 30席</p>
-					</div>
-				</div>
-			</div>
+				<c:set var="sum" value="${sum+rIdx}"/>
+			</c:forEach>
 		</div>
 	</div>
 </div>	
 
-<div class="content-area">
-	
-	<div class="cont-right">
-		<h3>PROGRAM LIST</h3>
-		
-		<ul class="main-list">
-			<c:forEach var="ores" items="${list}">
-				<li>
-					<div class="pgTime-wrap">
-						<fmt:formatDate var="sdsd" value="${ores.org.orgDate}" pattern="HH:mm"/>
-						<c:set var="sd" value="${fn:split(sdsd, ':')}"></c:set>
-						<span class="pgTime hour"><em>${sd[0]}</em>시</span>
-						<span class="pgTime minute"><em>${sd[1]}</em>분</span>
-						<fmt:formatDate var="oDate" value="${ores.org.orgDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<input type="hidden" name="orgDate" value="${oDate}">	
-						<input type="hidden" name="orgNo" value="${ores.org.orgNo}">
-					</div>
-					<div class="pgTitle-wrap">
-						<a class="fSubmit">${ores.pg.pgTitle}</a>  
-						<input type="hidden" name="orgPgNo" value="${ores.pg.pgNo}">
-					</div>
-					<div class="pgDel-wrap">
-						<input type="hidden" name="orgThNo" value="${ores.th.thNo}">
-						<span class="delX fSubmit"></span>
-					</div>
-				</li>
-			</c:forEach>
-		</ul>
-	</div> 
-</div>
 
-
+<script src="${pageContext.request.contextPath}/resources/js/rsv.js"></script>
 <!-- HandleBars -->
 <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 <script id="template" type="text/x-handlebars-template">
@@ -117,6 +73,37 @@
 		<span class="delX fSubmit"></span>
 	</div>
 </li>
+
+<c:set var="sum" value="0" />
+<c:forEach var="rIdx" items="${rList}">
+	<div class="list-box"> 
+		<div class="list-info">
+			<div class="info-img">
+				<img src="${pageContext.request.contextPath}/admin/notice/displayFile?fileName=${list[sum].pg.pgThumb}">
+			</div>
+			<div class="info-txt">
+				<h1>${list[sum].pg.pgTitle}</h1>
+				<p>${list[sum].pg.pgDetail}</p>
+			</div>
+		</div>
+			<div class="list-time">
+			<c:forEach var="tm" begin="${sum}" end="${sum+rIdx-1}">
+				<div class="time-box">
+					<c:set var="h" value="${fn:split(list[tm].org.orgStime, ':')}"></c:set>
+					<c:set var="m" value="${fn:split(list[tm].org.orgEtime, ':')}"></c:set>
+					<b>${list[tm].th.thNm} 관</b>
+					<h3>${h[0]}:${h[1]}</h3>
+					<em>~ ${m[0]}:${m[1]}</em>
+					<p><span>10</span> / 30席</p>
+					<input type="hidden" name="orgNo" value="${list[tm].org.orgNo}">
+					<input type="hidden" name="orgPgNo" value="${list[tm].pg.pgNo}">
+					<input type="hidden" name="orgThNo" value="${list[tm].th.thNo}">
+				</div>
+			</c:forEach>
+		</div>
+	</div>
+<c:set var="sum" value="${sum+rIdx}"/>
+</c:forEach>
 {{/each}}
 </script>
 <script>
@@ -130,25 +117,13 @@
 		var minute = date.getMinutes();
 		return zeroZeroDate(minute);
 	})
- 	Handlebars.registerHelper("pDateTime", function(dd){
-		var date = new Date(dd);
-		var year = date.getFullYear();
-		var month = date.getMonth()+1;
-		var d = date.getDate();
-		var h = date.getHours();
-		var min = date.getMinutes();
-		var sec = date.getSeconds();
-		
-		return year + "-" + zeroZeroDate(month) + "-" + zeroZeroDate(d) + " " + zeroZeroDate(h) + ":" + zeroZeroDate(min) + ":00";
-	}) 
-	
 	
 	//ORGANIZAION 정보 넘기기 OrgVO(상영번호, 날짜, 프로그램번호, 상영관번호)
-	$(document).on("click", ".fSubmit", function(){
-		var orgNo = $(this).closest("li").find("input[name='orgNo']").val();
-		var orgDate = $(this).closest("li").find("input[name='orgDate']").val();
-		var orgPgNo = $(this).closest("li").find("input[name='orgPgNo']").val();
-		var orgThNo = $(this).closest("li").find("input[name='orgThNo']").val();
+	$(document).on("click", ".time-box", function(){
+		var orgNo = $(this).find($("input[name='orgNo']")).val();
+		var orgDate = $(".dOn").attr("data-date") + " 00:00:00";
+		var orgPgNo = $(this).find($("input[name='orgPgNo']")).val();
+		var orgThNo = $(this).find($("input[name='orgThNo']")).val();
 		
 		var data = {
 			orgNo : orgNo,
@@ -167,16 +142,13 @@
 				console.log(res);
 				
 				if(res == "success") {
-					location.href = "${pageContext.request.contextPath}/user/rsv/step02";
+					location.href = "${pageContext.request.contextPath}/user/rsv/step02"; 
 				}
 			},
 			error: function(e){
 				console.log(e);
 			}
 		})
-		
-		
-		
 		
 	})
 </script>

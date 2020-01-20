@@ -3,7 +3,6 @@ package com.peeinn.controller.admin;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,9 +39,9 @@ import com.peeinn.domain.paging.PageMaker;
 import com.peeinn.service.MemberService;
 import com.peeinn.service.OrgService;
 import com.peeinn.service.ProgramService;
+import com.peeinn.service.RsvService;
 import com.peeinn.service.SeatService;
 import com.peeinn.service.TheaterService;
-import com.peeinn.util.MyUtils;
 import com.peeinn.util.UploadFileUtils;
 
 @Controller
@@ -62,6 +61,8 @@ public class IntranetController {
 	private OrgService orgService;
 	@Autowired
 	private SeatService stService;
+	@Autowired
+	private RsvService rsvService;
 
 	
 	/* ------------------- [ MEMBER MNG PART ] ------------------- */
@@ -364,17 +365,17 @@ public class IntranetController {
 	public void orgList(Model model) {
 		logger.info("------------ [orgList GET] ------------");
 		
-		model.addAttribute("list", orgService.orgByDateList(""));
+		model.addAttribute("thList", thService.list());
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="org/listByDate", method=RequestMethod.GET)
-	public ResponseEntity<List<OrgResultVO>> listByDate(String sDate){
+	public ResponseEntity<List<OrgResultVO>> listByDate(String sDate, int orgThNo){
 		logger.info("------------ [listByDate GET] ------------");
 		ResponseEntity<List<OrgResultVO>> entity = null;
 		
 		try {
-			List<OrgResultVO> list = orgService.orgByDateList(sDate);
+			List<OrgResultVO> list = orgService.orgByDateList(sDate, orgThNo);
 			entity = new ResponseEntity<List<OrgResultVO>>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -384,35 +385,58 @@ public class IntranetController {
 		return entity;
 	}
 	
-	@RequestMapping(value="org/regist", method=RequestMethod.GET)
-	public String orgRegistGet(Model model, String tempDate, HttpSession session) throws ParseException {
-		logger.info("------------ [orgLIst GET] ------------");
-		OrgResultVO ores = new OrgResultVO();
-		ores.getOrg().setOrgDate(MyUtils.parseStringToDate(tempDate));
-		
-		session.setAttribute("aTempDate", ores);
-		System.out.println("세션 임시날짜값 입력완료");
-		model.addAttribute("list", thService.list());
-		
-		return "admin/intranet/org/input";
-	}
-	
+	@ResponseBody
 	@RequestMapping(value="org/regist", method=RequestMethod.POST)
-	public void orgRegistPost(OrgVO org, String strDate, HttpServletResponse response) throws IOException, ParseException {
+	public ResponseEntity<String> orgRegistPost(@RequestBody OrgVO org) {
 		logger.info("------------ [orgLIst POST] ------------");
 		logger.info("controller org->>>>>>>>" + org);
+		ResponseEntity<String> entity = null;
 		
-		org.setOrgDate(MyUtils.parseStringToDate(strDate));
-		orgService.regist(org);
-		response.sendRedirect("list");
+		try {
+			orgService.regist(org);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+
+	@ResponseBody
+	@RequestMapping(value="org/modify", method=RequestMethod.POST)
+	public ResponseEntity<String> orgModifyPost(@RequestBody OrgVO org) {
+		logger.info("------------ [orgLIst POST] ------------");
+		logger.info("controller org->>>>>>>>" + org);
+		ResponseEntity<String> entity = null;
+		
+		try {
+			orgService.modify(org);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 	}
 
 	@RequestMapping(value="org/remove", method=RequestMethod.GET)
-	public void orgRemoveGet(int orgNo) {
+	public String orgRemoveGet(int orgNo) {
 		logger.info("------------ [orgLIst POST] ------------");
-		
 		orgService.remove(orgNo);
+		return "redirect:/admin/intranet/org/list";
 	}
+	
+	/* ------------------- [ RSV PART ] ------------------- */
+	@RequestMapping(value="rsv", method=RequestMethod.GET)
+	public void rsvMng(Model model) {
+		logger.info("------------ [RSVMng POST] ------------");
+		
+		model.addAttribute("list", rsvService.rsvList());
+	}
+	
+	
 	
 	/* ------------------- [ SALES PART ] ------------------- */
 	@RequestMapping(value="sales", method=RequestMethod.GET)

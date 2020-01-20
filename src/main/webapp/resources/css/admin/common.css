@@ -58,6 +58,9 @@ button {
 	padding: 15px 0;
 	text-align: center;
 }
+.intra-nav > ul > li > a {
+	font-weight: bold;
+}
 .intra-content {
 	width: 80%;
 	background: lightcoral;
