@@ -66,8 +66,11 @@ public class OrgDAOImpl implements OrgDAO {
 	}
 
 	@Override
-	public List<Integer> getRepeatCntByProgram() {
-		return sqlSession.selectList(namespace + ".getRepeatCntByProgram");
+	public List<Integer> getRepeatCntByProgram(String sDate) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("sDate", sDate);
+		
+		return sqlSession.selectList(namespace + ".getRepeatCntByProgram", map);
 	}
 
 

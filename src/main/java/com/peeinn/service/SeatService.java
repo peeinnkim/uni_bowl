@@ -3,6 +3,7 @@ package com.peeinn.service;
 import java.util.List;
 
 import com.peeinn.domain.SeatVO;
+import com.peeinn.domain.org.StInfoVO;
 
 public interface SeatService {
 
@@ -11,6 +12,6 @@ public interface SeatService {
 	
 	public List<SeatVO> list();
 	public List<SeatVO> listByThNo(int thNo);
-	public List<SeatVO> listByThAndOrg(int thNo, int orgNo);
+	public List<StInfoVO> listByThAndOrg(int thNo, int orgNo);
 	
 }//SeatService

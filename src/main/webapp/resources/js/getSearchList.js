@@ -101,4 +101,13 @@ function getListPage(data){
 			console.log(e);
 		}
 	})
-}
+}//func getPage
+
+
+
+
+
+
+
+
+

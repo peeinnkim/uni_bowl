@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -26,7 +27,9 @@ import com.peeinn.domain.RsvVO;
 import com.peeinn.domain.SeatVO;
 import com.peeinn.domain.TheaterVO;
 import com.peeinn.domain.org.OrgResultVO;
+import com.peeinn.domain.org.RsvLogsVO;
 import com.peeinn.domain.org.RsvResultVO;
+import com.peeinn.domain.org.StInfoVO;
 import com.peeinn.service.MemberService;
 import com.peeinn.service.OrgService;
 import com.peeinn.service.ProgramService;
@@ -57,11 +60,12 @@ public class RsvController {
 	public void registRsv1(Model model, String savedDate) {
 		logger.info("------------ [RSV1 GET] ------------");
 		
-		List<Integer> repeatList = orgService.repeatCntByPg();
-		
 		if(savedDate == null) {
 			savedDate = "";
 		}
+		
+		List<Integer> repeatList = orgService.repeatCntByPg(savedDate);
+		
 		model.addAttribute("sDate", savedDate);
 		model.addAttribute("rList", repeatList);
 		model.addAttribute("list", orgService.orgDateList(savedDate));
@@ -69,16 +73,21 @@ public class RsvController {
 	
 	@ResponseBody
 	@RequestMapping(value="listByDate", method=RequestMethod.GET)
-	public ResponseEntity<List<OrgResultVO>> listByDate(String sDate){
+	public ResponseEntity<Map<String, Object>> listByDate(String sDate){
 		logger.info("------------ [listByDate GET] ------------");
-		ResponseEntity<List<OrgResultVO>> entity = null;
+		ResponseEntity<Map<String, Object>> entity = null;
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		try {
 			List<OrgResultVO> list = orgService.orgDateList(sDate);
-			entity = new ResponseEntity<List<OrgResultVO>>(list, HttpStatus.OK);
+			List<Integer> repeatList = orgService.repeatCntByPg(sDate);
+			map.put("repeatList", repeatList);
+			map.put("list", list);
+
+			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<List<OrgResultVO>>(HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;
@@ -95,6 +104,8 @@ public class RsvController {
 		ores.setOrg(tempOrg);
 		ores.setPg(pgService.search(tempOrg.getOrgPgNo()));
 		ores.setTh(thService.search(tempOrg.getOrgThNo()));
+		ores.getOrg().setOrgStime(tempOrg.getOrgStime());
+		ores.getOrg().setOrgEtime(tempOrg.getOrgEtime());
 		
 		try {
 			session.setAttribute("tempOres", ores);
@@ -115,9 +126,11 @@ public class RsvController {
 		logger.info("RSV2 tempOres ->>" + tempOres);
 		
 		TheaterVO rowCol = thService.getRowAndCol(tempOres.getTh().getThNo());
+		List<StInfoVO> list = stService.listByThAndOrg(tempOres.getTh().getThNo(), tempOres.getOrg().getOrgNo());
+		logger.info("controller list ->>>>>>>>>>" + list);
 		model.addAttribute("row", rowCol.getThRow());
 		model.addAttribute("col", rowCol.getThCol());
-		model.addAttribute("list", stService.listByThAndOrg(tempOres.getTh().getThNo(), tempOres.getOrg().getOrgNo()));
+		model.addAttribute("list", list );
 	}
 	
 	@ResponseBody
@@ -176,9 +189,19 @@ public class RsvController {
 		pay.setPyMemNo(auth.getAuthNo());
 		logger.info("STEP03 pay ->>>>" + pay);
 		
+		RsvLogsVO rl = new RsvLogsVO(0, 
+									 auth.getAuthNo(), 
+									 auth.getAuthId(), 
+									 0, 
+									 tempOres.getPg().getPgTitle(), 
+									 tempOres.getOrg().getOrgDate(), 
+									 tempOres.getTh().getThNm(), 
+									 py.getPyPrice(), 
+									 null, 
+									 0);
+		
 		try {
-			int lastRsvNo = rsvService.registRsv(rsv, pay);
-
+			int lastRsvNo = rsvService.registRsv(rsv, pay, rl);
 			return "redirect:/user/rsv/step04?no="+lastRsvNo;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -199,9 +222,32 @@ public class RsvController {
 		session.removeAttribute("tempOres");
 	}
 	
-	@RequestMapping(value="list", method=RequestMethod.GET)
-	public void rsvList() {
-		logger.info("------------ [rsvList GET] ------------");
+	//멤버별 전체예약
+	@RequestMapping(value="myRsv", method=RequestMethod.GET)
+	public void myRsvList(Model model, HttpSession session) {
+		logger.info("------------ [myRSVList GET] ------------");
+		AuthVO auth = (AuthVO) session.getAttribute("Auth");
+		model.addAttribute("list", rsvService.rsvLogsBymNo(auth.getAuthNo()));
+	}
+	
+	//예약취소
+	@RequestMapping(value="cancelRsv", method=RequestMethod.GET)
+	public String cancelRsv(int rsvNo) {
+		logger.info("------------ [RSV CANCEL GET] ------------");
+		rsvService.cancelRsv(rsvNo);
+		
+		return "redirect:/user/rsv/myRsv";
+	}
+	
+	//예약 상세정보
+	@RequestMapping(value="rsvDetail", method=RequestMethod.GET)
+	public String cancelRsv(int rsvNo, Model model, HttpServletRequest request) {
+		logger.info("------------ [RSV CANCEL GET] ------------");
+		RsvResultVO rRes = rsvService.rsvSearch(rsvNo);
+		logger.info("rRes", rRes);
+		model.addAttribute("rRes", rRes);
+		
+		return "/user/rsv/step04";
 	}
 	
 }//RsvController

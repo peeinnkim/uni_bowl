@@ -26,7 +26,7 @@
 	<div id="container">
 		<div id="header-wrap">
 			<div class="header logo">
-				<a href="#">宇宙漁缸</a>
+				<a href="${pageContext.request.contextPath}"></a>
 			</div>
 			
 			<div class="header mem-menu">

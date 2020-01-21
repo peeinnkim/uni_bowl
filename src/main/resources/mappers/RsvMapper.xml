@@ -40,7 +40,11 @@
 		insert into t_rsv_info values(0, #{rsvNo}, #{orgNo}, #{stNo});
 	</insert>
 	
-	<select id="selectRsv" resultMap="rResResult">
+	<delete id="deleteRsvInfo">
+		delete from t_rsv_info where i_rsv = #{rsvNo};
+	</delete>
+	
+	<select id="selectRsv" resultMap="rResResult"> <!-- Search RSV -->
 		select * from t_rsv_info ri 
 				join t_rsv rsv using(i_rsv)
 				join t_org org using(i_org) 
@@ -51,8 +55,26 @@
 				join t_member mem on rsv.i_member = mem.i_member
 			where i_rsv = #{rsvNo};
 	</select>
+
+	<select id="selectRsvListBymNo" resultMap="rResResult"> <!-- Member RSV List -->
+		select * from t_rsv rsv 
+				join t_rsv_info ri using(i_rsv)
+				join t_org org using(i_org)
+				join t_theater th using(i_theater)
+				join t_program pg using(i_program)
+				join t_pay py on rsv.i_rsv = py.i_rsv 
+			where rsv.i_member = #{mNo}
+			<if test="fDate == 1">
+				and org.org_date >= DATE(curdate())
+			</if>
+		 	group by rsv.i_rsv order by rsv.i_rsv desc;
+	</select>
 	
-	<select id="selectRsvList" resultMap="rResResult">
+	<select id="selectRsvedSeatList" resultType="java.lang.String">
+		select st_nm from t_rsv_info join t_seat using(i_seat) where i_rsv = #{rsvNo};
+	</select>
+
+	<select id="selectRsvList" resultMap="rResResult"> <!-- All of RSV list -->
 		select * from t_rsv_info ri 
 				join t_rsv rsv using(i_rsv)
 				join t_org org using(i_org) 
@@ -95,6 +117,46 @@
 	<select id="selectPay">
 		select * from t_pay where i_pay = #{pyNo};
 	</select>
+	
+	
+	<!-- RSV LOGS -->
+	<resultMap type="RsvLogsVO" id="rLogResult">
+		<id property="rlNo" column="i_rsvLog"/>
+		<result property="rlMno" column="rl_mNo" />
+		<result property="rlMid" column="rl_mId" />
+		<result property="rlRsvNo" column="rl_rsvNo" />
+		<result property="rlPgTitle" column="rl_pgTitle" />
+		<result property="rlOrgDate" column="rl_orgDate" />
+		<result property="rlThNm" column="rl_thNm" />
+		<result property="rlRsvPrice" column="rl_rsvPrice" />
+		<result property="rlRsvDate" column="rl_rsvDate" />
+		<result property="rlRsvState" column="rl_rsvState" />
+	</resultMap>
+	
+	<insert id="insertRsvLogs">
+		insert into t_rsv_logs values(0, #{rlMno}, #{rlMid}, #{rlRsvNo}, #{rlPgTitle}, #{rlOrgDate}, #{rlThNm}, #{rlRsvPrice}, now(), 0);
+	</insert>
+	
+	<update id="cancelRsvLogs">
+		update t_rsv_logs set rl_rsvState = 1 where rl_rsvNo = #{rsvNo};
+	</update>
+	
+	<select id="selectRsvLogs" resultMap="rLogResult"> <!-- 예약 리스트 뿌리기 -->
+		select * from t_rsv_logs 
+			<if test="mNo > 0">
+				where rl_mno = #{mNo}
+			</if>
+			order by i_rsvlog desc;
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 </mapper>

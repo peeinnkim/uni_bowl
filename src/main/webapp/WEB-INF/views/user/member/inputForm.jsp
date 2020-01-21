@@ -2,6 +2,11 @@
 <%@ include file="../../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/user/member.css" type="text/css" rel="stylesheet">
+<style>
+	input {
+		background: #eaeaea !important;
+	}
+</style>
 
 <div class="section-title">
 	<h1>UNIVERSE FISH-BOWL</h1>

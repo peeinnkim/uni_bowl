@@ -10,6 +10,12 @@
 		<result property="stOrgNo" column="i_org" />
 	</resultMap>
 	
+	<resultMap type="StInfoVO" id="siResult">
+		<result property="siRsv" column="i_rsv" />
+		<result property="siOrg" column="i_org" />
+		<association property="siSt" resultMap="seatResult" />
+	</resultMap>
+	
 	<insert id="insertSt">
 		insert into t_seat values(0, #{stNm}, #{stThNo}, #{stSgNo});
 	</insert>
@@ -26,14 +32,15 @@
 		select * from t_seat order by i_seat asc;
 	</select>
 	
-	<select id="selectListByThAndOrg" resultMap="seatResult">
-		select * from t_seat left join t_rsv_info using(i_seat) 
-			where i_theater = #{thNo} and (i_org is null or i_org = #{orgNo}) 
-			order by i_seat asc;
-	</select>
-
 	<select id="selectListByThNo" resultMap="seatResult">
 		select * from t_seat where i_theater = #{thNo} order by i_seat asc;
+	</select>
+	
+	<select id="selectListByThAndOrg" resultMap="siResult">
+		select * from t_seat join t_rsv_info using(i_seat) where i_theater = #{thNo} and i_org = #{orgNo}
+		union
+		select * from t_seat left join t_rsv_info using(i_seat) where i_theater = #{thNo} and i_org is null
+		order by i_seat asc;
 	</select>
 
 

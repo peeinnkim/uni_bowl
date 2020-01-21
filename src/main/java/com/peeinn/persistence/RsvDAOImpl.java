@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.peeinn.domain.PayVO;
 import com.peeinn.domain.RsvVO;
+import com.peeinn.domain.org.RsvLogsVO;
 import com.peeinn.domain.org.RsvResultVO;
 
 @Repository
@@ -31,7 +32,7 @@ public class RsvDAOImpl implements RsvDAO {
 	}
 
 	@Override
-	public List<RsvVO> selectRsvList() {
+	public List<RsvResultVO> selectRsvList() {
 		return sqlSession.selectList(namespace + ".selectRsvList");
 	}
 	
@@ -67,6 +68,45 @@ public class RsvDAOImpl implements RsvDAO {
 		map.put("stNo", stNo);
 
 		sqlSession.insert(namespace + ".insertRsvInfo", map);
+	}
+
+	@Override
+	public void deleteRsvInfo(int rsvNo) {
+		sqlSession.delete(namespace + ".deleteRsvInfo", rsvNo);
+	}
+
+	@Override
+	public List<RsvResultVO> selectRsvListBymNo(int mNo, int fDate) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("mNo", mNo);
+		map.put("fDate", fDate);
+		
+		return sqlSession.selectList(namespace + ".selectRsvListBymNo", map);
+	}
+
+	@Override
+	public List<String> selectRsvedSeatList(int rsvNo) {
+		return sqlSession.selectList(namespace + ".selectRsvedSeatList", rsvNo);
+	}
+
+	
+	/* RSV LOGS */
+	@Override
+	public void insertRsvLogs(RsvLogsVO rl) {
+		sqlSession.insert(namespace + ".insertRsvLogs", rl);
+	}
+
+	@Override
+	public void cancelRsvLogs(int rsvNo) {
+		sqlSession.update(namespace + ".cancelRsvLogs", rsvNo);
+	}
+
+	@Override
+	public List<RsvLogsVO> selectRsvLogs(int mNo) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("mNo", mNo);
+		
+		return sqlSession.selectList(namespace + ".selectRsvLogs", map);
 	}
 
 

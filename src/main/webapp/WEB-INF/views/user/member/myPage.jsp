@@ -16,9 +16,9 @@
 		</div>
 		<div class="mp-bottom">
 			<div class="rsv-info">
-				<h2>나으예약</h2>
-				<span>진행중 예약: <span id="cur-rsvCnt">3</span>건</span>
-				<a href="${pageContext.request.contextPath}/user/rsv/list" id="show-allRsv">전체보기</a>
+				<h2><a href="${pageContext.request.contextPath}/user/rsv/myRsv">나으예약</a></h2>
+				<span>진행중 예약: <span id="cur-rsvCnt">${fn:length(list)}</span>건</span>
+				<a href="${pageContext.request.contextPath}/user/rsv/myRsv" id="show-allRsv">전체보기</a>
 			</div>
 			<table id="main-tb">
 				<tr>
@@ -27,32 +27,17 @@
 					<th>상영날짜</th>
 					<th>상영관</th>
 					<th>예약상태</th>
-					<th>예약취소</th>
 				</tr>
-				<tr class="added-tr">
-					<td>1234</td>
-					<td class="list-title"><a href="#">어쩌구저쩌구 이런 프로그램</a></td>
-					<td>2020-01-03 14:30</td>
-					<td>어쩌구관</td>
-					<td>결제완료</td>
-					<td><a href="#" class="cancelRsvBtn"></a></td>
-				</tr>
-				<tr class="added-tr">
-					<td>1234</td>
-					<td class="list-title"><a href="#">어쩌구저쩌구 이런 프로그램</a></td>
-					<td>2020-01-03 14:30</td>
-					<td>어쩌구관</td>
-					<td>결제완료</td>
-					<td><a href="#" class="cancelRsvBtn"></a></td>
-				</tr>
-				<tr class="added-tr">
-					<td>1234</td>
-					<td class="list-title"><a href="#">어쩌구저쩌구 이런 프로그램</a></td>
-					<td>2020-01-03 14:30</td>
-					<td>어쩌구관</td>
-					<td>결제완료</td>
-					<td><a href="#" class="cancelRsvBtn"></a></td>
-				</tr>
+				<c:forEach var="mRsv" items="${list}">
+					<tr class="added-tr">
+						<td>${mRsv.rrRsvNo}</td>
+						<td class="list-title"><a href="#">${mRsv.pg.pgTitle}</a></td>
+						<c:set var="h" value="${fn:split(mRsv.org.orgStime, ':')}" />
+						<td><fmt:formatDate value="${mRsv.org.orgDate}" pattern="yyyy-MM-dd"/> ${h[0]}:${h[1]}</td>
+						<td>${mRsv.th.thNm} 관</td>
+						<td>${mRsv.rrPay.pyState == 0? '결제완료': '취소'}</td>
+					</tr>
+				</c:forEach>
 			</table>
 		</div>
 	</div>

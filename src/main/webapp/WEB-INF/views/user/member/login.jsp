@@ -4,6 +4,9 @@
 
 <link href="${pageContext.request.contextPath}/resources/css/user/member.css" type="text/css" rel="stylesheet">
 <style>
+	input {
+		background: #eaeaea !important;
+	}
 	.error {display: block;}
 </style>
 

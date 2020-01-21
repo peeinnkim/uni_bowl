@@ -30,20 +30,20 @@
 	border-top: 2px solid black;
 	border-bottom: 1px dotted grey;
 }
-.list-title {
-	width: 43%;
+.payInfo-wrap {
+	border-top: none !important;
 }
-.cancelRsvBtn {
-	width: 45px;
-	height: 20px;
-	padding: 5px;
+.list-title {
+	width: 35%;
+}
+.cancelRsvBtn{
+	width: 27px;
+    height: 27px;
     display: block;
     margin: 0 auto;
+    background: url("${pageContext.request.contextPath}/resources/img/icon/cancel.png") no-repeat;
+    background-size: contain;
     cursor: pointer;
-    background: pink;
-    font-size: 14px;
-    border-radius: 5px 5px;
-    box-shadow: 0px 1px 2px grey;
 }
 .pay-info {
 	text-align: left;
@@ -82,43 +82,29 @@
 	</div>
 	
 	<table id="main-tb">
+		<caption>총 <span id="cur-rsvCnt">${fn:length(list)}</span>건</caption>
 		<tr>
 			<th>예약번호</th>
 			<th>프로그램명</th>
 			<th>상영날짜</th>
 			<th>상영관</th>
+			<th>금액</th>
+			<th>예약날짜</th>
 			<th>예약상태</th>
-			<th>프린트</th>
-			<th></th>
+			<th>예약취소</th>
 		</tr>
-		<tr class="added-tr">
-			<td>1234</td>
-			<td class="list-title"><a href="#">어쩌구저쩌구 이런 프로그램</a></td>
-			<td>2020-01-03 14:30</td>
-			<td>어쩌구관</td>
-			<td>결제완료</td>
-			<td>○</td>
-			<td><a href="#" class="cancelRsvBtn">취소</a></td>
-		</tr>
-		<tr class="added-tr">
-			<td colspan="4"></td>
-			<td colspan="3" class="pay-info">
-				[결젱봉조]<br>
-				결제번호: 12341234<br>
-				결제일: 2020-01-01 09:23<br>
-				결제카드: SHINHAN 1234-****-****-1234
-			</td>
-		</tr>
-		
-<%-- 		<c:forEach var="qna" items="${list}">
-			<tr>
-				<td>${qna.qnaNo}</td>
-				<td class="qna-title"><a href="${pageContext.request.contextPath}/user/qna/read?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
-				<td>${qna.qnaWriterId}</td>
-				<td><fmt:formatDate value="${qna.qnaRegDate}" pattern="yyyy-MM-dd"/></td>
-				<td>${qna.qnaViewCnt}</td>
+		<c:forEach var="rl" items="${list}">
+			<tr class="added-tr">
+				<td>${rl.rlRsvNo}</td>
+				<td class="list-title"><a href="${pageContext.request.contextPath}/user/rsv/rsvDetail?rsvNo=${rl.rlRsvNo}">${rl.rlPgTitle}</a></td>
+				<td><fmt:formatDate value="${rl.rlOrgDate}" pattern="yyyy-MM-dd"/></td>
+				<td>${rl.rlThNm} 관</td>
+				<td><fmt:formatNumber value="${rl.rlRsvPrice}" pattern="###,###"/> 원</td>
+				<td><fmt:formatDate value="${rl.rlRsvDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+				<td>${rl.rlRsvState == 0? '결제완료': '취소'}</td>
+				<td><a href="${pageContext.request.contextPath}/user/rsv/cancelRsv?rsvNo=${rl.rlRsvNo}" class="cancelRsvBtn"></a></td>
 			</tr>
-		</c:forEach> --%>
+		</c:forEach>
 	</table>
 	
 	<div class="paging-wrap">
@@ -154,5 +140,11 @@
 <script src="${pageContext.request.contextPath}/resources/js/util/datepicker.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/util/datepicker.en.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/dateSearch.js"></script>
+
+<script>
+	$(".cancelRsvBtn").click(function(){
+		
+	})
+</script>
 
 <%@ include file="../../include/footer.jsp" %>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.peeinn.domain.SeatVO;
+import com.peeinn.domain.org.StInfoVO;
 
 @Repository
 public class SeatDAOImpl implements SeatDAO {
@@ -48,12 +49,15 @@ public class SeatDAOImpl implements SeatDAO {
 	}
 
 	@Override
-	public List<SeatVO> selectListByThAndOrg(int thNo, int orgNo) {
+	public List<StInfoVO> selectListByThAndOrg(int thNo, int orgNo) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("thNo", thNo);
 		map.put("orgNo", orgNo);
 		
-		return sqlSession.selectList(namespace + ".selectListByThAndOrg", map);
+		List<StInfoVO> list = sqlSession.selectList(namespace + ".selectListByThAndOrg", map);
+		System.out.println("DAO LIST ->>>>>>" + list);
+		
+		return list;
 	}
 
 }//SeatDAOImpl

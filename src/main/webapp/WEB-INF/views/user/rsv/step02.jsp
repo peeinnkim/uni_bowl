@@ -46,12 +46,12 @@
 				<input type="hidden" name="stThNo" value="${tempOres.org.orgThNo}">
 				<c:if test="${list != null}">
 					<c:set var="cName" value='<%=SeatGradeVO.getSgclassarr() %>'/>
-						<c:forEach var="rowIdx" begin="0" end="${row-1}">
+					<c:forEach var="rowIdx" begin="0" end="${row-1}">
 						<ul class="seat-row">
 						 <c:forEach var="st" items="${list}" begin="${rowIdx*col}" end="${(rowIdx*col)+col-1}"> 
 							<li>
-								<a class='seat added-seat ${st.stOrgNo != ""? cName[4]: cName[st.stSgNo]}' data-cNo='${st.stSgNo}' 
-									data-stNo='${st.stNo}' onclick="getStInfo(this)">${st.stNm == '-'? '' : st.stNm}</a>
+								<a class='seat added-seat ${st.siOrg == tempOres.org.orgNo? cName[4]: cName[st.siSt.stSgNo]}' data-cNo='${st.siSt.stSgNo}' 
+									data-stNo='${st.siSt.stNo}' onclick="getStInfo(this)">${st.siSt.stNm == '-'? '' : st.siSt.stNm}</a>
 							</li> 
 						 </c:forEach> 
 						</ul>
@@ -81,7 +81,9 @@
 			<dd><fmt:formatDate value="${tempOres.org.orgDate}" pattern="yyyy년 MM월 dd일"/></dd>
 
 			<dt>상영시간</dt>
-			<dd><fmt:formatDate value="${tempOres.org.orgDate}" pattern="HH:mm ~"/></dd>
+			<c:set var="h" value="${fn:split(tempOres.org.orgStime, ':')}"></c:set>
+			<c:set var="m" value="${fn:split(tempOres.org.orgEtime, ':')}"></c:set>
+			<dd>${h[0]}:${h[1]} ~ ${m[0]}:${m[1]}</dd>
 			
 			<dt>선택좌석 <small>(총 <span id="cSeat-cnt">0</span>석 선택)</small></dt>
 			<dd id="cSeat-box"></dd>

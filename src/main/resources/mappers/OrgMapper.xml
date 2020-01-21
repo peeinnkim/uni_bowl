@@ -37,7 +37,7 @@
 	<delete id="deleteOrg">
 		delete from t_org where i_org = #{orgNo};
 	</delete>
-	
+
 	
 	<!-- SELECT -->
 	<select id="selectOrgList" resultMap="oresResult">
@@ -88,7 +88,12 @@
 	<select id="getRepeatCntByProgram" resultType="int">
 		select count(i_program) from t_org org 
 			join t_program pg using(i_program)
-		where org.org_date = DATE(curdate())
+			<if test="sDate != ''">
+				where org.org_date = #{sDate}
+			</if>
+			<if test="sDate == ''">
+				where org.org_date = DATE(curdate())
+			</if>
 		group by i_program order by org.i_program asc, org.org_sTime asc;
 	</select>
 

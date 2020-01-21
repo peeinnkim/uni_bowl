@@ -433,7 +433,7 @@ public class IntranetController {
 	public void rsvMng(Model model) {
 		logger.info("------------ [RSVMng POST] ------------");
 		
-		model.addAttribute("list", rsvService.rsvList());
+		model.addAttribute("list", rsvService.rsvLogsBymNo(0));
 	}
 	
 	

@@ -19,6 +19,6 @@ public interface OrgService {
 	
 	public int orgCnt();
 	
-	public List<Integer> repeatCntByPg();
+	public List<Integer> repeatCntByPg(String sDate);
 	
 }//OrgResultService

@@ -56,8 +56,8 @@ public class OrgServiceImpl implements OrgService {
 	}
 
 	@Override
-	public List<Integer> repeatCntByPg() {
-		return dao.getRepeatCntByProgram();
+	public List<Integer> repeatCntByPg(String sDate) {
+		return dao.getRepeatCntByProgram(sDate);
 	}
 
 }//OrgServiceImpl

@@ -5,11 +5,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.peeinn.domain.PayVO;
 import com.peeinn.domain.RsvVO;
 import com.peeinn.domain.SeatVO;
 import com.peeinn.domain.org.OrgResultVO;
+import com.peeinn.domain.org.RsvLogsVO;
 import com.peeinn.domain.org.RsvResultVO;
 import com.peeinn.persistence.RsvDAO;
 
@@ -22,7 +24,8 @@ public class RsvServiceImpl implements RsvService {
 	/* RSV PART */
 	@SuppressWarnings("unchecked")
 	@Override
-	public int registRsv(RsvVO rsv, PayVO pay) {
+	@Transactional
+	public int registRsv(RsvVO rsv, PayVO pay, RsvLogsVO rl) {
 		dao.insertRsv(rsv);
 		pay.setPyRsvNo(rsv.getRsvNo());
 		dao.insertPay(pay);
@@ -35,6 +38,9 @@ public class RsvServiceImpl implements RsvService {
 			dao.insertRsvInfo(rsv.getRsvNo(), ores.getOrg().getOrgNo(), st.getStNo());
 		}
 		
+		rl.setRlRsvNo(rsv.getRsvNo());
+		dao.insertRsvLogs(rl);
+		
 		return rsv.getRsvNo();
 	}
 
@@ -42,11 +48,18 @@ public class RsvServiceImpl implements RsvService {
 	public void cancelRsv(int rsvNo) {
 		dao.cancelPay(rsvNo);
 		dao.cancelRsv(rsvNo);
+		dao.deleteRsvInfo(rsvNo);
+		dao.cancelRsvLogs(rsvNo);
 	}
 
 	@Override
-	public List<RsvVO> rsvList() {
+	public List<RsvResultVO> rsvList() {
 		return dao.selectRsvList();
+	}
+
+	@Override
+	public List<RsvResultVO> rsvListBymNo(int mNo, int fDate) {
+		return dao.selectRsvListBymNo(mNo, fDate);
 	}
 	
 	@Override
@@ -54,12 +67,24 @@ public class RsvServiceImpl implements RsvService {
 		return dao.selectRsv(rsvNo);
 	}
 
+	@Override
+	public List<String> rsvedSeatList(int rsvNo) {
+		return dao.selectRsvedSeatList(rsvNo);
+	}
+	
+	@Override
+	public List<RsvLogsVO> rsvLogsBymNo(int mNo) {
+		return dao.selectRsvLogs(mNo);
+	}
 	
 	/* PAY PART */
 	@Override
 	public List<PayVO> payList() {
 		return dao.selectPayList();
 	}
+
+
+
 
 
 

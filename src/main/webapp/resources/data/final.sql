@@ -164,4 +164,46 @@ select count(i_program) from t_org org
 group by i_program
 order by org.i_theater asc, org.org_sTime asc;
 
+select * from t_rsv rsv 
+		join t_rsv_info ri using(i_rsv)
+		join t_org org using(i_org)
+		join t_theater th using(i_theater)
+		join t_program pg using(i_program)
+		join t_pay py on rsv.i_rsv = py.i_rsv 
+where rsv.i_member = 1 and org.org_date >= '2020-01-21'
+group by rsv.i_rsv;
+
+select * from t_rsv rsv 
+		left join t_rsv_info ri using(i_rsv)
+		left join t_org org using(i_org)
+		join t_theater th using(i_theater)
+		join t_program pg using(i_program)
+		left join t_pay py on rsv.i_rsv = py.i_rsv 
+where rsv.i_member = 1;
+
+
+select * from t_rsv rsv join t_rsv_info ri using(i_rsv) join t_org org using(i_org) join t_theater 
+th using(i_theater) join t_program pg using(i_program) join t_pay py on rsv.i_rsv = py.i_rsv 
+where rsv.i_member = 1 and org.org_date >= DATE(curdate()) group by rsv.i_rsv order by rsv.i_rsv 
+desc;
+
+select st_nm from t_rsv_info join t_seat using(i_seat) where i_rsv = 2;
+
+select * from t_org where i_theater = 2;
+
+select st.*, ri.i_rsv 
+	from t_seat st left outer join t_rsv_info ri using(i_seat) 
+	where i_theater = 1
+order by i_seat asc;
+
+select * from t_seat left join t_rsv_info using(i_seat) 
+where i_theater = 1 order by i_seat asc;
+
+select * from t_seat join t_rsv_info using(i_seat) where i_theater = 3 and i_org = 5
+union
+select * from t_seat left join t_rsv_info using(i_seat) where i_theater = 3 and i_org is null
+order by i_seat asc;
+
+
+
 

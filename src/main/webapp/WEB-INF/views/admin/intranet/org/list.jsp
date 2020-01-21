@@ -31,7 +31,7 @@
 		</div>
 		
 		<div class="list-wrap">
-			<h3>시간표</h3>
+			<h3><span id="ttThNm"></span> 시간표</h3>
 			<ul class="main-list"></ul>
 		</div>
 		
@@ -102,6 +102,7 @@
 <script>
 	listByDate($("#tempDate").val());
 	$("#selectedTh").val($("#sel-th option:selected").text());
+	$("#ttThNm").text($("#sel-th option:selected").text());
 
 	Handlebars.registerHelper("pTime", function(dd){
 		var time = dd.split(":");
@@ -114,6 +115,7 @@
 		var sDate = $(".tOn").attr("data-date");
 		var thNm = $("#sel-th option:selected").text();
 		
+		$("#ttThNm").text(thNm);
 		$("#selectedTh").val(thNm);
 		listByDate(sDate);
 	})

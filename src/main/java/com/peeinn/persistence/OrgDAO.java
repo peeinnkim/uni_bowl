@@ -19,6 +19,6 @@ public interface OrgDAO {
 	
 	public int getTotalOrgCnt();
 
-	public List<Integer> getRepeatCntByProgram();
+	public List<Integer> getRepeatCntByProgram(String sDate);
 	
 }//OrgDAO

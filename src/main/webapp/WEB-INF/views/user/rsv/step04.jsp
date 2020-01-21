@@ -47,7 +47,8 @@
 						</li>
 						<li>
 							<label>상영일시</label>
-							<span><fmt:formatDate value="${rRes.org.orgDate}" pattern="yyyy-MM-dd HH:mm"/></span>
+							<c:set var="h" value="${fn:split(rRes.org.orgStime, ':')}" /> 
+							<span><fmt:formatDate value="${rRes.org.orgDate}" pattern="yyyy-MM-dd"/> ${h[0]}:${h[1]}</span>
 						</li>
 						<li>
 							<label>좌석</label>
@@ -90,8 +91,8 @@
 		</div>
 	</div>
 	<div class="btn-area">
-		<a href="#" id="btnCancel">홈</a>
-		<a href="#" id="btnNext">예약리스트</a>
+		<a href="${pageContext.request.contextPath}" id="btnCancel">홈</a>
+		<a href="${pageContext.request.contextPath}/user/rsv/myRsv" id="btnNext">예약리스트</a>
 	</div>
 </div>		
 

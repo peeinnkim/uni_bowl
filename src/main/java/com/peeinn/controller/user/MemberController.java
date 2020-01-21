@@ -20,14 +20,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.peeinn.domain.AuthVO;
 import com.peeinn.domain.MemberVO;
 import com.peeinn.service.MemberService;
+import com.peeinn.service.RsvService;
 
 @Controller
 @RequestMapping("/user/member/")
 public class MemberController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Autowired
 	MemberService service;
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	@Autowired
+	RsvService rsvService;
 	
 	/* ------------------- [ MEMBER PART ] ------------------- */
 	
@@ -170,9 +173,11 @@ public class MemberController {
 	
 	//마이페이지
 	@RequestMapping(value="myPage", method=RequestMethod.GET)
-	public void myPage() {
+	public void myPage(Model model, HttpSession session) {
 		logger.info("------------ [myPage GET] ------------");
-		
+		AuthVO auth = (AuthVO) session.getAttribute("Auth");
+		int fDate = 1;
+		model.addAttribute("list", rsvService.rsvListBymNo(auth.getAuthNo(), fDate));
 	}
 	
 }//MemberController

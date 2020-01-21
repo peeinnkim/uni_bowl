@@ -29,8 +29,9 @@ option {
 }
 input {
 	padding: 11px 10px 8px;
-	background: #EAEAEA;
+	background: white;
     border: none;
+    border-bottom: 2px white solid;
     outline-color: grey;
 }
 button {
@@ -39,6 +40,7 @@ button {
 #container {
 	width: 100%;
 	height: 100%;
+	background: #eee;
 	overflow: auto;
 }
 .header {
@@ -49,9 +51,10 @@ button {
 	margin-bottom: 20px;
 }
 .intra-nav {
-	width: 15%;
+	width: 12%;
 	float: left;
-	background: cadetblue;
+	margin: 20px 0 0 30px;
+	background: slateGray;
 	z-index: 100;
 }
 .intra-nav > ul > li {
@@ -63,7 +66,7 @@ button {
 }
 .intra-content {
 	width: 80%;
-	background: lightcoral;
+	background: #eee;
 	float: right;
 	padding: 20px 20px 50px;
 	overflow: auto;
@@ -71,7 +74,8 @@ button {
 .intra-content > h2 {
 	width: 100%;
 	text-align: center;
-	margin-bottom: 20px;
+	margin-bottom: 40px;
+	background: slategray;
 }
 .content-wrap {
 	width: 100%;

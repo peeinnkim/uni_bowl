@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.peeinn.domain.SeatVO;
+import com.peeinn.domain.org.StInfoVO;
 import com.peeinn.persistence.SeatDAO;
 
 @Service
@@ -32,8 +34,11 @@ public class SeatServiceImpl implements SeatService {
 	}
 
 	@Override
-	public List<SeatVO> listByThAndOrg(int thNo, int orgNo) {
-		return dao.selectListByThAndOrg(thNo, orgNo);
+	@Transactional
+	public List<StInfoVO> listByThAndOrg(int thNo, int orgNo) {
+		List<StInfoVO> list = dao.selectListByThAndOrg(thNo, orgNo);
+		System.out.println("service list ->>>>>>>" + list);
+		return list;
 	}
 
 	@Override
