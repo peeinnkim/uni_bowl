@@ -102,6 +102,9 @@ $(function(){
 	
 		
 	/* 좌석 설정하기 */
+	//수정 범위 설정
+	var modType = 0; //0: 부분수정, 1: 전체수정
+	
 	//좌석 크기 설정
 	$("#crtStBtn").click(function(){
 		var al = confirm("저장 전에 좌석 크기를 다시 설정하면 작업 내용이 초기화되니 주의하시기 바랍니다.");
@@ -110,6 +113,8 @@ $(function(){
 			return false;
 		}
 		
+		//전체수정모드
+		modType = $("#cThNo").val();
 		$("#show-seat-wrap > div").empty();
 		
 		//가로세로길이 받아오기
@@ -137,7 +142,7 @@ $(function(){
 			code_saver += "<ul class='seat-row'>";
 			for(var j=0; j<cols; j++) {
 				code_saver += "<li>" +
-							  "<a class='seat seat-empty added-seat' data-cNo='1'>"+rowStr+(++idx)+"</a>" +
+							  "<a class='seat seat-empty added-seat' data-cNo='1' data-stNo='0'>"+rowStr+(++idx)+"</a>" +
 							  "</li>";
 			}
 			code_saver += "</ul>";
@@ -149,6 +154,7 @@ $(function(){
 	})
 	
 	/* SEAT 지정 */
+	var stArr = [];
 	$(document).on("click", ".seat", function(){
 		$(this).removeClass();
 		$(this).attr("data-cNo", cNo);
@@ -193,29 +199,53 @@ $(function(){
 		
 		$(".added-seat").each(function(i, obj){
 			stObjArr.push({
+				stNo: $(obj).attr("data-stNo"),
 				stNm: $(obj).text(), 
 				stThNo: $("#cThNo").val(),
 				stSgNo: $(obj).attr("data-cNo")
 			});
 		})
-
-		$.ajax({
-			url: pName + "/admin/intranet/theater/seat/regist",
-			type: "post",
-			data: JSON.stringify(stObjArr),
-			dataType: "text",
-			headers: {"Content-Type":"application/json"},
-			success: function(res){
-				console.log(res);
+		
+		if(modType == 0) { //부분수정
+			$.ajax({
+				url: pName + "/admin/intranet/theater/seat/modify/0",
+				type: "post",
+				data: JSON.stringify(stObjArr),
+				dataType: "text",
+				headers: {"Content-Type":"application/json"},
+				success: function(res){
+					console.log(res);
 				
-				if(res == "success") {
-					location.href = pName + "/admin/intranet/theater/modifyRowAndCol?row=" + $("#rows").val() + "&col=" + $("#cols").val() + "&thNo=" + $("#cThNo").val();
+					if(res == "success") {
+						location.href = pName + "/admin/intranet/theater/seat/modify/success";
+					}
+				},
+				error: function(e){
+					console.log(e);
 				}
-			},
-			error: function(e){
-				console.log(e);
-			}
-		})
+			})
+			
+		} else if(modType != 0) { //전체수정
+			$.ajax({
+				url: pName + "/admin/intranet/theater/seat/modify/" + $("#cThNo").val(),
+				type: "post",
+				data: JSON.stringify(stObjArr),
+				dataType: "text",
+				headers: {"Content-Type":"application/json"},
+				success: function(res){
+					console.log(res);
+					
+					if(res == "success") {
+						location.href = pName + "/admin/intranet/theater/modifyRowAndCol?row=" + $("#rows").val() + "&col=" + $("#cols").val() + "&thNo=" + $("#cThNo").val();
+					}
+				},
+				error: function(e){
+					console.log(e);
+				}
+			})
+		}//if
+		
+
 	}//저장함수
 	
 })

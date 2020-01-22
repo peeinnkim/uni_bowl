@@ -29,4 +29,9 @@ public class HomeController {
 		logger.info("------------ [ERROR] ------------");
 	}
 	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public void test() {
+		logger.info("------------ [TEST] ------------");
+	}
+	
 }

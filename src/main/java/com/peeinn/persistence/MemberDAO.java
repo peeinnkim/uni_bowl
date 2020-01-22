@@ -9,6 +9,7 @@ public interface MemberDAO {
 
 	public void insertMem(MemberVO mem);
 	public void updateMem(MemberVO mem);
+	public void updatePw(MemberVO mem);
 	public void secessMem(int mNo);
 	
 	public List<MemberVO> selectMemList();
@@ -16,6 +17,7 @@ public interface MemberDAO {
 
 	public MemberVO selectMem(int mNo);
 	public MemberVO selectMemById(String mId);
+	public MemberVO selectMemByMail(String mMail);
 
 	public int getTotalMemCnt();
 	public int getMemCntByCode(CodeStateCriteria cri);

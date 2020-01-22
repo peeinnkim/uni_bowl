@@ -3,10 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="resources/css/admin/common.css" type="text/css" rel="stylesheet">
-<link href="resources/css/admin/calendarView.css" type="text/css" rel="stylesheet">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="resources/js/calendar.js"></script>
 </head>
 <body>
 	<div id="container">
@@ -14,83 +12,41 @@
 			<h1>INTRANET</h1>
 		</div>
 
-		<div class="intra-nav">
+<!-- 		<div class="intra-nav">
 			<ul>
 				<li><a href="#">매출관리</a></li>
 				<li><a href="#">예약관리</a></li>
 				<li><a href="#">상영관관리</a></li>
 				<li><a href="#">회원관리</a></li>
 			</ul>
-		</div>
+		</div> -->
 
 		<div class="intra-content">	
 		
-<h2>상영관 스케쥴</h2>
 		
 <div class="content-wrap">
+	 <h2>인트라넷 로그인</h2> 
 	<div class="cont-center">
-		<div class="cal-wrap">
-			<div class="title-wrap">
-				<span id="prevBtn"></span>
-				<div id="cal-title"></div>
-				<span id="nextBtn"></span>
-			</div>
-			
-			<table id="cal-table"></table>
-
-			<select>
-				<option>어쩌구관</option>
-				<option>저쩌구관</option>
-			</select>
-			
-		</div>
-		
-		<div class="list-wrap">
-			<h3>시간표</h3>
-			<ul class="main-list">
-				<li>
-					<span class="list-time">
-						<span class="sTime">03:00</span>
-						<span class="eTime">~ 03:50</span>
-					</span>
-					<span class="list-title">
-						<span>어쩌구저쩌구프로그램</span>
-					</span>
-					<a class="delX"></a>
-				</li>
-			</ul>
-		</div>
-		
-		<div class="input-wrap">
-			<h3>스케쥴 입력</h3>
-			<form id="frm" action="" method="post">
-				<p>
-					<label>날짜</label>
-					<input type="text" id="tempDate"  value="2020-01-20">
-					<input type="hidden" name="strDate" value="2020-01-20 10:00">
-				</p>
-				<p>
-					<label>상영 시간</label>
-					<input type="number" id="ipHour" value="11" min="11" max="21" maxlength="2">
-					<input type="number" id="ipMinute" min="0" max="60" step="10" value="00" maxlength="2">
-					<input type="hidden" name="tempStartTime" value="10:00">
-				</p>
-				<p>
-					<label>프로그램</label>
-					<button id="btnChoicePg" type="button">선택</button>
-					<span id="pgList">ddfsdf</span>
-				</p>
-				<p class="input-btn-area">
-					<input type="submit" value="REGIST">
-					<input type="reset" value="CANCEL">
-				</p>
-			</form>		
-		</div>
-		
-		
+		<form id="frm" action="loginPost" method="post" onsubmit="return validCheck()">
+			<p>
+				<label>ID</label>
+				<input type="text" name="mId" value="mlmlml">
+			</p>
+			<p>
+				<label>PASSWORD</label>
+				<input type="password" name="mPw" value="mlml3434">
+				<input type="submit" value="LOGIN">
+			</p>
+			<p class="mMenu-wrap">
+				<a href="${pageContext.request.contextPath}/user/member/join">JOIN</a>
+				<a href="${pageContext.request.contextPath}/user/member/findInfo">FIND ID/PW</a>
+			</p>
+			<p class="error">
+				[ERROR] 비밀번호가 존재하지 않습니다.
+			</p>
+		</form>	
 	</div>
-</div>
-			
+</div>			
 			
 		</div>
 	</div>

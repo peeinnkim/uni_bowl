@@ -51,6 +51,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public MemberVO searchByMail(String mMail) {
+		return dao.selectMemByMail(mMail);
+	}
+	@Override
 	public List<MemberVO> searchList(CodeStateCriteria cri) {
 		System.out.println("SERVICE CRI->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + cri);
 		return dao.searchList(cri);
@@ -60,5 +64,11 @@ public class MemberServiceImpl implements MemberService {
 	public int totalCntByCode(CodeStateCriteria cri) {
 		return dao.getMemCntByCode(cri);
 	}
+
+	@Override
+	public void modifyPw(MemberVO mem) {
+		dao.updatePw(mem);
+	}
+
 
 }//MemberServiceImpl

@@ -4,10 +4,9 @@
 
 <link href="${pageContext.request.contextPath}/resources/css/user/member.css" type="text/css" rel="stylesheet">
 <style>
-	input {
-		background: #eaeaea !important;
-	}
-	.error {display: block;}
+	.form-wrap { width: 37%; }
+	.uni-notice { text-align: center; font-size: 12px; color: steelblue; }
+	.error { display: block; color: red; font-size: 13px; text-align: center; }
 </style>
 
 <div class="section-title">
@@ -16,7 +15,7 @@
 
 <div class="content-area">
 	<div class="form-wrap">
-		<form id="frm" action="loginPost" method="post">
+		<form id="frm" action="loginPost" method="post" onsubmit="return validCheck()">
 			<p>
 				<label>ID</label>
 				<input type="text" name="mId" value="mlmlml">
@@ -26,10 +25,12 @@
 				<input type="password" name="mPw" value="mlml3434">
 				<input type="submit" value="LOGIN">
 			</p>
-			<p>
+			<p class="mMenu-wrap">
 				<a href="${pageContext.request.contextPath}/user/member/join">JOIN</a>
-				<a href="#">FIND ID/PW</a>
+				<a href="${pageContext.request.contextPath}/user/member/findInfo">FIND ID/PW</a>
+				<a href="${pageContext.request.contextPath}/user/member/findInfo">비회원 로그인</a>
 			</p>
+			<p class="uni-notice">우주어항 관계자들은 인트라넷 로그인을 이용해주세요!</p>
 			<p class="error">
 				<c:if test="${error != null}">
 					${error}

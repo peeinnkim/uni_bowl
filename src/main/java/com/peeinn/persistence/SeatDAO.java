@@ -8,8 +8,8 @@ import com.peeinn.domain.org.StInfoVO;
 public interface SeatDAO {
 
 	public void insertSt(SeatVO st);
-	public void updateSt(SeatVO st);
 	public void deleteSt(int thNo);
+	public void updateSt(SeatVO st);
 	public void changeStState(SeatVO st);
 	
 	public List<SeatVO> selectStList();

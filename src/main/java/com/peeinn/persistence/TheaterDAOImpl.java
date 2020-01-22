@@ -46,8 +46,8 @@ public class TheaterDAOImpl implements TheaterDAO {
 	}
 
 	@Override
-	public int isThRsved(int thNo) {
-		return sqlSession.selectOne(namespace + ".isThRsved", thNo);
+	public int hasRsvedSt(int thNo) {
+		return sqlSession.selectOne(namespace + ".hasRsvedSt", thNo);
 	}
 
 	@Override

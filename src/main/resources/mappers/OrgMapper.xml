@@ -96,5 +96,9 @@
 			</if>
 		group by i_program order by org.i_program asc, org.org_sTime asc;
 	</select>
+	
+	<select id="isRsved" resultType="int"><!-- 프로그램에 예약되었는지 -->
+		select count(*) from t_rsv_info where i_org = #{orgNo};
+	</select>
 
 </mapper>

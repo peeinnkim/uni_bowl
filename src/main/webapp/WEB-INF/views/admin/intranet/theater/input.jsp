@@ -1,3 +1,4 @@
+<%@page import="java.util.HashMap"%>
 <%@page import="com.peeinn.domain.SeatGradeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -86,15 +87,17 @@
 			</div>
 			
 			<div class="seat-save-wrap">
-				<button id="stSaveBtn">저장</button>
-				<button id="reLabelBtn" type="button">라벨링</button>
+				<span>FRONT</span>
+				<div class="ss-btn-wrap">
+					<button id="btnLabel" type="button">설정 완료</button>
+				</div>
 			</div>
+		
 			<div id="show-seat-wrap">
 				<input type="hidden" name="stThNo">
 				<div style="width:${col * 24}px;">
 				<c:if test="${list != null}">
 					<c:set var="cName" value='<%=SeatGradeVO.getSgclassarr() %>'/>
-					<c:set var="cName2" value='<%=new String[]{"", "seat-empty", "premiumSingle-empty", "premiumDouble-empty", "seat-none", "seat-disabled"} %>'/>
 						<c:forEach var="rowIdx" begin="0" end="${row-1}">
 						<ul class="seat-row">
 						 <c:forEach var="st" items="${list}" begin="${rowIdx*col}" end="${(rowIdx*col)+col-1}"> 
@@ -105,10 +108,12 @@
 				</c:if>
 				</div>
 			</div>
+			
 		</div>
 		</c:if>
 	</div>
 </div>
+
 
 <%@ include file="../../include/footer.jsp" %>
 

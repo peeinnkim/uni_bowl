@@ -18,6 +18,7 @@ public interface OrgDAO {
 	public OrgResultVO selectOrg(int orgNo);
 	
 	public int getTotalOrgCnt();
+	public int isRsved(int orgNo);
 
 	public List<Integer> getRepeatCntByProgram(String sDate);
 	

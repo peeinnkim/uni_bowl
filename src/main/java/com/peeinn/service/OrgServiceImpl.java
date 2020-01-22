@@ -60,4 +60,9 @@ public class OrgServiceImpl implements OrgService {
 		return dao.getRepeatCntByProgram(sDate);
 	}
 
+	@Override
+	public int isRsved(int orgNo) {
+		return dao.isRsved(orgNo);
+	}
+
 }//OrgServiceImpl

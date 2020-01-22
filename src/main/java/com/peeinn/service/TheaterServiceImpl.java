@@ -49,8 +49,8 @@ public class TheaterServiceImpl implements TheaterService {
 	}
 
 	@Override
-	public int isThRsved(int thNo) {
-		return dao.isThRsved(thNo);
+	public int hasRsvedSt(int thNo) {
+		return dao.hasRsvedSt(thNo);
 	}
 
 	@Override

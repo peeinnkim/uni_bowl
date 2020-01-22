@@ -7,20 +7,79 @@
 	padding: 20px;
 	margin: 0 auto;
 }
-.form-wrap > form > p {
+
+.form-wrap>form>p {
 	margin: 10px 0;
 	overflow: hidden;
 }
-.form-wrap > form > p > label {
+
+.form-wrap>form>p>label {
 	float: left;
-    width: 130px;
-    font-size: 16px;
-    letter-spacing: 0.15em;
-    vertical-align: middle;
-    padding: 7px 10px 7px 4px;
-    font-weight: 600;
+	width: 130px;
+	font-size: 16px;
+	letter-spacing: 0.15em;
+	vertical-align: middle;
+	padding: 7px 10px 7px 4px;
+	font-weight: 600;
 }
-.form-wrap > form > p > .regInfo {
+
+.form-wrap>form>p>.regInfo {
 	font-size: 12px;
 	font-weight: bold;
+}
+
+input {
+	background: #eaeaea !important;
+}
+
+/* ------------ [FIND ID/PW TAP] ------------ */
+.find-menu {
+	width: 200px;
+	height: 300px;
+	display: inline-block;
+	border: 3px solid steelblue;
+	padding: 30px;
+	overflow: hidden;
+	margin-top: 30px;
+	cursor: pointer;
+}
+
+.find-menu>span {
+	color: steelblue;
+	font-weight: bold;
+	font-size: 6em;
+	position: relative;
+}
+
+.find-menu>span>small {
+	position: absolute;
+	top: 0;
+	left: 8px;
+	font-size: 22px;
+	letter-spacing: 0.2em;
+}
+
+.find-menu>h2 {
+	letter-spacing: 0.15em;
+	margin-bottom: 17px;
+}
+
+.find-menu>p {
+	font-size: 14px;
+}
+
+.mMenu-wrap {
+	font-size: 15px;
+	font-weight: 600;
+	text-align: center;
+}
+
+.mMenu-wrap>a {
+	color: slategray;
+	margin: 0 20px;
+}
+
+.mMenu-wrap>a:hover {
+	color: black;
+	transition: 0.9s all ease;
 }

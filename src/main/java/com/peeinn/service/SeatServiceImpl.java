@@ -24,8 +24,20 @@ public class SeatServiceImpl implements SeatService {
 	}
 
 	@Override
-	public void modify(SeatVO st) {
-		dao.updateSt(st);
+	public void modify(List<SeatVO> stList) {
+		for(SeatVO st : stList) {
+			dao.updateSt(st);
+		}
+	}
+
+	@Override
+	@Transactional
+	public void modifyAll(int thNo, List<SeatVO> stList) {
+		dao.deleteSt(thNo);
+		
+		for(SeatVO st : stList) {
+			dao.insertSt(st);
+		}
 	}
 
 	@Override
@@ -34,11 +46,8 @@ public class SeatServiceImpl implements SeatService {
 	}
 
 	@Override
-	@Transactional
 	public List<StInfoVO> listByThAndOrg(int thNo, int orgNo) {
-		List<StInfoVO> list = dao.selectListByThAndOrg(thNo, orgNo);
-		System.out.println("service list ->>>>>>>" + list);
-		return list;
+		return dao.selectListByThAndOrg(thNo, orgNo);
 	}
 
 	@Override

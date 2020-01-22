@@ -1,10 +1,11 @@
+<%@page import="java.util.HashMap"%>
 <%@page import="com.peeinn.domain.SeatGradeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/admin/theater.css" type="text/css" rel="stylesheet">
-<script src="${pageContext.request.contextPath}/resources/js/registTheater.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/modifySeat.js"></script>
 
 <h2>상영관 추가</h2>
 <input type="hidden" name="pName" value="${pageContext.request.contextPath}">
@@ -61,9 +62,12 @@
 			</div>
 			
 			<div class="seat-save-wrap">
-				<button id="stSaveBtn">저장</button>
-				<button id="reLabelBtn" type="button">라벨링</button>
+				<span>FRONT</span>
+				<div class="ss-btn-wrap">
+					<button id="btnLabel" type="button">설정 완료</button>
+				</div>
 			</div>
+			
 			<div id="show-seat-wrap">
 				<input type="hidden" name="stThNo">
 				<div style="width:${col * 24}px;">
@@ -72,15 +76,20 @@
 						<c:forEach var="rowIdx" begin="0" end="${row-1}">
 						<ul class="seat-row">
 						 <c:forEach var="st" items="${list}" begin="${rowIdx*col}" end="${(rowIdx*col)+col-1}"> 
-							<li><a class='seat added-seat ${cName[st.stSgNo]}' data-cNo='${st.stSgNo}'>${st.stNm}</a></li> 
+							<li><a class='seat added-seat ${cName[st.stSgNo]}' data-cNo='${st.stSgNo}' data-stNo='${st.stNo}'>${st.stNm}</a></li> 
 						 </c:forEach> 
 						</ul>
 					</c:forEach> 
 				</c:if>
 				</div>
 			</div>
+			
+			<div>
+				<button type="button" id="mapBtn">맵 테스트</button>
+				<div id="mapTest"></div>
+			</div>
+			
 		</div>
-		
 	</div>
 </div>
 

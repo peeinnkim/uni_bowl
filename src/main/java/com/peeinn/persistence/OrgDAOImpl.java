@@ -73,5 +73,10 @@ public class OrgDAOImpl implements OrgDAO {
 		return sqlSession.selectList(namespace + ".getRepeatCntByProgram", map);
 	}
 
+	@Override
+	public int isRsved(int orgNo) {
+		return sqlSession.selectOne(namespace + ".isRsved", orgNo);
+	}
+
 
 }//OrgDAOImpl

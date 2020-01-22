@@ -1,19 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../../include/header.jsp" %>
+<link href="${pageContext.request.contextPath}/resources/css/user/member.css" type="text/css" rel="stylesheet">
+
+<style>
+	.form-wrap { text-align: center; }
+	.form-wrap > h1 { margin-bottom: 40px; }
+	.form-wrap > h3 { width: 50%; margin: 0 auto 50px; border: 4px solid steelblue; padding: 40px;}
+</style>
+
+<div class="section-title">
+	<h1>UNIVERSE FISH-BOWL</h1>
+</div>
 
 <div class="content-area">
 	<div class="form-wrap">
-		<h1>${title} 완료되었습니다.</h1>
-		<h3>3초 후에 메인화면으로 돌아갑니다</h3>
-		<button>로그인 화면으로</button>
+		<c:if test="${title != '0'}">
+			<h1>${title} 완료되었습니다.</h1>
+		</c:if>
+		
+		<c:if test="${fObj != '0'}">
+			<h1>ID/PW 찾기 결과</h1>
+			<h3>${fObj}: ${result}</h3>
+		</c:if>
+		<button id="btnMainPage" style="margin-left: 20px;">메인</button>
+		<button id="btnLoginPage" style="margin-right: 20px;">로그인</button>
 	</div>
 </div>
 
 
 <script>
-	$("button").click(function(){
+	$("#btnMainPage").click(function(){
 		location.href="${pageContext.request.contextPath}";
+	})
+	$("#btnLoginPage").click(function(){
+		location.href="${pageContext.request.contextPath}/user/member/login";
 	})
 </script>
 

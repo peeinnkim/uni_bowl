@@ -18,6 +18,7 @@ public interface OrgService {
 	public OrgResultVO search(int orgNo);
 	
 	public int orgCnt();
+	public int isRsved(int orgNo);
 	
 	public List<Integer> repeatCntByPg(String sDate);
 	

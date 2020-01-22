@@ -8,7 +8,8 @@ import com.peeinn.domain.org.StInfoVO;
 public interface SeatService {
 
 	public void regist(List<SeatVO> stList);
-	public void modify(SeatVO st);
+	public void modify(List<SeatVO> stList);
+	public void modifyAll(int thNo, List<SeatVO> stList);
 	
 	public List<SeatVO> list();
 	public List<SeatVO> listByThNo(int thNo);

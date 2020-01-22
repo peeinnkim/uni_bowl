@@ -42,8 +42,8 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<c:if test="${isRsved == true}">
-			<p class="rsvCaution">해당 상영관에 예약된 좌석이 있어 상영관 정보 변경이 불가능합니다.</p>
+		<c:if test="${hasRsvedSt != null}">
+			<p class="rsvCaution">해당 상영관에 예약된 좌석이 있어 상영관 정보 수정 및 삭제가 불가능합니다.</p>
 		</c:if>
 	</div>
 </div>

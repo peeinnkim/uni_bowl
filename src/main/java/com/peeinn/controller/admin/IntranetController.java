@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.peeinn.domain.AuthVO;
 import com.peeinn.domain.MemberVO;
 import com.peeinn.domain.OrgVO;
 import com.peeinn.domain.ProgramVO;
@@ -267,29 +268,15 @@ public class IntranetController {
 		return "redirect:/admin/intranet/theater/list";
 	}
 
-	@RequestMapping(value="theater/remove", method = RequestMethod.GET)
-	public String removeTh(Model model, int thNo) {
-		logger.info("------------ [removeTh GET] ------------");
-		
-		if(thService.isThRsved(thNo) > 0) {
-			model.addAttribute("isRsved", true);
-			return "redirect:/admin/intranet/theater/list";
-		}
-		thService.remove(thNo);
-		return "redirect:/admin/intranet/theater/list";
-	}
-	
 	@RequestMapping(value="theater/modify", method=RequestMethod.GET)
 	public String modifyTh(Model model, int thNo) {
 		logger.info("------------ [modifyTh GET] ------------");
 		
-		if(thService.isThRsved(thNo) > 0) {
-			model.addAttribute("isRsved", true);
-			return "redirect:/admin/intranet/theater/list";
+		if(thService.hasRsvedSt(thNo) > 0) {
+			model.addAttribute("hasRsvedSt", true);
+			return "admin/intranet/theater/list";
 		}
-		
 		model.addAttribute("th", thService.search(thNo));
-		
 		return "admin/intranet/theater/input";
 	}
 	
@@ -317,10 +304,22 @@ public class IntranetController {
 			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.BAD_REQUEST);
 			e.printStackTrace();
 		}
-		
 		return entity;
 	}	
 	
+	@RequestMapping(value="theater/remove", method = RequestMethod.GET)
+	public String removeTh(Model model, int thNo) {
+		logger.info("------------ [removeTh GET] ------------");
+		
+		if(thService.hasRsvedSt(thNo) > 0) {
+			model.addAttribute("hasRsvedSt", true);
+			return "admin/intranet/theater/list";
+		}
+		thService.remove(thNo);
+		return "redirect:/admin/intranet/theater/list";
+	}
+	
+
 	/* ------------------- [ SEAT PART ] ------------------- */
 	@RequestMapping(value="theater/seat", method=RequestMethod.GET)
 	public String stRegistGet(Model model, int thNo) {
@@ -336,7 +335,6 @@ public class IntranetController {
 		}
 		
 		model.addAttribute("th", thService.search(thNo));
-		model.addAttribute("modify", true);
 		
 		return "admin/intranet/theater/seatInput";
 	}
@@ -359,6 +357,35 @@ public class IntranetController {
 		
 		return entity;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="theater/seat/modify/{modType}", method=RequestMethod.POST)
+	public ResponseEntity<String> stModifyThPost(@RequestBody List<SeatVO> stList, @PathVariable int modType) {
+		logger.info("------------ [theaterRegist POST] ------------");
+		logger.info("modType ->>" + modType);
+		ResponseEntity<String> entity = null;
+		
+		try {
+			if(modType == 0) {
+				stService.modify(stList);
+				entity = new ResponseEntity<String>("success", HttpStatus.OK);
+			} else {
+				stService.modifyAll(modType, stList);
+				entity = new ResponseEntity<String>("success", HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			entity = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
+			e.printStackTrace();
+		}
+		return entity;
+	}	
+	
+	@RequestMapping(value="theater/seat/modify/success", method=RequestMethod.GET)
+	public String stModifySuccess () {
+		logger.info("------------ [stModifySuccess GET] ------------");
+		return "redirect:/admin/intranet/theater/list";
+	}
+	
 	
 	/* ------------------- [ ORGANIZATION PART ] ------------------- */
 	@RequestMapping(value="org/list", method=RequestMethod.GET)
@@ -444,7 +471,53 @@ public class IntranetController {
 		logger.info("------------ [sales POST] ------------");
 		
 	}
+
+	/* ------------------- [ MEMBER PART ] ------------------- */
+	@RequestMapping(value="member/join", method=RequestMethod.GET)
+	public String adminJoinGet() {
+		logger.info("------------ [adminJoin GET] ------------");
+		
+		return "admin/intranet/member/inputForm";
+	}
 	
+	@RequestMapping(value="member/join", method=RequestMethod.POST)
+	public String adminJoinPost(Model model, MemberVO mem) {
+		logger.info("------------ [adminJoin POST] ------------");
+		
+		memService.regist(mem);
+		model.addAttribute("title", "가입");
+		
+		return "redirect:/admin/intranet/member/login";
+	}
+	
+	@RequestMapping(value="member/login", method=RequestMethod.GET)
+	public void adminLoginGet() {
+		logger.info("------------ [adminLogin GET] ------------");
+		
+	}
+
+	@RequestMapping(value="member/login", method=RequestMethod.POST)
+	public String adminLoginPost(Model model, HttpSession session, MemberVO mem) {
+		logger.info("------------ [adminLogin POST] ------------");
+		MemberVO dbMem = memService.searchById(mem.getmId());
+		
+		if(dbMem == null) { //존재하지 않는 회원
+			model.addAttribute("error", "아이디가 존재하지 않습니다");
+		} else if(dbMem.getmQuitDate() != null) {
+			model.addAttribute("error", "아이디가 존재하지 않습니다");
+		} else {
+			if(dbMem.getmPw().equals(mem.getmPw())) { //비밀번호 일치
+				//로그인 성공
+				//session 영역에 Auth키 만들어서 값 넣음
+				session.setAttribute("Auth", new AuthVO(dbMem.getmNo(), dbMem.getmId(), dbMem.getmCode()));
+				logger.info("--- Auth 저장 완료 / Admin 로그인 성공 ---");
+				return "redirect:/admin/intranet/sales";
+			} else {
+				model.addAttribute("error", "비밀번호가 일치하지 않습니다");
+			}
+		}
+		return "admin/intranet/member/login";
+	}
 	
 	/* ------------------- [ UPLOAD PART ] ------------------- */
 	@RequestMapping(value="displayFile", method=RequestMethod.GET)

@@ -16,6 +16,6 @@ public interface TheaterService {
 
 	public List<TheaterVO> list();
 	
-	public int isThRsved(int thNo);
+	public int hasRsvedSt(int thNo);
 	
 }//TheaterService

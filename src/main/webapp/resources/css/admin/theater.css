@@ -31,6 +31,7 @@
 	width: 80%;
 	margin: 0 auto;
 	overflow: hidden;
+	padding: 8px 0;
 	border: 1px dotted grey;
 	text-align: center;
 	display: none; 
@@ -55,7 +56,7 @@
 	width: 350px;
 	margin: 10px auto;
 	padding: 30px;
-	background: pink;
+	background: slategray;
 	display: none;
 }
 .crt-seat-pre > h2 {
@@ -67,7 +68,6 @@
 .crt-seat-wrap {
 	width: 90%;
 	margin: 0 auto;
-	background: beige;
 	display: none;
 	overflow: hidden;
 }
@@ -80,7 +80,6 @@
 .seat-div > h2 {
 	width: 70%;
 	text-align: center;
-	font-weight: normal;
 	letter-spacing: 0.05em;
 	margin: 0 auto 15px;
 	padding-bottom: 8px;
@@ -109,8 +108,19 @@ dd {
 	width: 70%;
 	margin: 10px auto 0;
 	padding: 8px 25px;	
-	text-align: right;
-	background: mediumpurple;
+	text-align: center;
+	background: steelblue;
+	position: relative;
+}
+.seat-save-wrap > span {
+	font-size: 21px;
+    font-weight: bold;
+    letter-spacing: 0.25em;
+}
+.ss-btn-wrap {
+	position: absolute;
+	top: 6px;
+	right: 6px;
 }
 
 /* show-seat */

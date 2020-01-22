@@ -16,11 +16,10 @@
 	    float: left;
 	    width: 80px;
 	    height: 28px;
-	    border: 1px solid black;
 	    border-bottom: none;
 	    letter-spacing: 0.05em;
 	    text-align: center;
-	    border-radius: 5px 5px 0 0;
+	    border-radius: 10px 10px 0 0;
 	    margin-right: 1px;
 	    padding: 5px;
 	}
@@ -28,9 +27,13 @@
 	    font-size: 14px;
 	    display: block;
 	    line-height: 28px;
+	    font-weight: bold;
 	}
 	.on {
-		background: green;
+		background: slategray;
+	}
+	.on > a {
+		color: white;
 	}
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/getSearchList.js"></script>

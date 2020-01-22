@@ -52,7 +52,6 @@
 			<mapping path="/user/member/myPage"/>
 			<mapping path="/user/member/modify"/>
 			<mapping path="/user/member/secess"/>
-			<mapping path="/user/member/result"/>
 			<mapping path="/user/qna/regist"/>
 			<mapping path="/user/rsv/step01"/>
 			<mapping path="/user/rsv/step02"/>

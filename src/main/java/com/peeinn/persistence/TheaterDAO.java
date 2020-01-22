@@ -16,6 +16,6 @@ public interface TheaterDAO {
 	
 	public List<TheaterVO> selectList();
 	
-	public int isThRsved(int thNo);
+	public int hasRsvedSt(int thNo);
 	
 }//TheaterDAO

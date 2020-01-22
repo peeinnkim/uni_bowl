@@ -20,6 +20,8 @@
 		insert into t_member values(0, #{mId}, #{mPw}, #{mNm}, #{mBirth}, #{mTel}, #{mMail}, now(), null, #{mCode});
 	</insert>
 	
+	
+	
 	<update id="updateMem"> <!-- 회원정보 수정 -->
 		update t_member set m_pw = #{mPw}, m_tel = #{mTel}, m_mail = #{mMail} where i_member = #{mNo};
 	</update>
@@ -27,6 +29,12 @@
 	<update id="secessMem"> <!-- 회원탈퇴(논리삭제) -->
 		update t_member set m_quitdate = now() where i_member = #{mNo};
 	</update>
+	
+	<update id="updatePw"> <!-- 비밀번호 찾기 임시비밀번호로 변경 -->
+		update t_member set m_pw = #{mPw} where i_member = #{mNo};
+	</update>
+	
+	
 	
 	<select id="selectAllList" resultMap="memberResult"> <!-- 가입한 모든 사람 -->
 		select * from t_member where order by i_member desc;
@@ -42,6 +50,10 @@
 
 	<select id="selectMemById" resultMap="memberResult"> <!-- 회원아이디로 검색(로그인시 이용) -->
 		select * from t_member where m_id = #{mId};
+	</select>
+
+	<select id="selectMemByMail" resultMap="memberResult"> 
+		select * from t_member where m_mail = #{mMail};
 	</select>
 	
 	<select id="getTotalMemCnt" resultType="int"> <!-- 관리자 제외한 회원 카운트 -->

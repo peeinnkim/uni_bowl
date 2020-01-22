@@ -47,8 +47,8 @@
 		select th_row, th_col from t_theater where i_theater = #{thNo};
 	</select>
 	
-	<select id="isThRsved" resultType="int"> <!-- 상영관에 예약된 좌석이 있나 확인-->
-		select count(*) from t_theater join t_seat using(i_theater) where i_theater = #{thNo} and st_isRsved = 1;
+	<select id="hasRsvedSt" resultType="int"> <!-- 상영관에 예약된 좌석이 있나 확인-->
+		select count(*) from t_rsv_info join t_seat using(i_seat) where i_theater = #{thNo};
 	</select>
 	
 </mapper>

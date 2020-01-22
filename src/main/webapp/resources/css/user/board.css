@@ -4,6 +4,7 @@
 .search-wrap {
 	width: 90%;
 	margin: 0px auto 7px;
+	overflow: hidden;
 }
 .search-category {
 	float: left;
@@ -21,6 +22,7 @@
 }
 #keyword {
 	padding: 10px 40px 7px 10px;
+	border-bottom: 2px solid white;
 }
 #btnSearch {
 	width: 24px;

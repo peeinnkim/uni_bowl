@@ -72,10 +72,13 @@ button {
 	overflow: auto;
 }
 .intra-content > h2 {
-	width: 100%;
-	text-align: center;
-	margin-bottom: 40px;
-	background: slategray;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 10px 0;
+    background: slategray;
+    color: #eee;
+    letter-spacing: 0.5em;
 }
 .content-wrap {
 	width: 100%;

@@ -50,6 +50,11 @@ public class MemberDAOImpl implements MemberDAO {
 	public MemberVO selectMemById(String mId) {
 		return sqlSession.selectOne(namespace + ".selectMemById", mId);
 	}
+	
+	@Override
+	public MemberVO selectMemByMail(String mMail) {
+		return sqlSession.selectOne(namespace + ".selectMemByMail", mMail);
+	}
 
 	@Override
 	public List<MemberVO> searchList(CodeStateCriteria cri) {
@@ -60,6 +65,11 @@ public class MemberDAOImpl implements MemberDAO {
 	public int getMemCntByCode(CodeStateCriteria cri) {
 		
 		return sqlSession.selectOne(namespace + ".getMemCntByCode", cri);
+	}
+
+	@Override
+	public void updatePw(MemberVO mem) {
+		sqlSession.update(namespace + ".updatePw", mem);
 	}
 
 	

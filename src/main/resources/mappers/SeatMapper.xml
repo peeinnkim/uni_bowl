@@ -37,10 +37,8 @@
 	</select>
 	
 	<select id="selectListByThAndOrg" resultMap="siResult">
-		select * from t_seat join t_rsv_info using(i_seat) where i_theater = #{thNo} and i_org = #{orgNo}
-		union
-		select * from t_seat left join t_rsv_info using(i_seat) where i_theater = #{thNo} and i_org is null
-		order by i_seat asc;
+		select * from t_seat st left join t_rsv_info ri on st.i_seat = ri.i_seat and ri.i_org = #{orgNo}
+			where st.i_theater = #{thNo} order by st.i_seat asc;
 	</select>
 
 
