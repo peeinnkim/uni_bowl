@@ -42,7 +42,7 @@
 	 				<c:forEach var="na" items="${nt.files}">
 						<li>
 							<span class="thumb-img">
-								<img src="${pageContext.request.contextPath}/admin/notice/displayFile?fileName=${na.naThumb}">
+								<img src="${pageContext.request.contextPath}/admin/displayFile?fileName=${na.naThumb}">
 								<span class="delX" data-src="${na.naThumb}"></span>
 							</span>
 						</li>

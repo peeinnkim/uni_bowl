@@ -13,19 +13,19 @@
 	</resultMap>
 	
 	<select id="selectPgList" resultMap="programResult">
-		select * from t_program order by i_program desc;
+		select * from t_program order by i_program desc
 	</select>
 	
 	<select id="selectPg" resultMap="programResult">
-		select * from t_program where i_program = #{pgNo};
+		select * from t_program where i_program = #{pgNo}
 	</select>
 
 	<select id="getTotalPgCnt" resultType="int">
-		select count(*) from t_program;
+		select count(*) from t_program
 	</select>
 	
 	<insert id="insertPg">
-		insert into t_program values(0, #{pgTitle}, #{pgDetail}, #{pgPoster}, #{pgThumb}, #{pgTime}, #{pgIsRunning});
+		insert into t_program values(0, #{pgTitle}, #{pgDetail}, #{pgPoster}, #{pgThumb}, #{pgTime}, #{pgIsRunning})
 	</insert>
 	
 	<update id="updatePg">
@@ -34,11 +34,15 @@
 			<if test="pgPoster != null and pgThumb != null">
 				, pg_poster = #{pgPoster}, pg_thumb = #{pgThumb} 
 			</if>
-			where i_program = #{pgNo};
+			where i_program = #{pgNo}
 	</update>
 	
-	<delete id="deletePg">
-		delete from t_program where i_program = #{pgNo};
-	</delete>
+<!-- 	<delete id="deletePg">
+		delete from t_program where i_program = #{pgNo}
+	</delete> -->
+	
+	<update id="deletePg">
+		update t_program set pg_isRunning = 1 where i_program = #{pgNo}
+	</update>
 
 </mapper>

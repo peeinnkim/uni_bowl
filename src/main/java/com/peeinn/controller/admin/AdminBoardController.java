@@ -11,7 +11,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -36,7 +35,7 @@ import com.peeinn.service.NoticeService;
 import com.peeinn.util.UploadFileUtils;
 
 @Controller
-@RequestMapping("/admin/notice/")
+@RequestMapping("/admin/")
 public class AdminBoardController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminBoardController.class);
@@ -47,7 +46,7 @@ public class AdminBoardController {
 	
 	
 	/* ------------------- [ NOTICE PART ] ------------------- */
-	@RequestMapping(value="list", method=RequestMethod.GET)
+	@RequestMapping(value="notice/list", method=RequestMethod.GET)
 	public void noticeList(Model model, SearchCriteria cri) {
 		logger.info("------------ [noticeList GET] ------------");
 		
@@ -60,20 +59,21 @@ public class AdminBoardController {
 		model.addAttribute("cri", cri);
 	}
 	
-	@RequestMapping(value="read", method=RequestMethod.GET)
+	@RequestMapping(value="notice/read", method=RequestMethod.GET)
 	public void noticeRead(Model model, int ntNo) {
 		logger.info("------------ [noticeRead GET] ------------");
 		
 		model.addAttribute("nt", ntService.read(ntNo));
 	}
-	@RequestMapping(value="regist", method=RequestMethod.GET)
+	
+	@RequestMapping(value="notice/regist", method=RequestMethod.GET)
 	public String noticeRegistGet() {
 		logger.info("------------ [noticeRegist GET] ------------");
 		
 		return "/admin/notice/inputForm";
 	}
 
-	@RequestMapping(value="regist", method=RequestMethod.POST)
+	@RequestMapping(value="notice/regist", method=RequestMethod.POST)
 	public void noticeRegistPost(NoticeVO nt, List<MultipartFile> imageFiles, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		logger.info("------------ [noticeRegist POST] ------------");
 		logger.info("controller nt ->>>>>>>" + nt);
@@ -105,7 +105,7 @@ public class AdminBoardController {
 		response.sendRedirect("list");
 	}
 	
-	@RequestMapping(value="modify", method=RequestMethod.GET)
+	@RequestMapping(value="notice/modify", method=RequestMethod.GET)
 	public String modifyGet(Model model, int ntNo) {
 		logger.info("------------ [modify GET] ------------");
 		
@@ -114,7 +114,7 @@ public class AdminBoardController {
 		return "/admin/notice/inputForm";
 	}
 	
-	@RequestMapping(value="modify", method=RequestMethod.POST)
+	@RequestMapping(value="notice/modify", method=RequestMethod.POST)
 	public String modifyPost(Model model, NoticeVO nt, String[] delFiles, List<MultipartFile> imageFiles) throws IOException {
 		logger.info("------------ [modify POST] ------------");
 		
@@ -152,7 +152,7 @@ public class AdminBoardController {
 		return "redirect:/admin/notice/read?ntNo=" + notice.getNtNo();
 	}
 	
-	@RequestMapping(value="remove", method=RequestMethod.GET)
+	@RequestMapping(value="notice/remove", method=RequestMethod.GET)
 	public void removeNotice(int ntNo, HttpServletResponse response) throws IOException {
 		logger.info("------------ [removeNotice POST] ------------");
 		
@@ -167,7 +167,7 @@ public class AdminBoardController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="searchList", method=RequestMethod.POST)
+	@RequestMapping(value="notice/searchList", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> searchList(SearchCriteria cri){
 		ResponseEntity<Map<String, Object>> entity = null;
 		
@@ -197,7 +197,7 @@ public class AdminBoardController {
 	/* ------------------- [ UPLOAD PART ] ------------------- */
 	@RequestMapping(value="displayFile", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayFile(String fileName){
-		logger.info("--------- displayFile ---------");
+		logger.info("--------- ADMIN displayFile ---------");
 //		logger.info("fileName: " + fileName);
 		ResponseEntity<byte[]> entity = null;
 		

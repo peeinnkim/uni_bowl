@@ -81,8 +81,8 @@
 			<dd><fmt:formatDate value="${tempOres.org.orgDate}" pattern="yyyy년 MM월 dd일"/></dd>
 
 			<dt>상영시간</dt>
-			<c:set var="h" value="${fn:split(tempOres.org.orgStime, ':')}"></c:set>
-			<c:set var="m" value="${fn:split(tempOres.org.orgEtime, ':')}"></c:set>
+			<c:set var="h" value="${fn:split(tempOres.org.orgStime, ':')}"/>
+			<c:set var="m" value="${fn:split(tempOres.org.orgEtime, ':')}"/>
 			<dd>${h[0]}:${h[1]} ~ ${m[0]}:${m[1]}</dd>
 			
 			<dt>선택좌석 <small>(총 <span id="cSeat-cnt">0</span>석 선택)</small></dt>

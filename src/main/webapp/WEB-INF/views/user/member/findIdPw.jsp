@@ -4,7 +4,8 @@
 
 <link href="${pageContext.request.contextPath}/resources/css/user/member.css" type="text/css" rel="stylesheet">
 <style>
-	.error {display: block;}
+	.form-wrap { width: 35%; }
+	.error { display: block; }
 </style>
 
 
@@ -15,7 +16,7 @@
 <div class="content-area">
 	<h2>${fPw != null? '비밀번호': '아이디'} 찾기</h2>
 	<div class="form-wrap">
-		<form id="frm" action="findIdPw" method="post" onsubmit="return validCheck()">
+		<form id="frm" action="findIdPw" method="post" onsubmit="return validCk()">
 			<c:if test="${fPw != null}">
 				<p>
 					<label>아이디</label>
@@ -29,10 +30,10 @@
 			</p>
 			<p class="error">
 				<c:if test="${MailNotExist != null}">
-					메일주소를 다시 확인해주세요.
+					입력하신 이메일을 찾을 수 없습니다.
 				</c:if>
 				<c:if test="${IdNotExist != null}">
-					아이디를 다시 확인해주세요.
+					입력하신 아이디를 찾을 수 없습니다.
 				</c:if>
 			</p>
 		</form>
@@ -40,15 +41,15 @@
 </div>
 
 <script>
-	function validCheck(){
+	function validCk(){
 		if(frm.mId.value == "") {
 			alert("아이디를 입력하세요");
 			frm.mId.focus();
 			return false;
 		}
-		if(frm.mPw.value == "") {
-			alert("비밀번호를 입력하세요");
-			frm.mPw.focus();
+		if(frm.mMail.value == "") {
+			alert("메일주소를 입력하세요");
+			frm.mMail.focus();
 			return false;
 		}
 	}

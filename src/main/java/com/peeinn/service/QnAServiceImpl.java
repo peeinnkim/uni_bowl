@@ -80,4 +80,9 @@ public class QnAServiceImpl implements QnAService {
 		return dao.listSearchCnt(cri);
 	}
 
+	@Override
+	public List<Integer> listCateCnt() {
+		return dao.selectQnACate();
+	}
+
 }//QnAServiceImpl

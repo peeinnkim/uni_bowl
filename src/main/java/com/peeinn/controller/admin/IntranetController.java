@@ -1,8 +1,6 @@
 package com.peeinn.controller.admin;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,13 +9,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,13 +35,14 @@ import com.peeinn.domain.paging.PageMaker;
 import com.peeinn.service.MemberService;
 import com.peeinn.service.OrgService;
 import com.peeinn.service.ProgramService;
+import com.peeinn.service.QnAService;
 import com.peeinn.service.RsvService;
 import com.peeinn.service.SeatService;
 import com.peeinn.service.TheaterService;
 import com.peeinn.util.UploadFileUtils;
 
 @Controller
-@RequestMapping("/admin/intranet/")
+@RequestMapping("/admin/")
 public class IntranetController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(IntranetController.class);
@@ -64,10 +60,12 @@ public class IntranetController {
 	private SeatService stService;
 	@Autowired
 	private RsvService rsvService;
+	@Autowired
+	private QnAService qnaService;
 
 	
 	/* ------------------- [ MEMBER MNG PART ] ------------------- */
-	@RequestMapping(value="member", method=RequestMethod.GET)
+	@RequestMapping(value="gnr/member", method=RequestMethod.GET)
 	public void memberMng(Model model, CodeStateCriteria cri) {
 		logger.info("------------ [memberMng GET] ------------");
 		System.out.println("controller cri ->>>>>>" + cri);
@@ -124,7 +122,7 @@ public class IntranetController {
 	public String registPgGet(Model model) {
 		logger.info("------------ [registPg GET] ------------");
 		
-		return "admin/intranet/program/input";
+		return "admin/program/input";
 	}
 
 	@RequestMapping(value="program/regist", method=RequestMethod.POST)
@@ -162,7 +160,7 @@ public class IntranetController {
 		
 		model.addAttribute("pg", pg);
 		
-		return "admin/intranet/program/input";
+		return "admin/program/input";
 	}
 
 	@RequestMapping(value="program/modify", method=RequestMethod.POST)
@@ -229,7 +227,7 @@ public class IntranetController {
 	public String thRegistGet() {
 		logger.info("------------ [theaterRegist GET] ------------");
 		
-		return "admin/intranet/theater/input";
+		return "admin/theater/input";
 	}
 	
 	@ResponseBody
@@ -265,7 +263,7 @@ public class IntranetController {
 		
 		thService.modifyRowAndCol(th);
 		
-		return "redirect:/admin/intranet/theater/list";
+		return "redirect:/admin/theater/list";
 	}
 
 	@RequestMapping(value="theater/modify", method=RequestMethod.GET)
@@ -274,10 +272,10 @@ public class IntranetController {
 		
 		if(thService.hasRsvedSt(thNo) > 0) {
 			model.addAttribute("hasRsvedSt", true);
-			return "admin/intranet/theater/list";
+			return "admin/theater/list";
 		}
 		model.addAttribute("th", thService.search(thNo));
-		return "admin/intranet/theater/input";
+		return "admin/theater/input";
 	}
 	
 	@ResponseBody
@@ -313,10 +311,10 @@ public class IntranetController {
 		
 		if(thService.hasRsvedSt(thNo) > 0) {
 			model.addAttribute("hasRsvedSt", true);
-			return "admin/intranet/theater/list";
+			return "admin/theater/list";
 		}
 		thService.remove(thNo);
-		return "redirect:/admin/intranet/theater/list";
+		return "redirect:/admin/theater/list";
 	}
 	
 
@@ -335,8 +333,7 @@ public class IntranetController {
 		}
 		
 		model.addAttribute("th", thService.search(thNo));
-		
-		return "admin/intranet/theater/seatInput";
+		return "admin/theater/seatInput";
 	}
 	
 	@ResponseBody
@@ -354,7 +351,6 @@ public class IntranetController {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
 		}
-		
 		return entity;
 	}
 	
@@ -383,7 +379,7 @@ public class IntranetController {
 	@RequestMapping(value="theater/seat/modify/success", method=RequestMethod.GET)
 	public String stModifySuccess () {
 		logger.info("------------ [stModifySuccess GET] ------------");
-		return "redirect:/admin/intranet/theater/list";
+		return "redirect:/admin/theater/list";
 	}
 	
 	
@@ -408,7 +404,6 @@ public class IntranetController {
 			e.printStackTrace();
 			entity = new ResponseEntity<List<OrgResultVO>>(HttpStatus.BAD_REQUEST);
 		}
-		
 		return entity;
 	}
 	
@@ -426,7 +421,6 @@ public class IntranetController {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
 		}
-		
 		return entity;
 	}
 
@@ -444,19 +438,23 @@ public class IntranetController {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
 		}
-		
 		return entity;
 	}
 
 	@RequestMapping(value="org/remove", method=RequestMethod.GET)
-	public String orgRemoveGet(int orgNo) {
+	public String orgRemoveGet(Model model, int orgNo) {
 		logger.info("------------ [orgLIst POST] ------------");
+		
+		if(orgService.isRsved(orgNo) > 0) {
+			model.addAttribute("hasRsvedSt", true);
+			return "admin/org/list";
+		}
 		orgService.remove(orgNo);
-		return "redirect:/admin/intranet/org/list";
+		return "redirect:/admin/org/list";
 	}
 	
 	/* ------------------- [ RSV PART ] ------------------- */
-	@RequestMapping(value="rsv", method=RequestMethod.GET)
+	@RequestMapping(value="gnr/rsv", method=RequestMethod.GET)
 	public void rsvMng(Model model) {
 		logger.info("------------ [RSVMng POST] ------------");
 		
@@ -466,7 +464,7 @@ public class IntranetController {
 	
 	
 	/* ------------------- [ SALES PART ] ------------------- */
-	@RequestMapping(value="sales", method=RequestMethod.GET)
+	@RequestMapping(value="gnr/sales", method=RequestMethod.GET)
 	public void salesMng() {
 		logger.info("------------ [sales POST] ------------");
 		
@@ -477,7 +475,7 @@ public class IntranetController {
 	public String adminJoinGet() {
 		logger.info("------------ [adminJoin GET] ------------");
 		
-		return "admin/intranet/member/inputForm";
+		return "admin/member/inputForm";
 	}
 	
 	@RequestMapping(value="member/join", method=RequestMethod.POST)
@@ -487,7 +485,7 @@ public class IntranetController {
 		memService.regist(mem);
 		model.addAttribute("title", "가입");
 		
-		return "redirect:/admin/intranet/member/login";
+		return "redirect:/admin/member/login";
 	}
 	
 	@RequestMapping(value="member/login", method=RequestMethod.GET)
@@ -511,50 +509,42 @@ public class IntranetController {
 				//session 영역에 Auth키 만들어서 값 넣음
 				session.setAttribute("Auth", new AuthVO(dbMem.getmNo(), dbMem.getmId(), dbMem.getmCode()));
 				logger.info("--- Auth 저장 완료 / Admin 로그인 성공 ---");
-				return "redirect:/admin/intranet/sales";
+				return "redirect:/admin/gnrsales";
 			} else {
 				model.addAttribute("error", "비밀번호가 일치하지 않습니다");
 			}
 		}
-		return "admin/intranet/member/login";
+		return "admin/member/login";
 	}
 	
-	/* ------------------- [ UPLOAD PART ] ------------------- */
-	@RequestMapping(value="displayFile", method=RequestMethod.GET)
-	public ResponseEntity<byte[]> displayFile(String fileName){
-		logger.info("--------- displayFile ---------");
-//		logger.info("fileName: " + fileName);
-		ResponseEntity<byte[]> entity = null;
+	
+	/* ------------------- [ REQUEST PART ] ------------------- */
+	@RequestMapping(value="gnr/req", method=RequestMethod.GET)
+	public void reqMngGet () {
+		logger.info("------------ [adminLogin GET] ------------");
+		
+	}
+
+	@ResponseBody
+	@RequestMapping(value="gnr/getReqData", method=RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> reqData () {
+		logger.info("------------ [reqData POST] ------------");
+		ResponseEntity<Map<String, Object>> entity = null;
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		try {
-			//확장자
-			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
-			MediaType type = null;
-			
-			if(formatName.equalsIgnoreCase("jpg") || formatName.equalsIgnoreCase("jpeg")) {
-				type = MediaType.IMAGE_JPEG;
-			} else if(formatName.equalsIgnoreCase("png")) {
-				type = MediaType.IMAGE_PNG;
-			} else if(formatName.equalsIgnoreCase("gif")) {
-				type = MediaType.IMAGE_GIF;
-			}
-			
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(type);
-			
-			//파일을 읽어들임
-			InputStream in = new FileInputStream(adminUploadPath + "/" + fileName);
-			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), //바이트 배열을 리턴
-												headers,
-												HttpStatus.CREATED);
-			in.close(); //InputStream은 사용 완료 후 꼭 close를 해줘야 다른 곳에서 이 파일에 접근 가능함.
+			List<Integer> list = qnaService.listCateCnt();
+			map.put("list", list);
+			map.put("result", "success");
+			entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+			map.put("result", "fail");
+			entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.BAD_REQUEST);
 		}
-		
 		return entity;
 	}
+	
 	
 }//IntranetController

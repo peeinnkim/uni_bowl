@@ -6,7 +6,8 @@
 <style>
 	.form-wrap { text-align: center; }
 	.form-wrap > h1 { margin-bottom: 40px; }
-	.form-wrap > h3 { width: 50%; margin: 0 auto 50px; border: 4px solid steelblue; padding: 40px;}
+	.form-wrap > h3 { width: 50%; margin: 0 auto; border: 4px solid steelblue; padding: 40px;}
+	.form-wrap > p { margin: 30px 0 50px; font-size: 15px; font-weight: bold; }
 </style>
 
 <div class="section-title">
@@ -22,6 +23,9 @@
 		<c:if test="${fObj != '0'}">
 			<h1>ID/PW 찾기 결과</h1>
 			<h3>${fObj}: ${result}</h3>
+			<c:if test="${fObj == 'PW'}">
+				<p>임시 비밀번호가 발급되었습니다. 로그인 후 꼭 변경해주세요!</p>
+			</c:if>
 		</c:if>
 		<button id="btnMainPage" style="margin-left: 20px;">메인</button>
 		<button id="btnLoginPage" style="margin-right: 20px;">로그인</button>

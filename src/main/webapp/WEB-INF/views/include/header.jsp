@@ -7,20 +7,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>宇宙魚缸·Univish-Bowl</title>
+<title>宇宙魚缸·Uni-Bowl</title>
 <link href="${pageContext.request.contextPath}/resources/css/user/common.css" type="text/css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script>
-	$(function(){
-		$(".nav > ul > li:eq(1)").click(function(){
-			if($(".sub-nav").css("display") == "none") {
-				$(".sub-nav").slideDown();
-			} else {
-				$(".sub-nav").slideUp();
-			}
-		})
-	})
-</script>
 </head>
 <body>
 	<div id="container">
@@ -45,20 +34,26 @@
 				</ul>
 			</div>
 			
+			<div class="qRsv">
+				<div class="ribbon-wrapper">
+					<div class="ribbon-front">
+						<a href="${pageContext.request.contextPath}/user/rsv/step01">RESERVATION</a>
+					</div>
+					<div class="ribbon-edge-topleft"></div>
+					<div class="ribbon-edge-topright"></div>
+					<div class="ribbon-edge-bottomleft"></div>
+					<div class="ribbon-edge-bottomright"></div>
+					<div class="ribbon-back-left"></div>
+				</div>
+			</div>
+			
 			<div class="header nav">
 				<ul>
-					<li><a href="${pageContext.request.contextPath}">HOME</a></li>
-					<li>
-						<a>ABOUT</a>
-						<ul class="sub-nav">
-							<li><a href="#">UNIVISH-BOWL</a></li>
-							<li><a href="#">THEATER</a></li>
-							<li><a href="#">PROGRAM</a></li>
-						</ul>
-					</li>
-					<li><a href="${pageContext.request.contextPath}/admin/notice/list">NOTICE</a></li>
-					<li><a href="${pageContext.request.contextPath}/user/qna/list">QnA</a></li>
-					<li><a href="#">ONLINE SHOP</a></li>
+					<li><a href="#">PROGRAM</a></li>
+					<li><a href="#">THEATER</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/qna/list">Q＆A</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/notice/list">NOTICE</a></li>
+					<li><a href="#">UNI-BOWL？</a></li>
 				</ul>
 			</div>
 		</div>

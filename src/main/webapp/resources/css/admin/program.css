@@ -200,13 +200,15 @@ th {
     margin: 2px 2px 2px 0;
     padding: 6px 9px 5px 9px;
     text-decoration: none;
-    background: #0161b4;
 }
 .pagination > li > a {
-    color: #fff;
+    color: #444;
 }
-.pagination .current{
+.pagination .active{
     padding: 6px 9px 5px 9px;
     font-weight: bold;
-    background: #0950E8;
+    background: #5271C4;
+}
+.pagination .active a {
+	color: #eee;
 }

@@ -16,6 +16,8 @@ public interface QnAService {
 	public List<QnAVO> list();
 	public List<QnAVO> listSearch(SearchCriteria cri);
 
+	public List<Integer> listCateCnt();
+
 	public int qnaCnt();
 	public int listSearchCnt(SearchCriteria cri);
 	

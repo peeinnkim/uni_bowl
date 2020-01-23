@@ -185,7 +185,6 @@ textarea {
 }
 .read-title > h1 {
     font-size: 35px;
-    font-weight: normal;
 }
 .category {
 	display: block;
@@ -209,13 +208,18 @@ dt{
 dd {
 	display: inline-block;
     color: #555;
+    font-weight: 600;
+    font-size: 15px;
 }
 .read-content {
 	padding: 45px 30px 50px;
     border-bottom: 1px solid #ccc;
-    font-size: 18px;
+    font-size: 15px;
     line-height: 1.8;
     word-break: break-all;
+}
+.read-content > pre {
+	min-height: 200px;
 }
 .read-content > h5 {
 	letter-spacing: 0.05em;
@@ -277,6 +281,8 @@ dd {
 }
 .reply-input {
 	overflow: hidden;
+	width: 98%;
+	margin: 0 auto;
 }
 .reply-input > textarea {
 	width: 90%;
@@ -285,28 +291,29 @@ dd {
 	border: none;
 	float: left;
 }
-.reply-input > a {
-	float: left;
-	height: 45px;
-	margin-left: 11px;
-	padding: 12px;
-	line-height: 45px;
-	background-color: #fff;
+.reply-input > #addReply {
+    float: right;
+    height: 40px;
+    margin-left: 11px;
+    margin-top: 9px;
+    padding: 12px;
+    line-height: 45px;
+    background-color: #fff;
     border: 1px solid #888;
     color: #888;
     cursor: pointer;
 }
 .reply-list-wrap {
 	width: 100%;
-	background: pink;
 }
 .reply-list {
 	width: 98%;
 	margin: 15px auto;	
 }
 .reply-list > .reply-li {
-	border: 2px solid black;
-	padding: 20px 25px 15px;
+	border-top: 1px solid silver;
+    border-bottom: 1px solid silver;
+    padding: 20px 25px 15px;
 }
 .reply-li > div:first-child {
 	overflow: hidden;
@@ -315,29 +322,37 @@ dd {
 	font-size: 16px;
 	font-weight: bold;
 	color: #0161b4;
+	margin-left: 15px;
 }
-.reply-list > li dl {
+.reply-li dl {
 	margin-left: 10px;
 	font-style: normal;
 	font-size: 12px;
 }
+.reply-li dd {
+	font-size: 10px;
+}
 .reply-content > pre {
 	width: 98%;
-	background: yellow;
-	height: 45px;
+    height: 85px;
     padding: 10px;
     margin: 9px 0;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 25px;
+    overflow: auto;
+    background: rgba(168,200,255,0.6);
 }
 .reply-content > .mod-txt {
 	width: 98%;
-	height: 45px;
+    height: 85px;
     padding: 10px;
     margin: 9px 0;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 25px;
     display: none;
+    background: rgba(255,186,236,0.6);
+    border-bottom: none;
+    overflow: auto;
 }
 .top-btn-wrap {
 	float: right;

@@ -3,48 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<link href="resources/css/admin/common.css" type="text/css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
 	<div id="container">
 		<div class="header">
 			<h1>INTRANET</h1>
+			<span id="goHome"></span>
 		</div>
 
-<!-- 		<div class="intra-nav">
+ 		<div class="intra-nav">
 			<ul>
+				<li class="liSec">일반</li>
 				<li><a href="#">매출관리</a></li>
-				<li><a href="#">예약관리</a></li>
-				<li><a href="#">상영관관리</a></li>
 				<li><a href="#">회원관리</a></li>
+				<li><a href="#">예약관리</a></li>
+				<li class="liSec">상영</li>
+				<li><a href="#">상영관관리</a></li>
+				<li><a href="#">프로그램관리</a></li>
+				<li><a href="#">상영스케쥴관리</a></li>
+				<li class="liSec">게시판</li>
+				<li><a href="#">공지관리</a></li>
+				<li><a href="#">문의관리</a></li>
 			</ul>
-		</div> -->
+		</div> 
 
 		<div class="intra-content">	
 		
 		
 <div class="content-wrap">
-	 <h2>인트라넷 로그인</h2> 
 	<div class="cont-center">
-		<form id="frm" action="loginPost" method="post" onsubmit="return validCheck()">
-			<p>
-				<label>ID</label>
-				<input type="text" name="mId" value="mlmlml">
-			</p>
-			<p>
-				<label>PASSWORD</label>
-				<input type="password" name="mPw" value="mlml3434">
-				<input type="submit" value="LOGIN">
-			</p>
-			<p class="mMenu-wrap">
-				<a href="${pageContext.request.contextPath}/user/member/join">JOIN</a>
-				<a href="${pageContext.request.contextPath}/user/member/findInfo">FIND ID/PW</a>
-			</p>
-			<p class="error">
-				[ERROR] 비밀번호가 존재하지 않습니다.
-			</p>
-		</form>	
 	</div>
 </div>			
 			

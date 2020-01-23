@@ -72,7 +72,7 @@
 			orgThNo : orgThNo,
 			orgStime: orgStime,
 			orgEtime: orgEtime
-		};
+		};          
 		
 		$.ajax({
 			url: "step01",

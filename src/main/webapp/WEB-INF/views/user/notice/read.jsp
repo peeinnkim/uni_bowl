@@ -50,11 +50,7 @@
 		</div>
 		
 		<div class="read-footer">
-			<a href="${pageContext.request.contextPath}/admin/notice/list" class="btn btn-line">LIST</a>
-			<div class="footer-link">
-				<a href="${pageContext.request.contextPath}/admin/notice/modify?ntNo=${nt.ntNo}">MODIFY</a>
-				<a href="${pageContext.request.contextPath}/admin/notice/remove?ntNo=${nt.ntNo}">REMOVE</a>
-			</div>
+			<a href="${pageContext.request.contextPath}/user/notice/list" class="btn btn-line">LIST</a>
 		</div>
 		
 		<div class="modal-wrap"> <!-- 이미지 클릭시 나오는 모달창 -->

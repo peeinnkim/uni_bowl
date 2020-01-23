@@ -66,6 +66,10 @@
 		select count(*) from t_qna;
 	</select>
 	
+	<select id="selectQnACate" resultType="int">
+		select count(qna_category) from t_qna group by qna_category;
+	</select>
+	
 	<!-- SEARCH -->
 	<sql id="search">
 		<if test='searchType == "t"'>

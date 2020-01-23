@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../../include/header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/admin/program.css" type="text/css" rel="stylesheet">
 <style>
@@ -11,7 +11,7 @@
 <div class="content-wrap">
 	<div class="cont-center">
 		<div class="menu-wrap">
-			<a href="${pageContext.request.contextPath}/admin/intranet/theater/regist" id="addPg"></a>
+			<a href="${pageContext.request.contextPath}/admin/theater/regist" id="addPg"></a>
 		</div>
 		
 		<table>
@@ -28,12 +28,12 @@
 			<c:forEach var="th" items="${list}">
 				<tr onclick="ck()">
 					<td>${th.thNo}</td>
-					<td><a href="${pageContext.request.contextPath}/admin/intranet/theater/modify?thNo=${th.thNo}">${th.thNm} 관</a></td>
+					<td><a href="${pageContext.request.contextPath}/admin/theater/modify?thNo=${th.thNo}">${th.thNm} 관</a></td>
 					<td>${th.thSeatCnt} 석</td>
 					<td>${th.thFloor} 층</td>
 					<td><a href="#">상영표 보기</a></td>
-					<td><a href="${pageContext.request.contextPath}/admin/intranet/theater/seat?thNo=${th.thNo}">좌석관리</a></td>
-					<td><a href="${pageContext.request.contextPath}/admin/intranet/theater/remove?thNo=${th.thNo}" class="thDel"></a></td>
+					<td><a href="${pageContext.request.contextPath}/admin/theater/seat?thNo=${th.thNo}">좌석관리</a></td>
+					<td><a href="${pageContext.request.contextPath}/admin/theater/remove?thNo=${th.thNo}" class="thDel"></a></td>
 				</tr>
 				<tr class="thImg-wrap">
 					<td colspan="7">
@@ -66,5 +66,5 @@
 	}
 </script>
 
-<%@ include file="../../include/footer.jsp" %>
+<%@ include file="../include/footer.jsp" %>
 

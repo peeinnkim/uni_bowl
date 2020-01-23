@@ -30,10 +30,10 @@
 	    font-weight: bold;
 	}
 	.on {
-		background: slategray;
+		background: #5271C4;
 	}
 	.on > a {
-		color: white;
+		color: #eee;
 	}
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/getSearchList.js"></script>
@@ -44,9 +44,9 @@
 	<div class="cont-center">
 		<div>
 			<ul id="mem-sel">
-				<li><a href="${pageContext.request.contextPath}/admin/intranet/member?code=0">회원</a></li>
-				<li><a href="${pageContext.request.contextPath}/admin/intranet/member?code=1">비회원</a></li>
-				<li><a href="${pageContext.request.contextPath}/admin/intranet/member?code=2">관리자</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/gnr/member?code=0">회원</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/gnr/member?code=1">비회원</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/gnr/member?code=2">관리자</a></li>
 			</ul>
 			
 			<div class="search-keyword">

@@ -2,7 +2,7 @@
 <%@page import="com.peeinn.domain.org.OrgResultVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../../include/header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/admin/calendarView.css" type="text/css" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/resources/js/calendar.js"></script>
@@ -62,7 +62,7 @@
 							<option>${m}</option>
 						</c:forEach>
 					</select>
-					<input type="hidden" name="tempStartTime" value="11:00">
+					<input type="text" name="tempStartTime" value="11:00">
 					<input type="hidden" name="tempEndTime">
 				</p>
 				<p>
@@ -94,7 +94,7 @@
 	<div class="list-title" data-no="{{org.orgNo}}">
 		<span data-pNo="{{pg.pgNo}}" data-rTime="{{pg.pgTime}}">{{pg.pgTitle}}</span>
 	</div>
-	<a href="${pageContext.request.contextPath}/admin/intranet/org/remove?orgNo={{org.orgNo}}" class="delX"></a>
+	<a href="${pageContext.request.contextPath}/admin/org/remove?orgNo={{org.orgNo}}" class="delX"></a>
 </li>
 {{/each}}
 </script>
@@ -150,9 +150,9 @@
 	
 	/* 프로그램 선택창 띄우기 */
 	$("#btnChoicePg").click(function(){
-		window.open("${pageContext.request.contextPath}/admin/intranet/program/pgChoice", 
+		window.open("${pageContext.request.contextPath}/admin/program/pgChoice", 
 					"프로그램 선택", 
-					"width=450, height=500, left=600, top=200"); 
+					"width=550, height=640, left=600, top=200"); 
 	})
 	
 	/* 새 창에서 보낸 값 받기 */
@@ -280,6 +280,7 @@
 		var sTime = $(this).closest("li").find(".sTime").text().split(":");
 		$("#ipHour").val(sTime[0]);
 		$("#ipMinute").val(sTime[1]);
+		changeTime();
 
 		//수정모드 전환
 		var orgNo = $(this).attr("data-no");
@@ -292,5 +293,5 @@
 	
 </script>
 
-<%@ include file="../../include/footer.jsp" %>
+<%@ include file="../include/footer.jsp" %>
 

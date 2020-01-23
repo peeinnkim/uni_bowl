@@ -11,9 +11,13 @@
 	</resultMap>
 	
 	<resultMap type="StInfoVO" id="siResult">
+		<id property="siSt.stNo" column="i_seat" />
 		<result property="siRsv" column="i_rsv" />
-		<result property="siOrg" column="i_org" />
-		<association property="siSt" resultMap="seatResult" />
+		<result property="siOrg" column="i_org" />		
+		<result property="siSt.stNm" column="st_nm" />
+		<result property="siSt.stThNo" column="i_theater" />
+		<result property="siSt.stSgNo" column="i_seatGrade" />
+		<result property="siSt.stOrgNo" column="i_org" />
 	</resultMap>
 	
 	<insert id="insertSt">

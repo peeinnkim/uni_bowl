@@ -79,13 +79,14 @@
 		
 		<div class="reply-wrap">
 			<div class="reply-input">
-				<textarea id="rpContent"></textarea>
+				<h4>댓글 입력</h4>
+				<textarea id="rpContent" placeholder="댓글을 입력해주세요."></textarea>
 				<a id="addReply">등록</a>
 			</div>
 			
 			<div class="reply-list-wrap">
 				<ul class="reply-list">
-<!-- 					<li>
+<!-- 					<li class="reply-li">
 						<div>
 							<span class="replyer">관리자</span>
 							<dl>

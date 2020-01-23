@@ -19,6 +19,8 @@ public interface QnADAO {
 
 	public List<QnAVO> selectQnAList();
 	public List<QnAVO> listSearch(SearchCriteria cri);
+	
+	public List<Integer> selectQnACate();
 
 	public int getTotalQnACnt();
 	public int listSearchCnt(SearchCriteria cri);

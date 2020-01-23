@@ -42,27 +42,77 @@ button {
 	height: 100%;
 	background: #eee;
 	overflow: auto;
+	position: relative;
 }
 .header {
 	width: 100%;
-	height: 10%;
-	background: steelblue;
+	height: 100px;
 	text-align: center;
 	margin-bottom: 20px;
+	background: linear-gradient(-225deg, #5271C4 0%, #B19FFF 48%, #ECA1FE 100%);
+	position: relative;
+}
+.header > h1 {
+	letter-spacing: 0.45em;
+	color: #eee;
+	line-height: 100px;
+}
+.header > span {
+	background: url("../../img/icon/space.png") no-repeat;
+    display: inline-block;
+    background-size: contain;
+    cursor: pointer;
+    width: 55px;
+    height: 55px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    filter: invert(1);
 }
 .intra-nav {
 	width: 12%;
-	float: left;
-	margin: 20px 0 0 30px;
-	background: slateGray;
+	height: 100%;
+	position: fixed;
+	left: 40px;
+	top: 0;
 	z-index: 100;
+	background: #5271C4;
+	box-shadow: 0 0 30px rgba(0, 0, 0, .1);
 }
-.intra-nav > ul > li {
-	padding: 15px 0;
+.intra-nav > ul {
+	margin-top: 150px;
+}
+.intra-nav > ul > li:not(.liSec) {
+	padding: 18px 0;
 	text-align: center;
 }
-.intra-nav > ul > li > a {
+.intra-nav > ul > li:not(.liSec) > a {
+	font-weight: 600;
+    display: block;
+    color: #eee;
+    letter-spacing: 0.1em;
+}
+.liSec {
+	padding: 6px 0;
+	background: #eee;
+}
+.liSec {
 	font-weight: bold;
+	font-size: 15px;
+	text-align: center;
+	letter-spacing: 0.15em;
+}
+.intra-nav > ul > li:not(.liSec):hover {
+	background: rgba(238,238,238,0.6);	
+}
+.intra-nav > ul > li:not(.liSec):hover > a {
+	color: #5271C4;
+}
+.liOn {
+	background: rgba(238,238,238,0.8);	
+}
+.liOn > a {
+	color: #444 !important;
 }
 .intra-content {
 	width: 80%;
@@ -72,13 +122,15 @@ button {
 	overflow: auto;
 }
 .intra-content > h2 {
-    width: 100%;
+    width: 60%;
     text-align: center;
-    margin-bottom: 40px;
+    margin: 0 auto 40px;
     padding: 10px 0;
-    background: slategray;
-    color: #eee;
+	border-bottom: 4px dashed #5271C4;
+    color: #5271C4;
     letter-spacing: 0.5em;
+    font-weight: bold;
+    font-size: 1.7em;
 }
 .content-wrap {
 	width: 100%;

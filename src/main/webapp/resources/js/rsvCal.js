@@ -127,7 +127,7 @@
 						var $divInfo = $("<div>").addClass("list-info");
 						var $divListBox = $("<div>").addClass("list-box");
 						
-						$infoImg.attr("src", pName+"/admin/notice/displayFile?fileName="+res.list[sum].pg.pgThumb);
+						$infoImg.attr("src", pName+"/admin/displayFile?fileName="+res.list[sum].pg.pgThumb);
 						$divImg.append($infoImg);
 						$h1Txt.append(res.list[sum].pg.pgTitle);
 						$pTxt.append(res.list[sum].pg.pgDetail);
@@ -155,10 +155,10 @@
 							$timeH3.append(h[0] + ":" + h[1]);
 							$timeEm.append("~ " + m[0] + ":" + m[1]);
 							$timeP.append("<span>13</span> / 30席");
-							
-							$ipOrgNo.append(res.list[sum].org.orgNo);
-							$ipOrgPgNo.append(res.list[sum].pg.pgNo);
-							$ipOrgThNo.append(res.list[sum].th.thNo); 
+							         
+							$ipOrgNo.val(res.list[sum].org.orgNo);
+							$ipOrgPgNo.val(res.list[sum].pg.pgNo);
+							$ipOrgThNo.val(res.list[sum].th.thNo); 
 							
 							$divTimeBox.append($timeB).append($timeH3).append($timeEm).append($timeP);
 							$divTimeBox.append($ipOrgNo).append($ipOrgPgNo).append($ipOrgThNo);

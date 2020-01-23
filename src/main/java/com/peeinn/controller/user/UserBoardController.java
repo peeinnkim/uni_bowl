@@ -31,11 +31,12 @@ import com.peeinn.domain.QnAAttachVO;
 import com.peeinn.domain.QnAVO;
 import com.peeinn.domain.paging.PageMaker;
 import com.peeinn.domain.paging.SearchCriteria;
+import com.peeinn.service.NoticeService;
 import com.peeinn.service.QnAService;
 import com.peeinn.util.UploadFileUtils;
 
 @Controller
-@RequestMapping("/user/qna/")
+@RequestMapping("/user/")
 public class UserBoardController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserBoardController.class);
@@ -43,10 +44,12 @@ public class UserBoardController {
 	private String userUploadPath;
 	@Autowired
 	private QnAService qnaService;
+	@Autowired
+	private NoticeService ntService;
 
 	/* ------------------- [ QNA PART ] ------------------- */
 
-	@RequestMapping(value="list", method=RequestMethod.GET)
+	@RequestMapping(value="qna/list", method=RequestMethod.GET)
 	public void qnaList(Model model, SearchCriteria cri) {
 		logger.info("------------ [qnaList GET] ------------");
 		
@@ -59,21 +62,21 @@ public class UserBoardController {
 		model.addAttribute("cri", cri);
 	}  
 	
-	@RequestMapping(value="read", method=RequestMethod.GET)
+	@RequestMapping(value="qna/read", method=RequestMethod.GET)
 	public void qnaReadGet(Model model, int qnaNo) {
 		logger.info("------------ [qnaRead GET] ------------");
 		
 		model.addAttribute("qna", qnaService.read(qnaNo));
 	}
 	
-	@RequestMapping(value="regist", method=RequestMethod.GET)
+	@RequestMapping(value="qna/regist", method=RequestMethod.GET)
 	public String qnaRegistGet() {
 		logger.info("------------ [qnaRegist GET] ------------");
 		
 		return "user/qna/inputForm";
 	}
 
-	@RequestMapping(value="regist", method=RequestMethod.POST)
+	@RequestMapping(value="qna/regist", method=RequestMethod.POST)
 	public void qnaRegistPost(QnAVO vo, List<MultipartFile> imageFiles, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		logger.info("------------ [qnaRegist POST] ------------");
 		logger.info("controller vo ->>>>>>>" + vo);
@@ -106,7 +109,7 @@ public class UserBoardController {
 		response.sendRedirect("list");
 	}
 	
-	@RequestMapping(value="modify", method=RequestMethod.GET)
+	@RequestMapping(value="qna/modify", method=RequestMethod.GET)
 	public String modifyGet(Model model, int qnaNo) {
 		logger.info("------------ [modify GET] ------------");
 		
@@ -115,7 +118,7 @@ public class UserBoardController {
 		return "/user/qna/inputForm";
 	}
 	
-	@RequestMapping(value="modify", method=RequestMethod.POST)
+	@RequestMapping(value="qna/modify", method=RequestMethod.POST)
 	public String modifyPost(Model model, QnAVO vo, String[] delFiles, List<MultipartFile> imageFiles) throws IOException {
 		logger.info("------------ [modify POST] ------------");
 		
@@ -153,7 +156,7 @@ public class UserBoardController {
 		return "redirect:/user/qna/read?qnaNo=" + qna.getQnaNo();
 	}
 	
-	@RequestMapping(value="remove", method=RequestMethod.GET)
+	@RequestMapping(value="qna/remove", method=RequestMethod.GET)
 	public void removeNotice(int qnaNo, HttpServletResponse response) throws IOException {
 		logger.info("------------ [removeNotice POST] ------------");
 		
@@ -168,7 +171,7 @@ public class UserBoardController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="searchList", method=RequestMethod.POST)
+	@RequestMapping(value="qna/searchList", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> searchList(SearchCriteria cri){
 		ResponseEntity<Map<String, Object>> entity = null;
 		
@@ -194,6 +197,29 @@ public class UserBoardController {
 		
 		return entity;
 	}
+	
+	
+	/* ------------------- [ NOTICE PART ] ------------------- */
+	@RequestMapping(value="notice/list", method=RequestMethod.GET)
+	public void noticeList(Model model, SearchCriteria cri) {
+		logger.info("------------ [noticeList GET] ------------");
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(ntService.listSearchCnt(cri));
+		
+		model.addAttribute("list", ntService.listSearch(cri));
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("cri", cri);
+	}
+	
+	@RequestMapping(value="notice/read", method=RequestMethod.GET)
+	public void noticeRead(Model model, int ntNo) {
+		logger.info("------------ [noticeRead GET] ------------");
+		
+		model.addAttribute("nt", ntService.read(ntNo));
+	}
+	
 	
 	/* ------------------- [ UPLOAD PART ] ------------------- */
 	@RequestMapping(value="displayFile", method=RequestMethod.GET)

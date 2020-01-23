@@ -78,4 +78,9 @@ public class QnADAOImpl implements QnADAO {
 		return sqlSession.selectOne(namespace + ".listSearchCnt", cri);
 	}
 
+	@Override
+	public List<Integer> selectQnACate() {
+		return sqlSession.selectList(namespace + ".selectQnACate");
+	}
+
 }// QnADAOImpl

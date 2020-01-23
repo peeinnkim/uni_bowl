@@ -2,7 +2,7 @@
 <%@page import="com.peeinn.domain.SeatGradeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../../include/header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/admin/theater.css" type="text/css" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/resources/js/registTheater.js"></script>
@@ -115,5 +115,5 @@
 </div>
 
 
-<%@ include file="../../include/footer.jsp" %>
+<%@ include file="../include/footer.jsp" %>
 

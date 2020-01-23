@@ -42,7 +42,7 @@ $(function(){
 		
 		if(thNo == 0) { //thNo가 없으면 추가
 			$.ajax({
-				url: pName + "/admin/intranet/theater/regist",
+				url: pName + "/admin/theater/regist",
 				type: "post",
 				data: data,
 				dataType: "json",
@@ -71,9 +71,9 @@ $(function(){
 			var url;
 			
 			if(thSeatCnt == seatCntSave) {
-				url = pName + "/admin/intranet/theater/modify/0";
+				url = pName + "/admin/theater/modify/0";
 			} else {
-				url = pName + "/admin/intranet/theater/modify/1";
+				url = pName + "/admin/theater/modify/1";
 			}
 			
 			$.ajax({
@@ -86,11 +86,11 @@ $(function(){
 					
 					if(res.result == "success") {
 						alert("수정되었습니다.");
-						location.href = pName + "/admin/intranet/theater/list";
+						location.href = pName + "/admin/theater/list";
 						
 					} else if (res.result == "needStMod") {
 						alert("수용인원이 변경되었습니다. 좌석변경이 필요합니다.");
-						location.href = pName + "/admin/intranet/theater/seat?thNo="+thNo;
+						location.href = pName + "/admin/theater/seat?thNo="+thNo;
 					}
 				},
 				error: function(e){
@@ -200,7 +200,7 @@ $(function(){
 		})
 
 		$.ajax({
-			url: pName + "/admin/intranet/theater/seat/regist",
+			url: pName + "/admin/theater/seat/regist",
 			type: "post",
 			data: JSON.stringify(stObjArr),
 			dataType: "text",
@@ -209,7 +209,7 @@ $(function(){
 				console.log(res);
 				
 				if(res == "success") {
-					location.href = pName + "/admin/intranet/theater/modifyRowAndCol?row=" + $("#rows").val() + "&col=" + $("#cols").val() + "&thNo=" + $("#cThNo").val();
+					location.href = pName + "/admin/theater/modifyRowAndCol?row=" + $("#rows").val() + "&col=" + $("#cols").val() + "&thNo=" + $("#cThNo").val();
 				}
 			},
 			error: function(e){

@@ -52,12 +52,16 @@ button {
 
 .header {
 	width: 100%;
-	height: 10%;
-	background: steelblue;
+	height: 100px;
 	text-align: center;
 	margin-bottom: 20px;
+	background: linear-gradient(-225deg, #5271C4 0%, #B19FFF 48%, #ECA1FE 100%);
 }
-
+.header > h1 {
+	letter-spacing: 0.45em;
+	color: #eee;
+	line-height: 100px;
+}
 .content-wrap {
 	width: 37%;
 	margin: 30px auto;

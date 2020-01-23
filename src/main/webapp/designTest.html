@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="resources/css/user/common.css" type="text/css" rel="stylesheet">
-<link href="resources/css/user/member.css" type="text/css" rel="stylesheet">
+<link href="resources/css/user/board.css" type="text/css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(function(){
-		$(".nav > ul > li:eq(1)").click(function(){
+		$(".has-sub").click(function(){
 			if($(".sub-nav").css("display") == "none") {
 				$(".sub-nav").slideDown();
 			} else {
@@ -32,20 +32,26 @@
 				</ul>
 			</div>
 			
+			<div class="qRsv">
+				<div class="ribbon-wrapper">
+					<div class="ribbon-front">
+						<a href="#">RESERVATION</a>
+					</div>
+					<div class="ribbon-edge-topleft"></div>
+					<div class="ribbon-edge-topright"></div>
+					<div class="ribbon-edge-bottomleft"></div>
+					<div class="ribbon-edge-bottomright"></div>
+					<div class="ribbon-back-left"></div>
+				</div>
+			</div>
+			
 			<div class="header nav">
 				<ul>
-					<li><a href="#">HOME</a></li>
-					<li>
-						<a>ABOUT</a>
-						<ul class="sub-nav">
-							<li><a href="#">UNIVISH BOWL</a></li>
-							<li><a href="#">THEATER</a></li>
-							<li><a href="#">PROGRAM</a></li>
-						</ul>
-					</li>
+					<li><a href="#">PROGRAM</a></li>
+					<li><a href="#">THEATER</a></li>
+					<li><a href="#">Q＆A</a></li>
 					<li><a href="#">NOTICE</a></li>
-					<li><a href="#">QnA</a></li>
-					<li><a href="#">ONLINE SHOP</a></li>
+					<li><a href="#">UNI-BOWL？</a></li>
 				</ul>
 			</div>
 		</div>
@@ -58,20 +64,97 @@
 </div>
 
 <div class="content-area">
-	<h2>ID / PW 찾기</h2>
-	<div class="form-wrap" style="background: none; text-align: center;">
-		<div class="find-menu" style="margin-right: 80px;">
-			<span><small>FIND</small>ID</span>
-			<h2>아이디 찾기</h2>
-			<p>가입당시 입력한<br>이메일 주소로 아이디 찾기</p>
+	<div class="read-wrap">
+		<div class="read-title">
+			<h1>
+			<span class="category">예약문의</span>
+			울랄라울라 큐앤에이
+			</h1>
+			<div class="title-footer">       
+				<dl>
+					<dt>등록일</dt>
+					<dd>2020-01-01 11:00:00</dd>
+				</dl>
+				<dl>
+					<dt>수정일</dt>
+					<dd>2020-01-01 11:00:00</dd>
+				</dl>
+				<dl>
+					<dt>조회수</dt>
+					<dd>352</dd>
+				</dl>
+			</div>
 		</div>
-		<div class="find-menu" style="margin-left: 80px;">
-			<span><small>FIND</small>PW</span>
-			<h2>비밀번호  찾기</h2>
-			<p>가입당시 입력한 정보로<br>비밀번호 찾기</p>
+		
+		<div class="read-content">
+			<pre>내용입니다 애용입니다 야용입니다</pre>
+			
+			<h5>첨부파일</h5>
+			<ul class="imgFiles-wrap">
+				<li><!-- 섬네일 디스플레이 -->
+					<span class="thumb-img" data-src="${qa.qaOrigin}">
+					</span>
+				</li>
+			</ul>
+		</div>
+		
+		<div class="read-footer">
+			<a href="${pageContext.request.contextPath}/user/qna/list" class="btn btn-line">LIST</a>
+			<div class="footer-link">
+				<a href="${pageContext.request.contextPath}/user/qna/modify?qnaNo=${qna.qnaNo}">MODIFY</a>
+				<a href="${pageContext.request.contextPath}/user/qna/remove?qnaNo=${qna.qnaNo}" id="delQnA">REMOVE</a>
+			</div>
+		</div>
+		
+		<div class="modal-wrap"> <!-- 이미지 클릭시 나오는 모달창 -->
+			<div class="modal-img"></div>
+		</div>
+		
+		<div class="reply-wrap">
+			<div class="reply-input">
+				<h4>댓글 입력</h4>
+				<textarea id="rpContent" placeholder="댓글을 입력해주세요."></textarea>
+				<a id="addReply">등록</a>
+			</div>
+			
+			<div class="reply-list-wrap">
+				<ul class="reply-list">
+ 					<li class="reply-li">
+						<div>
+							<span class="replyer">관리자</span>
+							<dl>
+								<dt>등록일</dt>
+								<dd>
+									2020-01-03 12:22:30
+								</dd>
+							</dl>
+							<dl>
+								<dt>수정일</dt>
+								<dd>
+									2020-01-03 12:22:30
+								</dd>
+							</dl>
+							<span class="top-btn-wrap">
+								<a class="modBtn"></a>
+								<a class="delBtn"></a>
+							</span>
+						</div>
+						
+						<div class="reply-content">
+							<pre>가나다라마바사 가나다라<br>가나다라</pre>
+							<textarea class="mod-txt">가나다라마바사 가나다라</textarea>
+						</div>
+						
+						<div class="reply-btn">
+							<a class="modReply">수정</a>
+							<a class="modCancel">취소</a>
+						</div>
+					</li> 
+				</ul>
+			</div>
 		</div>
 	</div>
-</div>
+</div>	
 
 
 			</div>

@@ -3,63 +3,40 @@
 <%@ include file="../../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/user/board.css" type="text/css" rel="stylesheet">
-<style>
-	.list-title {
-		width: 35%;
-		text-align: center;
-	}
-</style>
 
 <div class="section-title">
-	<h1>QNA</h1>
+	<h1>NOTICE</h1>
 </div>
 
 <div class="content-area">
 	<div class="search-wrap">
-		<div class="search-category">
-			<select>
-				<option>분류</option>
-				<option value="1">예약문의</option>
-				<option value="2">시설문의</option>
-				<option value="3">기타문의</option>
-				<option value="4">제안하기</option>
-			</select>
-		</div>
-		
-		<div class="search-keyword">
+		<div class="search-keyword">                         
 			<select id="searchType">
 				<option>- - - - - - - -  All  - - - - - - - -</option>
 				<option value="t" ${cri.searchType == 't'? 'selected': ''}>Title</option>
 				<option value="c" ${cri.searchType == 'c'? 'selected': ''}>Content</option>  
-				<option value="w" ${cri.searchType == 'w'? 'selected': ''}>Writer</option>
 				<option value="tc" ${cri.searchType == 'tc'? 'selected': ''}>Title or Content</option>
-				<option value="tw" ${cri.searchType == 'tw'? 'selected': ''}>Content or Writer</option>
-				<option value="tcw" ${cri.searchType == 'tcw'? 'selected': ''}>Title or Content or Writer</option>
 			</select>
 			<input type="text" id="keyword" value="${cri.keyword}">
 			<button id="btnSearch"></button>
 		</div>
-	</div>
+	</div>  
 	
 	<table id="main-tb">
 		<tr>
 			<th>NO</th>
-			<th>CATEGORY</th>
 			<th>TITLE</th>
 			<th>WRITER</th>
 			<th>DATE</th>
 			<th>CNT</th>
 		</tr>
-		
-		<c:forEach var="qna" items="${list}">
-			<tr class="added-tr">
-				<td>${qna.qnaNo}</td>
-				<c:set var='reqArr' value='<%=new String[]{"-", "예약문의", "시설문의", "기타문의", "제안하기"} %>' />
-				<td>${reqArr[qna.qnaCategory]}</td>
-				<td class="list-title"><a href="${pageContext.request.contextPath}/user/qna/read?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
-				<td>${qna.qnaWriterId}</td>
-				<td><fmt:formatDate value="${qna.qnaRegDate}" pattern="yyyy-MM-dd"/></td>
-				<td>${qna.qnaViewCnt}</td>
+		<c:forEach var="nt" items="${list}">
+			<tr class="added-tr ${nt.ntSort == 1? 'ntTop-tr': ''}">
+				<td>${nt.ntSort == 1? '<span></span>': nt.ntNo}</td>
+				<td class="list-title"><a href="${pageContext.request.contextPath}/user/notice/read?ntNo=${nt.ntNo}&page=${pageMaker.cri.page}">${nt.ntTitle}</a></td>
+				<td>관리자</td>
+				<td><fmt:formatDate value="${nt.ntRegDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+				<td>${nt.ntViewCnt}</td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -91,24 +68,27 @@
 		<p>${pageMaker.cri.page} / ${pageMaker.totalPager} <small>페이지</small></p>
 	</div>
 	
-	<a href="${pageContext.request.contextPath}/user/qna/regist">등록</a>
+	
 </div>	
 
 
 <script src="${pageContext.request.contextPath}/resources/js/getSearchList.js"></script>
+<!-- HandleBars -->
 <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 <script id="template" type="text/x-handlebars-template">
 {{#list}}
 <tr class="added-tr">
-	<td>{{qnaNo}}</td>
-	<td class="qna-title"><a href="${pageContext.request.contextPath}/user/qna/read?qnaNo={{qnaNo}}">{{qnaTitle}}</a></td>
-	<td>{{qnaWriterId}}</td>
-	<td>{{pDate qnaRegDate}}</td>
-	<td>{{qnaViewCnt}}</td>
+	<td>{{ntNo}}</td>
+	<td class="list-title"><a href="${pageContext.request.contextPath}/admin/notice/read?ntNo={{ntNo}}">{{ntTitle}}</a></td>
+	<td>관리자</td>
+	<td>{{pDateTime ntRegDate}}</td>
+	<td>{{ntViewCnt}}</td>
 </tr>
 {{/list}}
-</script>
-<script>
+</script>	<!-- &page={{pageMaker.cri.page}} -->
+
+<script>	
+	//키워드 검색에 따라 리스트 뿌리기
 	$("#btnSearch").click(function(){
 		var data = { 
 				"searchType": $("#searchType").val(), 
@@ -116,10 +96,8 @@
 				"page": 1, 
 				"perPageNum": 10
 			};
-		
 		getListPage(data);
 	})
 </script>
-
 <%@ include file="../../include/footer.jsp" %>
 

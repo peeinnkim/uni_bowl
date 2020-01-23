@@ -2,7 +2,7 @@
 <%@page import="com.peeinn.domain.SeatGradeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../../include/header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/admin/theater.css" type="text/css" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/resources/js/modifySeat.js"></script>
@@ -83,15 +83,9 @@
 				</c:if>
 				</div>
 			</div>
-			
-			<div>
-				<button type="button" id="mapBtn">맵 테스트</button>
-				<div id="mapTest"></div>
-			</div>
-			
 		</div>
 	</div>
 </div>
 
-<%@ include file="../../include/footer.jsp" %>
+<%@ include file="../include/footer.jsp" %>
 

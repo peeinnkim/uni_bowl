@@ -54,10 +54,11 @@
 /* create seat pre */
 .crt-seat-pre {
 	width: 350px;
-	margin: 10px auto;
+	margin: 30px auto 20px;
 	padding: 30px;
-	background: slategray;
+	background: #5271C4;
 	display: none;
+	color: white;
 }
 .crt-seat-pre > h2 {
 	text-align: center;
@@ -74,7 +75,10 @@
 .seat-div {
 	width: 70%;
 	margin: 20px auto;
-	border: 2px solid black;
+ 	border: 2px;
+    border-style: solid;
+    border-image-slice: 10 !important;
+    border-image: linear-gradient(-225deg, #5271C4 0%, #B19FFF 48%, #ECA1FE 100%);
 	padding: 25px;
 }
 .seat-div > h2 {
@@ -83,6 +87,7 @@
 	letter-spacing: 0.05em;
 	margin: 0 auto 15px;
 	padding-bottom: 8px;
+	color: #5271C4;
 }
 .seat-div > div {
 	overflow: hidden;
@@ -109,13 +114,14 @@ dd {
 	margin: 10px auto 0;
 	padding: 8px 25px;	
 	text-align: center;
-	background: steelblue;
+	background: #5271C4;
 	position: relative;
 }
 .seat-save-wrap > span {
 	font-size: 21px;
     font-weight: bold;
     letter-spacing: 0.25em;
+    color: #eee;
 }
 .ss-btn-wrap {
 	position: absolute;
@@ -128,7 +134,7 @@ dd {
 	width: 70%;
 	margin: 0 auto;
 	padding: 25px;
-	background: blanchedalmond;
+	background: #eee;
 	overflow: hidden;
 }
 #show-seat-wrap > div {

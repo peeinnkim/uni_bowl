@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../../include/header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/admin/program.css" type="text/css" rel="stylesheet">
 <style>
@@ -28,14 +28,7 @@
 				<input type="text" name="pgTime" value="${pg.pgTime}" maxlength="3">분
 			</p>
 			<p>
-				<label>상태</label>
-				<select id="state-sel">
-					<option value="1" ${pg.pgIsRunning == 1? 'selected="selected"' : ''}>상영중</option>
-					<option value="0" ${pg.pgIsRunning == 0? 'selected="selected"' : ''}>상영대기</option>
-				</select>
-				<input type="hidden" name="pgIsRunning" value="${pg.pgIsRunning == null? '1' : pg.pgIsRunning}">
-			</p>
-			<p>
+				<input type="hidden" name="pgIsRunning" value="0">
 				<label>설명</label>
 				<textarea name="pgDetail">${pg.pgDetail}</textarea>
 			</p>
@@ -48,7 +41,7 @@
 				<c:if test="${pg.pgNo != null}">
 					<li>
 						<span class="thumb-img">
-							<img src="${pageContext.request.contextPath}/admin/intranet/displayFile?fileName=${pg.pgThumb}">
+							<img src="${pageContext.request.contextPath}/admin/displayFile?fileName=${pg.pgThumb}">
 							<span class="delX" data-src="${pg.pgThumb}"></span>
 						</span>
 					</li>
@@ -72,5 +65,5 @@
 	})
 </script>
 
-<%@ include file="../../include/footer.jsp" %>
+<%@ include file="../include/footer.jsp" %>
 

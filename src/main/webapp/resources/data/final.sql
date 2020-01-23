@@ -204,6 +204,34 @@ union
 select * from t_seat left join t_rsv_info using(i_seat) where i_theater = 3 and i_org is null
 order by i_seat asc;
 
+select 
+	*
+from t_seat A
+left join t_rsv_info B
+on A.i_seat = B.i_seat
+and B.i_org = 10
+where A.i_theater = 2
+order by A.i_seat asc;
 
+select * from t_seat where i_theater = 1;
+
+select * from t_seat join t_rsv_info using(i_seat) where i_theater = 1 and i_org = 12 union 
+select * from t_seat left join t_rsv_info using(i_seat) where i_theater = 1 and i_org is null 
+order by i_seat asc;
+
+select * from t_member;
+select count(*) from t_org where i_theater=1;
+select * from t_theater;
+select * from t_seat;
+
+select count(*) from t_rsv_info where i_org = 10; -- 결과값이 0보다 크면 예약이 있는 프로그램임
+select * from t_rsv_info join t_seat using(i_seat) where i_theater = 3; -- 결과값이 0보다 크면 예약이 있는 상영관임
+
+select * from t_seat;
+
+select count(qna_category) from t_qna group by qna_category;
+
+select * from t_seat st left join t_rsv_info ri on st.i_seat = ri.i_seat and ri.i_org = 7 where 
+st.i_theater = 3 order by st.i_seat asc; 
 
 

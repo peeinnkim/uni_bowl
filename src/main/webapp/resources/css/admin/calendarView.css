@@ -155,7 +155,10 @@
 	float: right;
 	width: 27%;
 	padding: 30px;
-	background: beige;
+ 	border: 4px;
+    border-style: solid;
+    border-image-slice: 10 !important;
+    border-image: linear-gradient(-225deg, #5271C4 0%, #B19FFF 48%, #ECA1FE 100%);
 	border-radius: 3px;
 	box-shadow: 0 0 5px rgba(0,0,0,.1);
 	position: relative;

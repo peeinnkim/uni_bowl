@@ -37,21 +37,29 @@ input {
 	width: 200px;
 	height: 300px;
 	display: inline-block;
-	border: 3px solid steelblue;
+ 	border: 3px;
+    border-style: solid;
+    border-image-slice: 10 !important;
+    border-image: linear-gradient(-225deg, #5271C4 0%, #B19FFF 48%, #ECA1FE 100%);
 	padding: 30px;
 	overflow: hidden;
 	margin-top: 30px;
 	cursor: pointer;
 }
 
-.find-menu>span {
-	color: steelblue;
+.find-menu > span {
+	background: linear-gradient(-225deg, #5271C4 0%, #B19FFF 48%, #ECA1FE 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 	font-weight: bold;
 	font-size: 6em;
 	position: relative;
 }
 
-.find-menu>span>small {
+.find-menu > span > small {
+	background: linear-gradient(-225deg, #5271C4 0%, #B19FFF 48%, #ECA1FE 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 	position: absolute;
 	top: 0;
 	left: 8px;
@@ -59,12 +67,13 @@ input {
 	letter-spacing: 0.2em;
 }
 
-.find-menu>h2 {
+.find-menu > h2 {
 	letter-spacing: 0.15em;
 	margin-bottom: 17px;
+	color: #5271C4;
 }
 
-.find-menu>p {
+.find-menu > p {
 	font-size: 14px;
 }
 

@@ -26,7 +26,7 @@
 			<c:forEach var="pg" items="${list}">
 				<tr>
 					<td><input type="radio" name="pgCk" data-val="${pg.pgNo}"></td>
-					<td class="poster-wrap"><img src="${pageContext.request.contextPath}/admin/intranet/displayFile?fileName=${pg.pgThumb}"></td>
+					<td class="poster-wrap"><img src="${pageContext.request.contextPath}/admin/displayFile?fileName=${pg.pgThumb}"></td>
 					<td class="title-wrap">${pg.pgTitle}</td>
 					<td class="etc-wrap">${pg.pgTime}분</td>
 				</tr>

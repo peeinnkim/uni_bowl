@@ -9,14 +9,17 @@
 
 <div class="content-area">
 	<div class="form-wrap">
-		<form id="frm" ${mem.mNo == null? 'action="join"': 'action="modify"'} method="post">
+		<form id="frm" ${mem.mNo == null? 'action="join"': 'action="modify"'} method="post" onsubmit="return validCk()">
 			<input type="hidden" name="mNo" value="${mem.mNo == null? 0: mem.mNo}" > 
 			<input type="hidden" name="mCode" value="0" > 
 			<p>
 				<label>ID</label>
 				<input type="text" name="mId" value="${mem.mId}" maxlength="15">
+				<c:if test="${mem.mNo != null}">
+					<button type="button" id="btnDup" onclick="duplicateChk()" style="display:none;">중복확인</button>
+				</c:if>
 				<c:if test="${mem.mNo == null}">
-					<button type="button" onclick="duplicateChk()">중복확인</button>
+					<button type="button" id="btnDup" onclick="duplicateChk()" >중복확인</button>
 				
 				<span class="regInfo">영어, 숫자 6~15자</span>
 				<span class="error">[ERROR] 입력하신 아이디가 형식에 맞지않습니다</span>
@@ -57,8 +60,8 @@
 				</select> 
 				<input type="tel" name="tel2" onchange="getTel()" maxlength="4" value="${p[1]}">
 				<input type="tel" name="tel3" onchange="getTel()" maxlength="4" value="${p[2]}">
-				<input type="hidden" name="mTel">
-				<span class="error">[ERROR] 전화번호는 숫자만 입력 가능합니다</span>
+				<input type="hidden" name="mTel" value="${mem.mTel}">
+				<span class="error">[ERROR] 전화번호를 다시 확인해주세요</span>
 				<br>				
 			</p>
 			<p>
@@ -114,7 +117,7 @@
 	
 	/* -------------- [ 유효성 검사 ] -------------- */
 	//id 유효성 검사
-	$("input[name='mId']").change(function(){
+	$("input[name='mId']").blur(function(){
 		var idReg = /^[a-z0-9]{6,15}$/;
 		regTest($(this), idReg);
 	})
@@ -125,7 +128,7 @@
 	})
 
 	//pw 유효성 검사
-	$("input[name='mPw']").change(function(){
+	$("input[name='mPw']").blur(function(){
 		var pwReg = /^[a-z0-9!@#$%^&*-_]{8,20}$/i;
 		regTest($(this), pwReg);
 	}) 
@@ -134,7 +137,7 @@
 	})
 	
 	//pw2 유효성 검사
-	$("input[name='mPw2']").change(function(){
+	$("input[name='mPw2']").blur(function(){
 		var pw = $("input[name='mPw']").val();
 		if(pw != $(this).val()) {
 			$(this).nextAll(".error").css("display", "inline-block");
@@ -146,7 +149,7 @@
 	})
 	
 	//name 유효성 검사
-	$("input[name='mNm']").change(function(){
+	$("input[name='mNm']").blur(function(){
 		var nmReg = /^[기-힣]{2,5}$/;
 		regTest($(this), nmReg);
 	}) 
@@ -155,7 +158,7 @@
 	})
 	
 	//mail 유효성 검사
-	$("input[name='mMail']").change(function(){
+	$("input[name='mMail']").blur(function(){
 		var mailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 		regTest($(this), mailReg);
 	}) 
@@ -164,13 +167,20 @@
 	})
 	
 	//tel 유효성 검사 -> 다시 해야함
-	$("input[name='mTel']").change(function(){
-		var telReg = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
+	$("input[name='tel2']").blur(function(){
+		var telReg = /^\d{3,4}$/;
 		regTest($(this), telReg);
 	}) 
-	$("input[name='mTel']").focus(function(){
+	$("input[name='tel3']").blur(function(){
+		var telReg = /^\d{4}$/;
+		regTest($(this), telReg);
+	}) 
+	$("input[name='tel2']").focus(function(){
 		getFocus($(this));
-	})
+	}) 
+	$("input[name='tel3']").focus(function(){
+		getFocus($(this));
+	}) 
 	
 	
 	//유효성 검사 메소드
@@ -188,7 +198,7 @@
 	}
 	
 	/* -------------- [ submit전 유효성 검사 ] -------------- */
-	function validCheck(){
+	function validCk(){
 		if(frm.mId.value == "") {
 			alert("아이디를 입력하세요");
 			frm.mId.focus();
@@ -204,14 +214,9 @@
 			frm.mPw2.focus();
 			return false;
 		}
-		if(frm.mName.value == "") {
+		if(frm.mNm.value == "") {
 			alert("이름를 입력하세요");
 			frm.mName.focus();
-			return false;
-		}
-		if(frm.mMail.value == "") {
-			alert("메일주소를 입력하세요");
-			frm.mMail.focus();
 			return false;
 		}
 		if(frm.mTel.value == "") {
@@ -219,11 +224,27 @@
 			frm.mTel.focus();
 			return false;
 		}
-		if($("button[type='button']").css("display") != "none") {
+		if(frm.mMail.value == "") {
+			alert("메일주소를 입력하세요");
+			frm.mMail.focus();
+			return false;
+		}
+		if($("#btnDup").css("display") != "none") {
 			alert("아이디 중복확인을 해주세요");
 			return false;
 		}
-			
+
+		var er = 0;
+		$(".error").each(function(i, obj){
+			if($(obj).css("display") != "none") {
+				er++;
+			}
+		})
+		
+		if(er > 0) {
+			alert("잘못된 입력이 존재합니다. 수정 바랍니다.");
+			return false;
+		}
 	}
 	
 	
