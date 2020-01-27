@@ -3,12 +3,6 @@
 <%@ include file="../../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/user/board.css" type="text/css" rel="stylesheet">
-<style>
-	.list-title {
-		width: 35%;
-		text-align: center;
-	}
-</style>
 
 <div class="section-title">
 	<h1>QNA</h1>
@@ -62,6 +56,10 @@
 				<td>${qna.qnaViewCnt}</td>
 			</tr>
 		</c:forEach>
+				
+		<caption>
+			<a href="${pageContext.request.contextPath}/user/qna/regist">등록</a>
+		</caption>
 	</table>
 	
 	<div class="paging-wrap">
@@ -91,7 +89,6 @@
 		<p>${pageMaker.cri.page} / ${pageMaker.totalPager} <small>페이지</small></p>
 	</div>
 	
-	<a href="${pageContext.request.contextPath}/user/qna/regist">등록</a>
 </div>	
 
 

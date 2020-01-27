@@ -40,6 +40,9 @@ table {
 	width: 90%;
 	margin: 0 auto;
 }
+table tr:hover td {
+	background: rgba(82, 113, 196, 0.3);
+}
 th, td {
 	padding: 20px 5px;
 	text-align: center;
@@ -49,10 +52,37 @@ th, td {
 th {
 	border-top: 2px solid black;
 }
-.list-title {
-	width: 70%;
+caption {
+	caption-side: bottom;
 	text-align: left;
-	text-overflow: ellipsis;
+}
+caption > a {
+    border: 1px solid #5271C4;
+    color: #5271C4;
+	display: inline-block;
+    width: 50px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    overflow: hidden;
+    font-size: 15px;
+    background-color: transparent;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    z-index: 1;
+    vertical-align: middle;
+    margin-top: 5px;
+}
+caption > a:hover {
+	border: 1px solid #5271C4;
+    color: #eee;
+    background-color: #5271C4;
+    transition: 0.7s all ease;
+}
+.list-title {
+	width: 60%;
+ 	text-overflow: ellipsis;
 	overflow: hidden;
 }
 .paging-wrap {
@@ -220,6 +250,7 @@ dd {
 }
 .read-content > pre {
 	min-height: 200px;
+	font-family: 'M PLUS 1p', 'Noto Sans KR', sans-serif;
 }
 .read-content > h5 {
 	letter-spacing: 0.05em;
@@ -341,6 +372,7 @@ dd {
     line-height: 25px;
     overflow: auto;
     background: rgba(168,200,255,0.6);
+	font-family: 'M PLUS 1p', 'Noto Sans KR', sans-serif;
 }
 .reply-content > .mod-txt {
 	width: 98%;
@@ -387,10 +419,15 @@ dd {
     color: #888;
     cursor: pointer;
 }
+.cancelTr, .cancelTr a {
+	background: silver;
+	cursor: default;
+}
+
 
 /* 상단고정 게시물 */
 .ntTop-tr {
-	background: pink;
+	background: rgba(177, 159, 255, 0.4);
 }
 .ntTop-tr > td:first-child > span {
 	width: 22px;

@@ -6,17 +6,6 @@
 <link href="resources/css/user/common.css" type="text/css" rel="stylesheet">
 <link href="resources/css/user/board.css" type="text/css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script>
-	$(function(){
-		$(".has-sub").click(function(){
-			if($(".sub-nav").css("display") == "none") {
-				$(".sub-nav").slideDown();
-			} else {
-				$(".sub-nav").slideUp();
-			}
-		})
-	})
-</script>
 </head>
 <body>
 	<div id="container">
@@ -26,9 +15,9 @@
 			</div>
 			
 			<div class="header mem-menu">
-				<ul class="onLogin">
-					<li class="id-area">mlmlml님 <small>on</small></li>
-					<li>MY PAGE</li>
+				<ul>
+					<li class="id-area onLogin">mlmlml님 <small>on</small></li>
+					<li class="onLogin">MY PAGE</li>
 				</ul>
 			</div>
 			
@@ -60,101 +49,91 @@
 			<div class="inner-section">
 
 <div class="section-title">
-	<h1>dsfds</h1>
+	<h1>QNA</h1>
 </div>
 
 <div class="content-area">
-	<div class="read-wrap">
-		<div class="read-title">
-			<h1>
-			<span class="category">예약문의</span>
-			울랄라울라 큐앤에이
-			</h1>
-			<div class="title-footer">       
-				<dl>
-					<dt>등록일</dt>
-					<dd>2020-01-01 11:00:00</dd>
-				</dl>
-				<dl>
-					<dt>수정일</dt>
-					<dd>2020-01-01 11:00:00</dd>
-				</dl>
-				<dl>
-					<dt>조회수</dt>
-					<dd>352</dd>
-				</dl>
-			</div>
+	<div class="search-wrap">
+		<div class="search-category">
+			<select>
+				<option>분류</option>
+				<option value="1">예약문의</option>
+				<option value="2">시설문의</option>
+				<option value="3">기타문의</option>
+				<option value="4">제안하기</option>
+			</select>
 		</div>
 		
-		<div class="read-content">
-			<pre>내용입니다 애용입니다 야용입니다</pre>
-			
-			<h5>첨부파일</h5>
-			<ul class="imgFiles-wrap">
-				<li><!-- 섬네일 디스플레이 -->
-					<span class="thumb-img" data-src="${qa.qaOrigin}">
-					</span>
-				</li>
-			</ul>
-		</div>
-		
-		<div class="read-footer">
-			<a href="${pageContext.request.contextPath}/user/qna/list" class="btn btn-line">LIST</a>
-			<div class="footer-link">
-				<a href="${pageContext.request.contextPath}/user/qna/modify?qnaNo=${qna.qnaNo}">MODIFY</a>
-				<a href="${pageContext.request.contextPath}/user/qna/remove?qnaNo=${qna.qnaNo}" id="delQnA">REMOVE</a>
-			</div>
-		</div>
-		
-		<div class="modal-wrap"> <!-- 이미지 클릭시 나오는 모달창 -->
-			<div class="modal-img"></div>
-		</div>
-		
-		<div class="reply-wrap">
-			<div class="reply-input">
-				<h4>댓글 입력</h4>
-				<textarea id="rpContent" placeholder="댓글을 입력해주세요."></textarea>
-				<a id="addReply">등록</a>
-			</div>
-			
-			<div class="reply-list-wrap">
-				<ul class="reply-list">
- 					<li class="reply-li">
-						<div>
-							<span class="replyer">관리자</span>
-							<dl>
-								<dt>등록일</dt>
-								<dd>
-									2020-01-03 12:22:30
-								</dd>
-							</dl>
-							<dl>
-								<dt>수정일</dt>
-								<dd>
-									2020-01-03 12:22:30
-								</dd>
-							</dl>
-							<span class="top-btn-wrap">
-								<a class="modBtn"></a>
-								<a class="delBtn"></a>
-							</span>
-						</div>
-						
-						<div class="reply-content">
-							<pre>가나다라마바사 가나다라<br>가나다라</pre>
-							<textarea class="mod-txt">가나다라마바사 가나다라</textarea>
-						</div>
-						
-						<div class="reply-btn">
-							<a class="modReply">수정</a>
-							<a class="modCancel">취소</a>
-						</div>
-					</li> 
-				</ul>
-			</div>
+		<div class="search-keyword">
+			<select id="searchType">
+				<option>- - - - - - - -  All  - - - - - - - -</option>
+				<option value="t" ${cri.searchType == 't'? 'selected': ''}>Title</option>
+				<option value="c" ${cri.searchType == 'c'? 'selected': ''}>Content</option>  
+				<option value="w" ${cri.searchType == 'w'? 'selected': ''}>Writer</option>
+				<option value="tc" ${cri.searchType == 'tc'? 'selected': ''}>Title or Content</option>
+				<option value="tw" ${cri.searchType == 'tw'? 'selected': ''}>Content or Writer</option>
+				<option value="tcw" ${cri.searchType == 'tcw'? 'selected': ''}>Title or Content or Writer</option>
+			</select>
+			<input type="text" id="keyword" value="${cri.keyword}">
+			<button id="btnSearch"></button>
 		</div>
 	</div>
+	
+	<table id="main-tb">
+		<tr>
+			<th>NO</th>
+			<th>CATEGORY</th>
+			<th>TITLE</th>
+			<th>WRITER</th>
+			<th>DATE</th>
+			<th>CNT</th>
+		</tr>
+		
+		<c:forEach var="qna" items="${list}">
+			<tr class="added-tr">
+				<td>${qna.qnaNo}</td>
+				<c:set var='reqArr' value='<%=new String[]{"-", "예약문의", "시설문의", "기타문의", "제안하기"} %>' />
+				<td>${reqArr[qna.qnaCategory]}</td>
+				<td class="list-title"><a href="${pageContext.request.contextPath}/user/qna/read?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
+				<td>${qna.qnaWriterId}</td>
+				<td><fmt:formatDate value="${qna.qnaRegDate}" pattern="yyyy-MM-dd"/></td>
+				<td>${qna.qnaViewCnt}</td>
+			</tr>
+		</c:forEach>
+		
+		<caption>
+			<a href="${pageContext.request.contextPath}/user/qna/regist">등록</a>
+		</caption>
+	</table>
+	
+	<div class="paging-wrap">
+		<ul class="pagination">
+			<c:if test="${pageMaker.prev == true}">
+				<li class="prev-li">
+					<a href="listPage?page=${pageMaker.startPage}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+						◀
+					</a>
+				</li>
+			</c:if>
+			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+				<li ${idx == pageMaker.cri.page? 'class=active': ''}>
+					<a href="listPage?page=${idx}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+						${idx}
+					</a>									
+				</li>
+			</c:forEach>
+			<c:if test="${pageMaker.next == true}">
+				<li class="next-li">
+					<a href="listPage?page=${pageMaker.endPage+1}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+						▶
+					</a>
+				</li>
+			</c:if>
+		</ul>
+		<p>${pageMaker.cri.page} / ${pageMaker.totalPager} <small>페이지</small></p>
+	</div>
 </div>	
+
 
 
 			</div>

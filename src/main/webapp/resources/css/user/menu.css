@@ -1,0 +1,154 @@
+@charset "UTF-8";
+
+/* PROGRAM LIST */
+.content-area > h1 {
+	text-align: center;
+}
+.pg-list {
+	overflow: hidden;
+}
+.pg-list > li {
+	float: left;
+	width: 31%;
+	text-align: center;
+	margin: 30px 15px;
+}
+.pg-list > li > h2 {
+    width: 50%;
+    height: 60px;
+    line-height: 60px;
+    padding: 10px 0;
+    margin: 10px auto 20px;
+    border-bottom: 2px solid black;
+    cursor: pointer;
+}
+.pg-img {
+    background: pink;
+    width: 310px;
+    height: 400px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+.pg-img > img {
+	width: 100%;
+}
+
+/* PROGRAM DETAIL */
+.pg-detail-wrap {
+	overflow: hidden;
+}
+.pg-detail-wrap > h1 {
+	text-align: center;
+	font-size: 2em;
+}
+.pgDetail-img {
+	width: 55%;
+	float: left;
+	margin: 30px;
+}
+.pgDetail-img > img {
+	width: 100%;
+}
+.pgDetail-info {
+	float: left;
+	margin: 30px 0 30px 10px;
+	width: 36%;
+	height: 400px;
+	padding: 15px;
+}
+.btn-area {
+	text-align: center;	
+}
+.btnA {
+    min-width: 100px;
+    height: 50px;
+    border: 1px solid #888;
+    color: #888;
+	display: inline-block;
+    position: relative;
+    line-height: 50px;
+    padding: 0 35px;
+    font-size: 18px;
+    overflow: hidden;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    z-index: 1;
+    vertical-align: middle;
+}
+.pgDetail-box > p {
+	margin: 20px auto;
+	width: 90%;
+}
+.pgDetail-box > p > label {
+	display: block;
+	font-weight: bold;
+}
+
+.pg-common {
+	clear: both;
+	margin: 50px auto;
+}
+.pg-common > h2 {
+	text-align: center;
+	margin: 30px 0;
+}
+.pg-common > table {
+	width: 80%;
+	margin: 30px auto;
+	border-collapse: collapse;
+}
+.pg-common > table th {
+	border: 1px solid black;
+	text-align: center;
+	padding: 10px 0;
+}
+.pg-common > table td {
+	border: 1px solid black;
+	text-align: center;
+	padding: 25px 0;
+}
+.pg-common > ul {
+	width: 80%;
+	margin: 0 auto;
+}
+
+/* THEATER */
+.th-info {
+	width: 100%;
+}
+.th-info > h1,
+.st-info > h1 {
+	text-align: center;
+	margin: 50px 0;
+	font-size: 2em;
+}
+.th-info > iframe {
+	width: 100%;
+	height: 800px;
+	margin-bottom: 80px;
+}
+.st-info {
+	width: 100%;
+}
+.st-info > table {
+	width: 80%;
+	margin: 0 auto;
+	border-collapse: collapse;
+}
+.st-info > table td {
+	text-align: center;
+	font-weight: bold;
+}
+.st-notice {
+	width: 70%;
+	margin: 0 auto 100px;	
+}
+
+
+
+
+
+
+
+

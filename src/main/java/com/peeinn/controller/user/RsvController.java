@@ -241,13 +241,11 @@ public class RsvController {
 	
 	//예약 상세정보
 	@RequestMapping(value="rsvDetail", method=RequestMethod.GET)
-	public String cancelRsv(int rsvNo, Model model, HttpServletRequest request) {
+	public void cancelRsv(int rsvNo, Model model, HttpServletRequest request) {
 		logger.info("------------ [RSV CANCEL GET] ------------");
 		RsvResultVO rRes = rsvService.rsvSearch(rsvNo);
 		logger.info("rRes", rRes);
 		model.addAttribute("rRes", rRes);
-		
-		return "/user/rsv/step04";
 	}
 	
 }//RsvController

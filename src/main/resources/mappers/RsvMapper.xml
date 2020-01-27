@@ -146,7 +146,7 @@
 			<if test="mNo > 0">
 				where rl_mno = #{mNo}
 			</if>
-			order by i_rsvlog desc;
+			order by rl_rsvState asc, rl_rsvDate desc;
 	</select>
 	
 	

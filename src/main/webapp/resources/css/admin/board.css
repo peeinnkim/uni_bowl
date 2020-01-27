@@ -1,0 +1,135 @@
+@charset "UTF-8";
+
+#main-list {
+	width: 100%;
+	border-collapse: collapse;
+}
+th {
+	border-bottom: 2px solid black;
+	text-align: center;
+}
+td {
+	border-bottom: 1px solid black;
+	text-align: center;
+	padding: 8px 0;
+}
+.show-sub {
+	cursor: pointer;
+}
+.req-sub {
+	display: none;
+}
+.req-sub > td[colspan='3'] {
+	position: relative;
+}
+.req-sub td {
+	text-align: left;
+}
+.req-sub div > pre {
+	font-size: 14px;
+	font-family: 'M PLUS 1p', 'Noto Sans KR', sans-serif;
+}
+.req-cont {
+	padding: 20px;
+	border-bottom: 1px dotted grey;
+}
+.req-reply {
+	padding: 20px;
+}
+.req-reply > textarea {
+	font-family: 'M PLUS 1p', 'Noto Sans KR', sans-serif;
+	resize: none;
+	width: 95%;
+	height: 50px;
+	padding: 10px;
+}
+.req-reply-list {
+	width: 91%;
+	height: 87%;
+	padding: 10px;
+	overflow: auto;
+	position: absolute;
+	top: 10px;
+	left: 20px;
+}
+.req-reply-list > h5 {
+	margin-bottom: 5px;
+}
+.req-reply-list > ul > li {
+	margin: 10px 0;
+	width: 380px;
+	position: relative;
+}
+.replyer {
+	margin-bottom: 5px;
+}
+.replyer > em {
+	font-size: 14px;
+	font-weight: bold;
+	font-style: normal;
+	color: #5271C4;
+}
+.replyer > b {
+	font-size: 12px;
+}
+.replyer > i {
+	font-size: 11px;
+	font-style: normal;
+	margin-left: 3px;
+}
+.req-reply-list > ul > li > pre {
+	font-size: 14px;
+	font-family: 'M PLUS 1p', 'Noto Sans KR', sans-serif;
+	background: white;
+	padding: 5px;
+}
+.req-reply-list > ul > li > .replyBtn {
+	width: 20%;
+	height: 25px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: inline-block;
+	text-align: right;
+}
+.rBtnMod {
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	background: url("../../img/icon/write.png") no-repeat;
+	transform: rotate(180deg);
+	cursor: pointer;
+}
+.rBtnDel {
+	width: 24px;
+	height: 24px;
+	margin-left: 9px;
+	display: inline-block;
+	background: url("../../img/icon/remove.png") no-repeat;
+	cursor: pointer;
+}
+
+
+/* 상단고정 게시물 */
+.ntTop-tr {
+	background: rgba(177, 159, 255, 0.3);
+}
+.ntTop-tr > td:first-child > span {
+	width: 22px;
+	height: 22px;
+	display: inline-block;
+	background: url("../../img/icon/notice.png") no-repeat;
+	background-size: contain;
+	cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+

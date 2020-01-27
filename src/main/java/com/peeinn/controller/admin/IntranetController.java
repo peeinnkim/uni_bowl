@@ -36,6 +36,7 @@ import com.peeinn.service.MemberService;
 import com.peeinn.service.OrgService;
 import com.peeinn.service.ProgramService;
 import com.peeinn.service.QnAService;
+import com.peeinn.service.ReplyService;
 import com.peeinn.service.RsvService;
 import com.peeinn.service.SeatService;
 import com.peeinn.service.TheaterService;
@@ -62,6 +63,8 @@ public class IntranetController {
 	private RsvService rsvService;
 	@Autowired
 	private QnAService qnaService;
+	@Autowired
+	private ReplyService replyService;
 
 	
 	/* ------------------- [ MEMBER MNG PART ] ------------------- */
@@ -80,7 +83,7 @@ public class IntranetController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="searchList", method=RequestMethod.POST)
+	@RequestMapping(value="gnr/searchList", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> searchList(CodeStateCriteria cri){
 		logger.info("------------ [stateList GET] ------------");
 		ResponseEntity<Map<String, Object>> entity = null;
@@ -494,8 +497,8 @@ public class IntranetController {
 		
 	}
 
-	@RequestMapping(value="member/login", method=RequestMethod.POST)
-	public String adminLoginPost(Model model, HttpSession session, MemberVO mem) {
+	@RequestMapping(value="member/loginPost", method=RequestMethod.POST)
+	public void adminLoginPost(Model model, HttpSession session, MemberVO mem) {
 		logger.info("------------ [adminLogin POST] ------------");
 		MemberVO dbMem = memService.searchById(mem.getmId());
 		
@@ -509,42 +512,24 @@ public class IntranetController {
 				//session 영역에 Auth키 만들어서 값 넣음
 				session.setAttribute("Auth", new AuthVO(dbMem.getmNo(), dbMem.getmId(), dbMem.getmCode()));
 				logger.info("--- Auth 저장 완료 / Admin 로그인 성공 ---");
-				return "redirect:/admin/gnrsales";
 			} else {
 				model.addAttribute("error", "비밀번호가 일치하지 않습니다");
 			}
 		}
-		return "admin/member/login";
 	}
 	
 	
-	/* ------------------- [ REQUEST PART ] ------------------- */
-	@RequestMapping(value="gnr/req", method=RequestMethod.GET)
-	public void reqMngGet () {
-		logger.info("------------ [adminLogin GET] ------------");
+	/* ------------------- [ QNA PART ] ------------------- */
+	@RequestMapping(value="gnr/qna", method=RequestMethod.GET)
+	public void reqMngGet (Model model) {
+		logger.info("------------ [intra qna GET] ------------");
 		
+		model.addAttribute("list", qnaService.list());
 	}
 
-	@ResponseBody
-	@RequestMapping(value="gnr/getReqData", method=RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> reqData () {
-		logger.info("------------ [reqData POST] ------------");
-		ResponseEntity<Map<String, Object>> entity = null;
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		try {
-			List<Integer> list = qnaService.listCateCnt();
-			map.put("list", list);
-			map.put("result", "success");
-			entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			map.put("result", "fail");
-			entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
+	
+	
+	
 	
 	
 }//IntranetController

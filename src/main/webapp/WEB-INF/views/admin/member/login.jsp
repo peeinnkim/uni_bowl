@@ -22,7 +22,7 @@
 			<div class="content-wrap">
 				<h2>인트라넷 로그인</h2>
 				<div class="cont-center">
-					<form id="frm" action="login" method="post" onsubmit="return validCheck()">
+					<form id="frm" action="loginPost" method="post" onsubmit="return validCheck()">
 						<p>
 							<label>ID</label>
 							<input type="text" name="mId" value="mlmlml">
@@ -44,6 +44,21 @@
 					</form>	
 				</div>
 			</div>
+			
+<script>
+	function validCheck(){
+		if(frm.mId.value == "") {
+			alert("아이디를 입력하세요");
+			frm.mId.focus();
+			return false;
+		}
+		if(frm.mPw.value == "") {
+			alert("비밀번호를 입력하세요");
+			frm.mPw.focus();
+			return false;
+		}
+	}
+</script>
 			
 			
 		</div>

@@ -2,6 +2,7 @@
 var nPage = 1;
 
 $(function(){	
+	var pName = $("#pName").val();
 	
 	//동적 추가되는 테이블 날짜
 	Handlebars.registerHelper("pDate", function(dd){

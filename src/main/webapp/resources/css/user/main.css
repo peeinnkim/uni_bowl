@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+.main-wrap {
+	overflow: hidden;
+}
+.bx-wrapper {
+	border: 0;
+	box-shadow: none;
+	height: 700px;
+	float: left;
+}
+.pg-wrap {
+	float: right;
+	width: 660px;
+	overflow: hidden;
+}
+.pg-wrap > div {
+	width: 100%;
+}
+.pg-wrap > div > h2 {
+	width: 70%;
+	margin: 0 auto 10px;
+	padding: 10px 0 7px;
+	border-bottom: 2px solid black;
+	text-align: center;
+	letter-spacing: 0.15em;
+}
+.pg-list > li {
+	width: 210px;
+	height: 270px;
+	margin: 10px 5px 20px;
+	float: left;
+	background: skyblue;
+}
+
+
+
+
+
+
+
+
+

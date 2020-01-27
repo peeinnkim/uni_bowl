@@ -233,5 +233,25 @@ select count(qna_category) from t_qna group by qna_category;
 
 select * from t_seat st left join t_rsv_info ri on st.i_seat = ri.i_seat and ri.i_org = 7 where 
 st.i_theater = 3 order by st.i_seat asc; 
+select * from t_pay;
+
+-- 매출
+select sum(py_price), month(py_date) from t_pay where year(py_date) = 2020 group by month(py_date);
+
+select * from t_pay;
+update t_pay set py_date = '2020-03-05 03:05:02' where i_pay = 4;
+
+select * from t_qna;
+select * from t_reply_qna;
+
+select * from t_rsv;
+
+select * from t_rsv_logs order by rl_rsvState desc, rl_rsvDate desc;
+
+
+
+
+
+
 
 

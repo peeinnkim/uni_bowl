@@ -6,7 +6,7 @@
 		
 		<div id="side-bar">
 			<div class="side-top">
-				<a href="${pageContext.request.contextPath}/admin/member/login" id="intraBtn"></a>			
+				<a href="${pageContext.request.contextPath}/admin/gnr/sales" id="intraBtn"></a>			
 				<a href="${pageContext.request.contextPath}/user/rsv/step01" id="rsvBtn">RESERVATION</a>
 			</div>		
 			<div class="side-bottom">

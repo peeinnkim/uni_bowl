@@ -1,6 +1,7 @@
 (function(win, $){
 	$(function(){
 		
+		var clickCnt = 0;
 		var pName = $("#pName").val();
 		//오늘 날짜
 		var today = new Date();
@@ -27,8 +28,8 @@
 			var lastDayArr = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 			
 			//윤년
-			if(y%4 == 0 && y%100 != 0 && y%400 == 0){
-				last_day[1] = 29;
+			if( (y%4 == 0 && y%100 != 0) || y%400 == 0 ){
+				lastDayArr[1] = 29;
 			}
 			
 			//마지막 날짜 대입
@@ -38,13 +39,22 @@
 			var code_saver = "";
 			calBox.innerHTML = null;
 			
-			
 			var idx = todayDate;
+			if(idx <= 1) { 
+				m--; 
+				if(m == 1) {
+					if( (y%4 == 0 && y%100 != 0) || y%400 == 0 ){
+						lastDayArr[m] = 29;
+					}
+				}
+				idx = lastDayArr[m]+1;
+			};
+			
+			if(dayIdx == 0) { dayIdx = 7; }
+			calBox.innerHTML += code_saver + "<li id='datePrev' data-date='"+(y+"-"+zeroZeroDate(m+1)+"-"+zeroZeroDate(idx-1))+"'><input type='hidden' data-dayIdx='"+(dayIdx-1)+"'></li>";	
 			
 			for(var i=0; i<5; i++) {
-				if(dayIdx == 7) {
-					dayIdx = 0;
-				}
+				if(dayIdx == 7) { dayIdx = 0; }
 				
 				if(idx > lastDay) {
 					m++;
@@ -62,42 +72,78 @@
 				}
 			}
 			
-				calBox.innerHTML += "<li id='datePrev'></li>" + code_saver + "<li id='dateNext'></li>";	
+				if(idx > lastDay) { m++; lastDay = lastDayArr[m]; idx = 1; };
+				if(dayIdx == 7) { dayIdx = 0; }
+				calBox.innerHTML += code_saver + "<li id='dateNext' data-date='"+(y+"-"+zeroZeroDate(m+1)+"-"+zeroZeroDate(idx))+"'><input type='hidden' data-dayIdx='"+dayIdx+"'></li>";	
 		}
 		
 		cal5days();
 		
-		$(document).on("click", "#datePrev",function(){
+/*		$(document).on("click", "#datePrev",function(){
 			last5Days();
 		})
 
 		$(document).on("click", "#dateNext",function(){
 			next5Days();
-		})
+		})*/
 		
 		function last5Days(){
-			var tSec = new Date();
-			tSec.setHours(00, 00, 00);
-			var wDay = new Date(today.setDate(today.getDate()-5));
-			wDay.setHours(00, 00, 00);
+//			var tSec = new Date();
+//			tSec.setHours(00, 00, 00);
+//			var wDay = new Date(today.setDate(today.getDate()-5));
+//			wDay.setHours(00, 00, 00);
+//			
+//			if(wDay.getTime() < tSec.getTime()) {
+//				today = new Date();
+//				return false;
+//			} else {
+//				cal5days()
+//				return true;
+//			}
 			
-			if(wDay.getTime() < tSec.getTime()) {
-				today = tSec;
-				return;
-			} else {
-				cal5days();
+			if(--clickCnt < 0) {
+				alert("현재 날짜보다 이전 날짜는 예약할 수 없습니다.");
+				clickCnt = 0;
+				return false;
 			}
+			
+			today.setDate(today.getDate()-5)
+			cal5days();
+			return true;
 		}
 
 		function next5Days(){
+			if(++clickCnt == 5) {
+				clickCnt = 4;
+				alert("현재 날짜로부터 예약만 가능합니다.");
+				return false;
+			}
+			
 			today.setDate(today.getDate()+5);
 			cal5days();
+			return true;
 		}
 		
-		$(document).on("click", ".date-ul > li:not(#datePrev, #dateNext)", function(){
+		$(document).on("click", ".date-ul > li", function(){
 			/* 날짜 선택시 날짜부분 변경 */
 			$(".date-ul > li").removeClass("dOn");
-			$(this).addClass("dOn");
+			if($(this).attr("id") == "datePrev") {
+				if(last5Days() == false) {
+					$(".date-ul > li:eq(1)").addClass("dOn");
+					return;
+				}
+				$(".date-ul > li:eq(5)").addClass("dOn");
+			} else if($(this).attr("id") == "dateNext") { 
+				if(next5Days() == false) {
+					$(".date-ul > li:eq(5)").addClass("dOn");
+					$(this).attr("data-date", $(".date-ul > li:eq(5)").attr("data-date"))
+					$(this).children().attr("data-dayIdx", $(".date-ul > li:eq(5)").children().attr("data-dayIdx"));
+				} else {
+					$(".date-ul > li:eq(1)").addClass("dOn");
+				}
+			} else {
+				$(this).addClass("dOn");
+			}
 			
 			var sd = $(this).attr("data-date")
 			var sdArr = sd.split("-");
@@ -114,7 +160,7 @@
 				dataType: "json",
 				success: function(res){
 					console.log(res);
-					$(".main-list").empty();
+					$(".list-box").remove();
 					var sum = 0;
 					
 					for(var i=0; i<res.repeatList.length; i++) {

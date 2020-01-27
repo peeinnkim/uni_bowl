@@ -5,9 +5,6 @@
 
 <style>
 	.form-wrap { text-align: center; }
-	.form-wrap > h1 { margin-bottom: 40px; }
-	.form-wrap > h3 { width: 50%; margin: 0 auto; border: 4px solid steelblue; padding: 40px;}
-	.form-wrap > p { margin: 30px 0 50px; font-size: 15px; font-weight: bold; }
 </style>
 
 <div class="section-title">

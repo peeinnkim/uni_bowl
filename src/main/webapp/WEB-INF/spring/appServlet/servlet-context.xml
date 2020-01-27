@@ -42,12 +42,18 @@
 	<!-- intercepter -->
     <beans:bean id="loginInterceptor" class="com.peeinn.interceptor.LoginInterceptor"></beans:bean>
     <beans:bean id="authInterceptor" class="com.peeinn.interceptor.AuthInterceptor"></beans:bean>
+    <beans:bean id="adminLoginInterceptor" class="com.peeinn.interceptor.AdminLoginInterceptor"></beans:bean>
+    <beans:bean id="adminAuthInterceptor" class="com.peeinn.interceptor.AdminAuthInterceptor"></beans:bean>
 	
   	<interceptors>
 		<interceptor> <!-- 로그인 키 저장 -->
 			<mapping path="/user/member/loginPost"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
+ 		<interceptor>
+			<mapping path="/admin/member/loginPost"/>
+			<beans:ref bean="adminLoginInterceptor"/>
+		</interceptor> 
 		<interceptor> <!-- 로그인 필터 -->
 			<mapping path="/user/member/myPage"/>
 			<mapping path="/user/member/modify"/>
@@ -58,6 +64,13 @@
 			<mapping path="/user/rsv/step03"/>
 			<mapping path="/user/rsv/step04"/>
 			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/admin/gnr/*"/>
+			<mapping path="/admin/org/*"/>
+			<mapping path="/admin/program/*"/>
+			<mapping path="/admin/theater/*"/>
+			<beans:ref bean="adminAuthInterceptor"/>
 		</interceptor>
 	</interceptors>      
 	

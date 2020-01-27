@@ -68,8 +68,10 @@
 		<div class="read-footer">
 			<a href="${pageContext.request.contextPath}/user/qna/list" class="btn btn-line">LIST</a>
 			<div class="footer-link">
-				<a href="${pageContext.request.contextPath}/user/qna/modify?qnaNo=${qna.qnaNo}">MODIFY</a>
-				<a href="${pageContext.request.contextPath}/user/qna/remove?qnaNo=${qna.qnaNo}" id="delQnA">REMOVE</a>
+				<c:if test="${Auth.authNo == qna.qnaWriter}">
+					<a href="${pageContext.request.contextPath}/user/qna/modify?qnaNo=${qna.qnaNo}">MODIFY</a>
+					<a href="${pageContext.request.contextPath}/user/qna/remove?qnaNo=${qna.qnaNo}" id="delQnA">REMOVE</a>
+				</c:if>
 			</div>
 		</div>
 		
@@ -130,8 +132,9 @@
 		<dl>
 			<dt>수정일</dt>
 			<dd>
-				<c:if test="${rpModDate != null}"></c:if>
-				{{prettifyDate rpModDate}}
+				<c:if test="${rpModDate != null}">
+					{{prettifyDate rpModDate}}
+				</c:if>
 			</dd>
 		</dl>
 		<span class="top-btn-wrap">
@@ -147,8 +150,10 @@
 	
 						
 	<div class="reply-btn">
-		<a class="modReply">수정</a>
-		<a class="modCancel">취소</a>
+		<c:if test="${Auth.authNo == {{rpWriter}}}">
+			<a class="modReply">수정</a>
+			<a class="modCancel">취소</a>
+		</c:if>
 	</div>
 </li>
 {{/each}}
@@ -230,7 +235,7 @@
 	$("#addReply").click(function(){
 		var qnaNo = "${qna.qnaNo}";
 		var content = $("#rpContent").val();
-		var writer = 2;
+		var writer = "${Auth.authNo}";
 		
 		var data = JSON.stringify({
 			qnaNo: qnaNo, 

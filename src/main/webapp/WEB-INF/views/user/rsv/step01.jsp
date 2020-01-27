@@ -23,7 +23,7 @@
 				<div class="list-box"> 
 					<div class="list-info">
 						<div class="info-img">
-							<img src="${pageContext.request.contextPath}/admin/notice/displayFile?fileName=${list[sum].pg.pgThumb}">
+							<img src="${pageContext.request.contextPath}/admin/displayFile?fileName=${list[sum].pg.pgThumb}">
 						</div>
 						<div class="info-txt">
 							<h1>${list[sum].pg.pgTitle}</h1>

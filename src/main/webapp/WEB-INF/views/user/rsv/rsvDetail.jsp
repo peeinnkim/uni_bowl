@@ -11,8 +11,7 @@
 <div class="content-area">
 	<div class="rsv-cpl-wrap">
 		<div class="rsv-cpl-top">
-			<h1>예약이 완료되었습니다</h1>
-			<h2>예약번호: ${rRes.rrRsvNo}</h2>
+			<h1>예약번호: ${rRes.rrRsvNo}</h1>
 		</div>
 		<div class="rsv-cpl-bottom">
 			<div class="cpl-info-wrap">

@@ -37,29 +37,29 @@ input {
 	width: 200px;
 	height: 300px;
 	display: inline-block;
- 	border: 3px;
-    border-style: solid;
-    border-image-slice: 10 !important;
-    border-image: linear-gradient(-225deg, #5271C4 0%, #B19FFF 48%, #ECA1FE 100%);
+	border: 3px;
+	border-style: solid;
+	border-image-slice: 10 !important;
+	border-image: linear-gradient(-225deg, #5271C4 0%, #B19FFF 48%, #ECA1FE 100%);
 	padding: 30px;
 	overflow: hidden;
 	margin-top: 30px;
 	cursor: pointer;
 }
 
-.find-menu > span {
+.find-menu>span {
 	background: linear-gradient(-225deg, #5271C4 0%, #B19FFF 48%, #ECA1FE 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 	font-weight: bold;
 	font-size: 6em;
 	position: relative;
 }
 
-.find-menu > span > small {
+.find-menu>span>small {
 	background: linear-gradient(-225deg, #5271C4 0%, #B19FFF 48%, #ECA1FE 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 	position: absolute;
 	top: 0;
 	left: 8px;
@@ -67,13 +67,13 @@ input {
 	letter-spacing: 0.2em;
 }
 
-.find-menu > h2 {
+.find-menu>h2 {
 	letter-spacing: 0.15em;
 	margin-bottom: 17px;
 	color: #5271C4;
 }
 
-.find-menu > p {
+.find-menu>p {
 	font-size: 14px;
 }
 
@@ -91,4 +91,71 @@ input {
 .mMenu-wrap>a:hover {
 	color: black;
 	transition: 0.9s all ease;
+}
+
+/* RESULT */
+.form-wrap>h2 {
+	font-size: 2em;
+	margin: 50px 0 30px;
+}
+
+#btnMainPage {
+	border: 1px solid #888;
+	color: #888;
+	display: inline-block;
+	position: relative;
+	width: 150px;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 35px;
+	font-size: 18px;
+	overflow: hidden;
+	background-color: transparent;
+	text-align: center;
+	cursor: pointer;
+	outline: none;
+	z-index: 1;
+	vertical-align: middle;
+	margin: 30px 0;
+}
+#btnMainPage:hover {
+	font-weight: bold;
+}
+#btnLoginPage {
+	border: 1px solid #5271C4;
+	color: white;
+	display: inline-block;
+	position: relative;
+	width: 150px;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 35px;
+	font-size: 18px;
+	overflow: hidden;
+	background-color: #5271C4;
+	text-align: center;
+	cursor: pointer;
+	outline: none;
+	z-index: 1;
+	vertical-align: middle;
+	margin: 30px 0;	
+}
+#btnLoginPage:hover {
+	font-weight: bold;
+}
+.form-wrap>h1 {
+	margin: 50px 0 30px;
+}
+
+.form-wrap>h3 {
+	width: 50%;
+	margin: 0 auto;
+	border: 4px solid steelblue;
+	padding: 40px;
+}
+
+.form-wrap>p {
+	margin: 30px 0 20px;
+	font-size: 15px;
+	font-weight: bold;
 }

@@ -10,10 +10,6 @@
 
 <div class="content-area">
 	<div class="search-wrap">
-		<div class="search-category">
-			<a href="${pageContext.request.contextPath}/admin/notice/regist">등록</a>
-		</div>
-		
 		<div class="search-keyword">
 			<select id="searchType">
 				<option>- - - - - - - -  All  - - - - - - - -</option>
@@ -27,6 +23,10 @@
 	</div>  
 	
 	<table id="main-tb">
+		<caption>
+			<a href="${pageContext.request.contextPath}/admin/notice/regist">등록</a>
+		</caption>
+	
 		<tr>
 			<th>NO</th>
 			<th>TITLE</th>

@@ -58,7 +58,7 @@
 
 <div class="content-area">
 	<div class="search-wrap">
-		<div class="search-date">
+<!-- 		<div class="search-date">
 			<select>
 				<option>예약날짜</option>
 				<option>상영날짜</option>
@@ -69,7 +69,7 @@
 			<input type="text" name="rsvDate" class="datepicker-here" data-position="bottom center" data-date-format="yyyy-mm-dd"
 					data-language="en" id="pick_end"  placeholder="종료날짜"/>
 			<button id="btnDateSearch">검색</button>
-		</div>
+		</div> -->
 		
 		<div class="search-category">
 			<select>
@@ -94,7 +94,7 @@
 			<th>예약취소</th>
 		</tr>
 		<c:forEach var="rl" items="${list}">
-			<tr class="added-tr">
+			<tr class="added-tr ${rl.rlRsvState == 0? '': 'cancelTr'}" >
 				<td>${rl.rlRsvNo}</td>
 				<td class="list-title"><a href="${pageContext.request.contextPath}/user/rsv/rsvDetail?rsvNo=${rl.rlRsvNo}">${rl.rlPgTitle}</a></td>
 				<td><fmt:formatDate value="${rl.rlOrgDate}" pattern="yyyy-MM-dd"/></td>
@@ -102,7 +102,11 @@
 				<td><fmt:formatNumber value="${rl.rlRsvPrice}" pattern="###,###"/> 원</td>
 				<td><fmt:formatDate value="${rl.rlRsvDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 				<td>${rl.rlRsvState == 0? '결제완료': '취소'}</td>
-				<td><a href="${pageContext.request.contextPath}/user/rsv/cancelRsv?rsvNo=${rl.rlRsvNo}" class="cancelRsvBtn"></a></td>
+				<td>
+					<c:if test="${rl.rlRsvState == 0}">
+						<a href="${pageContext.request.contextPath}/user/rsv/cancelRsv?rsvNo=${rl.rlRsvNo}" class="cancelRsvBtn"></a>
+					</c:if>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -142,6 +146,10 @@
 <script src="${pageContext.request.contextPath}/resources/js/dateSearch.js"></script>
 
 <script>
+	$(".cancelTr").click(function(){
+		return false;		
+	})
+
 	$(".cancelRsvBtn").click(function(){
 		var result = confirm("예약을 취소하시겠습니까?");
 		

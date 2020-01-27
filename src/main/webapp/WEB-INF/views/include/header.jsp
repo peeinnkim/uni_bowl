@@ -49,8 +49,8 @@
 			
 			<div class="header nav">
 				<ul>
-					<li><a href="#">PROGRAM</a></li>
-					<li><a href="#">THEATER</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/pg">PROGRAM</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/th">THEATER</a></li>
 					<li><a href="${pageContext.request.contextPath}/user/qna/list">Q＆A</a></li>
 					<li><a href="${pageContext.request.contextPath}/user/notice/list">NOTICE</a></li>
 					<li><a href="#">UNI-BOWL？</a></li>

@@ -33,12 +33,12 @@
 				<li><a href="${pageContext.request.contextPath}/admin/gnr/member?code=0">회원관리</a></li>
 				<li><a href="${pageContext.request.contextPath}/admin/gnr/rsv">예약관리</a></li>
 				<li class="liSec">상영</li>
-				<li><a href="${pageContext.request.contextPath}/admin/theater/list">상영관관리</a></li>
 				<li><a href="${pageContext.request.contextPath}/admin/program/list">프로그램관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/theater/list">상영관관리</a></li>
 				<li><a href="${pageContext.request.contextPath}/admin/org/list">상영스케쥴관리</a></li>
 				<li class="liSec">게시판</li>
-				<li><a href="${pageContext.request.contextPath}/admin/gnr/req">문의관리</a></li>
-				<li><a href="${pageContext.request.contextPath}/admin/notice/list">문의관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/gnr/qna">문의관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/notice/list">공지관리</a></li>
 			</ul>
 		</div>
 		

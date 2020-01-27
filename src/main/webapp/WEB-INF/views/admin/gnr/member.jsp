@@ -35,6 +35,9 @@
 	.on > a {
 		color: #eee;
 	}
+	.quitted {
+		background: silver
+	}
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/getSearchList.js"></script>
 
@@ -43,9 +46,10 @@
 <div class="content-wrap">
 	<div class="cont-center">
 		<div>
+			<input type="hidden" value="${cri.code}" id="codee">
 			<ul id="mem-sel">
 				<li><a href="${pageContext.request.contextPath}/admin/gnr/member?code=0">회원</a></li>
-				<li><a href="${pageContext.request.contextPath}/admin/gnr/member?code=1">비회원</a></li>
+				<%-- <li><a href="${pageContext.request.contextPath}/admin/gnr/member?code=1">비회원</a></li> --%>
 				<li><a href="${pageContext.request.contextPath}/admin/gnr/member?code=2">관리자</a></li>
 			</ul>
 			
@@ -156,33 +160,6 @@
 	</tr>
 	{{/list}}
 </script>
-
-<script>
-	//탭에 따라 클래스 바꾸기
-	setOnClass();
-	function setOnClass(){
-		$("#mem-sel > li").removeClass("on");
-		$("#mem-sel > li:eq(${code})").addClass("on");
-	}
-	
-	$(".quitted").closest("tr").css("background", "silver");
-	
-	//변경되는 상태에 따라 리스트 뿌리기
-	$("#state-sel").change(function(){
-		var data = {"code": ${cri.code} , 
-					"state": $("#state-sel").val() , 
-					"searchType": $("#searchType").val(), 
-					"keyword": $("#keyword").val(), 
-					"page": 1, 
-					"perPageNum": 10};
-		
-		getListPage(data);
-		
-	}) 
-	
-</script>
-
-
 <script>
 	var nPage = 1;
 	
@@ -195,7 +172,10 @@
 	setOnClass();
 	function setOnClass(){
 		$("#mem-sel > li").removeClass("on");
-		$("#mem-sel > li:eq(${cri.code})").addClass("on");
+		switch($("#codee").val()) {
+		case "0": $("#mem-sel > li:eq(0)").addClass("on"); break;
+		case "2": $("#mem-sel > li:eq(1)").addClass("on"); break;
+		}
 	}
 
 	//동적 추가되는 테이블 날짜
@@ -229,8 +209,8 @@
 					"perPageNum" : 10};
 		
 		getListPage(data);
-		
 	}) 
+	
 	
 	//키워드 검색에 따라 리스트 뿌리기
 	$("#btnSearch").click(function(){
@@ -243,64 +223,6 @@
 	
 		getListPage(data);
 	})
-
-	//리스트 뿌리기 최종판
-	function getListPage(data){
-		$.ajax({
-			url: "searchList",
-			type: "post",
-			data: data,
-			dataType: "json",
-			success: function(res){
-				console.log(res);
-				
-				$(".added-tr").remove();
-				
-				var source = $("#template").html();
-				var func = Handlebars.compile(source);
-				var str = func(res);
-				
-				//리스트 추가
-				$("#main-tb").append(str);
-				
-				//페이지네이션 지우기
-				$(".pagination").empty();
-				
-				//make a page-maker
-				var startPage = res.pageMaker.startPage;
-				var endPage = res.pageMaker.endPage;
-				
-				for(var i=startPage; i<=endPage; i++) {
-					var $li = $("<li>");
-					var $a = $("<a>").attr("href", "#").attr("data-page", i).append(i);
-					$li.append($a);
-					
-					if(i == nPage) {
-						$li.addClass("on");
-					}
-					
-					$(".pagination").append($li);
-				}
-				
-				if(res.pageMaker.prev == true) {
-					var $li = $("<li>").addClass("previous");
-					var $a = $("<a>").attr("href", "#").attr("data-page", res.pageMaker.startPage-1).append("◀");
-					$li.append($a);
-					$(".pagination").prepend($li);
-				}
-				
-				if(res.pageMaker.next == true) {
-					var $li = $("<li>").addClass("next");
-					var $a = $("<a>").attr("href", "#").attr("data-page", res.pageMaker.endPage+1).append("▶");
-					$li.append($a);
-					$(".pagination").append($li);
-				}
-			},
-			error : function(e){
-				console.log(e);
-			}
-		})
-	}
 	
 </script>
 
