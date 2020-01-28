@@ -62,6 +62,9 @@
 			</div>
 			
 			<div class="seat-save-wrap">
+				<div class="ss-cnt-wrap">
+					현재 좌석 수 : <span id='curSeatCnt'>0</span> 석
+				</div>
 				<span>FRONT</span>
 				<div class="ss-btn-wrap">
 					<button id="btnLabel" type="button">설정 완료</button>

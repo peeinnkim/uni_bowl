@@ -13,11 +13,11 @@
 	</resultMap>
 	
 	<select id="selectPgList" resultMap="programResult">
-		select * from t_program order by i_program desc
+		select * from t_program order by pg_isRunning asc, i_program desc
 	</select>
 	
 	<select id="selectPg" resultMap="programResult">
-		select * from t_program where i_program = #{pgNo}
+		select * from t_program where i_program = #{pgNo} 
 	</select>
 
 	<select id="getTotalPgCnt" resultType="int">
@@ -45,4 +45,16 @@
 		update t_program set pg_isRunning = 1 where i_program = #{pgNo}
 	</update>
 
+	<select id="mainNew3List" resultMap="programResult">
+		select * from t_program where pg_isRunning = 0 order by i_program desc limit 0, 3
+	</select>
+
+	<select id="mainBest3List" resultMap="programResult">
+		select * from t_program where pg_isRunning = 0 order by pg_poster asc limit 0, 3
+	</select>
+	
+	<select id="isPgRsved" resultType="int">
+		select count(*) from t_org where i_program = #{pgNo};
+	</select>
+	
 </mapper>

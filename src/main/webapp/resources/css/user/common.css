@@ -109,6 +109,10 @@ button {
     left: 0;
     top: 295px;
 }
+.qRsv:hover a {
+	text-shadow: 0 0 3px white;
+	transition: 0.2s all ease;
+}
 .qRsv a {
     width: 100%;
     font-weight: bold;
@@ -146,8 +150,6 @@ button {
 	border-style:solid;
 	height:0px;
 	width:0px;
-}
-.qRsv .ribbon-edge-topright {
 }
 .qRsv .ribbon-edge-bottomright {
 	top: 40px;
@@ -199,19 +201,42 @@ button {
 	border-bottom: 2px solid black;	
 	transition: 0.3s all ease-out;
 }
-.nav > ul > li .sub-nav {
+.sub-nav {
+	margin-top: 5px;
+}
+.sub-nav > ul {
+	width: 70%;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.sub-nav > ul > li {
+	float: left;
+	width: 50%;
+	text-align: center;
 	border-bottom: 2px solid transparent;
 }
-.sub-nav {
-	margin-top: 7px;
-	display: none;
+.sub-nav > ul > li > a {
+	font-size: 14px;
+	font-weight: bold;
 }
-.sub-nav > li {
-	padding: 10px 0;
-	font-size: 15px;
-}
-.sub-nav > li:hover {
+.sub-nav > ul > li:hover {
 	border-bottom: 2px solid black;	
+	transition: 0.3s all ease-out;
+}
+.uni-info {
+	width: 40%;
+	margin: 0 auto;
+	font-size: 13px;
+	font-weight: bold;
+	display: block;
+	text-align: center;
+	margin-top: 15px;
+	border-bottom: 2px solid transparent;
+}
+.uni-info:hover {
+	background: linear-gradient(-225deg, #5271C4 0%, #B19FFF 48%, #ECA1FE 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;	
 }
 
 /*----------------------------------*/
@@ -320,11 +345,19 @@ button {
 .section-title {
 	width: 100%;
 	height: 230px;
-	background: steelblue; 
 	float: right;
 	margin-right: 4.5%;
 	text-align: right;
+	background: url("../../img/banner/bi03.jpg") no-repeat;
+	background-size: 100%;
+	background-position: center;
+	position: relative;
+	filter: blur(1px);
 }
+.section-title > h1 {
+	display: none;
+}
+
 
 
 

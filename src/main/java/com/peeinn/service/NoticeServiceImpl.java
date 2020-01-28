@@ -44,6 +44,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
+	@Transactional
 	public void modifyNotice(NoticeVO nt, String[] delFiles) {
 		//db에 삭제
 		if(delFiles != null) {
@@ -61,6 +62,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
+	@Transactional
 	public void removeNotice(int ntNo) {
 		dao.deleteNoticeAttach(ntNo);
 		dao.deleteNotice(ntNo);

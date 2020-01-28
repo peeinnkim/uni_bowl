@@ -49,13 +49,21 @@
 			
 			<div class="header nav">
 				<ul>
+					<li><a href="${pageContext.request.contextPath}/user/rsv/step01">TIME TABLE</a></li>
 					<li><a href="${pageContext.request.contextPath}/user/pg">PROGRAM</a></li>
 					<li><a href="${pageContext.request.contextPath}/user/th">THEATER</a></li>
-					<li><a href="${pageContext.request.contextPath}/user/qna/list">Q＆A</a></li>
-					<li><a href="${pageContext.request.contextPath}/user/notice/list">NOTICE</a></li>
-					<li><a href="#">UNI-BOWL？</a></li>
 				</ul>
 			</div>
+			
+			<div class="sub-nav">
+				<ul>
+					<li><a href="${pageContext.request.contextPath}/user/qna/list">Q＆A</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/notice/list">NOTICE</a></li>
+				</ul>
+			</div>
+			
+			<!-- <span class="uni-info"><a href="#">UNI-BOWL?</a></span> -->
+			
 		</div>
 		
 		<div id="section">

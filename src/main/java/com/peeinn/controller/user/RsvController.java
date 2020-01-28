@@ -30,6 +30,8 @@ import com.peeinn.domain.org.OrgResultVO;
 import com.peeinn.domain.org.RsvLogsVO;
 import com.peeinn.domain.org.RsvResultVO;
 import com.peeinn.domain.org.StInfoVO;
+import com.peeinn.domain.paging.PageMaker;
+import com.peeinn.domain.paging.SearchCriteria;
 import com.peeinn.service.MemberService;
 import com.peeinn.service.OrgService;
 import com.peeinn.service.ProgramService;
@@ -57,18 +59,18 @@ public class RsvController {
 	
 	
 	@RequestMapping(value="step01", method=RequestMethod.GET)
-	public void registRsv1(Model model, String savedDate) {
+	public void registRsv1(Model model, String sDate) {
 		logger.info("------------ [RSV1 GET] ------------");
 		
-		if(savedDate == null) {
-			savedDate = "";
+		if(sDate == null) {
+			sDate = "";
 		}
 		
-		List<Integer> repeatList = orgService.repeatCntByPg(savedDate);
+		List<Integer> repeatList = orgService.repeatCntByPg(sDate);
 		
-		model.addAttribute("sDate", savedDate);
+		model.addAttribute("sDate", sDate);
 		model.addAttribute("rList", repeatList);
-		model.addAttribute("list", orgService.orgDateList(savedDate));
+		model.addAttribute("list", orgService.orgDateList(sDate));
 	}
 	
 	@ResponseBody
@@ -198,6 +200,7 @@ public class RsvController {
 									 tempOres.getTh().getThNm(), 
 									 py.getPyPrice(), 
 									 null, 
+									 tempOres.getOrg().getOrgStime(),
 									 0);
 		
 		try {
@@ -224,9 +227,16 @@ public class RsvController {
 	
 	//멤버별 전체예약
 	@RequestMapping(value="myRsv", method=RequestMethod.GET)
-	public void myRsvList(Model model, HttpSession session) {
+	public void myRsvList(Model model, HttpSession session, SearchCriteria cri) {
 		logger.info("------------ [myRSVList GET] ------------");
 		AuthVO auth = (AuthVO) session.getAttribute("Auth");
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(rsvService.rsvLogsBymNoCnt(auth.getAuthNo()));
+		
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("cri", cri);
 		model.addAttribute("list", rsvService.rsvLogsBymNo(auth.getAuthNo()));
 	}
 	

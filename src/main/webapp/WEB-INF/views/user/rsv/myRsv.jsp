@@ -96,8 +96,18 @@
 		<c:forEach var="rl" items="${list}">
 			<tr class="added-tr ${rl.rlRsvState == 0? '': 'cancelTr'}" >
 				<td>${rl.rlRsvNo}</td>
-				<td class="list-title"><a href="${pageContext.request.contextPath}/user/rsv/rsvDetail?rsvNo=${rl.rlRsvNo}">${rl.rlPgTitle}</a></td>
-				<td><fmt:formatDate value="${rl.rlOrgDate}" pattern="yyyy-MM-dd"/></td>
+				<td class="list-title">
+					<c:if test="${rl.rlRsvState == 0}">
+						<a href="${pageContext.request.contextPath}/user/rsv/rsvDetail?rsvNo=${rl.rlRsvNo}">${rl.rlPgTitle}</a>
+					</c:if>
+					<c:if test="${rl.rlRsvState == 1}">
+						${rl.rlPgTitle}
+					</c:if>
+				</td>
+				<td>
+					<c:set var="h" value="${fn:split(rl.rlRsvStime, ':')}"/>
+					<fmt:formatDate value="${rl.rlOrgDate}" pattern="yyyy-MM-dd"/> ${h[0]}:${h[1]}
+				</td>
 				<td>${rl.rlThNm} 관</td>
 				<td><fmt:formatNumber value="${rl.rlRsvPrice}" pattern="###,###"/> 원</td>
 				<td><fmt:formatDate value="${rl.rlRsvDate}" pattern="yyyy-MM-dd HH:mm"/></td>

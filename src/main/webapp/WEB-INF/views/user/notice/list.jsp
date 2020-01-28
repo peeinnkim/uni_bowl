@@ -28,7 +28,6 @@
 			<th>TITLE</th>
 			<th>WRITER</th>
 			<th>DATE</th>
-			<th>CNT</th>
 		</tr>
 		<c:forEach var="nt" items="${list}">
 			<tr class="added-tr ${nt.ntSort == 1? 'ntTop-tr': ''}">
@@ -36,7 +35,6 @@
 				<td class="list-title"><a href="${pageContext.request.contextPath}/user/notice/read?ntNo=${nt.ntNo}&page=${pageMaker.cri.page}">${nt.ntTitle}</a></td>
 				<td>관리자</td>
 				<td><fmt:formatDate value="${nt.ntRegDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-				<td>${nt.ntViewCnt}</td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -96,7 +94,61 @@
 				"page": 1, 
 				"perPageNum": 10
 			};
-		getListPage(data);
+		
+		$.ajax({
+			url: "${pageContext.request.contextPath}/admin/notice/searchList",
+			type: "post",
+			data: data,
+			dataType: "json",
+			success: function(res){
+				console.log(res);
+				
+				$(".added-tr").remove();
+				
+				var source = $("#template").html();
+				var func = Handlebars.compile(source);
+				var str = func(res);
+				
+				//댓글 리스트 가져오기
+				$("#main-tb").append(str);
+				
+				//페이지네이션 지우기
+				$(".pagination").empty();
+				
+				//make a page-maker
+				var startPage = res.pageMaker.startPage;
+				var endPage = res.pageMaker.endPage;
+				
+				for(var i=startPage; i<=endPage; i++) {
+					var $li = $("<li>");
+					var $a = $("<a>").attr("href", "#").attr("data-page", i).append(i);
+					$li.append($a);
+					
+					if(i == nPage) {
+						$li.addClass("on");
+					}
+					
+					$(".pagination").append($li);
+				}
+				
+				if(res.pageMaker.prev == true) {
+					var $li = $("<li>").addClass("previous");
+					var $a = $("<a>").attr("href", "#").attr("data-page", res.pageMaker.startPage-1).append("◀");
+					$li.append($a);
+					$(".pagination").prepend($li);
+				}
+				
+				if(res.pageMaker.next == true) {
+					var $li = $("<li>").addClass("next");
+					var $a = $("<a>").attr("href", "#").attr("data-page", res.pageMaker.endPage+1).append("▶");
+					$li.append($a);
+					$(".pagination").append($li);
+				}
+			},
+			error : function(e){
+				console.log(e);
+			}
+		})
 	})
 </script>
 <%@ include file="../../include/footer.jsp" %>

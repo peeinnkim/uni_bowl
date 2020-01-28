@@ -98,6 +98,9 @@ th, td {
 th {
 	border-top: 2px solid black;
 }
+table pre {
+	font-family: 'M PLUS 1p', 'Noto Sans KR', sans-serif;
+}
 .list-title {
 	width: 70%;
 	text-align: left;
@@ -211,4 +214,8 @@ th {
 }
 .pagination .active a {
 	color: #eee;
+}
+.cancelTr, .cancelTr a {
+	background: rgba(128,127,165,0.5);
+    cursor: default;
 }

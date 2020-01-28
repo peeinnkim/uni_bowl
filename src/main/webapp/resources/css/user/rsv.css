@@ -308,6 +308,22 @@ th {
 .pNum, .cNum {
 	width: 50px;
 }
+td[colspan='4'] > ul {
+    list-style: square;
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    font-size: 14px;
+    line-height: 30px;	
+}
+td[colspan='4'] > div {
+    width: 90%;
+    padding: 20px;
+    margin: 20px auto;
+    font-size: 14px;
+    line-height: 30px;	
+    background: rgba(255, 255, 255, 0.6);
+}
 
 /* RESERVATION COMPLETE */
 .rsv-cpl-wrap {

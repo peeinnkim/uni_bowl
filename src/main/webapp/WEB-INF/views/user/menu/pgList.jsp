@@ -10,14 +10,17 @@
 
 <div class="content-area">
 	<div class="pg-list-wrap">
+		<h1 style="text-align: center;">PROGRAM LIST</h1>
 		<ul class="pg-list">
 			<c:forEach var="pg" items="${list}">
-				<li>
-					<h2>${pg.pgTitle}</h2>
-					<div class="pg-img" data-pgNo="${pg.pgNo}">
-						<img src="${pageContext.request.contextPath}/admin/displayFile?fileName=${pg.pgPoster}">
-					</div>
-				</li>
+				<c:if test="${pg.pgIsRunning == 0}">
+					<li>
+						<h2>${pg.pgTitle}</h2>
+						<div class="pg-img" data-pgNo="${pg.pgNo}">
+							<img src="${pageContext.request.contextPath}/admin/displayFile?fileName=${pg.pgPoster}">
+						</div>
+					</li>
+				</c:if>
 			</c:forEach>
 		</ul>
 	</div>

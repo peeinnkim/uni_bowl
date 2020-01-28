@@ -15,7 +15,7 @@
 				<th>TITLE</th>
 				<th>WRITER</th>
 				<th>DATE</th>
-				<th>STATE</th>
+				<th></th>
 			</tr>
 			<c:forEach var="qna" items="${list}">
 				<tr class="show-sub" data-qnaNo="${qna.qnaNo}">
@@ -24,7 +24,7 @@
 					<td>${qna.qnaTitle}</td>
 					<td style="width: 180px;">${qna.qnaWriterId}</td>
 					<td style="width: 180px;"><fmt:formatDate value="${qna.qnaRegDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-					<td style="width: 140px;">답변완료</td>
+					<td style="width: 180px;"></td>
 				</tr>
 
 				<tr class="req-sub">
@@ -47,7 +47,7 @@
 						<div class="req-reply-list">
 							<h5>REPLY LIST</h5>
 							<ul class="rpList">
-								<li class="added-li">
+								<!-- <li class="added-li">
 									<span class="replyer">
 										<em>관리자</em><br>
 										<b>작성일</b><i>2020-20-20 11:11:11</i>
@@ -58,7 +58,7 @@
 										<a class="rBtnMod"></a>
 										<a class="rBtnDel"></a>
 									</span>
-								</li>
+								</li> -->
 							</ul>
 						</div>
 					</td>
@@ -76,9 +76,6 @@
 	<span class="replyer">
 		<em data-mNo={{rpWriter}}>관리자</em><br>
 		<b>작성일</b><i>{{prettifyDate rpRegDate}}</i>
-		<c:if test="${{{rpModDate}} != null}">		
-			<b>수정일</b><i>{{prettifyDate rpModDate}}</i>
-		</c:if>
 	</span>
 	<pre>{{rpContent}}</pre>
 	<span class="replyBtn">
@@ -154,10 +151,10 @@
 	
 	/* 댓글수정취소 */
 	$(document).on("click", ".btnCancel", function(){
-		$(".qRpContent").empty();
-		$(this).prevAll("input[name='qRpNo']").val("0");							
-		$(this).prevAll("input[name='writer']").val("${Auth.authNo}");	
-		$(this).closest(".req-sub").find(".btnAdd").text("REGIST").removeClass().addClass("btnAdd"); //버튼변경
+		$(".qRpContent").val("");
+		$("input[name='qRpNo']").val("0");							
+		$("input[name='writer']").val("${Auth.authNo}");	
+		$(this).prev().text("REGIST").removeClass().addClass("btnAdd"); //버튼변경
 	})
 	
 	/* 댓글 수정 눌렀을때 수정쪽으로 쌰샤샥 */
@@ -190,6 +187,8 @@
 				if(res == "success") {
 					alert("수정되었습니다.");
 					getReplyList(qnaTr);
+					$(".qRpContent").empty();
+					$(document).on("click", ".btnCancel", function(){})
 				}
 			},
 			error: function(e){

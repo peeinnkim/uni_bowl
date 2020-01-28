@@ -117,6 +117,17 @@ dd {
 	background: #5271C4;
 	position: relative;
 }
+.ss-cnt-wrap {
+	position: absolute;
+    top: 14px;
+    left: 6px;
+    color: #eee;
+    font-size: 14px;
+}
+.ss-cnt-wrap > span {
+	font-weight: bold;
+	font-size: 16px;
+}
 .seat-save-wrap > span {
 	font-size: 21px;
     font-weight: bold;

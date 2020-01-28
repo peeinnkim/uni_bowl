@@ -70,7 +70,7 @@
 		<dl>
 			<dt>프로그램명</dt>
 			<dd>
-				<img src="${pageContext.request.contextPath}/admin/intranet/displayFile?fileName=${tempOres.pg.pgThumb}"><br>
+				<img src="${pageContext.request.contextPath}/admin/displayFile?fileName=${tempOres.pg.pgThumb}"><br>
 				${tempOres.pg.pgTitle}
 			</dd>
 			

@@ -1,6 +1,7 @@
 package com.peeinn.controller.admin;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,11 +34,11 @@ import com.peeinn.domain.TheaterVO;
 import com.peeinn.domain.org.OrgResultVO;
 import com.peeinn.domain.paging.CodeStateCriteria;
 import com.peeinn.domain.paging.PageMaker;
+import com.peeinn.domain.paging.SearchCriteria;
 import com.peeinn.service.MemberService;
 import com.peeinn.service.OrgService;
 import com.peeinn.service.ProgramService;
 import com.peeinn.service.QnAService;
-import com.peeinn.service.ReplyService;
 import com.peeinn.service.RsvService;
 import com.peeinn.service.SeatService;
 import com.peeinn.service.TheaterService;
@@ -63,8 +65,6 @@ public class IntranetController {
 	private RsvService rsvService;
 	@Autowired
 	private QnAService qnaService;
-	@Autowired
-	private ReplyService replyService;
 
 	
 	/* ------------------- [ MEMBER MNG PART ] ------------------- */
@@ -167,9 +167,15 @@ public class IntranetController {
 	}
 
 	@RequestMapping(value="program/modify", method=RequestMethod.POST)
-	public void modifyPost(Model model, ProgramVO program, String delFiles, MultipartFile imageFiles, HttpServletResponse response) throws IOException {
+	public String modifyPost(Model model, ProgramVO program, String delFiles, MultipartFile imageFiles) throws IOException {
 		logger.info("------------ [modify POST] ------------");
 		logger.info("삭제할 파일 ->>>" + delFiles);
+		
+		if(pgService.isPgRsved(program.getPgNo()) > 0) {
+			model.addAttribute("isPgRsved", true);
+			return "admin/program/list";
+		}
+		
 		ProgramVO pg = new ProgramVO();
 		pg.setPgNo(program.getPgNo());
 		pg.setPgTitle(program.getPgTitle());
@@ -197,18 +203,23 @@ public class IntranetController {
 		
 		pgService.modify(pg);
 		
-		response.sendRedirect("list");
+		return "redirect:/admin/program/list";
 	}
 	
 	@RequestMapping(value="program/remove", method=RequestMethod.GET)
-	public void removePg(int pgNo, HttpServletResponse response) throws IOException {
+	public String removePg(Model model, int pgNo) throws IOException {
 		logger.info("------------ [remove POST] ------------");
+		
+		if(pgService.isPgRsved(pgNo) > 0) {
+			model.addAttribute("isPgRsved", true);
+			return "admin/program/list";
+		}
 		
 		ProgramVO pg = pgService.search(pgNo);
 		UploadFileUtils.deleteFile(adminUploadPath, "program", pg.getPgThumb());
 		
 		pgService.remove(pgNo);
-		response.sendRedirect("list");
+		return "redirect:/admin/program/list";
 	}
 	
 	@RequestMapping(value="program/pgChoice", method=RequestMethod.GET)
@@ -434,6 +445,11 @@ public class IntranetController {
 		logger.info("controller org->>>>>>>>" + org);
 		ResponseEntity<String> entity = null;
 		
+		if(orgService.isRsved(org.getOrgNo()) > 0) {
+			entity = new ResponseEntity<String>("hasRsvedSt", HttpStatus.BAD_REQUEST);
+			return entity;
+		}
+		
 		try {
 			orgService.modify(org);
 			entity = new ResponseEntity<String>("success", HttpStatus.OK);
@@ -458,10 +474,15 @@ public class IntranetController {
 	
 	/* ------------------- [ RSV PART ] ------------------- */
 	@RequestMapping(value="gnr/rsv", method=RequestMethod.GET)
-	public void rsvMng(Model model) {
+	public void rsvMng(Model model, SearchCriteria cri) {
 		logger.info("------------ [RSVMng POST] ------------");
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(rsvService.rsvLogsBymNoCnt(-1));
 		
-		model.addAttribute("list", rsvService.rsvLogsBymNo(0));
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("cri", cri);
+		model.addAttribute("list", rsvService.rsvLogsBymNo(-1));
 	}
 	
 	
@@ -471,6 +492,25 @@ public class IntranetController {
 	public void salesMng() {
 		logger.info("------------ [sales POST] ------------");
 		
+	}
+
+	@ResponseBody
+	@RequestMapping(value="gnr/payChart", method=RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> salesData(int year) {
+		logger.info("------------ [salesData POST] ------------");
+		ResponseEntity<Map<String, Object>> entity = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			map.put("result", "success");
+			map.put("list", rsvService.payChartList(year));
+			entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("result", "fail");
+			entity = new ResponseEntity<Map<String,Object>>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 	}
 
 	/* ------------------- [ MEMBER PART ] ------------------- */

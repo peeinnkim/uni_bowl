@@ -70,8 +70,11 @@
 				<span class="error">[ERROR] 입력하신 메일주소가 형식에 맞지않습니다</span>
 			</p>
 			<p>
-				<input type="submit" ${mem.mNo == null? 'value="JOIN"': 'value="modify"'}>
+				<input type="submit" ${mem.mNo == null? 'value="JOIN"': 'value="MODIFY"'}>
 				<input type="reset" value="CANCEL">
+				<c:if test="${mem.mNo != null}">
+					<a href="${pageContext.request.contextPath}/user/member/secess" style="color: #666; font-size: 13px; font-weight: bold;">회원탈퇴</a>
+				</c:if>
 			</p>
 		</form>
 	</div>
@@ -79,6 +82,9 @@
 
 
 <script>
+	$("input[type='reset']").click(function(){
+		location.href="${pageContext.request.contextPath}/user/member/myPage";
+	})
 	//전화번호 조합하기
 	function getTel(){
 		var tel1 = frm.tel1.value;
@@ -150,7 +156,7 @@
 	
 	//name 유효성 검사
 	$("input[name='mNm']").blur(function(){
-		var nmReg = /^[기-힣]{2,5}$/;
+		var nmReg = /^[가-힣]{2,5}$/;
 		regTest($(this), nmReg);
 	}) 
 	$("input[name='mNm']").focus(function(){
@@ -166,7 +172,7 @@
 		getFocus($(this));
 	})
 	
-	//tel 유효성 검사 -> 다시 해야함
+	//tel 유효성 검사
 	$("input[name='tel2']").blur(function(){
 		var telReg = /^\d{3,4}$/;
 		regTest($(this), telReg);
@@ -185,7 +191,7 @@
 	
 	//유효성 검사 메소드
 	function regTest(obj, reg){
-		if(reg.test(obj.val()) == false){
+		if(reg.test($(obj).val()) == false){
 			$(obj).nextAll(".error").css("display", "inline-block");
 			$(obj).nextAll(".regInfo").css("display", "none");
 		}
@@ -216,7 +222,7 @@
 		}
 		if(frm.mNm.value == "") {
 			alert("이름를 입력하세요");
-			frm.mName.focus();
+			frm.mNm.focus();
 			return false;
 		}
 		if(frm.mTel.value == "") {

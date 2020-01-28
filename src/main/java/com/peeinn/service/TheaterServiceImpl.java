@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.peeinn.domain.TheaterVO;
 import com.peeinn.persistence.SeatDAO;
@@ -38,6 +39,7 @@ public class TheaterServiceImpl implements TheaterService {
 	}
 
 	@Override
+	@Transactional
 	public void remove(int thNo) {
 		sDao.deleteSt(thNo);
 		dao.deleteTh(thNo);

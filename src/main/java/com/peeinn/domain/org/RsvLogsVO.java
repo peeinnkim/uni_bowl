@@ -12,6 +12,7 @@ public class RsvLogsVO {
 	private String rlThNm;
 	private int rlRsvPrice;
 	private Date rlRsvDate;
+	private String rlRsvStime;
 	private int rlRsvState;
 
 	public RsvLogsVO() {
@@ -19,7 +20,7 @@ public class RsvLogsVO {
 	}
 
 	public RsvLogsVO(int rlNo, int rlMno, String rlMid, int rlRsvNo, String rlPgTitle, Date rlOrgDate, String rlThNm,
-			int rlRsvPrice, Date rlRsvDate, int rlRsvState) {
+			int rlRsvPrice, Date rlRsvDate, String rlRsvStime, int rlRsvState) {
 		this.rlNo = rlNo;
 		this.rlMno = rlMno;
 		this.rlMid = rlMid;
@@ -29,6 +30,7 @@ public class RsvLogsVO {
 		this.rlThNm = rlThNm;
 		this.rlRsvPrice = rlRsvPrice;
 		this.rlRsvDate = rlRsvDate;
+		this.rlRsvStime = rlRsvStime;
 		this.rlRsvState = rlRsvState;
 	}
 
@@ -104,6 +106,14 @@ public class RsvLogsVO {
 		this.rlRsvDate = rlRsvDate;
 	}
 
+	public String getRlRsvStime() {
+		return rlRsvStime;
+	}
+
+	public void setRlRsvStime(String rlRsvStime) {
+		this.rlRsvStime = rlRsvStime;
+	}
+
 	public int getRlRsvState() {
 		return rlRsvState;
 	}
@@ -116,7 +126,8 @@ public class RsvLogsVO {
 	public String toString() {
 		return "RsvLogsVO [rlNo=" + rlNo + ", rlMno=" + rlMno + ", rlMid=" + rlMid + ", rlRsvNo=" + rlRsvNo
 				+ ", rlPgTitle=" + rlPgTitle + ", rlOrgDate=" + rlOrgDate + ", rlThNm=" + rlThNm + ", rlRsvPrice="
-				+ rlRsvPrice + ", rlRsvDate=" + rlRsvDate + ", rlRsvState=" + rlRsvState + "]";
+				+ rlRsvPrice + ", rlRsvDate=" + rlRsvDate + ", rlRsvStime=" + rlRsvStime + ", rlRsvState=" + rlRsvState
+				+ "]";
 	}
 
 }// RsvLogsVO

@@ -42,7 +42,6 @@
 			<th>TITLE</th>
 			<th>WRITER</th>
 			<th>DATE</th>
-			<th>CNT</th>
 		</tr>
 		
 		<c:forEach var="qna" items="${list}">
@@ -53,7 +52,6 @@
 				<td class="list-title"><a href="${pageContext.request.contextPath}/user/qna/read?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
 				<td>${qna.qnaWriterId}</td>
 				<td><fmt:formatDate value="${qna.qnaRegDate}" pattern="yyyy-MM-dd"/></td>
-				<td>${qna.qnaViewCnt}</td>
 			</tr>
 		</c:forEach>
 				
@@ -101,7 +99,6 @@
 	<td class="qna-title"><a href="${pageContext.request.contextPath}/user/qna/read?qnaNo={{qnaNo}}">{{qnaTitle}}</a></td>
 	<td>{{qnaWriterId}}</td>
 	<td>{{pDate qnaRegDate}}</td>
-	<td>{{qnaViewCnt}}</td>
 </tr>
 {{/list}}
 </script>

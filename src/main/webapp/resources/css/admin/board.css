@@ -123,6 +123,10 @@ td {
 	cursor: pointer;
 }
 
+.cancelTr, .cancelTr a {
+	background: silver;
+	cursor: default;
+}
 
 
 

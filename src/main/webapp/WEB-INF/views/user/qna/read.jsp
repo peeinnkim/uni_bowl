@@ -33,18 +33,6 @@
 					<dt>등록일</dt>
 					<dd><fmt:formatDate value="${qna.qnaRegDate}" pattern="yyyy-MM-dd HH:mm:ss"/></dd>
 				</dl>
-				<c:if test="${qna.qnaModDate != null}">
-				<dl>
-					<dt>수정일</dt>
-					<dd>
-						<fmt:formatDate value="${qna.qnaModDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
-					</dd>
-				</dl>
-				</c:if>
-				<dl>
-					<dt>조회수</dt>
-					<dd>${qna.qnaViewCnt}</dd>
-				</dl>
 			</div>
 		</div>
 		
@@ -57,7 +45,7 @@
 					<c:forEach var="qa" items="${qna.files}">
 						<li><!-- 섬네일 디스플레이 -->
 							<span class="thumb-img" data-src="${qa.qaOrigin}">
-								<img src="${pageContext.request.contextPath}/user/qna/displayFile?fileName=${qa.qaThumb}">
+								<img src="${pageContext.request.contextPath}/user/displayFile?fileName=${qa.qaThumb}">
 							</span>
 						</li>
 					</c:forEach>
@@ -147,13 +135,10 @@
 		<pre>{{rpContent}}</pre>
 		<textarea class="mod-txt">{{rpContent}}</textarea>
 	</div>
-	
 						
 	<div class="reply-btn">
-		<c:if test="${Auth.authNo == {{rpWriter}}}">
-			<a class="modReply">수정</a>
-			<a class="modCancel">취소</a>
-		</c:if>
+		<a class="modReply">수정</a>
+		<a class="modCancel">취소</a>
 	</div>
 </li>
 {{/each}}
@@ -162,7 +147,7 @@
 	/* 이미지 클릭 시 모달창에 원본사진 나오게 하기 */
 	$(document).on("click", ".thumb-img", function(){
 		var src = $(this).attr("data-src");
-		var $img = $("<img>").attr("src", "${pageContext.request.contextPath}/user/qna/displayFile?fileName="+src);
+		var $img = $("<img>").attr("src", "${pageContext.request.contextPath}/user/displayFile?fileName="+src);
 		var $modalX = $("<span>").addClass("modalX");
 		
 		$(".modal-img").empty();

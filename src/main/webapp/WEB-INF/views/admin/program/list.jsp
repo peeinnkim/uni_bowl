@@ -29,14 +29,28 @@
 			</tr>
 			
 			<c:forEach var="pg" items="${list}">
-				<tr>
+				<tr class="${pg.pgIsRunning == 1? 'cancelTr': ''}">
 					<td>${pg.pgNo}</td>
-					<td class="poster-wrap"><img src="${pageContext.request.contextPath}/admin/displayFile?fileName=${pg.pgThumb}"></td>
-					<td class="title-wrap"><a href="${pageContext.request.contextPath}/admin/program/modify?pgNo=${pg.pgNo}">${pg.pgTitle}</a></td>
+					<td class="poster-wrap">
+						<c:if test="${pg.pgIsRunning == 0}">
+							<img src="${pageContext.request.contextPath}/admin/displayFile?fileName=${pg.pgThumb}">
+						</c:if>
+						<c:if test="${pg.pgIsRunning == 1}">-</c:if>
+					</td>
+					<td class="title-wrap">
+						<c:if test="${pg.pgIsRunning == 0}">
+							<a href="${pageContext.request.contextPath}/admin/program/modify?pgNo=${pg.pgNo}">${pg.pgTitle}</a>
+						</c:if>
+						<c:if test="${pg.pgIsRunning == 1}">${pg.pgTitle}</c:if>
+					</td>
 					<td class="detail-wrap"><pre><c:out value="${pg.pgDetail}"/></pre></td>
 					<td class="etc-wrap">${pg.pgTime}분</td>
-					<td class="etc-wrap">${pg.pgIsRunning == 1? '상영중': '상영대기'}</td>
-					<td class="del-wrap"><a href="${pageContext.request.contextPath}/admin/program/remove?pgNo=${pg.pgNo}" class="pgDel"></a></td>
+					<td class="etc-wrap">${pg.pgIsRunning == 0? '상영중': '상영종료'}</td>
+					<td class="del-wrap">
+						<c:if test="${pg.pgIsRunning == 0}">
+							<a href="${pageContext.request.contextPath}/admin/program/remove?pgNo=${pg.pgNo}" class="pgDel"></a>
+						</c:if>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>

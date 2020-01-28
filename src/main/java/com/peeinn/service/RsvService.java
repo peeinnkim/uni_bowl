@@ -17,6 +17,7 @@ public interface RsvService {
 	public List<RsvResultVO> rsvListBymNo(int mNo, int fDate);
 	
 	public List<RsvLogsVO> rsvLogsBymNo(int mNo);
+	public int rsvLogsBymNoCnt(int mNo);
 
 	public List<String> rsvedSeatList(int rsvNo);
 	
@@ -24,5 +25,6 @@ public interface RsvService {
 	
 	/* PAY PART */
 	public List<PayVO> payList();
+	public List<Integer> payChartList(int year);
 	
 }//RsvService

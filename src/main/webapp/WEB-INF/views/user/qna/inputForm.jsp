@@ -3,6 +3,9 @@
 <%@ include file="../../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/user/board.css" type="text/css" rel="stylesheet">
+<style>
+	input, textarea { background: #eaeaea !important; }
+</style>
 <script src="${pageContext.request.contextPath}/resources/js/upload.js"></script>
 
 <div class="section-title">

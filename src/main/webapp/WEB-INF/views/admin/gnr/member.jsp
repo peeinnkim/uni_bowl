@@ -35,9 +35,6 @@
 	.on > a {
 		color: #eee;
 	}
-	.quitted {
-		background: silver
-	}
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/getSearchList.js"></script>
 
@@ -89,7 +86,7 @@
 			</tr>
 			
 			<c:forEach var="mem" items="${list}">
-				<tr class="added-tr">
+				<tr class="added-tr ${mem.mQuitDate == null? '': 'cancelTr'}">
 					<td>${mem.mNo}</td>
 					<td>${mem.mId}</td>
 					<td>${mem.mNm}</td>
@@ -102,7 +99,7 @@
 					<td>
 						<c:choose>
 							<c:when test="${mem.mQuitDate != null}">
-								<span class="quitted"><fmt:formatDate value="${mem.mQuitDate}" pattern="yyyy-MM-dd"/></span>
+								<span><fmt:formatDate value="${mem.mQuitDate}" pattern="yyyy-MM-dd"/></span>
 							</c:when>
 							<c:otherwise>
 								- 

@@ -24,6 +24,7 @@ public interface RsvDAO {
 	public void deleteRsvInfo(int rsvNo);
 	
 	public List<String> selectRsvedSeatList(int rsvNo);
+	public List<Integer> selectPayChartList(int year);
 	
 	
 	/* PAY PART */
@@ -38,6 +39,7 @@ public interface RsvDAO {
 	public void cancelRsvLogs(int rsvNo);
 	
 	public List<RsvLogsVO> selectRsvLogs(int mNo);
+	public int selectRsvLogsCnt(int mNo);
 
 	
 	

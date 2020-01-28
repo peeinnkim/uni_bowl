@@ -109,5 +109,18 @@ public class RsvDAOImpl implements RsvDAO {
 		return sqlSession.selectList(namespace + ".selectRsvLogs", map);
 	}
 
+	@Override
+	public List<Integer> selectPayChartList(int year) {
+		return sqlSession.selectList(namespace + ".selectPayChart", year);
+	}
+
+	@Override
+	public int selectRsvLogsCnt(int mNo) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("mNo", mNo);
+		
+		return sqlSession.selectOne(namespace + ".selectRsvLogsCnt", map);
+	}
+
 
 }//RsvDAOImpl

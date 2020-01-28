@@ -26,9 +26,9 @@
 			</tr>
 			
 			<c:forEach var="rl" items="${list}">
-				<tr class="added-tr">
+				<tr class="added-tr ${rl.rlRsvState == 0? '': 'cancelTr'}">
 					<td>${rl.rlRsvNo}</td>
-					<td class="list-title"><a href="#">${rl.rlPgTitle}</a></td>
+					<td class="list-title">${rl.rlPgTitle}</td>
 					<td>${rl.rlMid}</td>
 					<td><fmt:formatDate value="${rl.rlOrgDate}" pattern="yyyy-MM-dd"/></td>
 					<td>${rl.rlThNm} 관</td>
@@ -38,6 +38,33 @@
 				</tr>
 			</c:forEach>
 		</table>
+		
+		<div class="paging-wrap">
+			<ul class="pagination">
+				<c:if test="${pageMaker.prev == true}">
+					<li class="prev-li">
+						<a href="listPage?page=${pageMaker.startPage}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+							◀
+						</a>
+					</li>
+				</c:if>
+				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+					<li ${idx == pageMaker.cri.page? 'class=active': ''}>
+						<a href="listPage?page=${idx}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+							${idx}
+						</a>									
+					</li>
+				</c:forEach>
+				<c:if test="${pageMaker.next == true}">
+					<li class="next-li">
+						<a href="listPage?page=${pageMaker.endPage+1}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+							▶
+						</a>
+					</li>
+				</c:if>
+			</ul>
+			<p>${pageMaker.cri.page} / ${pageMaker.totalPager} <small>페이지</small></p>
+		</div>
 	</div>
 </div>
 

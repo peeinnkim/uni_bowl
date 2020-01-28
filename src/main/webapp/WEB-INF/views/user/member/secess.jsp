@@ -3,6 +3,10 @@
 <%@ include file="../../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/user/member.css" type="text/css" rel="stylesheet">
+<style>
+	form > h2, form > h3 { text-align: center }
+	form > p { margin: 30px auto !important; width: 48%;}
+</style>
 
 <div class="section-title">
 	<h1>UNIVERSE FISH-BOWL</h1>
@@ -18,9 +22,9 @@
 				<label>PASSWORD</label>
 				<input type="password" name="mPw">
 			</p>
-			<p>
-				<input type="submit" value="SECESS">
-				<input type="reset" value="CANCEL">
+			<p style="text-align:center;">
+				<input type="submit" value="SECESS" style="margin-right: 10px">
+				<input type="reset" value="CANCEL" style="margin-left: 10px">
 			</p>
 		</form>
 	</div>

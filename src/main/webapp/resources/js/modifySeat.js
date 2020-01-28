@@ -104,6 +104,9 @@ $(function(){
 	/* 좌석 설정하기 */
 	//수정 범위 설정
 	var modType = 0; //0: 부분수정, 1: 전체수정
+
+	//좌석 지정시 쓸 변수
+	var totalSeat, needSeat; //아래에서 값 복사해서 쓸거임
 	
 	//좌석 크기 설정
 	$("#crtStBtn").click(function(){
@@ -113,7 +116,7 @@ $(function(){
 			return false;
 		}
 		
-		//전체수정모드
+		//전체수정모드임
 		modType = $("#cThNo").val();
 		$("#show-seat-wrap > div").empty();
 		
@@ -121,6 +124,8 @@ $(function(){
 		var rows = $("#rows").val(); //ul
 		var cols = $("#cols").val(); //li
 		var capa = $("#cThCnt").text();
+		totalSeat = rows * cols;
+		needSeat = capa;
 		
 		if(capa == "") {
 			alert("수용인원을 입력해주세요.");
@@ -132,6 +137,7 @@ $(function(){
 			return;
 		}
 		
+		$("#curSeatCnt").text(totalSeat);
 		var code_saver = "";
 		var idx, rowStr;
 		var thNo = $("#cThNo").val();
@@ -155,10 +161,25 @@ $(function(){
 	
 	/* SEAT 지정 */
 	var stArr = [];
+	var nonSeat = totalSeat - needSeat;
 	$(document).on("click", ".seat", function(){
+		var originCno = $(this).attr("data-cNo");
+		
+		
+		
+		if( cNo == "5" ) { //비좌석으로 설정할때
+			if( totalSeat == needSeat ) { alert("그만"); return; }
+			if(originCno == "5") { return; }
+			$("#curSeatCnt").text(--totalSeat);
+		} else { //좌석으로 설정할때
+			if(originCno == "5") { $("#curSeatCnt").text(++totalSeat); }
+		}
+		
 		$(this).removeClass();
 		$(this).attr("data-cNo", cNo);
 		$(this).addClass(cDefault + " " + cName + "  added-seat");
+		
+		
 	})
 	
 	/* 설정완료 */

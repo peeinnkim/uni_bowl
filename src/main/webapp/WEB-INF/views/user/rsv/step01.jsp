@@ -38,7 +38,6 @@
 							<b>${list[tm].th.thNm} 관</b>
 							<h3 class="sTime">${h[0]}:${h[1]}</h3>
 							<em class="eTime">~ ${m[0]}:${m[1]}</em>
-							<p><span>10</span> / 30席</p>
 							<input type="hidden" name="orgNo" value="${list[tm].org.orgNo}">
 							<input type="hidden" name="orgPgNo" value="${list[tm].pg.pgNo}">
 							<input type="hidden" name="orgThNo" value="${list[tm].th.thNo}">

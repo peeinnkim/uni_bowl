@@ -115,7 +115,7 @@
 		function next5Days(){
 			if(++clickCnt == 5) {
 				clickCnt = 4;
-				alert("현재 날짜로부터 예약만 가능합니다.");
+				alert("현재 날짜로부터 4주 간의 예약만 가능합니다.");
 				return false;
 			}
 			
@@ -171,6 +171,7 @@
 						var $divTxt = $("<div>").addClass("info-txt");
 						var $divImg = $("<div>").addClass("info-img");
 						var $divInfo = $("<div>").addClass("list-info");
+						var $divTime = $("<div>").addClass("list-time");
 						var $divListBox = $("<div>").addClass("list-box");
 						
 						$infoImg.attr("src", pName+"/admin/displayFile?fileName="+res.list[sum].pg.pgThumb);
@@ -192,24 +193,23 @@
 							var $ipOrgPgNo = $("<input>").attr({"type":"hidden", "name": "orgPgNo"});
 							var $ipOrgThNo = $("<input>").attr({"type":"hidden", "name": "orgThNo"});
 							var $divTimeBox = $("<div>").addClass("time-box");
-							var $divTime = $("<div>").addClass("list-time");
 							
-							var h = res.list[sum].org.orgStime.split(":");
-							var m = res.list[sum].org.orgEtime.split(":");
+							var h = res.list[j].org.orgStime.split(":");
+							var m = res.list[j].org.orgEtime.split(":");
 							
-							$timeB.append(res.list[sum].th.thNm + " 관");
+							$timeB.append(res.list[j].th.thNm + " 관");
 							$timeH3.append(h[0] + ":" + h[1]);
 							$timeEm.append("~ " + m[0] + ":" + m[1]);
 							$timeP.append("<span>13</span> / 30席");
 							         
-							$ipOrgNo.val(res.list[sum].org.orgNo);
-							$ipOrgPgNo.val(res.list[sum].pg.pgNo);
-							$ipOrgThNo.val(res.list[sum].th.thNo); 
+							$ipOrgNo.val(res.list[j].org.orgNo);
+							$ipOrgPgNo.val(res.list[j].pg.pgNo);
+							$ipOrgThNo.val(res.list[j].th.thNo); 
 							
 							$divTimeBox.append($timeB).append($timeH3).append($timeEm).append($timeP);
 							$divTimeBox.append($ipOrgNo).append($ipOrgPgNo).append($ipOrgThNo);
+							$divTime.append($divTimeBox);
 						}
-						$divTime.append($divTimeBox);
 						$divListBox.append($divTime);
 						sum = sum + res.repeatList[i];
 						$(".main-list").append($divListBox);

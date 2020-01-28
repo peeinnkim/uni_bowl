@@ -21,12 +21,15 @@ public class HomeController {
 	
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(HttpSession session) {
+	public String home(HttpSession session, Model model) {
 		logger.info("------------ [HOME] ------------");
 		//세션에 저장한 임시정보 삭제
-		session.removeAttribute("tempPay");
-		session.removeAttribute("seatList");
-		session.removeAttribute("tempOres");
+//		session.removeAttribute("tempPay");
+//		session.removeAttribute("seatList");
+//		session.removeAttribute("tempOres");
+		
+		model.addAttribute("n3List", pgService.new3list());
+		model.addAttribute("bestList", pgService.best3list());
 		
 		return "home";
 	}

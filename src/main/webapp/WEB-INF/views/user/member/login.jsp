@@ -28,7 +28,7 @@
 			<p class="mMenu-wrap">
 				<a href="${pageContext.request.contextPath}/user/member/join">JOIN</a>
 				<a href="${pageContext.request.contextPath}/user/member/findInfo">FIND ID/PW</a>
-				<a href="${pageContext.request.contextPath}/user/member/findInfo">비회원 로그인</a>
+				<%-- <a href="${pageContext.request.contextPath}/user/member/findInfo">비회원 로그인</a> --%>
 			</p>
 			<p class="uni-notice">우주어항 관계자들은 인트라넷 로그인을 이용해주세요!</p>
 			<p class="error">

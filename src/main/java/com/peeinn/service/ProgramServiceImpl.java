@@ -46,4 +46,19 @@ public class ProgramServiceImpl implements ProgramService {
 		dao.deletePg(pgNo);
 	}
 
+	@Override
+	public List<ProgramVO> new3list() {
+		return dao.selectNew3List();
+	}
+
+	@Override
+	public List<ProgramVO> best3list() {
+		return dao.selectBest3List();
+	}
+
+	@Override
+	public int isPgRsved(int pgNo) {
+		return dao.isPgRsved(pgNo);
+	}
+
 }

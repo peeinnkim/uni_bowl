@@ -99,7 +99,7 @@
 		<if test="state == 1">
 			and m_quitDate is not null
 		</if>
-		order by i_member desc
+		order by m_quitDate asc, i_member desc
 		limit #{pageStart}, #{perPageNum}; 
 	</select>
 	

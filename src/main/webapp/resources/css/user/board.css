@@ -144,6 +144,7 @@ textarea {
 	border-bottom: 2px solid black;
 	display: block;
 	margin: 10px auto;
+	font-family: 'M PLUS 1p', 'Noto Sans KR', sans-serif;
 }
 .thumb-wrap, .add-wrap {
 	overflow: hidden;
@@ -419,7 +420,7 @@ dd {
     color: #888;
     cursor: pointer;
 }
-.cancelTr, .cancelTr a {
+.cancelTr {
 	background: silver;
 	cursor: default;
 }

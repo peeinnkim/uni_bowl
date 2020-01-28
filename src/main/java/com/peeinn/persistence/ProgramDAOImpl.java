@@ -1,6 +1,8 @@
 package com.peeinn.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,24 @@ public class ProgramDAOImpl implements ProgramDAO {
 	@Override
 	public void deletePg(int pgNo) {
 		sqlSession.delete(namespace + ".deletePg", pgNo);
+	}
+
+	@Override
+	public List<ProgramVO> selectNew3List() {
+		return sqlSession.selectList(namespace + ".mainNew3List");
+	}
+
+	@Override
+	public List<ProgramVO> selectBest3List() {
+		return sqlSession.selectList(namespace + ".mainBest3List");
+	}
+
+	@Override
+	public int isPgRsved(int pgNo) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("pgNo", pgNo);
+		
+		return sqlSession.selectOne(namespace + ".isPgRsved", map);
 	}
 
 }

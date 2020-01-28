@@ -45,6 +45,7 @@ public class RsvServiceImpl implements RsvService {
 	}
 
 	@Override
+	@Transactional
 	public void cancelRsv(int rsvNo) {
 		dao.cancelPay(rsvNo);
 		dao.cancelRsv(rsvNo);
@@ -81,6 +82,16 @@ public class RsvServiceImpl implements RsvService {
 	@Override
 	public List<PayVO> payList() {
 		return dao.selectPayList();
+	}
+
+	@Override
+	public List<Integer> payChartList(int year) {
+		return dao.selectPayChartList(year);
+	}
+
+	@Override
+	public int rsvLogsBymNoCnt(int mNo) {
+		return dao.selectRsvLogsCnt(mNo);
 	}
 
 

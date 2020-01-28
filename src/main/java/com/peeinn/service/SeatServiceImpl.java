@@ -17,6 +17,7 @@ public class SeatServiceImpl implements SeatService {
 	private SeatDAO dao;
 	
 	@Override
+	@Transactional
 	public void regist(List<SeatVO> stList) {
 		for(SeatVO st : stList) {
 			dao.insertSt(st);
@@ -24,6 +25,7 @@ public class SeatServiceImpl implements SeatService {
 	}
 
 	@Override
+	@Transactional
 	public void modify(List<SeatVO> stList) {
 		for(SeatVO st : stList) {
 			dao.updateSt(st);

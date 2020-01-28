@@ -11,9 +11,12 @@ public interface ProgramService {
 	public void remove(int pgNo);
 	
 	public List<ProgramVO> list();
+	public List<ProgramVO> new3list();
+	public List<ProgramVO> best3list();
 
 	public ProgramVO search(int pgNo);
 	
 	public int totalCnt();
+	public int isPgRsved(int pgNo);
 
 }//ProgramService

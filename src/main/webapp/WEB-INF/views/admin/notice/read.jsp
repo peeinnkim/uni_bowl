@@ -3,10 +3,21 @@
 <%@ include file="../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/user/board.css" type="text/css" rel="stylesheet">
+<style>
+#tit {
+    width: 60%;
+    text-align: center;
+    margin: 0 auto 40px;
+    padding: 10px 0;
+	border-bottom: 4px dashed #5271C4;
+    color: #5271C4;
+    letter-spacing: 0.5em;
+    font-weight: bold;
+    font-size: 1.7em;
+}
+</style>
 
-<div class="section-title">
-	<h1>NOTICE</h1>
-</div>
+<h1 id="tit">공지관리</h1>
 
 <div class="content-area">
 	<div class="read-wrap">

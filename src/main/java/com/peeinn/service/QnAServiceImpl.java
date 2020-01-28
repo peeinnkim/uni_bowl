@@ -52,6 +52,7 @@ public class QnAServiceImpl implements QnAService {
 	}
 
 	@Override
+	@Transactional
 	public void modify(QnAVO qna, String[] delFiles) {
 		//db에서 사진 삭제
 		if(delFiles != null) {
@@ -69,6 +70,7 @@ public class QnAServiceImpl implements QnAService {
 	}
 
 	@Override
+	@Transactional
 	public void remove(int qnaNo) {
 		rpDao.deleteReplyBtQnaNo(qnaNo);
 		dao.deleteQnAAttach(qnaNo);
