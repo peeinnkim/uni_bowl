@@ -35,6 +35,7 @@ import com.peeinn.domain.org.OrgResultVO;
 import com.peeinn.domain.paging.CodeStateCriteria;
 import com.peeinn.domain.paging.PageMaker;
 import com.peeinn.domain.paging.SearchCriteria;
+import com.peeinn.domain.paging.StateCriteria;
 import com.peeinn.service.MemberService;
 import com.peeinn.service.OrgService;
 import com.peeinn.service.ProgramService;
@@ -115,9 +116,12 @@ public class IntranetController {
 	
 	/* ------------------- [ PROGRAM MNG PART ] ------------------- */
 	@RequestMapping(value="program/list", method=RequestMethod.GET)
-	public void programMng(Model model) {
+	public void programMng(Model model, @RequestParam(value="isRsved", required=false, defaultValue="false") boolean isRsved) {
 		logger.info("------------ [programMng GET] ------------");
 		
+		if(isRsved == true) {
+			model.addAttribute("isRsved", "프로그램이 예약되어 있어 수정, 삭제가 불가능합니다.");
+		}
 		model.addAttribute("list", pgService.list());
 	}
 
@@ -172,8 +176,8 @@ public class IntranetController {
 		logger.info("삭제할 파일 ->>>" + delFiles);
 		
 		if(pgService.isPgRsved(program.getPgNo()) > 0) {
-			model.addAttribute("isPgRsved", true);
-			return "admin/program/list";
+			model.addAttribute("isRsved", true);
+			return "redirect:/admin/program/list";
 		}
 		
 		ProgramVO pg = new ProgramVO();
@@ -211,8 +215,8 @@ public class IntranetController {
 		logger.info("------------ [remove POST] ------------");
 		
 		if(pgService.isPgRsved(pgNo) > 0) {
-			model.addAttribute("isPgRsved", true);
-			return "admin/program/list";
+			model.addAttribute("isRsved", true);
+			return "redirect:/admin/program/list";
 		}
 		
 		ProgramVO pg = pgService.search(pgNo);
@@ -231,8 +235,12 @@ public class IntranetController {
 	
 	/* ------------------- [ THEATER PART ] ------------------- */
 	@RequestMapping(value="theater/list", method=RequestMethod.GET)
-	public void thList(Model model) {
+	public void thList(Model model, @RequestParam(value="isRsved", required=false, defaultValue="false") boolean isRsved) {
 		logger.info("------------ [theaterList GET] ------------");
+		
+		if(isRsved == true) {
+			model.addAttribute("isRsved", "상영관에 예약된 좌석이 있어 수정, 삭제가 불가능합니다.");
+		}
 		
 		model.addAttribute("list", thService.list());
 	}
@@ -285,8 +293,8 @@ public class IntranetController {
 		logger.info("------------ [modifyTh GET] ------------");
 		
 		if(thService.hasRsvedSt(thNo) > 0) {
-			model.addAttribute("hasRsvedSt", true);
-			return "admin/theater/list";
+			model.addAttribute("isRsved", true);
+			return "redirect:/admin/theater/list";
 		}
 		model.addAttribute("th", thService.search(thNo));
 		return "admin/theater/input";
@@ -324,9 +332,10 @@ public class IntranetController {
 		logger.info("------------ [removeTh GET] ------------");
 		
 		if(thService.hasRsvedSt(thNo) > 0) {
-			model.addAttribute("hasRsvedSt", true);
-			return "admin/theater/list";
+			model.addAttribute("isRsved", true);
+			return "redirect:/admin/theater/list";
 		}
+		
 		thService.remove(thNo);
 		return "redirect:/admin/theater/list";
 	}
@@ -344,6 +353,10 @@ public class IntranetController {
 			model.addAttribute("row", rowCol.getThRow());
 			model.addAttribute("col", rowCol.getThCol());
 			model.addAttribute("list", list);
+		}
+		
+		if(thService.hasRsvedSt(thNo) > 0) {
+			model.addAttribute("rsved", true);
 		}
 		
 		model.addAttribute("th", thService.search(thNo));
@@ -446,7 +459,7 @@ public class IntranetController {
 		ResponseEntity<String> entity = null;
 		
 		if(orgService.isRsved(org.getOrgNo()) > 0) {
-			entity = new ResponseEntity<String>("hasRsvedSt", HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<String>("isRsved", HttpStatus.BAD_REQUEST);
 			return entity;
 		}
 		
@@ -465,7 +478,7 @@ public class IntranetController {
 		logger.info("------------ [orgLIst POST] ------------");
 		
 		if(orgService.isRsved(orgNo) > 0) {
-			model.addAttribute("hasRsvedSt", true);
+			model.addAttribute("isRsved", true);
 			return "admin/org/list";
 		}
 		orgService.remove(orgNo);
@@ -474,7 +487,7 @@ public class IntranetController {
 	
 	/* ------------------- [ RSV PART ] ------------------- */
 	@RequestMapping(value="gnr/rsv", method=RequestMethod.GET)
-	public void rsvMng(Model model, SearchCriteria cri) {
+	public void rsvMng(Model model, StateCriteria cri) {
 		logger.info("------------ [RSVMng POST] ------------");
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -482,7 +495,7 @@ public class IntranetController {
 		
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("cri", cri);
-		model.addAttribute("list", rsvService.rsvLogsBymNo(-1));
+		model.addAttribute("list", rsvService.rsvLogsBymNo(-1, cri));
 	}
 	
 	
@@ -561,10 +574,16 @@ public class IntranetController {
 	
 	/* ------------------- [ QNA PART ] ------------------- */
 	@RequestMapping(value="gnr/qna", method=RequestMethod.GET)
-	public void reqMngGet (Model model) {
+	public void reqMngGet (Model model, SearchCriteria cri) {
 		logger.info("------------ [intra qna GET] ------------");
 		
-		model.addAttribute("list", qnaService.list());
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(qnaService.qnaCnt());
+		
+		model.addAttribute("list", qnaService.listSearch(cri));
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("cri", cri);
 	}
 
 	

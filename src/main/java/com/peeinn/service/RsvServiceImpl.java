@@ -13,6 +13,7 @@ import com.peeinn.domain.SeatVO;
 import com.peeinn.domain.org.OrgResultVO;
 import com.peeinn.domain.org.RsvLogsVO;
 import com.peeinn.domain.org.RsvResultVO;
+import com.peeinn.domain.paging.StateCriteria;
 import com.peeinn.persistence.RsvDAO;
 
 @Service
@@ -74,8 +75,8 @@ public class RsvServiceImpl implements RsvService {
 	}
 	
 	@Override
-	public List<RsvLogsVO> rsvLogsBymNo(int mNo) {
-		return dao.selectRsvLogs(mNo);
+	public List<RsvLogsVO> rsvLogsBymNo(int mNo, StateCriteria cri) {
+		return dao.selectRsvLogs(mNo, cri);
 	}
 	
 	/* PAY PART */

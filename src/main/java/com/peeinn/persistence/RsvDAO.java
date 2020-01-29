@@ -6,6 +6,7 @@ import com.peeinn.domain.PayVO;
 import com.peeinn.domain.RsvVO;
 import com.peeinn.domain.org.RsvLogsVO;
 import com.peeinn.domain.org.RsvResultVO;
+import com.peeinn.domain.paging.StateCriteria;
 
 public interface RsvDAO {
 	
@@ -38,7 +39,7 @@ public interface RsvDAO {
 	public void insertRsvLogs(RsvLogsVO rl);
 	public void cancelRsvLogs(int rsvNo);
 	
-	public List<RsvLogsVO> selectRsvLogs(int mNo);
+	public List<RsvLogsVO> selectRsvLogs(int mNo, StateCriteria cri);
 	public int selectRsvLogsCnt(int mNo);
 
 	

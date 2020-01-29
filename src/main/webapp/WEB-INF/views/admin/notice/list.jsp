@@ -4,6 +4,11 @@
 
 <link href="${pageContext.request.contextPath}/resources/css/user/board.css" type="text/css" rel="stylesheet">
 <style>
+#viewAll {
+    font-weight: bold;
+    font-size: 15px;
+    display: inline-block;
+}
 #tit {
     width: 60%;
     text-align: center;
@@ -21,9 +26,10 @@
 
 <div class="content-area">
 	<div class="search-wrap">
+		<a href="${pageContext.request.contextPath}/admin/notice/list" id="viewAll">전체보기</a>
 		<div class="search-keyword">
 			<select id="searchType">
-				<option>- - - - - - - -  All  - - - - - - - -</option>
+				<option>- - - - - - - -  TYPE  - - - - - - - -</option>
 				<option value="t" ${cri.searchType == 't'? 'selected': ''}>Title</option>
 				<option value="c" ${cri.searchType == 'c'? 'selected': ''}>Content</option>  
 				<option value="tc" ${cri.searchType == 'tc'? 'selected': ''}>Title or Content</option>
@@ -58,21 +64,21 @@
 		<ul class="pagination">
 			<c:if test="${pageMaker.prev == true}">
 				<li class="prev-li">
-					<a href="listPage?page=${pageMaker.startPage}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+					<a href="${pageContext.request.contextPath}/admin/notice/list?page=${pageMaker.startPage}&searchType=${cri.searchType}&keyword=${cri.keyword}">
 						◀
 					</a>
 				</li>
 			</c:if>
 			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 				<li ${idx == pageMaker.cri.page? 'class=active': ''}>
-					<a href="listPage?page=${idx}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+					<a href="${pageContext.request.contextPath}/admin/notice/list?page=${idx}&searchType=${cri.searchType}&keyword=${cri.keyword}">
 						${idx}
 					</a>									
 				</li>
 			</c:forEach>
 			<c:if test="${pageMaker.next == true}">
 				<li class="next-li">
-					<a href="listPage?page=${pageMaker.endPage+1}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+					<a href="${pageContext.request.contextPath}/admin/notice/list?page=${pageMaker.endPage+1}&searchType=${cri.searchType}&keyword=${cri.keyword}">
 						▶
 					</a>
 				</li>
@@ -95,7 +101,6 @@
 	<td class="list-title"><a href="${pageContext.request.contextPath}/admin/notice/read?ntNo={{ntNo}}">{{ntTitle}}</a></td>
 	<td>관리자</td>
 	<td>{{pDateTime ntRegDate}}</td>
-	<td>{{ntViewCnt}}</td>
 </tr>
 {{/list}}
 </script>	<!-- &page={{pageMaker.cri.page}} -->

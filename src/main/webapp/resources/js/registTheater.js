@@ -102,6 +102,11 @@ $(function(){
 	
 		
 	/* 좌석 설정하기 */
+	//좌석 지정시 쓸 변수. 아래에서 값 복사해서 쓸거임
+	var totalSeat = $("#curTotalSeatCnt").val();
+	var needSeat = $("#curSeatCnt").text();
+	var nonSeatCnt = needSeat;
+	
 	//좌석 크기 설정
 	$("#crtStBtn").click(function(){
 		var al = confirm("저장 전에 좌석 크기를 다시 설정하면 작업 내용이 초기화되니 주의하시기 바랍니다.");
@@ -116,6 +121,9 @@ $(function(){
 		var rows = $("#rows").val(); //ul
 		var cols = $("#cols").val(); //li
 		var capa = $("#cThCnt").text();
+		totalSeat = rows * cols;
+		needSeat = capa;
+		nonSeatCnt = totalSeat;
 		
 		if(capa == "") {
 			alert("수용인원을 입력해주세요.");
@@ -127,10 +135,13 @@ $(function(){
 			return;
 		}
 		
+		$("#curTotalSeatCnt").val(totalSeat);
+		$("#curSeatCnt").text(nonSeatCnt);
+		
 		var code_saver = "";
 		var idx, rowStr;
 		var thNo = $("#cThNo").val();
-		
+		        
 		for(var i=0; i<rows; i++) {
 			rowStr = String.fromCharCode(97+i);
 			idx = 0;
@@ -150,6 +161,16 @@ $(function(){
 	
 	/* SEAT 지정 */
 	$(document).on("click", ".seat", function(){
+		var originCno = $(this).attr("data-cNo");
+		
+		if( cNo == "5" ) { //비좌석으로 설정할때
+			if( nonSeatCnt == needSeat ) { alert("수용인원보다 좌석이 적을 수 없습니다."); return; }
+			if(originCno == "5") { return; }
+			$("#curSeatCnt").text(--nonSeatCnt);
+		} else { //좌석으로 설정할때
+			if(originCno == "5") { $("#curSeatCnt").text(++nonSeatCnt); }
+		}
+		
 		$(this).removeClass();
 		$(this).attr("data-cNo", cNo);
 		$(this).addClass(cDefault + " " + cName + "  added-seat");
@@ -157,6 +178,12 @@ $(function(){
 	
 	/* 설정완료 */
 	$("#btnLabel").click(function(){
+		
+		if(nonSeatCnt != needSeat) {
+			alert("설정한 수용인원과 좌석수가 맞지 않습니다.");
+			return;
+		}
+		
 		var idx, rowStr;
 		var ulLen = $(".seat-row").length;
 		var liLen = $(".seat-row:eq(0) > li").length;

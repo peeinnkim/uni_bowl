@@ -4,7 +4,7 @@
 
 <link href="${pageContext.request.contextPath}/resources/css/admin/program.css" type="text/css" rel="stylesheet">
 <style>
-	.rsvCaution { width: 100%; color: red; font-size: 15px; text-align: center; }
+	.error { width: 100%; color: red; font-size: 15px; text-align: center; }
 </style>
 
 <h2>상영관 관리</h2>
@@ -13,6 +13,10 @@
 		<div class="menu-wrap">
 			<a href="${pageContext.request.contextPath}/admin/theater/regist" id="addPg"></a>
 		</div>
+		
+		<c:if test="${isRsved != null}">
+			<p class="error">${isRsved}</p>
+		</c:if>
 		
 		<table>
 			<tr>
@@ -42,9 +46,6 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<c:if test="${hasRsvedSt != null}">
-			<p class="rsvCaution">해당 상영관에 예약된 좌석이 있어 상영관 정보 수정 및 삭제가 불가능합니다.</p>
-		</c:if>
 	</div>
 </div>
 

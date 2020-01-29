@@ -10,7 +10,7 @@
 
 <div class="content-area">
 	<div class="search-wrap">
-		<div class="search-category">
+<!-- 		<div class="search-category">
 			<select>
 				<option>분류</option>
 				<option value="1">예약문의</option>
@@ -18,7 +18,7 @@
 				<option value="3">기타문의</option>
 				<option value="4">제안하기</option>
 			</select>
-		</div>
+		</div> -->
 		
 		<div class="search-keyword">
 			<select id="searchType">
@@ -64,27 +64,27 @@
 		<ul class="pagination">
 			<c:if test="${pageMaker.prev == true}">
 				<li class="prev-li">
-					<a href="listPage?page=${pageMaker.startPage}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+					<a href="${pageContext.request.contextPath}/user/qna/list?page=${pageMaker.startPage}&searchType=${cri.searchType}&keyword=${cri.keyword}">
 						◀
 					</a>
 				</li>
 			</c:if>
 			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 				<li ${idx == pageMaker.cri.page? 'class=active': ''}>
-					<a href="listPage?page=${idx}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+					<a href="${pageContext.request.contextPath}/user/qna/list?page=${idx}&searchType=${cri.searchType}&keyword=${cri.keyword}">
 						${idx}
 					</a>									
 				</li>
 			</c:forEach>
 			<c:if test="${pageMaker.next == true}">
 				<li class="next-li">
-					<a href="listPage?page=${pageMaker.endPage+1}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+					<a href="${pageContext.request.contextPath}/user/qna/list?page=${pageMaker.endPage+1}&searchType=${cri.searchType}&keyword=${cri.keyword}">
 						▶
 					</a>
 				</li>
 			</c:if>
 		</ul>
-		<p>${pageMaker.cri.page} / ${pageMaker.totalPager} <small>페이지</small></p>
+		<p id="pageIndex">${pageMaker.cri.page} / ${pageMaker.totalPager} <small>페이지</small></p>
 	</div>
 	
 </div>	
@@ -96,13 +96,19 @@
 {{#list}}
 <tr class="added-tr">
 	<td>{{qnaNo}}</td>
-	<td class="qna-title"><a href="${pageContext.request.contextPath}/user/qna/read?qnaNo={{qnaNo}}">{{qnaTitle}}</a></td>
+	<td>{{cgArr qnaCategory}}</td>
+	<td class="list-title"><a href="${pageContext.request.contextPath}/user/qna/read?qnaNo={{qnaNo}}">{{qnaTitle}}</a></td>
 	<td>{{qnaWriterId}}</td>
 	<td>{{pDate qnaRegDate}}</td>
 </tr>
 {{/list}}
 </script>
 <script>
+	Handlebars.registerHelper("cgArr", function(dd){
+		var arr = ["-", "예약문의", "시설문의", "기타문의", "제안하기"];
+		return arr[dd];
+	})
+
 	$("#btnSearch").click(function(){
 		var data = { 
 				"searchType": $("#searchType").val(), 

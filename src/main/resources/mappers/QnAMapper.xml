@@ -76,23 +76,23 @@
 			where qna_title like CONCAT('%', #{keyword}, '%') 
 		</if>
 		<if test='searchType == "c"'>
-			where qnaContent like CONCAT('%', #{keyword}, '%') 
+			where qna_content like CONCAT('%', #{keyword}, '%') 
 		</if>
 		<if test='searchType == "w"'>
-			where qnaWriterId like CONCAT('%', #{keyword}, '%') 
+			where m_id like CONCAT('%', #{keyword}, '%') 
 		</if>
 		<if test='searchType == "tc"'>
 			where qna_title like CONCAT('%', #{keyword}, '%') 
-			or qnaContent like CONCAT('%', #{keyword}, '%')
+			or qna_content like CONCAT('%', #{keyword}, '%')
 		</if>
 		<if test='searchType == "tw"'>
 			where qna_title like CONCAT('%', #{keyword}, '%') 
-			or qnaWriterId like CONCAT('%', #{keyword}, '%')
+			or m_id like CONCAT('%', #{keyword}, '%')
 		</if>
 		<if test='searchType == "tcw"'>
 			where qna_title like CONCAT('%', #{keyword}, '%') 
-			or qnaContent like CONCAT('%', #{keyword}, '%') 
-			or qnaWriterId like CONCAT('%', #{keyword}, '%')
+			or qna_content like CONCAT('%', #{keyword}, '%') 
+			or m_id like CONCAT('%', #{keyword}, '%')
 		</if>
 	</sql>
 	

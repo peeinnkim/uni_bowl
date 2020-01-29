@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../../include/header.jsp" %>
 
-<link href="${pageContext.request.contextPath}/resources/css/util/datepicker.min.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/user/board.css" type="text/css" rel="stylesheet">
 
 <style>
@@ -73,10 +72,9 @@
 		
 		<div class="search-category">
 			<select>
-				<option>예약전체</option>
-				<option value="1">진행중</option>
-				<option value="2">종료</option>
-				<option value="3">취소</option>
+				<option value="-1">예약전체</option>
+				<option value="0">결제완료</option>
+				<option value="1">취소</option>
 			</select>
 		</div>
 	</div>
@@ -151,11 +149,46 @@
 
 
 <!-- SCRIPT -->
-<script src="${pageContext.request.contextPath}/resources/js/util/datepicker.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/util/datepicker.en.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/dateSearch.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+<script id="template0" type="text/x-handlebars-template">
+	{{#list}}
+		<tr class="added-tr" >
+			<td>{{rlRsvNo}}</td>
+			<td class="list-title">
+				<a href="${pageContext.request.contextPath}/user/rsv/rsvDetail?rsvNo={{rlRsvNo}}">{{rlPgTitle}}</a>
+			</td>
+			<td>{{pDateT1me rlRsvDate}}{{pDateT1m3 rlRsvStime}}</td>
+			<td>{{rlThNm}} 관</td>
+			<td>{{mon rlRsvPrice}} 원</td>
+			<td>{{pDateTime rlRsvDate}}</td>
+			<td>결제완료</td>
+			<td>
+				<a href="${pageContext.request.contextPath}/user/rsv/cancelRsv?rsvNo={{rlRsvNo}}" class="cancelRsvBtn"></a>
+			</td>
+		</tr>
+	{{/list}}
+</script>
+<script id="template1" type="text/x-handlebars-template">
+	{{#list}}
+		<tr class="added-tr cancelTr" >
+			<td>{{rlRsvNo}}</td>
+			<td class="list-title">
+				{{rlPgTitle}}
+			</td>
+			<td>
+				{{pDateT1me rlRsvDate}}{{pDateT1m3 rlRsvStime}}
+			</td>
+			<td>{{rlThNm}} 관</td>
+			<td>{{mon rlRsvPrice}} 원</td>
+			<td>{{pDateTime rlRsvDate}}</td>
+			<td>취소</td>
+			<td></td>
+		</tr>
+	{{/list}}
+</script>
 
 <script>
+var nPage = 1;
 	$(".cancelTr").click(function(){
 		return false;		
 	})
@@ -163,10 +196,155 @@
 	$(".cancelRsvBtn").click(function(){
 		var result = confirm("예약을 취소하시겠습니까?");
 		
-		if(result == false) {
-			return false;
+		if(result == false) { return false; }
+	})
+	
+	$(".search-category > select").change(function(){
+		var state = $(this).val();
+		var data = {
+				"state" : state , 
+				"searchType" : null, 
+				"keyword" : null, 
+				"page" : 1, 
+				"perPageNum" : 10
+		};
+		getListPage(data, state);
+		
+	})
+
+	
+		//동적 추가되는 테이블 날짜
+	Handlebars.registerHelper("pDate", function(dd){
+		if(dd == null) {
+			return "-";
+		}
+		
+		var date = new Date(dd);
+		var year = date.getFullYear();
+		var month = date.getMonth()+1;
+		var d = date.getDate();
+		
+		return year + "-" + zeroZeroDate(month) + "-" + zeroZeroDate(d);
+	})
+	
+	//동적 추가되는 테이블 날짜 & 시간
+ 	Handlebars.registerHelper("pDateTime", function(dd){
+		var date = new Date(dd);
+		var year = date.getFullYear();
+		var month = date.getMonth()+1;
+		var d = date.getDate();
+		var h = date.getHours();
+		var min = date.getMinutes();
+		var sec = date.getSeconds();
+		
+		return year + "-" + zeroZeroDate(month) + "-" + zeroZeroDate(d) + " " + zeroZeroDate(h) + ":" + zeroZeroDate(min);
+	}) 
+
+	Handlebars.registerHelper("pDateT1me", function(dd){
+		var date = new Date(dd);
+		var year = date.getFullYear();
+		var month = date.getMonth()+1;
+		var d = date.getDate();
+		
+		return year + "-" + zeroZeroDate(month) + "-" + zeroZeroDate(d);
+	}) 
+
+	Handlebars.registerHelper("pDateT1m3", function(dd){
+		var hArr = dd.split(":");
+		
+		return " " + zeroZeroDate(hArr[0]) + ":" + zeroZeroDate(hArr[1]);
+	}) 
+                      
+	//동적 추가되는 돈
+ 	Handlebars.registerHelper("mon", function(dd){
+		return addComma(dd);
+	}) 
+	
+	//페이지 누르면 페이지 정보 바뀌기
+	$(document).on("click", $(".pagination > li"), function(){
+		nPage = $(this).attr("data-page");
+	})
+
+	
+		//콤마찍는 메소드
+		function addComma(num) {
+			  var regexp = /\B(?=(\d{3})+(?!\d))/g;
+			  return num.toString().replace(regexp, ',');
+		}	
+//10보다 작은애들 0 붙이기
+function zeroZeroDate(val){
+	if(val < 10) {
+		val = "0" + val;
+	}
+	return val;
+}
+	
+//리스트 뿌리기 최종판
+function getListPage(data, state){
+	$.ajax({
+		url: "searchList",
+		type: "post",
+		data: data,
+		dataType: "json",
+		success: function(res){
+			console.log(res);
+			
+			$(".added-tr").remove();
+
+			if(state == 0) {
+				var source = $("#template0").html();
+				var func = Handlebars.compile(source);
+				var str = func(res);
+			} else if(state == 1) {
+				var source = $("#template1").html();
+				var func = Handlebars.compile(source);
+				var str = func(res);
+			}
+			
+			//댓글 리스트 가져오기
+			$("#main-tb").append(str);
+			
+			//페이지네이션 지우기
+			$(".pagination").empty();
+			
+			//make a page-maker
+			var startPage = res.pageMaker.startPage;
+			var endPage = res.pageMaker.endPage;
+			
+			for(var i=startPage; i<=endPage; i++) {
+				var $li = $("<li>");
+				var $a = $("<a>").attr("href", "#").attr("data-page", i).append(i);
+				$li.append($a);
+				
+				if(i == nPage) {
+					$li.addClass("on");
+				}
+				
+				$(".pagination").append($li);
+			}
+			
+			if(res.pageMaker.prev == true) {
+				var $li = $("<li>").addClass("previous");
+				var $a = $("<a>").attr("href", "#").attr("data-page", res.pageMaker.startPage-1).append("◀");
+				$li.append($a);
+				$(".pagination").prepend($li);
+			}
+			
+			if(res.pageMaker.next == true) {
+				var $li = $("<li>").addClass("next");
+				var $a = $("<a>").attr("href", "#").attr("data-page", res.pageMaker.endPage+1).append("▶");
+				$li.append($a);
+				$(".pagination").append($li);
+			}
+		},
+		error : function(e){
+			console.log(e);
 		}
 	})
+}
+	
+	
+	
 </script>
 
 <%@ include file="../../include/footer.jsp" %>

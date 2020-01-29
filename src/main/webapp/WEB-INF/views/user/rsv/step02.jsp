@@ -102,6 +102,7 @@
 	})
 	
 	$("#btnNext").click(function(){
+		if($("#cSeat-box").text() == "") { alert("좌석을 선택해주세요"); return;}
 		var seatList = [];
 		$(".seat-active").each(function(){
 			seatList.push({

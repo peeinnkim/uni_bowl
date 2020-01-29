@@ -63,6 +63,10 @@
 	$("#state-sel").change(function(){
 		$("input[name='pgIsRunning']").val($(this).val());
 	})
+	$("input[type='reset']").click(function(){
+		location.href = "${pageContext.request.contextPath}/admin/program/list";
+	})
+	
 </script>
 
 <%@ include file="../include/footer.jsp" %>

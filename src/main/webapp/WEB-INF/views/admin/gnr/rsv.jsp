@@ -30,7 +30,10 @@
 					<td>${rl.rlRsvNo}</td>
 					<td class="list-title">${rl.rlPgTitle}</td>
 					<td>${rl.rlMid}</td>
-					<td><fmt:formatDate value="${rl.rlOrgDate}" pattern="yyyy-MM-dd"/></td>
+					<td>
+						<c:set var="h" value="${fn:split(rl.rlRsvStime, ':')}"/>
+						<fmt:formatDate value="${rl.rlOrgDate}" pattern="yyyy-MM-dd"/> ${h[0]}:${h[1]}
+					</td>
 					<td>${rl.rlThNm} 관</td>
 					<td><fmt:formatNumber value="${rl.rlRsvPrice}" pattern="###,###"/> 원</td>
 					<td><fmt:formatDate value="${rl.rlRsvDate}" pattern="yyyy-MM-dd HH:mm"/></td>
@@ -43,27 +46,27 @@
 			<ul class="pagination">
 				<c:if test="${pageMaker.prev == true}">
 					<li class="prev-li">
-						<a href="listPage?page=${pageMaker.startPage}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+						<a href="${pageContext.request.contextPath}/admin/gnr/rsv?page=${pageMaker.startPage}">
 							◀
 						</a>
 					</li>
 				</c:if>
 				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 					<li ${idx == pageMaker.cri.page? 'class=active': ''}>
-						<a href="listPage?page=${idx}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+						<a href="${pageContext.request.contextPath}/admin/gnr/rsv?page=${idx}">
 							${idx}
 						</a>									
 					</li>
 				</c:forEach>
 				<c:if test="${pageMaker.next == true}">
 					<li class="next-li">
-						<a href="listPage?page=${pageMaker.endPage+1}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+						<a href="${pageContext.request.contextPath}/admin/gnr/rsv?page=${pageMaker.endPage+1}">
 							▶
 						</a>
 					</li>
 				</c:if>
 			</ul>
-			<p>${pageMaker.cri.page} / ${pageMaker.totalPager} <small>페이지</small></p>
+			<p id="pageIndex">${pageMaker.cri.page} / ${pageMaker.totalPager} <small>페이지</small></p>
 		</div>
 	</div>
 </div>

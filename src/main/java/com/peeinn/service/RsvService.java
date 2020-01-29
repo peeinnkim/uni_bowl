@@ -6,6 +6,7 @@ import com.peeinn.domain.PayVO;
 import com.peeinn.domain.RsvVO;
 import com.peeinn.domain.org.RsvLogsVO;
 import com.peeinn.domain.org.RsvResultVO;
+import com.peeinn.domain.paging.StateCriteria;
 
 public interface RsvService {
 	
@@ -16,7 +17,7 @@ public interface RsvService {
 	public List<RsvResultVO> rsvList();
 	public List<RsvResultVO> rsvListBymNo(int mNo, int fDate);
 	
-	public List<RsvLogsVO> rsvLogsBymNo(int mNo);
+	public List<RsvLogsVO> rsvLogsBymNo(int mNo, StateCriteria cri);
 	public int rsvLogsBymNoCnt(int mNo);
 
 	public List<String> rsvedSeatList(int rsvNo);

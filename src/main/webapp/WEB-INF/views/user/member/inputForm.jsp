@@ -70,7 +70,8 @@
 				<span class="error">[ERROR] 입력하신 메일주소가 형식에 맞지않습니다</span>
 			</p>
 			<p>
-				<input type="submit" ${mem.mNo == null? 'value="JOIN"': 'value="MODIFY"'}>
+				<label></label>
+				<input type="submit" ${mem.mNo == null? 'value="JOIN"': 'value="MODIFY"'} style="margin-right: 10px;">
 				<input type="reset" value="CANCEL">
 				<c:if test="${mem.mNo != null}">
 					<a href="${pageContext.request.contextPath}/user/member/secess" style="color: #666; font-size: 13px; font-weight: bold;">회원탈퇴</a>

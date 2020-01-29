@@ -32,9 +32,9 @@ $(function(){
 	}) 
 	
 	//페이지 누르면 페이지 정보 바뀌기
-	$(document).on("click", $(".pagination > li"), function(){
-		nPage = $(this).attr("data-page");
-	})
+/*	$(document).on("click", $(".pagination li"), function(){
+		nPage = $(this).children().attr("data-page");
+	})*/
 	
 })//$
 
@@ -78,24 +78,30 @@ function getListPage(data){
 				$li.append($a);
 				
 				if(i == nPage) {
-					$li.addClass("on");
+					$li.addClass("active");
 				}
 				
 				$(".pagination").append($li);
 			}
 			
 			if(res.pageMaker.prev == true) {
-				var $li = $("<li>").addClass("previous");
+				var $li = $("<li>").addClass("prev-li");
 				var $a = $("<a>").attr("href", "#").attr("data-page", res.pageMaker.startPage-1).append("◀");
 				$li.append($a);
 				$(".pagination").prepend($li);
 			}
 			
 			if(res.pageMaker.next == true) {
-				var $li = $("<li>").addClass("next");
+				var $li = $("<li>").addClass("next-li");
 				var $a = $("<a>").attr("href", "#").attr("data-page", res.pageMaker.endPage+1).append("▶");
 				$li.append($a);
 				$(".pagination").append($li);
+			}
+			
+			if(res.pageMaker.cri.totalPager == 0) {
+				$("#pageIndex").html("");
+			} else {
+				$("#pageIndex").html(res.pageMaker.cri.page + " / " + res.pageMaker.totalPager + "<small>페이지</small>");
 			}
 		},
 		error : function(e){

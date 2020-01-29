@@ -68,11 +68,11 @@
 		</div>
 		
 		<div class="reply-wrap">
-			<div class="reply-input">
+<!-- 			<div class="reply-input">
 				<h4>댓글 입력</h4>
 				<textarea id="rpContent" placeholder="댓글을 입력해주세요."></textarea>
 				<a id="addReply">등록</a>
-			</div>
+			</div> -->
 			
 			<div class="reply-list-wrap">
 				<ul class="reply-list">

@@ -3,19 +3,26 @@
 <%@ include file="../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/admin/program.css" type="text/css" rel="stylesheet">
+<style>
+	.error { font-size: 13px; color: red; font-weight: bold; text-align: center; }
+</style>
+
 
 <h2>프로그램 관리</h2>
 <div class="content-wrap">
 	<div class="cont-center">
 		<div class="menu-wrap">
-			<select id="pgstate-sel">
+<!-- 			<select id="pgstate-sel">
 				<option value="-1">전체</option>
 				<option value="1">상영중</option>
 				<option value="0">종료</option>
-			</select>
+			</select> -->
 			<a href="${pageContext.request.contextPath}/admin/program/regist" id="addPg"></a>
 		</div>
-		
+				
+		<c:if test="${isRsved != null}">
+			<p class="error">${isRsved}</p>
+		</c:if>
 		
 		<table>
 			<tr>

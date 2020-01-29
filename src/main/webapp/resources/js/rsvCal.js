@@ -1,7 +1,7 @@
 (function(win, $){
 	$(function(){
 		
-		var clickCnt = 0;
+		
 		var pName = $("#pName").val();
 		//오늘 날짜
 		var today = new Date();
@@ -87,21 +87,11 @@
 			next5Days();
 		})*/
 		
+		var clickCnt = 0;
+		
 		function last5Days(){
-//			var tSec = new Date();
-//			tSec.setHours(00, 00, 00);
-//			var wDay = new Date(today.setDate(today.getDate()-5));
-//			wDay.setHours(00, 00, 00);
-//			
-//			if(wDay.getTime() < tSec.getTime()) {
-//				today = new Date();
-//				return false;
-//			} else {
-//				cal5days()
-//				return true;
-//			}
-			
-			if(--clickCnt < 0) {
+			clickCnt -= 1;
+			if(clickCnt < 0) {
 				alert("현재 날짜보다 이전 날짜는 예약할 수 없습니다.");
 				clickCnt = 0;
 				return false;
@@ -113,7 +103,8 @@
 		}
 
 		function next5Days(){
-			if(++clickCnt == 5) {
+			clickCnt += 1;
+			if(clickCnt++ == 5) {
 				clickCnt = 4;
 				alert("현재 날짜로부터 4주 간의 예약만 가능합니다.");
 				return false;
@@ -127,12 +118,16 @@
 		$(document).on("click", ".date-ul > li", function(){
 			/* 날짜 선택시 날짜부분 변경 */
 			$(".date-ul > li").removeClass("dOn");
+			
 			if($(this).attr("id") == "datePrev") {
 				if(last5Days() == false) {
+					$(".date-ul > li").removeClass("dOn");
 					$(".date-ul > li:eq(1)").addClass("dOn");
-					return;
+				} else {
+					$(".date-ul > li").removeClass("dOn");
+					$(".date-ul > li:eq(5)").addClass("dOn");
 				}
-				$(".date-ul > li:eq(5)").addClass("dOn");
+				
 			} else if($(this).attr("id") == "dateNext") { 
 				if(next5Days() == false) {
 					$(".date-ul > li:eq(5)").addClass("dOn");
@@ -141,6 +136,7 @@
 				} else {
 					$(".date-ul > li:eq(1)").addClass("dOn");
 				}
+				
 			} else {
 				$(this).addClass("dOn");
 			}
@@ -188,7 +184,6 @@
 							var $timeB = $("<b>");
 							var $timeH3 = $("<h3>").addClass("sTime");
 							var $timeEm = $("<em>").addClass("eTime");
-							var $timeP = $("<p>");
 							var $ipOrgNo = $("<input>").attr({"type":"hidden", "name": "orgNo"});
 							var $ipOrgPgNo = $("<input>").attr({"type":"hidden", "name": "orgPgNo"});
 							var $ipOrgThNo = $("<input>").attr({"type":"hidden", "name": "orgThNo"});
@@ -200,13 +195,12 @@
 							$timeB.append(res.list[j].th.thNm + " 관");
 							$timeH3.append(h[0] + ":" + h[1]);
 							$timeEm.append("~ " + m[0] + ":" + m[1]);
-							$timeP.append("<span>13</span> / 30席");
 							         
 							$ipOrgNo.val(res.list[j].org.orgNo);
 							$ipOrgPgNo.val(res.list[j].pg.pgNo);
 							$ipOrgThNo.val(res.list[j].th.thNo); 
 							
-							$divTimeBox.append($timeB).append($timeH3).append($timeEm).append($timeP);
+							$divTimeBox.append($timeB).append($timeH3).append($timeEm);
 							$divTimeBox.append($ipOrgNo).append($ipOrgPgNo).append($ipOrgThNo);
 							$divTime.append($divTimeBox);
 						}

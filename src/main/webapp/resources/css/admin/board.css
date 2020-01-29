@@ -78,10 +78,11 @@ td {
 	margin-left: 3px;
 }
 .req-reply-list > ul > li > pre {
-	font-size: 14px;
-	font-family: 'M PLUS 1p', 'Noto Sans KR', sans-serif;
-	background: white;
-	padding: 5px;
+    font-size: 14px;
+    font-family: 'M PLUS 1p', 'Noto Sans KR', sans-serif;
+    background: white;
+    padding: 5px;
+    white-space: pre-line;
 }
 .req-reply-list > ul > li > .replyBtn {
 	width: 20%;
@@ -108,6 +109,38 @@ td {
 	background: url("../../img/icon/remove.png") no-repeat;
 	cursor: pointer;
 }
+
+.paging-wrap {
+	margin-top: 5px;
+}
+.paging-wrap > .pagination,
+.paging-wrap > p {
+    clear: both;
+    position: relative;
+    font-size: 11px;
+    text-align: center;
+}
+.pagination > li {
+    display: inline-block;
+    margin: 2px 2px 2px 0;
+    padding: 6px 9px 5px 9px;
+    text-decoration: none;
+}
+.pagination > li > a {
+	color: #666;
+}
+.active {
+	background: #5271C4;
+}
+.active > a {
+	color: white !important;
+}
+.pagination .current{
+    padding: 6px 9px 5px 9px;
+    font-weight: bold;
+    background: #0950E8;
+}
+
 
 
 /* 상단고정 게시물 */

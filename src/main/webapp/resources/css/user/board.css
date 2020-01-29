@@ -100,10 +100,15 @@ caption > a:hover {
     margin: 2px 2px 2px 0;
     padding: 6px 9px 5px 9px;
     text-decoration: none;
-    background: #0161b4;
 }
 .pagination > li > a {
-    color: #fff;
+	color: #666;
+}
+.active {
+	background: #5271C4;
+}
+.active > a {
+	color: white !important;
 }
 .pagination .current{
     padding: 6px 9px 5px 9px;

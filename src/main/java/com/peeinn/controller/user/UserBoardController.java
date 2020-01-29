@@ -57,7 +57,7 @@ public class UserBoardController {
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(qnaService.qnaCnt());
 		
-		model.addAttribute("list", qnaService.list());
+		model.addAttribute("list", qnaService.listSearch(cri));
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("cri", cri);
 	}  

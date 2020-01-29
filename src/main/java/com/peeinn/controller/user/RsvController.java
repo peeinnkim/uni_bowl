@@ -30,8 +30,10 @@ import com.peeinn.domain.org.OrgResultVO;
 import com.peeinn.domain.org.RsvLogsVO;
 import com.peeinn.domain.org.RsvResultVO;
 import com.peeinn.domain.org.StInfoVO;
+import com.peeinn.domain.paging.CodeStateCriteria;
 import com.peeinn.domain.paging.PageMaker;
 import com.peeinn.domain.paging.SearchCriteria;
+import com.peeinn.domain.paging.StateCriteria;
 import com.peeinn.service.MemberService;
 import com.peeinn.service.OrgService;
 import com.peeinn.service.ProgramService;
@@ -227,8 +229,9 @@ public class RsvController {
 	
 	//멤버별 전체예약
 	@RequestMapping(value="myRsv", method=RequestMethod.GET)
-	public void myRsvList(Model model, HttpSession session, SearchCriteria cri) {
+	public void myRsvList(Model model, HttpSession session, StateCriteria cri) {
 		logger.info("------------ [myRSVList GET] ------------");
+		logger.info("cri ->>" + cri);
 		AuthVO auth = (AuthVO) session.getAttribute("Auth");
 		
 		PageMaker pageMaker = new PageMaker();
@@ -237,7 +240,38 @@ public class RsvController {
 		
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("cri", cri);
-		model.addAttribute("list", rsvService.rsvLogsBymNo(auth.getAuthNo()));
+		model.addAttribute("list", rsvService.rsvLogsBymNo(auth.getAuthNo(), cri));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="searchList", method=RequestMethod.POST) 
+	public ResponseEntity<Map<String, Object>> searchList(HttpSession session, StateCriteria cri){
+		logger.info("------------ [stateList GET] ------------");
+		ResponseEntity<Map<String, Object>> entity = null;
+		System.out.println("cri ->>>>>>>>>" + cri);
+		AuthVO auth = (AuthVO) session.getAttribute("Auth");
+		
+		try {
+			List<RsvLogsVO> list = rsvService.rsvLogsBymNo(auth.getAuthNo(), cri);
+			System.out.println("list ->>>>>>>>" + list);
+
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(rsvService.rsvLogsBymNoCnt(auth.getAuthNo()));
+			System.out.println("pageMaker ->>>>>>>" + pageMaker);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("list", list);
+			map.put("pageMaker", pageMaker);
+		
+			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);
+			e.printStackTrace();
+		}
+		
+		return entity;
 	}
 	
 	//예약취소

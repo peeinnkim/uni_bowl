@@ -16,7 +16,7 @@
 		</div>
 		<div class="mp-bottom">
 			<div class="rsv-info">
-				<h2><a href="${pageContext.request.contextPath}/user/rsv/myRsv">나으예약</a></h2>
+				<h2><a href="${pageContext.request.contextPath}/user/rsv/myRsv">나의예약</a></h2>
 				<span>진행중 예약: <span id="cur-rsvCnt">${fn:length(list)}</span>건</span>
 				<a href="${pageContext.request.contextPath}/user/rsv/myRsv" id="show-allRsv">전체보기</a>
 			</div>

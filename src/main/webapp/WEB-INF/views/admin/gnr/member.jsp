@@ -36,7 +36,6 @@
 		color: #eee;
 	}
 </style>
-<script src="${pageContext.request.contextPath}/resources/js/getSearchList.js"></script>
 
 <h2>회원관리</h2>
 
@@ -86,27 +85,29 @@
 			</tr>
 			
 			<c:forEach var="mem" items="${list}">
-				<tr class="added-tr ${mem.mQuitDate == null? '': 'cancelTr'}">
-					<td>${mem.mNo}</td>
-					<td>${mem.mId}</td>
-					<td>${mem.mNm}</td>
-					<td>${mem.mBirth}</td>
-					<td>${mem.mTel}</td>
-					<td>${mem.mMail}</td>
-					<td>
-						<fmt:formatDate value="${mem.mRegDate}" pattern="yyyy-MM-dd"/>
-					</td>
-					<td>
-						<c:choose>
-							<c:when test="${mem.mQuitDate != null}">
-								<span><fmt:formatDate value="${mem.mQuitDate}" pattern="yyyy-MM-dd"/></span>
-							</c:when>
-							<c:otherwise>
-								- 
-							</c:otherwise>
-						</c:choose>
-					</td>
-				</tr>
+				<c:if test="${mem.mQuitDate == null}">
+					<tr class="added-tr ${mem.mQuitDate == null? '': 'cancelTr'}">
+						<td>${mem.mNo}</td>
+						<td>${mem.mId}</td>
+						<td>${mem.mNm}</td>
+						<td>${mem.mBirth}</td>
+						<td>${mem.mTel}</td>
+						<td>${mem.mMail}</td>
+						<td>
+							<fmt:formatDate value="${mem.mRegDate}" pattern="yyyy-MM-dd"/>
+						</td>
+						<td>
+							<c:choose>
+								<c:when test="${mem.mQuitDate != null}">
+									<span><fmt:formatDate value="${mem.mQuitDate}" pattern="yyyy-MM-dd"/></span>
+								</c:when>
+								<c:otherwise>
+									- 
+								</c:otherwise>
+							</c:choose>
+						</td>
+					</tr>
+				</c:if>
 			</c:forEach>
 		</table>
 	
@@ -114,27 +115,27 @@
 			<ul class="pagination">
 				<c:if test="${pageMaker.prev == true}">
 					<li class="prev-li">
-						<a href="listPage?page=${pageMaker.startPage}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+						<a href="${pageContext.request.contextPath}/admin/gnr/member?code=${cri.code}&state=-1&page=${pageMaker.startPage}&searchType=${cri.searchType}&keyword=${cri.keyword}">
 							◀
 						</a>
 					</li>
 				</c:if>
 				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 					<li ${idx == pageMaker.cri.page? 'class=active': ''}>
-						<a href="listPage?page=${idx}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+						<a href="${pageContext.request.contextPath}/admin/gnr/member?code=${cri.code}&state=-1&page=${idx}&searchType=${cri.searchType}&keyword=${cri.keyword}">
 							${idx}
 						</a>									
 					</li>
 				</c:forEach>
 				<c:if test="${pageMaker.next == true}">
 					<li class="next-li">
-						<a href="listPage?page=${pageMaker.endPage+1}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+						<a href="${pageContext.request.contextPath}/admin/gnr/member?code=${cri.code}&state=-1&page=${pageMaker.endPage+1}&searchType=${cri.searchType}&keyword=${cri.keyword}">
 							▶
 						</a>
 					</li>
 				</c:if>
 			</ul>
-			<p>${pageMaker.cri.page} / ${pageMaker.totalPager} <small>페이지</small></p>
+			<p id="pageIndex">${pageMaker.cri.page} / ${pageMaker.totalPager} <small>페이지</small></p>
 		</div>		
 		
 	</div>
@@ -157,12 +158,19 @@
 	</tr>
 	{{/list}}
 </script>
+<script src="${pageContext.request.contextPath}/resources/js/getSearchList.js"></script>
 <script>
-	var nPage = 1;
 	
 	//페이지 누르면 페이지 정보 바뀌기
 	$(document).on("click", $(".pagination > li"), function(){
-		nPage = $(this).attr("data-page");
+		nPage = $(this).children().attr("data-page");
+		var data = {"code" : "${cri.code}" , 
+				"state" : $("#state-sel").val() , 
+				"searchType" : $("#searchType").val(), 
+				"keyword" : $("#keyword").val(), 
+				"page" : nPage, 
+				"perPageNum" : 10};
+		getListPage(data);
 	})
 	
 	//탭에 따라 클래스 바꾸기
@@ -198,7 +206,7 @@
 	
 	//변경되는 상태에 따라 리스트 뿌리기
 	$("#state-sel").change(function(){
-		var data = {"code" : ${cri.code} , 
+		var data = {"code" : "${cri.code}" , 
 					"state" : $("#state-sel").val() , 
 					"searchType" : $("#searchType").val(), 
 					"keyword" : $("#keyword").val(), 
@@ -211,7 +219,7 @@
 	
 	//키워드 검색에 따라 리스트 뿌리기
 	$("#btnSearch").click(function(){
-		var data = {"code" : ${cri.code} , 
+		var data = {"code" : "${cri.code}" , 
 				"state" : $("#state-sel").val() , 
 				"searchType" : $("#searchType").val(), 
 				"keyword" : $("#keyword").val(), 

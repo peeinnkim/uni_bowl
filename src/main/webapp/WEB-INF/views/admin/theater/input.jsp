@@ -87,6 +87,10 @@
 			</div>
 			
 			<div class="seat-save-wrap">
+				<div class="ss-cnt-wrap">
+					<input type="hidden" value="${col * row}" id="curTotalSeatCnt">
+					현재 좌석 수 : <span id='curSeatCnt'>${th.thSeatCnt}</span> 석
+				</div>
 				<span>FRONT</span>
 				<div class="ss-btn-wrap">
 					<button id="btnLabel" type="button">설정 완료</button>

@@ -5,6 +5,9 @@
 <%@ include file="../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/admin/calendarView.css" type="text/css" rel="stylesheet">
+<style>
+	.error { font-size: 13px; color: red; font-weight: bold; text-align: center; }
+</style>
 <script src="${pageContext.request.contextPath}/resources/js/calendar.js"></script>
 
 <h2>상영스케쥴 관리</h2>
@@ -69,6 +72,9 @@
 					<label>프로그램</label>
 					<button id="btnChoicePg" type="button">선택</button>
 					<span id="pgList">버튼을 눌러 프로그램을 선택하세요</span>
+				</p>
+				<p class="error">
+					<c:if test="${isRsved != null}">현재 프로그램에 예약된 좌석이 있어 수정, 삭제가 불가능합니다.</c:if>
 				</p>
 				<p class="input-btn-area">
 					<input type="button" id="btnSubmit" value="REGIST">
@@ -238,6 +244,9 @@
 					} else if(action == "modify") {
 						alert("수정되었습니다.");
 					}
+				} else if(res == "isRsved") {
+					alert("현재 프로그램에 예약된 좌석이 있어 수정, 삭제가 불가능합니다.");
+					return;
 				}
 				
 				listByDate(tempDate);
@@ -257,10 +266,19 @@
 		var result = confirm("현재 입력한 정보는 저장되지 않습니다. 등록모드로 전환하시겠습니까?");
 		
 		if(result == true) {
+			$("#pgList").empty();
 			$(".btnCancel").click();
 			$(".input-wrap > h3").text("상영 스케쥴 등록");
 			$("#ipOrgNo").val("0");
 			$("#btnSubmit").val("REGIST");
+			
+			$("#ipHour").val("11");
+			$("#ipMinute").val("00");
+			$("input[name='tempStartTime']").val("11:00");
+			$("input[name='tempEndTime']").val("");
+			$("#pgList").text("버튼을 눌러 프로그램을 선택하세요");
+			
+			
 		}
 	})
 	

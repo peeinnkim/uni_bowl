@@ -37,11 +37,11 @@
 	</resultMap>
 	
 	<insert id="insertRsvInfo">
-		insert into t_rsv_info values(0, #{rsvNo}, #{orgNo}, #{stNo});
+		insert into t_rsv_info values(0, #{rsvNo}, #{orgNo}, #{stNo})
 	</insert>
 	
 	<delete id="deleteRsvInfo">
-		delete from t_rsv_info where i_rsv = #{rsvNo};
+		delete from t_rsv_info where i_rsv = #{rsvNo}
 	</delete>
 	
 	<select id="selectRsv" resultMap="rResResult"> <!-- Search RSV -->
@@ -53,7 +53,7 @@
 				join t_seat st using(i_seat)
 				join t_pay pay using(i_rsv)
 				join t_member mem on rsv.i_member = mem.i_member
-			where i_rsv = #{rsvNo};
+			where i_rsv = #{rsvNo}
 	</select>
 
 	<select id="selectRsvListBymNo" resultMap="rResResult"> <!-- Member RSV List -->
@@ -67,11 +67,11 @@
 			<if test="fDate == 1">
 				and org.org_date >= DATE(curdate())
 			</if>
-		 	group by rsv.i_rsv order by rsv.i_rsv desc;
+		 	group by rsv.i_rsv order by rsv.i_rsv desc
 	</select>
 	
 	<select id="selectRsvedSeatList" resultType="java.lang.String">
-		select st_nm from t_rsv_info join t_seat using(i_seat) where i_rsv = #{rsvNo};
+		select st_nm from t_rsv_info join t_seat using(i_seat) where i_rsv = #{rsvNo}
 	</select>
 
 	<select id="selectRsvList" resultMap="rResResult"> <!-- All of RSV list -->
@@ -83,7 +83,7 @@
 				join t_seat st using(i_seat)
 				join t_pay pay using(i_rsv)
 				join t_member mem on rsv.i_member = mem.i_member
-			order by i_rsv desc;
+			order by i_rsv desc
 	</select>
 	
 
@@ -103,23 +103,23 @@
 	</resultMap>
 	
 	<insert id="insertPay">
-		insert into t_pay values(0, #{pyPrice}, #{pyType}, #{pyNum}, #{pyValidMonth}, #{pyValidYear}, now(), null, 0, #{pyRsvNo}, #{pyMemNo});
+		insert into t_pay values(0, #{pyPrice}, #{pyType}, #{pyNum}, #{pyValidMonth}, #{pyValidYear}, now(), null, 0, #{pyRsvNo}, #{pyMemNo})
 	</insert>
 	
 	<update id="cancelPay">
-		update t_pay set py_cDate = now() where i_rsv = #{rsvNo};
+		update t_pay set py_cDate = now() where i_rsv = #{rsvNo}
 	</update>
 	
 	<select id="selectPayList" resultMap="payResult">
-		select * from t_pay order by i_pay desc;
+		select * from t_pay order by i_pay desc
 	</select>
 	
 	<select id="selectPay" resultMap="payResult">
-		select * from t_pay where i_pay = #{pyNo};
+		select * from t_pay where i_pay = #{pyNo}
 	</select>
 	
 	<select id="selectPayChart" resultType="int">
-		select sum(py_price) from t_pay where year(py_date) = #{year} group by month(py_date);
+		select sum(py_price) from t_pay where year(py_date) = #{year} group by month(py_date) order by py_date asc
 	</select>
 	
 	
@@ -139,19 +139,39 @@
 	</resultMap>
 	
 	<insert id="insertRsvLogs">
-		insert into t_rsv_logs values(0, #{rlMno}, #{rlMid}, #{rlRsvNo}, #{rlPgTitle}, #{rlOrgDate}, #{rlThNm}, #{rlRsvPrice}, now(), #{rlRsvStime}, 0);
+		insert into t_rsv_logs values(0, #{rlMno}, #{rlMid}, #{rlRsvNo}, #{rlPgTitle}, #{rlOrgDate}, #{rlThNm}, #{rlRsvPrice}, now(), #{rlRsvStime}, 0)
 	</insert>
 	
 	<update id="cancelRsvLogs">
-		update t_rsv_logs set rl_rsvState = 1 where rl_rsvNo = #{rsvNo};
+		update t_rsv_logs set rl_rsvState = 1 where rl_rsvNo = #{rsvNo}
 	</update>
+	
+	
+	<sql id="stateSearch">
+		<if test="state == -1">
+			
+		</if>
+		<if test="state == 0">
+			and rl_rsvState = 0
+		</if>
+		<if test="state == 1">
+			and rl_rsvState = 1
+		</if>
+	</sql>
 	
 	<select id="selectRsvLogs" resultMap="rLogResult"> <!-- 멤버별 예약 리스트 뿌리기 -->
 		select * from t_rsv_logs 
 			<if test="mNo >= 0">
 				where rl_mno = #{mNo}
 			</if>
-			order by rl_rsvState asc, rl_rsvDate desc, rl_rsvStime desc;
+			<if test="state == 0">
+				and rl_rsvState = 0
+			</if>
+			<if test="state == 1">
+				and rl_rsvState = 1
+			</if>
+			order by rl_rsvDate desc, rl_rsvStime desc
+			limit #{cri.pageStart}, #{cri.perPageNum}; 
 	</select>
 
 	<select id="selectRsvLogsCnt" resultType="int"> <!-- 멤버별 예약 갯수 -->
@@ -159,7 +179,13 @@
 			<if test="mNo >= 0">
 				where rl_mno = #{mNo}
 			</if>
-			order by rl_rsvState asc, rl_rsvDate desc, rl_rsvStime desc;
+			<if test="state == 0">
+				and rl_rsvState = 0
+			</if>
+			<if test="state == 1">
+				and rl_rsvState = 1
+			</if>
+			order by rl_rsvDate desc, rl_rsvStime desc
 	</select>
 	
 	

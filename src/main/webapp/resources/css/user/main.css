@@ -3,6 +3,10 @@
 .main-wrap {
 	overflow: hidden;
 }
+.slider {
+	width: 700px;
+	float: left;
+}
 .bx-wrapper {
 	border: 0;
 	box-shadow: none;
@@ -13,6 +17,7 @@
 	float: right;
 	width: 660px;
 	overflow: hidden;
+	margin-bottom: 50px;
 }
 .pg-wrap > div {
 	width: 100%;
@@ -21,7 +26,7 @@
 	margin-top: 50px;
 }
 .pg-wrap > div > h2 {
-	width: 70%;
+	width: 88%;
 	margin: 0 auto 10px;
 	padding: 10px 0 7px;
 	border-bottom: 2px solid black;
@@ -64,7 +69,34 @@
 .pg-list > li:hover span {
 	display: none;
 }
-
+.comm-wrap {
+	width: 100%;
+	height: 260px;
+	overflow: hidden;
+	background: linear-gradient(-225deg, #5271C4 0%, #B19FFF 48%, #ECA1FE 100%);
+}
+.comm-wrap > div {
+	width: 80%;
+	padding: 20px;
+	margin: 0 auto;
+	text-align: center;
+	position: relative;
+}
+.comm-wrap > div > h1 {
+	font-size: 6em;
+	color: #eee;
+	font-weight: bold;
+	letter-spacing: 0.15em;
+}
+.comm-wrap > div > h2 {
+	color: #eee;
+	font-weight: bold;
+	letter-spacing: 0.15em;
+}
+.comm-wrap > div > small {
+	color: #ffbaec;
+	letter-spacing: 0.15em;
+}
 
 
 

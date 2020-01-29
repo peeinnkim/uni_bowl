@@ -65,6 +65,34 @@
 				</tr>
 			</c:forEach>
 		</table>
+		
+		<div class="paging-wrap">
+			<ul class="pagination">
+				<c:if test="${pageMaker.prev == true}">
+					<li class="prev-li">
+						<a href="${pageContext.request.contextPath}/admin/gnr/qna?page=${pageMaker.startPage}">
+							◀
+						</a>
+					</li>
+				</c:if>
+				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+					<li ${idx == pageMaker.cri.page? 'class=active': ''}>
+						<a href="${pageContext.request.contextPath}/admin/gnr/qna?page=${idx}">
+							${idx}
+						</a>									
+					</li>
+				</c:forEach>
+				<c:if test="${pageMaker.next == true}">
+					<li class="next-li">
+						<a href="${pageContext.request.contextPath}/admin/gnr/qna?page=${pageMaker.endPage+1}">
+							▶
+						</a>
+					</li>
+				</c:if>
+			</ul>
+			<p id="pageIndex">${pageMaker.cri.page} / ${pageMaker.totalPager} <small>페이지</small></p>
+		</div>
+		
 	</div>
 </div>
 

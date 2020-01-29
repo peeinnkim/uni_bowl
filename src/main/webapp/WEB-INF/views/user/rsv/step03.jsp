@@ -201,7 +201,7 @@
 		}
 		
 		//휴대전화
-		var tel1Reg = /^01[0|6-9]{1}$/;
+		var tel1Reg = /^01[0|1|6-9]{1}$/;
 		var tel2Reg = /^[0-9]{3,4}$/;
 		var tel3Reg = /^[0-9]{3,4}$/;
 		var tel1 = $("input[name='tel1']").val();

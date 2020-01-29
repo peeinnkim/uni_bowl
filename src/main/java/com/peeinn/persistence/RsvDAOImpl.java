@@ -12,6 +12,7 @@ import com.peeinn.domain.PayVO;
 import com.peeinn.domain.RsvVO;
 import com.peeinn.domain.org.RsvLogsVO;
 import com.peeinn.domain.org.RsvResultVO;
+import com.peeinn.domain.paging.StateCriteria;
 
 @Repository
 public class RsvDAOImpl implements RsvDAO {
@@ -102,9 +103,10 @@ public class RsvDAOImpl implements RsvDAO {
 	}
 
 	@Override
-	public List<RsvLogsVO> selectRsvLogs(int mNo) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+	public List<RsvLogsVO> selectRsvLogs(int mNo, StateCriteria cri) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mNo", mNo);
+		map.put("cri", cri);
 		
 		return sqlSession.selectList(namespace + ".selectRsvLogs", map);
 	}

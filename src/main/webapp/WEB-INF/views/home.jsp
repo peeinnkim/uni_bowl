@@ -40,6 +40,14 @@
 			</div>
 		</div>
 		
+		<div class="comm-wrap">
+			<div>
+				<h1>COMING SOON</h1>
+				<h2>우주어항 굿즈샵 오픈 예정</h2>
+				<small>(날짜미정)</small>
+			</div>
+		</div>		
+		
 	</div>
 </div>	
 

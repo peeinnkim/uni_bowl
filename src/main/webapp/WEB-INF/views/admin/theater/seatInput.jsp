@@ -5,6 +5,13 @@
 <%@ include file="../include/header.jsp" %>
 
 <link href="${pageContext.request.contextPath}/resources/css/admin/theater.css" type="text/css" rel="stylesheet">
+<style>
+	.error {
+		margin-top: 14px;
+	    color: yellow;
+	    font-size: 14px;
+    }
+</style>
 <script src="${pageContext.request.contextPath}/resources/js/modifySeat.js"></script>
 
 <h2>상영관 추가</h2>
@@ -63,11 +70,17 @@
 			
 			<div class="seat-save-wrap">
 				<div class="ss-cnt-wrap">
-					현재 좌석 수 : <span id='curSeatCnt'>0</span> 석
+					<input type="hidden" value="${col * row}" id="curTotalSeatCnt">
+					현재 좌석 수 : <span id='curSeatCnt'>${th.thSeatCnt}</span> 석
 				</div>
 				<span>FRONT</span>
 				<div class="ss-btn-wrap">
-					<button id="btnLabel" type="button">설정 완료</button>
+					<c:if test="${rsved == null}">
+						<button id="btnLabel" type="button">설정 완료</button>
+					</c:if>
+					<c:if test="${rsved != null}">
+						<p class="error">해당 상영관에 예약된 좌석이 있어 수정, 삭제가 불가능합니다.</p>
+					</c:if>
 				</div>
 			</div>
 			
