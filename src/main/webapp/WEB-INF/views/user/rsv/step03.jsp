@@ -120,7 +120,7 @@
 			</div>	
 		</div>
 		<div class="btn-area">
-			<a id="btnCancel">취소</a>
+			<a href="${pageContext.request.contextPath}/user/rsv/step01" id="btnCancel">취소</a>
 			<a id="btnNext">다음</a>
 		</div>
 		</form>

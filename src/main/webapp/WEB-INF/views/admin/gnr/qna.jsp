@@ -182,7 +182,7 @@
 		$(".qRpContent").val("");
 		$("input[name='qRpNo']").val("0");							
 		$("input[name='writer']").val("${Auth.authNo}");	
-		$(this).prev().text("REGIST").removeClass().addClass("btnAdd"); //버튼변경
+		$(this).prev().text("REGIST").addClass("btnAdd").removeClass("btnMod"); //버튼변경
 	})
 	
 	/* 댓글 수정 눌렀을때 수정쪽으로 쌰샤샥 */
@@ -191,7 +191,7 @@
 		var rpNo = $(this).closest("li").attr("data-rpNo");
 		var writer = $(this).closest("li").find("em").attr("data-mNo");
 		
-		$(this).closest(".req-sub").find(".btnAdd").text("MODIFY").removeClass().addClass("btnMod"); //버튼변경
+		$(this).closest(".req-sub").find(".btnAdd").text("MODIFY").addClass("btnMod").removeClass("btnAdd"); //버튼변경
 		$(this).closest(".req-sub").find(".qRpContent").val(dbCont); //수정창에 내용 넣기
 		$(this).closest(".req-sub").find("input[name='qRpNo']").val(rpNo); //리플번호 심기
 		$(this).closest(".req-sub").find("input[name='writer']").val(writer); //작성자 정보 심기
@@ -215,8 +215,11 @@
 				if(res == "success") {
 					alert("수정되었습니다.");
 					getReplyList(qnaTr);
-					$(".qRpContent").empty();
-					$(document).on("click", ".btnCancel", function(){})
+					
+					$(".qRpContent").val("");
+					$("input[name='qRpNo']").val("0");							
+					$("input[name='writer']").val("${Auth.authNo}");	
+					$(this).text("REGIST").addClass("btnAdd").removeClass("btnMod"); //버튼변경
 				}
 			},
 			error: function(e){

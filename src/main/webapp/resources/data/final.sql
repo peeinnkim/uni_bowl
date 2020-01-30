@@ -236,10 +236,10 @@ st.i_theater = 3 order by st.i_seat asc;
 select * from t_pay;
 
 -- 매출
-select sum(py_price), month(py_date) from t_pay where year(py_date) = 2020 group by month(py_date);
+select sum(py_price) from t_pay where year(py_date) = 2020 group by month(py_date);
 
 select * from t_pay;
-update t_pay set py_date = '2020-03-05 03:05:02' where i_pay = 4;
+update t_pay set py_date = '2020-02-05 03:05:02' where i_pay = 10;
 
 select * from t_qna;
 select * from t_reply_qna;
@@ -248,10 +248,59 @@ select * from t_rsv;
 
 select * from t_rsv_logs order by rl_rsvState desc, rl_rsvDate desc;
 
+		select * from t_org org 
+				join t_theater th using(i_theater)
+				join t_program pg using(i_program)
+				where org.org_date = '2020-01-30'
+			order by org.i_program asc, org.org_sTime asc;
+
+select * from t_program order by pg_isRunning asc;
+
+select * from t_member order by m_quitDate asc, i_member desc;
+
+select * from t_rsv_logs;
+select * from t_pay;
+update t_pay set py_date = '2019-08-04 08:03:02' where i_pay = 14;
+
+select count(*) from t_org where i_program = 3;
+
+select * from t_qna;
+
+select * from t_member;
+
+insert into t_member values
+(0, "eiei3434", "eiei3434", "김이이", "1992-06-04", "010-3434-7006", "eieei@asdf.com", now(), null, 0),
+(0, "okok3434", "okok3434", "이삼이", "1983-07-04", "010-7878-7686", "okwok@asdf.com", now(), null, 2),
+(0, "nknk3434", "nknk3434", "김사이", "1993-02-12", "010-3634-7006", "neknk@asdf.com", now(), null, 0),
+(0, "hlhl3434", "hlhl3434", "이오이", "1998-05-04", "010-3434-7600", "h3lhl@asdf.com", now(), null, 0),
+(0, "iouo3434", "iouo3434", "김육이", "1993-11-05", "010-3454-7686", "ioeyt@asdf.com", now(), null, 0),
+(0, "fgrg3434", "fgrg3434", "윤칠이", "1993-06-04", "010-3404-7006", "t2yrw@asdf.com", now(), null, 0),
+(0, "fhfh5656", "fhfh5656", "김팔이", "1993-05-04", "010-3454-7686", "rtes@asdf.com", now(), null, 0),
+(0, "hhjy5656", "hhjy5656", "오구이", "1999-05-04", "010-3534-7686", "sfgd@asdf.com", now(), null, 0),
+(0, "gjgj5656", "gjgj5656", "김십이", "1993-04-14", "010-3434-7686", "ret34ed@asdf.com", now(), null, 2),
+(0, "ghgg4545", "ghgg4545", "김일이", "1972-03-08", "010-3434-7686", "hjgf@asdf.com", now(), null, 0),
+(0, "ghgh5654", "ghgh5654", "이이일", "1993-05-24", "010-3434-7686", "gfgrd@asdf.com", now(), null, 0),
+(0, "vvvb3345", "vvvb3345", "박이임", "1994-02-04", "010-3454-7086", "dfsgd@asdf.com", now(), null, 0),
+(0, "iiit5434", "iiit5434", "박이샴", "1992-09-24", "010-3404-7676", "teesre@asdf.com", now(), null, 0),
+(0, "ghf453gg", "ghf453gg", "이이울", "1993-10-04", "010-3534-7686", "dfsed@asdf.com", now(), null, 0);
+
+select * from t_rsv;
+
+select * from t_qna;
+select * from t_qna_attach;
+
+insert into t_qna(qna_title,i_member,qna_content,qna_category) 
+(select qna_title,i_member,qna_content,qna_category from t_qna)
 
 
+select * from t_member;
+update t_qna set i_member = 8 where i_qna = 5;
 
+select * from t_pay order by py_date desc;
 
+select month(py_date), sum(py_price)
+from t_pay
+where year(py_date) = 2019
+group by month(py_date) order by py_date asc;
 
-
-
+select * from t_program;

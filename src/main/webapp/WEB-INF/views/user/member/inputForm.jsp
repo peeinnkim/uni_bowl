@@ -84,7 +84,7 @@
 
 <script>
 	$("input[type='reset']").click(function(){
-		location.href="${pageContext.request.contextPath}/user/member/myPage";
+		location.href="${pageContext.request.contextPath}";
 	})
 	//전화번호 조합하기
 	function getTel(){

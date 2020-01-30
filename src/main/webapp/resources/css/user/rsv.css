@@ -101,6 +101,9 @@
 	margin-right: 10px;
 	cursor: pointer;
 }
+.time-box:hover {
+	box-shadow: 0 0 5px #6a85b6;
+}
 .time-box > h3 {
 	font-size: 1.8em;
 }

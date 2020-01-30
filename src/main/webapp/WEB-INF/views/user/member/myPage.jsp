@@ -31,7 +31,7 @@
 				<c:forEach var="mRsv" items="${list}">
 					<tr class="added-tr">
 						<td>${mRsv.rrRsvNo}</td>
-						<td class="list-title"><a href="#">${mRsv.pg.pgTitle}</a></td>
+						<td class="list-title"><a href="${pageContext.request.contextPath}/user/rsv/rsvDetail?rsvNo=${mRsv.rrRsvNo}">${mRsv.pg.pgTitle}</a></td>
 						<c:set var="h" value="${fn:split(mRsv.org.orgStime, ':')}" />
 						<td><fmt:formatDate value="${mRsv.org.orgDate}" pattern="yyyy-MM-dd"/> ${h[0]}:${h[1]}</td>
 						<td>${mRsv.th.thNm} 관</td>

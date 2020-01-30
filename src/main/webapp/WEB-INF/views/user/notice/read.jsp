@@ -25,10 +25,6 @@
 					</dd>
 				</dl>
 				</c:if>
-				<dl>
-					<dt>조회수</dt>
-					<dd>${nt.ntViewCnt}</dd>
-				</dl>
 			</div>
 		</div>
 		

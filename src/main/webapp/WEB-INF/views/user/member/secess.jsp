@@ -31,6 +31,10 @@
 </div>
 
 <script>
+	$("input[type='reset']").click(function(){
+		location.href = "${pageContext.request.contextPath}/user/member/myPage";
+	});
+
 	function validCheck(){
 		if(frm.mPw.value == "") {
 			alert("비밀번호를 입력하세요");

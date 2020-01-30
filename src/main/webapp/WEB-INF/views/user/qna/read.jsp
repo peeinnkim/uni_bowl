@@ -117,18 +117,7 @@
 			<dt>등록일</dt>
 			<dd>{{prettifyDate rpRegDate}}</dd>
 		</dl>
-		<dl>
-			<dt>수정일</dt>
-			<dd>
-				<c:if test="${rpModDate != null}">
-					{{prettifyDate rpModDate}}
-				</c:if>
-			</dd>
-		</dl>
-		<span class="top-btn-wrap">
-			<a class="modBtn"></a>
-			<a class="delBtn"></a>
-		</span>
+
 	</div>
 						
 	<div class="reply-content">

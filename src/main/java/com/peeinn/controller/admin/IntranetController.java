@@ -412,8 +412,12 @@ public class IntranetController {
 	
 	/* ------------------- [ ORGANIZATION PART ] ------------------- */
 	@RequestMapping(value="org/list", method=RequestMethod.GET)
-	public void orgList(Model model) {
+	public void orgList(Model model, @RequestParam(value="isRsved", required=false, defaultValue="false") boolean isRsved) {
 		logger.info("------------ [orgList GET] ------------");
+		
+		if(isRsved == true) {
+			model.addAttribute("isRsved", "상영관에 예약된 좌석이 있어 수정, 삭제가 불가능합니다.");
+		}
 		
 		model.addAttribute("thList", thService.list());
 	}

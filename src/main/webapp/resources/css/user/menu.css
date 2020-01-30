@@ -31,6 +31,10 @@
 .pg-img > img {
 	width: 100%;
 }
+.pg-img:hover > img {
+	transform: scale(1.1);
+	transition: 0.2s all linear;
+}
 
 /* PROGRAM DETAIL */
 .pg-detail-wrap {

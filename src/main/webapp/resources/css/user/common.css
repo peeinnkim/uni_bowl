@@ -323,6 +323,9 @@ button {
     letter-spacing: 0.5em;
     color: #5271C4;
 }
+.side-top > #rsvBtn:hover {
+	text-shadow: 0 0 3px
+}
 .side-bottom {
 	width: 100%;
 	padding: 20px 0;

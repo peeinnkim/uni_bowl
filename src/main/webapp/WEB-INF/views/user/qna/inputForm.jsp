@@ -63,6 +63,10 @@
 
 
 <script>
+	$("input[type='reset']").click(function(){
+		location.href="${pageContext.request.contextPath}/user/qna/list";	
+	})
+	
 	$("#state-sel").change(function(){
 		$("input[name='qnaCategory']").val($(this).val());
 	})

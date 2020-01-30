@@ -43,21 +43,21 @@
 		<ul class="pagination">
 			<c:if test="${pageMaker.prev == true}">
 				<li class="prev-li">
-					<a href="listPage?page=${pageMaker.startPage}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+					<a href="${pageContext.request.contextPath}/admin/notice/list?page=${pageMaker.startPage}&searchType=${cri.searchType}&keyword=${cri.keyword}">
 						◀
 					</a>
 				</li>
 			</c:if>
 			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 				<li ${idx == pageMaker.cri.page? 'class=active': ''}>
-					<a href="listPage?page=${idx}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+					<a href="${pageContext.request.contextPath}/admin/notice/list?page=${idx}&searchType=${cri.searchType}&keyword=${cri.keyword}">
 						${idx}
 					</a>									
 				</li>
 			</c:forEach>
 			<c:if test="${pageMaker.next == true}">
 				<li class="next-li">
-					<a href="listPage?page=${pageMaker.endPage+1}&searchType=${cri.searchType}&keyword=${cri.keyword}">
+					<a href="${pageContext.request.contextPath}/admin/notice/list?page=${pageMaker.endPage+1}&searchType=${cri.searchType}&keyword=${cri.keyword}">
 						▶
 					</a>
 				</li>
